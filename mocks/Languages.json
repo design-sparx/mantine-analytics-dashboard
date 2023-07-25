@@ -1,0 +1,602 @@
+[
+  {
+    "id": "9b68e4eb-2e86-4ad4-a60c-9e760b1a7931",
+    "language": "Luxembourgish",
+    "users": 833,
+    "users_percentage": 35
+  },
+  {
+    "id": "ce725b5d-f542-42c7-ba8e-c2e38dd9a038",
+    "language": "Telugu",
+    "users": 790,
+    "users_percentage": 71
+  },
+  {
+    "id": "96b0791b-ca14-4ec7-ba0e-3c0c09e911b5",
+    "language": "Swahili",
+    "users": 959,
+    "users_percentage": 10
+  },
+  {
+    "id": "b845afb9-ed55-485c-b2d4-e2dcf570968b",
+    "language": "Croatian",
+    "users": 536,
+    "users_percentage": 63
+  },
+  {
+    "id": "198622ac-3554-4b76-913c-362c93a2bf8c",
+    "language": "Luxembourgish",
+    "users": 70,
+    "users_percentage": 4
+  },
+  {
+    "id": "ff5c56e9-dec9-4c72-b4be-727eff9dd507",
+    "language": "Kazakh",
+    "users": 326,
+    "users_percentage": 40
+  },
+  {
+    "id": "a577d727-9f37-4491-ba01-6b80c368d23c",
+    "language": "Macedonian",
+    "users": 399,
+    "users_percentage": 99
+  },
+  {
+    "id": "bc487261-ac00-4dde-b534-87bef1c28b2a",
+    "language": "Kashmiri",
+    "users": 1000,
+    "users_percentage": 39
+  },
+  {
+    "id": "2da41494-564e-435a-b697-67144202a943",
+    "language": "Persian",
+    "users": 336,
+    "users_percentage": 6
+  },
+  {
+    "id": "7ad5f921-a2ec-432c-a878-4031d5d4af6f",
+    "language": "Papiamento",
+    "users": 709,
+    "users_percentage": 60
+  },
+  {
+    "id": "78bbd201-1dba-44d7-8c80-631d79fd08e9",
+    "language": "Dari",
+    "users": 623,
+    "users_percentage": 17
+  },
+  {
+    "id": "7ea9b4f3-3aba-4bbb-94d7-5ddf490a3e9f",
+    "language": "Telugu",
+    "users": 132,
+    "users_percentage": 2
+  },
+  {
+    "id": "cb5cf691-57e9-4929-8b32-4e45f3656c3b",
+    "language": "Zulu",
+    "users": 794,
+    "users_percentage": 18
+  },
+  {
+    "id": "5ad1182a-8fef-48d1-8775-9f51a6616efe",
+    "language": "Sotho",
+    "users": 316,
+    "users_percentage": 71
+  },
+  {
+    "id": "9284e54b-9556-40c1-9a6e-af7c4f4894e1",
+    "language": "Spanish",
+    "users": 761,
+    "users_percentage": 17
+  },
+  {
+    "id": "5523304f-5814-4d8b-a9b8-73b6d5f46af1",
+    "language": "Kyrgyz",
+    "users": 533,
+    "users_percentage": 13
+  },
+  {
+    "id": "8251a03a-4c76-4237-9a27-f29b357cfdd7",
+    "language": "Hungarian",
+    "users": 910,
+    "users_percentage": 78
+  },
+  {
+    "id": "392b4e46-4459-4ed0-91a6-29662188251f",
+    "language": "Irish Gaelic",
+    "users": 868,
+    "users_percentage": 21
+  },
+  {
+    "id": "9ce74faf-6f5d-4fb9-b24f-d6ab71fb54c0",
+    "language": "Malay",
+    "users": 607,
+    "users_percentage": 90
+  },
+  {
+    "id": "3b20956b-8be1-4fbd-b003-864220cf94fe",
+    "language": "Yiddish",
+    "users": 600,
+    "users_percentage": 95
+  },
+  {
+    "id": "11735191-e044-41fb-a049-4f495626b85b",
+    "language": "Tswana",
+    "users": 198,
+    "users_percentage": 77
+  },
+  {
+    "id": "8186d170-58f5-44c8-aae7-cd8049ab9d76",
+    "language": "Polish",
+    "users": 216,
+    "users_percentage": 95
+  },
+  {
+    "id": "8d4bfab7-6e52-457d-a86d-927415fd6e71",
+    "language": "Hiri Motu",
+    "users": 494,
+    "users_percentage": 37
+  },
+  {
+    "id": "e540b673-0be3-430f-8338-c8e2a13c79c0",
+    "language": "Kannada",
+    "users": 603,
+    "users_percentage": 34
+  },
+  {
+    "id": "4c67e61c-fcca-4ed7-b243-a1d7fed8d43b",
+    "language": "Mongolian",
+    "users": 708,
+    "users_percentage": 49
+  },
+  {
+    "id": "df13f9af-6828-45bf-af54-373b5a78c033",
+    "language": "Yiddish",
+    "users": 29,
+    "users_percentage": 99
+  },
+  {
+    "id": "c809af62-fa21-4840-bd53-6428a6934619",
+    "language": "Marathi",
+    "users": 926,
+    "users_percentage": 22
+  },
+  {
+    "id": "21ad3f5c-93cb-42df-b447-e95a37e63e66",
+    "language": "Albanian",
+    "users": 789,
+    "users_percentage": 7
+  },
+  {
+    "id": "03eeb3f7-fee5-4ed5-bc3f-3964d0690727",
+    "language": "Fijian",
+    "users": 543,
+    "users_percentage": 32
+  },
+  {
+    "id": "c4668eba-d7b6-4856-a91c-c6683f2dd014",
+    "language": "Marathi",
+    "users": 207,
+    "users_percentage": 70
+  },
+  {
+    "id": "eb9af7d0-ff67-40d2-8cf6-69d6b3418035",
+    "language": "Lithuanian",
+    "users": 408,
+    "users_percentage": 6
+  },
+  {
+    "id": "eb1344e9-8220-4924-a840-096edc9fa510",
+    "language": "Nepali",
+    "users": 92,
+    "users_percentage": 27
+  },
+  {
+    "id": "89f13aa8-d0a8-4ca7-a8a8-0a00275e468d",
+    "language": "Azeri",
+    "users": 218,
+    "users_percentage": 90
+  },
+  {
+    "id": "ae2fdf2d-305d-469a-a869-d71b31b10baa",
+    "language": "Burmese",
+    "users": 853,
+    "users_percentage": 16
+  },
+  {
+    "id": "17db4495-fe08-485a-a646-0f10c7852608",
+    "language": "Filipino",
+    "users": 910,
+    "users_percentage": 43
+  },
+  {
+    "id": "27bfb9a1-16a3-4305-8f93-b284434ea82d",
+    "language": "Assamese",
+    "users": 861,
+    "users_percentage": 59
+  },
+  {
+    "id": "ef0569e6-4ccd-4f6e-a721-3f7dc0b37d6b",
+    "language": "Hiri Motu",
+    "users": 903,
+    "users_percentage": 91
+  },
+  {
+    "id": "81ae8dd2-1847-4ca9-ba8d-9d406c442ed7",
+    "language": "Māori",
+    "users": 697,
+    "users_percentage": 86
+  },
+  {
+    "id": "87f60998-90f6-4891-a7ef-39af60557c62",
+    "language": "French",
+    "users": 856,
+    "users_percentage": 89
+  },
+  {
+    "id": "3a21b5cc-c1ef-4ae1-bf5e-42ce4a573e4b",
+    "language": "Romanian",
+    "users": 705,
+    "users_percentage": 2
+  },
+  {
+    "id": "e6bce56c-dc3d-440c-bc36-8b92f399281f",
+    "language": "Tetum",
+    "users": 834,
+    "users_percentage": 93
+  },
+  {
+    "id": "4bf07836-9ab8-40a4-bd1b-d6134b1e08f2",
+    "language": "Guaraní",
+    "users": 431,
+    "users_percentage": 37
+  },
+  {
+    "id": "6605aa29-6b4c-4c79-bfed-62e9ba2667aa",
+    "language": "Swahili",
+    "users": 720,
+    "users_percentage": 40
+  },
+  {
+    "id": "7304904c-e6af-4f48-aac6-2a78c24bc543",
+    "language": "Fijian",
+    "users": 140,
+    "users_percentage": 96
+  },
+  {
+    "id": "fc2f2371-3008-4b54-8434-3ba49d4838db",
+    "language": "Irish Gaelic",
+    "users": 390,
+    "users_percentage": 33
+  },
+  {
+    "id": "50eb0e71-0785-4f7e-8f04-9e3c2f310f74",
+    "language": "Khmer",
+    "users": 596,
+    "users_percentage": 73
+  },
+  {
+    "id": "c3454d6a-c24e-4b35-a029-c903e27930cb",
+    "language": "Hindi",
+    "users": 909,
+    "users_percentage": 67
+  },
+  {
+    "id": "54e3b766-6705-4a2a-84b4-7df1921f6127",
+    "language": "Amharic",
+    "users": 541,
+    "users_percentage": 15
+  },
+  {
+    "id": "12b87806-746a-4b99-bc89-f8d81e2a4974",
+    "language": "Māori",
+    "users": 677,
+    "users_percentage": 55
+  },
+  {
+    "id": "ebbe1937-c090-438b-a821-ead510e73e53",
+    "language": "Tajik",
+    "users": 261,
+    "users_percentage": 5
+  },
+  {
+    "id": "80a402cf-1518-4923-9732-6be95e7863f3",
+    "language": "Aymara",
+    "users": 181,
+    "users_percentage": 67
+  },
+  {
+    "id": "3bf4ff60-d1a2-417c-96bd-76ed2882f54b",
+    "language": "Assamese",
+    "users": 696,
+    "users_percentage": 86
+  },
+  {
+    "id": "7efc29d4-56ca-4c3a-9cab-84528d0a49e4",
+    "language": "Swahili",
+    "users": 900,
+    "users_percentage": 6
+  },
+  {
+    "id": "1c819f8c-78d7-4184-87d6-ab3d2a12f869",
+    "language": "Georgian",
+    "users": 990,
+    "users_percentage": 68
+  },
+  {
+    "id": "ff68226c-23bd-4740-8e8b-be879e9d6e25",
+    "language": "Tswana",
+    "users": 702,
+    "users_percentage": 62
+  },
+  {
+    "id": "42888392-39f8-4f59-a61b-3f3b61d6ce82",
+    "language": "Armenian",
+    "users": 725,
+    "users_percentage": 6
+  },
+  {
+    "id": "428c94f1-86b8-4d0c-8d7e-e29fd41f0bd5",
+    "language": "Malay",
+    "users": 149,
+    "users_percentage": 55
+  },
+  {
+    "id": "fedf52ff-2768-4e53-ad13-11862dd4c145",
+    "language": "Marathi",
+    "users": 426,
+    "users_percentage": 44
+  },
+  {
+    "id": "a06d5b56-25ee-4882-bbbb-87008d3013eb",
+    "language": "Japanese",
+    "users": 892,
+    "users_percentage": 60
+  },
+  {
+    "id": "24fcd8da-e61d-4af4-91b0-0ba082858686",
+    "language": "Estonian",
+    "users": 947,
+    "users_percentage": 51
+  },
+  {
+    "id": "1d7c98db-1508-4fa3-ac6c-dae825a9b085",
+    "language": "Hungarian",
+    "users": 594,
+    "users_percentage": 91
+  },
+  {
+    "id": "b5299660-5671-4f50-8116-3331f3258f9f",
+    "language": "Dari",
+    "users": 810,
+    "users_percentage": 63
+  },
+  {
+    "id": "892e4684-039a-4313-903a-0dbf54cdd0b2",
+    "language": "Hebrew",
+    "users": 179,
+    "users_percentage": 76
+  },
+  {
+    "id": "cc0c20be-d287-44c6-a85c-a15f79aa354b",
+    "language": "Somali",
+    "users": 286,
+    "users_percentage": 55
+  },
+  {
+    "id": "1f234a2c-85c3-46e6-930f-68b5fec94490",
+    "language": "Arabic",
+    "users": 72,
+    "users_percentage": 60
+  },
+  {
+    "id": "f876d988-1e30-4a6b-a39f-0894290bf950",
+    "language": "Zulu",
+    "users": 163,
+    "users_percentage": 94
+  },
+  {
+    "id": "a5108901-98e2-4a56-b1d5-009de55597b6",
+    "language": "Irish Gaelic",
+    "users": 968,
+    "users_percentage": 86
+  },
+  {
+    "id": "395944ec-90f3-403d-a230-c3fce0445d08",
+    "language": "Latvian",
+    "users": 805,
+    "users_percentage": 78
+  },
+  {
+    "id": "5e47d22b-14ca-407b-800c-a362ef0c4212",
+    "language": "Burmese",
+    "users": 527,
+    "users_percentage": 74
+  },
+  {
+    "id": "25a5e3bd-915b-4e0c-b241-378f58eaf24f",
+    "language": "Icelandic",
+    "users": 212,
+    "users_percentage": 54
+  },
+  {
+    "id": "c542562e-15f7-4c0e-a80a-306a5a9fd9b9",
+    "language": "Arabic",
+    "users": 718,
+    "users_percentage": 27
+  },
+  {
+    "id": "f0af104a-f17e-4b31-b354-59dbb0816f57",
+    "language": "Polish",
+    "users": 677,
+    "users_percentage": 17
+  },
+  {
+    "id": "fcb6da7c-67d8-4189-92e2-706f19426418",
+    "language": "Hebrew",
+    "users": 495,
+    "users_percentage": 3
+  },
+  {
+    "id": "25763be3-3329-4e9b-b541-0d026cf88922",
+    "language": "Greek",
+    "users": 233,
+    "users_percentage": 3
+  },
+  {
+    "id": "6ea8f274-564c-43fe-9878-261c5571d7ed",
+    "language": "Lao",
+    "users": 657,
+    "users_percentage": 96
+  },
+  {
+    "id": "471e15f2-b2f4-4196-be51-9d2975d282b3",
+    "language": "Gujarati",
+    "users": 763,
+    "users_percentage": 97
+  },
+  {
+    "id": "d5c74780-ad2d-4f51-a4d9-49f48d43e7f5",
+    "language": "German",
+    "users": 572,
+    "users_percentage": 10
+  },
+  {
+    "id": "94ceeb48-9740-45b4-a85d-870507d342d6",
+    "language": "Montenegrin",
+    "users": 390,
+    "users_percentage": 27
+  },
+  {
+    "id": "49017538-8fb7-4925-ba7b-19f6d63f6022",
+    "language": "Malagasy",
+    "users": 256,
+    "users_percentage": 2
+  },
+  {
+    "id": "a112b801-8748-427d-819d-b1e881905318",
+    "language": "Norwegian",
+    "users": 605,
+    "users_percentage": 47
+  },
+  {
+    "id": "44d34bea-dda9-4e53-ad13-b319cef32327",
+    "language": "Tetum",
+    "users": 876,
+    "users_percentage": 61
+  },
+  {
+    "id": "1ce13732-cb85-4807-8e4c-cf04593a47bf",
+    "language": "Tok Pisin",
+    "users": 446,
+    "users_percentage": 79
+  },
+  {
+    "id": "72184d9a-8dd7-492e-afdd-a9df98c1c16b",
+    "language": "Belarusian",
+    "users": 313,
+    "users_percentage": 21
+  },
+  {
+    "id": "efd015e4-17d9-4843-8865-e3b6e43e5bc4",
+    "language": "Hindi",
+    "users": 489,
+    "users_percentage": 8
+  },
+  {
+    "id": "eb27e843-9a9a-4e70-8800-55b02ed2c8b6",
+    "language": "Aymara",
+    "users": 499,
+    "users_percentage": 34
+  },
+  {
+    "id": "e87633a9-7517-43ab-a0c1-092b4331a173",
+    "language": "Māori",
+    "users": 749,
+    "users_percentage": 41
+  },
+  {
+    "id": "be8e734b-9b58-4473-960d-f768ec939985",
+    "language": "Persian",
+    "users": 447,
+    "users_percentage": 99
+  },
+  {
+    "id": "9b259cb5-9687-452b-bb9d-dca4dd70d8ad",
+    "language": "Greek",
+    "users": 608,
+    "users_percentage": 61
+  },
+  {
+    "id": "0c79735c-c635-49e0-9596-05f295ef882f",
+    "language": "Khmer",
+    "users": 206,
+    "users_percentage": 100
+  },
+  {
+    "id": "87e1d899-a0c2-4bc9-adde-335da030cfe1",
+    "language": "Mongolian",
+    "users": 30,
+    "users_percentage": 92
+  },
+  {
+    "id": "f0d31d1c-ff82-49e9-b738-8790c43d8f70",
+    "language": "Gagauz",
+    "users": 180,
+    "users_percentage": 87
+  },
+  {
+    "id": "d3911b3f-207c-48f9-9c4e-88214a53708a",
+    "language": "Bosnian",
+    "users": 317,
+    "users_percentage": 43
+  },
+  {
+    "id": "1b37499d-3125-4ad9-bd59-f940b584a975",
+    "language": "Tetum",
+    "users": 849,
+    "users_percentage": 84
+  },
+  {
+    "id": "a77d8d0d-9782-4d5d-9d12-c411891abace",
+    "language": "Tamil",
+    "users": 655,
+    "users_percentage": 91
+  },
+  {
+    "id": "b44afcba-1e1b-47b7-b860-6880f56a2966",
+    "language": "Gagauz",
+    "users": 399,
+    "users_percentage": 22
+  },
+  {
+    "id": "bf14f4e5-a85e-4a0f-b48f-16102eb1156e",
+    "language": "Croatian",
+    "users": 376,
+    "users_percentage": 32
+  },
+  {
+    "id": "35a60fcc-7274-4922-916e-eaed31cff8e6",
+    "language": "German",
+    "users": 664,
+    "users_percentage": 41
+  },
+  {
+    "id": "d27b5219-aac3-4fb2-a808-b7e51407b75a",
+    "language": "Latvian",
+    "users": 632,
+    "users_percentage": 48
+  },
+  {
+    "id": "6fd1879b-22b5-4f30-baaf-94b1bbb9df30",
+    "language": "Papiamento",
+    "users": 63,
+    "users_percentage": 77
+  },
+  {
+    "id": "d7f4520c-01b0-43a0-9b2f-d0b9f73b7f07",
+    "language": "Danish",
+    "users": 736,
+    "users_percentage": 28
+  }
+]

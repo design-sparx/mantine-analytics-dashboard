@@ -1,0 +1,31 @@
+rank,country_code,country,city_code,city,lat,lng,population
+1,392,Japan,21671,Tokyo,35.6895,139.6917,37
+2,356,India,21228,Delhi,28.6667,77.2167,30
+3,156,China,20656,Shanghai,31.2222,121.4581,27
+4,76,Brazil,20287,São Paulo,-23.5475,-46.6361,22
+5,484,Mexico,21853,Ciudad de México (Mexico City),19.4273,-99.1419,22
+6,50,Bangladesh,20119,Dhaka,23.7104,90.4074,21
+7,818,Egypt,22812,Al-Qahirah (Cairo),30.0392,31.2394,21
+8,156,China,20464,Beijing,39.9075,116.3972,20
+9,356,India,21206,Mumbai (Bombay),19.0740,72.8808,20
+10,392,Japan,206459,Kinki M.M.A. (Osaka),34.6758,135.5538,19
+11,840,United States of America,23083,New York-Newark,40.7170,-74.0037,19
+12,586,Pakistan,22044,Karachi,24.9056,67.0822,16
+13,156,China,20484,Chongqing,29.5628,106.5528,16
+14,792,Turkey,22691,Istanbul,41.0138,28.9497,15
+15,32,Argentina,20058,Buenos Aires,-34.6051,-58.4004,15
+16,356,India,21211,Kolkata (Calcutta),22.5335,88.3560,15
+17,566,Nigeria,22007,Lagos,6.4531,3.3958,14
+18,180,Democratic Republic of the Congo,20853,Kinshasa,-4.3276,15.3136,14
+19,608,Philippines,22109,Manila,14.6042,120.9822,14
+20,156,China,20689,Tianjin,39.1088,117.1886,14
+21,76,Brazil,20272,Rio de Janeiro,-22.9028,-43.2075,13
+22,156,China,20517,"Guangzhou, Guangdong",23.1255,113.2574,13
+23,586,Pakistan,22046,Lahore,31.5497,74.3436,13
+24,643,Russian Federation,22299,Moskva (Moscow),55.7550,37.6218,13
+25,840,United States of America,23052,Los Angeles-Long Beach-Santa Ana,34.0317,-118.2417,12
+26,156,China,20667,Shenzhen,22.5415,114.0634,12
+27,356,India,21176,Bangalore,12.9719,77.5937,12
+28,250,France,20985,Paris,48.8534,2.3488,11
+29,170,Colombia,20837,Bogotá,4.6097,-74.0818,11
+30,356,India,21321,Chennai (Madras),13.0531,80.2488,11

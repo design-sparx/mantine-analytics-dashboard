@@ -1,0 +1,302 @@
+[
+  {
+    "id": 1,
+    "source": "Twitterlist",
+    "revenue": "$42.51",
+    "value": 98.1
+  },
+  {
+    "id": 2,
+    "source": "Realmix",
+    "revenue": "$15.40",
+    "value": 63.0
+  },
+  {
+    "id": 3,
+    "source": "Quinu",
+    "revenue": "$59.96",
+    "value": 57.4
+  },
+  {
+    "id": 4,
+    "source": "Chatterpoint",
+    "revenue": "$71.47",
+    "value": 13.9
+  },
+  {
+    "id": 5,
+    "source": "Wordtune",
+    "revenue": "$58.41",
+    "value": 14.1
+  },
+  {
+    "id": 6,
+    "source": "Livetube",
+    "revenue": "$6.03",
+    "value": 98.5
+  },
+  {
+    "id": 7,
+    "source": "Pixoboo",
+    "revenue": "$13.50",
+    "value": 46.1
+  },
+  {
+    "id": 8,
+    "source": "Teklist",
+    "revenue": "$19.59",
+    "value": 88.1
+  },
+  {
+    "id": 9,
+    "source": "Kayveo",
+    "revenue": "$65.41",
+    "value": 52.0
+  },
+  {
+    "id": 10,
+    "source": "Lajo",
+    "revenue": "$28.13",
+    "value": 54.5
+  },
+  {
+    "id": 11,
+    "source": "Gabtune",
+    "revenue": "$88.04",
+    "value": 62.0
+  },
+  {
+    "id": 12,
+    "source": "Shufflebeat",
+    "revenue": "$20.26",
+    "value": 26.0
+  },
+  {
+    "id": 13,
+    "source": "Chatterpoint",
+    "revenue": "$35.00",
+    "value": 57.8
+  },
+  {
+    "id": 14,
+    "source": "Izio",
+    "revenue": "$41.52",
+    "value": 69.6
+  },
+  {
+    "id": 15,
+    "source": "Feedmix",
+    "revenue": "$25.27",
+    "value": 91.7
+  },
+  {
+    "id": 16,
+    "source": "Topiczoom",
+    "revenue": "$76.08",
+    "value": 1.6
+  },
+  {
+    "id": 17,
+    "source": "Kamba",
+    "revenue": "$64.41",
+    "value": 79.4
+  },
+  {
+    "id": 18,
+    "source": "Wordpedia",
+    "revenue": "$41.72",
+    "value": 66.1
+  },
+  {
+    "id": 19,
+    "source": "Wikibox",
+    "revenue": "$79.71",
+    "value": 10.5
+  },
+  {
+    "id": 20,
+    "source": "Bubblebox",
+    "revenue": "$9.08",
+    "value": 95.2
+  },
+  {
+    "id": 21,
+    "source": "Yabox",
+    "revenue": "$73.88",
+    "value": 98.5
+  },
+  {
+    "id": 22,
+    "source": "Yacero",
+    "revenue": "$49.76",
+    "value": 8.3
+  },
+  {
+    "id": 23,
+    "source": "Trilith",
+    "revenue": "$79.80",
+    "value": 88.0
+  },
+  {
+    "id": 24,
+    "source": "Zoomdog",
+    "revenue": "$90.29",
+    "value": 45.1
+  },
+  {
+    "id": 25,
+    "source": "Pixoboo",
+    "revenue": "$45.30",
+    "value": 68.7
+  },
+  {
+    "id": 26,
+    "source": "Shuffledrive",
+    "revenue": "$6.79",
+    "value": 18.5
+  },
+  {
+    "id": 27,
+    "source": "Tagopia",
+    "revenue": "$12.93",
+    "value": 69.8
+  },
+  {
+    "id": 28,
+    "source": "Bluezoom",
+    "revenue": "$78.68",
+    "value": 28.7
+  },
+  {
+    "id": 29,
+    "source": "Pixoboo",
+    "revenue": "$80.79",
+    "value": 45.6
+  },
+  {
+    "id": 30,
+    "source": "Thoughtblab",
+    "revenue": "$73.97",
+    "value": 20.8
+  },
+  {
+    "id": 31,
+    "source": "Pixope",
+    "revenue": "$92.78",
+    "value": 45.0
+  },
+  {
+    "id": 32,
+    "source": "Shuffledrive",
+    "revenue": "$70.66",
+    "value": 98.4
+  },
+  {
+    "id": 33,
+    "source": "Shuffletag",
+    "revenue": "$75.91",
+    "value": 85.0
+  },
+  {
+    "id": 34,
+    "source": "Photobug",
+    "revenue": "$12.02",
+    "value": 34.7
+  },
+  {
+    "id": 35,
+    "source": "Mita",
+    "revenue": "$70.65",
+    "value": 75.3
+  },
+  {
+    "id": 36,
+    "source": "Blogspan",
+    "revenue": "$35.24",
+    "value": 73.8
+  },
+  {
+    "id": 37,
+    "source": "Thoughtblab",
+    "revenue": "$35.35",
+    "value": 25.0
+  },
+  {
+    "id": 38,
+    "source": "Avamm",
+    "revenue": "$38.66",
+    "value": 26.1
+  },
+  {
+    "id": 39,
+    "source": "Dabvine",
+    "revenue": "$78.86",
+    "value": 21.5
+  },
+  {
+    "id": 40,
+    "source": "Jabberstorm",
+    "revenue": "$98.29",
+    "value": 15.6
+  },
+  {
+    "id": 41,
+    "source": "Jaxnation",
+    "revenue": "$52.36",
+    "value": 95.1
+  },
+  {
+    "id": 42,
+    "source": "Kayveo",
+    "revenue": "$73.74",
+    "value": 43.9
+  },
+  {
+    "id": 43,
+    "source": "Skajo",
+    "revenue": "$73.75",
+    "value": 94.3
+  },
+  {
+    "id": 44,
+    "source": "Voonyx",
+    "revenue": "$52.22",
+    "value": 87.7
+  },
+  {
+    "id": 45,
+    "source": "Feedbug",
+    "revenue": "$86.40",
+    "value": 78.2
+  },
+  {
+    "id": 46,
+    "source": "Fiveclub",
+    "revenue": "$79.74",
+    "value": 70.0
+  },
+  {
+    "id": 47,
+    "source": "Quinu",
+    "revenue": "$84.33",
+    "value": 15.0
+  },
+  {
+    "id": 48,
+    "source": "Aimbu",
+    "revenue": "$59.45",
+    "value": 63.2
+  },
+  {
+    "id": 49,
+    "source": "Agivu",
+    "revenue": "$87.37",
+    "value": 62.4
+  },
+  {
+    "id": 50,
+    "source": "Bubblebox",
+    "revenue": "$31.47",
+    "value": 99.5
+  }
+]

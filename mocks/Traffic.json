@@ -1,0 +1,802 @@
+[
+  {
+    "id": "58dbb7fc-1aea-4c62-8d52-a51b7c666ba4",
+    "source": "Firefox",
+    "users": 5659,
+    "sessions": 718,
+    "bounce_rate": 47,
+    "avg_session_period": 1991761
+  },
+  {
+    "id": "4da74632-261b-4df4-b7a3-c146e4c3691b",
+    "source": "Edge",
+    "users": 7004,
+    "sessions": 237,
+    "bounce_rate": 39,
+    "avg_session_period": 6147114
+  },
+  {
+    "id": "14c7efda-ea10-4eb5-84bc-7eb074092f74",
+    "source": "Internet Explorer",
+    "users": 6854,
+    "sessions": 341,
+    "bounce_rate": 46,
+    "avg_session_period": 1110555
+  },
+  {
+    "id": "8f6b29cf-cb18-4d0a-b295-f88f9705f98c",
+    "source": "Edge",
+    "users": 9228,
+    "sessions": 811,
+    "bounce_rate": 39,
+    "avg_session_period": 4979487
+  },
+  {
+    "id": "1a0d37ba-c75a-4af5-b709-de3c16da8a0a",
+    "source": "Twitter",
+    "users": 1768,
+    "sessions": 194,
+    "bounce_rate": 8,
+    "avg_session_period": 466119
+  },
+  {
+    "id": "8c1be36c-7b0f-4006-9a59-ee087f3cac33",
+    "source": "Edge",
+    "users": 1985,
+    "sessions": 105,
+    "bounce_rate": 74,
+    "avg_session_period": 5736469
+  },
+  {
+    "id": "3ee7d0b1-6988-4323-bc5a-41d8a87bb64f",
+    "source": "Twitter",
+    "users": 3172,
+    "sessions": 852,
+    "bounce_rate": 90,
+    "avg_session_period": 5572012
+  },
+  {
+    "id": "68d2a47e-4d0e-4fcf-a302-7ef958fbf318",
+    "source": "Edge",
+    "users": 4184,
+    "sessions": 253,
+    "bounce_rate": 100,
+    "avg_session_period": 7644086
+  },
+  {
+    "id": "1ae2eaa2-bed4-4ea8-a4d3-6a4a3d181856",
+    "source": "Direct",
+    "users": 9058,
+    "sessions": 895,
+    "bounce_rate": 58,
+    "avg_session_period": 9787572
+  },
+  {
+    "id": "c05e307a-f8ea-4885-b639-77310bb5e5fb",
+    "source": "Facebook",
+    "users": 2798,
+    "sessions": 829,
+    "bounce_rate": 20,
+    "avg_session_period": 8498140
+  },
+  {
+    "id": "bca8c89e-d326-4286-be6f-b6ce8f932284",
+    "source": "Twitter",
+    "users": 8797,
+    "sessions": 968,
+    "bounce_rate": 64,
+    "avg_session_period": 7381618
+  },
+  {
+    "id": "82f7a59e-ccf3-4b89-ae62-959ef854c0b1",
+    "source": "Firefox",
+    "users": 9074,
+    "sessions": 389,
+    "bounce_rate": 50,
+    "avg_session_period": 4933566
+  },
+  {
+    "id": "a1b3552c-0904-4d0d-bc45-29c7eccd1c6e",
+    "source": "Facebook",
+    "users": 1522,
+    "sessions": 577,
+    "bounce_rate": 96,
+    "avg_session_period": 5245470
+  },
+  {
+    "id": "d0d69094-39f4-47e5-954a-677ebb12d775",
+    "source": "Facebook",
+    "users": 9637,
+    "sessions": 548,
+    "bounce_rate": 55,
+    "avg_session_period": 3867738
+  },
+  {
+    "id": "75b14f2a-b583-48f1-ac3a-6758f9be40ff",
+    "source": "Opera",
+    "users": 3745,
+    "sessions": 746,
+    "bounce_rate": 94,
+    "avg_session_period": 7579058
+  },
+  {
+    "id": "f3bf5420-e42b-4282-b4a9-eb47f340bc08",
+    "source": "Google",
+    "users": 8953,
+    "sessions": 368,
+    "bounce_rate": 78,
+    "avg_session_period": 6293505
+  },
+  {
+    "id": "48ac4811-7f0d-4616-934b-92e9566e7dbe",
+    "source": "Firefox",
+    "users": 4819,
+    "sessions": 598,
+    "bounce_rate": 43,
+    "avg_session_period": 1207086
+  },
+  {
+    "id": "3c201a61-a3b1-42fe-96b9-d2fd7fa7f3c8",
+    "source": "Google",
+    "users": 6279,
+    "sessions": 515,
+    "bounce_rate": 87,
+    "avg_session_period": 4872290
+  },
+  {
+    "id": "afafa26f-37d2-492a-b0d6-aaea075eeae6",
+    "source": "Edge",
+    "users": 4474,
+    "sessions": 366,
+    "bounce_rate": 2,
+    "avg_session_period": 2568358
+  },
+  {
+    "id": "0417fab7-1928-42ca-b3d5-362a934bef8e",
+    "source": "Facebook",
+    "users": 1557,
+    "sessions": 619,
+    "bounce_rate": 49,
+    "avg_session_period": 7090012
+  },
+  {
+    "id": "21e9375d-d361-4688-a8f9-b0f85b684003",
+    "source": "Google",
+    "users": 3582,
+    "sessions": 284,
+    "bounce_rate": 44,
+    "avg_session_period": 5519650
+  },
+  {
+    "id": "d610af7f-0b35-4978-915a-9015fc2ec988",
+    "source": "Facebook",
+    "users": 2249,
+    "sessions": 834,
+    "bounce_rate": 24,
+    "avg_session_period": 2442131
+  },
+  {
+    "id": "16060a7f-1321-4bde-ac55-1ea53ebdaa74",
+    "source": "Internet Explorer",
+    "users": 8963,
+    "sessions": 557,
+    "bounce_rate": 100,
+    "avg_session_period": 6942417
+  },
+  {
+    "id": "ed712675-60ed-4fb1-a411-32c88cdcb1cf",
+    "source": "Twitter",
+    "users": 9602,
+    "sessions": 414,
+    "bounce_rate": 78,
+    "avg_session_period": 1845758
+  },
+  {
+    "id": "e9c094f1-ec7d-4eec-8918-9dd6e3ac8c62",
+    "source": "Firefox",
+    "users": 3273,
+    "sessions": 675,
+    "bounce_rate": 34,
+    "avg_session_period": 7756800
+  },
+  {
+    "id": "c3b72d84-a27d-4aaa-98ff-486f3e500ff9",
+    "source": "Firefox",
+    "users": 6702,
+    "sessions": 800,
+    "bounce_rate": 38,
+    "avg_session_period": 9490180
+  },
+  {
+    "id": "eb88a3aa-1705-42d0-96de-d7ceb161107b",
+    "source": "Google",
+    "users": 2691,
+    "sessions": 455,
+    "bounce_rate": 23,
+    "avg_session_period": 6997057
+  },
+  {
+    "id": "28f1e6a2-a6b8-4e98-90e5-9e1a61d483dc",
+    "source": "Direct",
+    "users": 7471,
+    "sessions": 503,
+    "bounce_rate": 43,
+    "avg_session_period": 2970604
+  },
+  {
+    "id": "86fe4c09-7ae7-40d2-adb7-ec31d66e2835",
+    "source": "Twitter",
+    "users": 4624,
+    "sessions": 953,
+    "bounce_rate": 69,
+    "avg_session_period": 3042412
+  },
+  {
+    "id": "425e519e-c7f4-4cc4-865a-22af45fa2c48",
+    "source": "Firefox",
+    "users": 2844,
+    "sessions": 779,
+    "bounce_rate": 58,
+    "avg_session_period": 3686104
+  },
+  {
+    "id": "62868e7e-3046-4d97-bdde-9da1982f6732",
+    "source": "Facebook",
+    "users": 1144,
+    "sessions": 427,
+    "bounce_rate": 10,
+    "avg_session_period": 5161886
+  },
+  {
+    "id": "02b9fcbb-2580-4d23-af9b-d5889bc9e4e5",
+    "source": "Direct",
+    "users": 8953,
+    "sessions": 652,
+    "bounce_rate": 87,
+    "avg_session_period": 7645902
+  },
+  {
+    "id": "24207711-73cb-4441-8f93-4a7c9506b599",
+    "source": "Firefox",
+    "users": 6717,
+    "sessions": 890,
+    "bounce_rate": 88,
+    "avg_session_period": 5825605
+  },
+  {
+    "id": "baefc2e5-da05-474b-aa83-1cd7a59cf40d",
+    "source": "Edge",
+    "users": 1454,
+    "sessions": 84,
+    "bounce_rate": 31,
+    "avg_session_period": 7021592
+  },
+  {
+    "id": "e6c43f14-a844-4888-a83d-433e85856f59",
+    "source": "Facebook",
+    "users": 5178,
+    "sessions": 783,
+    "bounce_rate": 78,
+    "avg_session_period": 3838104
+  },
+  {
+    "id": "c1df9a03-af6c-4401-a2d4-7867fcf2b8b0",
+    "source": "Internet Explorer",
+    "users": 748,
+    "sessions": 990,
+    "bounce_rate": 18,
+    "avg_session_period": 5128437
+  },
+  {
+    "id": "5e75cada-a519-433b-a330-1beac838c809",
+    "source": "Google",
+    "users": 6617,
+    "sessions": 212,
+    "bounce_rate": 71,
+    "avg_session_period": 5407691
+  },
+  {
+    "id": "d85ef37c-5b9b-4849-b2dc-c52569fe329d",
+    "source": "Direct",
+    "users": 4983,
+    "sessions": 235,
+    "bounce_rate": 86,
+    "avg_session_period": 5914754
+  },
+  {
+    "id": "7e375637-cb9e-4d0a-a83d-a24ed1e32cac",
+    "source": "Firefox",
+    "users": 7612,
+    "sessions": 957,
+    "bounce_rate": 58,
+    "avg_session_period": 5248159
+  },
+  {
+    "id": "bec746cd-257d-4fb9-ac05-a3aebfd001e9",
+    "source": "Facebook",
+    "users": 4221,
+    "sessions": 49,
+    "bounce_rate": 96,
+    "avg_session_period": 5032870
+  },
+  {
+    "id": "008ffc03-221c-441e-9548-f53a22a4163c",
+    "source": "Edge",
+    "users": 327,
+    "sessions": 81,
+    "bounce_rate": 33,
+    "avg_session_period": 910248
+  },
+  {
+    "id": "ace31f50-0e89-4c0a-b62b-6900edff8de6",
+    "source": "Opera",
+    "users": 4648,
+    "sessions": 439,
+    "bounce_rate": 54,
+    "avg_session_period": 6356826
+  },
+  {
+    "id": "a7085127-9dd7-40d0-b567-cf3ca4e46199",
+    "source": "Facebook",
+    "users": 8059,
+    "sessions": 732,
+    "bounce_rate": 25,
+    "avg_session_period": 7182542
+  },
+  {
+    "id": "01d631b7-660a-4b5f-81f3-1e33ed4ad4fd",
+    "source": "Edge",
+    "users": 8650,
+    "sessions": 208,
+    "bounce_rate": 91,
+    "avg_session_period": 3226409
+  },
+  {
+    "id": "2818f619-3134-4fe7-bea2-23c87fab7aef",
+    "source": "Twitter",
+    "users": 8848,
+    "sessions": 13,
+    "bounce_rate": 64,
+    "avg_session_period": 5875273
+  },
+  {
+    "id": "80e4e706-b733-498f-8c46-759eb31de3d0",
+    "source": "Edge",
+    "users": 4515,
+    "sessions": 756,
+    "bounce_rate": 4,
+    "avg_session_period": 2963742
+  },
+  {
+    "id": "e2d0cad6-a0ca-4b5d-985d-b6770381c439",
+    "source": "Twitter",
+    "users": 7261,
+    "sessions": 314,
+    "bounce_rate": 28,
+    "avg_session_period": 5988299
+  },
+  {
+    "id": "3f1ec4c1-3c6e-490c-ac35-b449438a0d1f",
+    "source": "Firefox",
+    "users": 5512,
+    "sessions": 879,
+    "bounce_rate": 1,
+    "avg_session_period": 471967
+  },
+  {
+    "id": "845f7bd1-4551-4819-b3cf-35255a1c2daa",
+    "source": "Google",
+    "users": 3450,
+    "sessions": 557,
+    "bounce_rate": 19,
+    "avg_session_period": 7750505
+  },
+  {
+    "id": "9a0ef0ce-e33e-4dbb-99eb-f4fc23fd4d56",
+    "source": "Facebook",
+    "users": 6982,
+    "sessions": 147,
+    "bounce_rate": 14,
+    "avg_session_period": 7126121
+  },
+  {
+    "id": "475f0639-b5af-4a14-9144-88e48ce9768b",
+    "source": "Opera",
+    "users": 5483,
+    "sessions": 573,
+    "bounce_rate": 57,
+    "avg_session_period": 7839108
+  },
+  {
+    "id": "fdcaee04-f6e0-4ed7-a234-3959c0f18966",
+    "source": "Google",
+    "users": 9208,
+    "sessions": 184,
+    "bounce_rate": 68,
+    "avg_session_period": 2486637
+  },
+  {
+    "id": "e4793876-7e8a-406e-b8a0-91934d71afa6",
+    "source": "Opera",
+    "users": 352,
+    "sessions": 166,
+    "bounce_rate": 79,
+    "avg_session_period": 4213436
+  },
+  {
+    "id": "ee4e9427-5a74-48cb-a267-bf1e05b45d4c",
+    "source": "Twitter",
+    "users": 2626,
+    "sessions": 873,
+    "bounce_rate": 91,
+    "avg_session_period": 6027452
+  },
+  {
+    "id": "933a6ce6-a424-42c0-94ba-80c8b403412d",
+    "source": "Firefox",
+    "users": 4147,
+    "sessions": 583,
+    "bounce_rate": 12,
+    "avg_session_period": 7531235
+  },
+  {
+    "id": "b6abbb61-21af-4bfb-babd-fbc5cf8a943a",
+    "source": "DuckDuckGo",
+    "users": 7811,
+    "sessions": 355,
+    "bounce_rate": 73,
+    "avg_session_period": 7588860
+  },
+  {
+    "id": "f8bff24b-ce53-4dc3-8319-2d0f8a00cdc4",
+    "source": "Google",
+    "users": 4235,
+    "sessions": 896,
+    "bounce_rate": 65,
+    "avg_session_period": 1112201
+  },
+  {
+    "id": "d31a3fc3-2d09-4cd8-b79d-eaae04cf735d",
+    "source": "Facebook",
+    "users": 951,
+    "sessions": 14,
+    "bounce_rate": 46,
+    "avg_session_period": 8501647
+  },
+  {
+    "id": "50e3311a-b8ac-4d42-946a-4a1e82465ce4",
+    "source": "Edge",
+    "users": 7296,
+    "sessions": 627,
+    "bounce_rate": 46,
+    "avg_session_period": 6148303
+  },
+  {
+    "id": "9319a5f0-b137-45bd-8f54-2c58dae44748",
+    "source": "DuckDuckGo",
+    "users": 6840,
+    "sessions": 958,
+    "bounce_rate": 70,
+    "avg_session_period": 1510466
+  },
+  {
+    "id": "ac48c31a-01af-47d8-a341-6e28f0952fd6",
+    "source": "Google",
+    "users": 9819,
+    "sessions": 461,
+    "bounce_rate": 10,
+    "avg_session_period": 9164453
+  },
+  {
+    "id": "bf0c0b36-3a99-4428-b830-2b5492f248ab",
+    "source": "DuckDuckGo",
+    "users": 1427,
+    "sessions": 536,
+    "bounce_rate": 100,
+    "avg_session_period": 464357
+  },
+  {
+    "id": "dd4ec496-01e8-4d06-afc1-4b1e7e01690e",
+    "source": "Internet Explorer",
+    "users": 2722,
+    "sessions": 358,
+    "bounce_rate": 44,
+    "avg_session_period": 3416426
+  },
+  {
+    "id": "0583d0e7-ac26-4975-a47f-695a0009c9b6",
+    "source": "Direct",
+    "users": 1833,
+    "sessions": 16,
+    "bounce_rate": 66,
+    "avg_session_period": 2293237
+  },
+  {
+    "id": "651a0bd2-959c-4c18-9f61-745b5236faac",
+    "source": "Twitter",
+    "users": 5981,
+    "sessions": 528,
+    "bounce_rate": 92,
+    "avg_session_period": 828114
+  },
+  {
+    "id": "81a8d369-2cd4-40bc-8b76-1aa2658c0e92",
+    "source": "Google",
+    "users": 3169,
+    "sessions": 600,
+    "bounce_rate": 11,
+    "avg_session_period": 6413814
+  },
+  {
+    "id": "3ea9a030-eb75-45f0-b0f4-27df4fe23616",
+    "source": "Twitter",
+    "users": 2317,
+    "sessions": 27,
+    "bounce_rate": 7,
+    "avg_session_period": 1370315
+  },
+  {
+    "id": "8ebd3e87-bc23-45e5-8e1f-d8386cc3b61c",
+    "source": "Edge",
+    "users": 2325,
+    "sessions": 754,
+    "bounce_rate": 76,
+    "avg_session_period": 1951630
+  },
+  {
+    "id": "9b279904-9284-4841-b2c9-b6be2e64184e",
+    "source": "Twitter",
+    "users": 8627,
+    "sessions": 392,
+    "bounce_rate": 54,
+    "avg_session_period": 7142115
+  },
+  {
+    "id": "534c454d-e441-4042-82d0-b631b0fc9070",
+    "source": "Facebook",
+    "users": 9005,
+    "sessions": 510,
+    "bounce_rate": 29,
+    "avg_session_period": 9470464
+  },
+  {
+    "id": "8117ec46-d4c9-474b-a8cb-d18259819916",
+    "source": "Firefox",
+    "users": 3250,
+    "sessions": 52,
+    "bounce_rate": 81,
+    "avg_session_period": 1140664
+  },
+  {
+    "id": "b454fe77-429a-4de6-8f6b-ea20a96606d9",
+    "source": "Edge",
+    "users": 4746,
+    "sessions": 578,
+    "bounce_rate": 72,
+    "avg_session_period": 7870315
+  },
+  {
+    "id": "67b75a2d-a9ee-41f9-80db-905ae45c3540",
+    "source": "Internet Explorer",
+    "users": 7897,
+    "sessions": 563,
+    "bounce_rate": 78,
+    "avg_session_period": 6013584
+  },
+  {
+    "id": "bfa8735c-2c4b-4a96-bc5f-8513026189ec",
+    "source": "Direct",
+    "users": 6865,
+    "sessions": 343,
+    "bounce_rate": 2,
+    "avg_session_period": 5204500
+  },
+  {
+    "id": "84fca2f2-f6b4-41c6-aec6-cdf44c549073",
+    "source": "Internet Explorer",
+    "users": 8601,
+    "sessions": 147,
+    "bounce_rate": 32,
+    "avg_session_period": 3790994
+  },
+  {
+    "id": "32f6e513-d300-41c2-bee1-96e17a8e57bd",
+    "source": "Edge",
+    "users": 7369,
+    "sessions": 12,
+    "bounce_rate": 5,
+    "avg_session_period": 6481486
+  },
+  {
+    "id": "21fd3f6f-82e3-48af-b1ed-f0a813c0def2",
+    "source": "Internet Explorer",
+    "users": 5237,
+    "sessions": 313,
+    "bounce_rate": 90,
+    "avg_session_period": 5219040
+  },
+  {
+    "id": "c6d0f392-93ed-43f6-956b-7180b476e22f",
+    "source": "Facebook",
+    "users": 5528,
+    "sessions": 614,
+    "bounce_rate": 73,
+    "avg_session_period": 970966
+  },
+  {
+    "id": "706afdb3-7c86-4011-ab9a-5a1f84ce3cc3",
+    "source": "Facebook",
+    "users": 657,
+    "sessions": 839,
+    "bounce_rate": 38,
+    "avg_session_period": 9773896
+  },
+  {
+    "id": "b80cfb64-2b45-4e2e-9017-ad561fb70625",
+    "source": "Twitter",
+    "users": 6554,
+    "sessions": 334,
+    "bounce_rate": 21,
+    "avg_session_period": 4022648
+  },
+  {
+    "id": "894d1a5f-458b-401b-920d-f05149e7ce4e",
+    "source": "Google",
+    "users": 8690,
+    "sessions": 638,
+    "bounce_rate": 43,
+    "avg_session_period": 1061586
+  },
+  {
+    "id": "b6446b22-0c62-4bbd-a6e4-91d53cfa61b3",
+    "source": "Direct",
+    "users": 8086,
+    "sessions": 358,
+    "bounce_rate": 52,
+    "avg_session_period": 7040164
+  },
+  {
+    "id": "a81cdf06-c0ab-4de5-a364-9d981afff9a8",
+    "source": "Direct",
+    "users": 4553,
+    "sessions": 575,
+    "bounce_rate": 61,
+    "avg_session_period": 5279615
+  },
+  {
+    "id": "da17d604-5f88-4d75-b1c1-339e4079fe52",
+    "source": "Direct",
+    "users": 1066,
+    "sessions": 949,
+    "bounce_rate": 62,
+    "avg_session_period": 7361433
+  },
+  {
+    "id": "33e7d439-5e0a-4bca-8bb2-566b5620eeee",
+    "source": "Opera",
+    "users": 7181,
+    "sessions": 617,
+    "bounce_rate": 95,
+    "avg_session_period": 6363993
+  },
+  {
+    "id": "14312cc2-3398-4f10-bc64-b45d9aad6af4",
+    "source": "Opera",
+    "users": 1464,
+    "sessions": 505,
+    "bounce_rate": 36,
+    "avg_session_period": 773896
+  },
+  {
+    "id": "15431337-c293-4146-a68e-dd1857b7251e",
+    "source": "Twitter",
+    "users": 1968,
+    "sessions": 784,
+    "bounce_rate": 4,
+    "avg_session_period": 6902594
+  },
+  {
+    "id": "8868c666-3688-4a80-b5dd-443a2e65375d",
+    "source": "Direct",
+    "users": 3221,
+    "sessions": 298,
+    "bounce_rate": 77,
+    "avg_session_period": 9697675
+  },
+  {
+    "id": "481fb47b-43e5-4635-97ac-cf74fffac9da",
+    "source": "Edge",
+    "users": 676,
+    "sessions": 801,
+    "bounce_rate": 63,
+    "avg_session_period": 6314609
+  },
+  {
+    "id": "06046537-e43a-4055-ad1b-a5506ca087f2",
+    "source": "Direct",
+    "users": 893,
+    "sessions": 442,
+    "bounce_rate": 81,
+    "avg_session_period": 8620935
+  },
+  {
+    "id": "ccd644a7-acaf-4cea-97e0-0a6b0699633c",
+    "source": "Direct",
+    "users": 7627,
+    "sessions": 577,
+    "bounce_rate": 10,
+    "avg_session_period": 4175378
+  },
+  {
+    "id": "1a15565b-43e4-4eea-bb3a-830ac8748d23",
+    "source": "Opera",
+    "users": 2311,
+    "sessions": 152,
+    "bounce_rate": 65,
+    "avg_session_period": 2464232
+  },
+  {
+    "id": "4c16084c-4c3c-4aff-bbec-1d1f539bd139",
+    "source": "Edge",
+    "users": 9643,
+    "sessions": 810,
+    "bounce_rate": 18,
+    "avg_session_period": 1993144
+  },
+  {
+    "id": "b26183f5-abba-4806-ac68-e4ed3f512e7a",
+    "source": "Edge",
+    "users": 297,
+    "sessions": 864,
+    "bounce_rate": 11,
+    "avg_session_period": 4772665
+  },
+  {
+    "id": "032602b8-f889-4845-9223-2cc7dc640aab",
+    "source": "Direct",
+    "users": 4986,
+    "sessions": 238,
+    "bounce_rate": 48,
+    "avg_session_period": 8787282
+  },
+  {
+    "id": "0abd5fc8-ee49-4f12-a017-bb069dedd26b",
+    "source": "DuckDuckGo",
+    "users": 2469,
+    "sessions": 490,
+    "bounce_rate": 47,
+    "avg_session_period": 7127079
+  },
+  {
+    "id": "25648b11-e2e4-447b-b8de-c42b5e3f94b4",
+    "source": "Facebook",
+    "users": 9094,
+    "sessions": 104,
+    "bounce_rate": 10,
+    "avg_session_period": 1630373
+  },
+  {
+    "id": "4048d680-5528-4bd5-b855-02e05280610b",
+    "source": "Internet Explorer",
+    "users": 3272,
+    "sessions": 494,
+    "bounce_rate": 8,
+    "avg_session_period": 2843614
+  },
+  {
+    "id": "79a0dd86-4871-4dca-8cd2-f081ced6bd5c",
+    "source": "DuckDuckGo",
+    "users": 6959,
+    "sessions": 436,
+    "bounce_rate": 48,
+    "avg_session_period": 4124006
+  },
+  {
+    "id": "c057d893-d2b8-4c3d-8951-41dd7d82cd52",
+    "source": "Twitter",
+    "users": 417,
+    "sessions": 216,
+    "bounce_rate": 22,
+    "avg_session_period": 8486129
+  }
+]
