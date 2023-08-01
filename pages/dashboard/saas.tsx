@@ -22,7 +22,7 @@ function Saas() {
                         <Group>
                             <Stack>
                                 <Title>SaaS dashboard</Title>
-                                <Text>Welcome back, Lucy! We've missed you. 👋</Text>
+                                <Text>Welcome back, Kelvin! We've missed you. 👋</Text>
                             </Stack>
                             <Group>
                                 <ActionIcon>

@@ -12,6 +12,16 @@ import {
 import useStyles from "./Navigation.styles";
 import {LinksGroup} from "@/layout/Navigation/Links/Links";
 import {Logo} from "@/components";
+import {
+    PATH_AUTH,
+    PATH_CALENDAR,
+    PATH_DASHBOARD,
+    PATH_INVOICES,
+    PATH_ORDERS,
+    PATH_PAGES,
+    PATH_PROJECTS,
+    PATH_TASKS
+} from "@/routes";
 
 const mockdata = [
     {
@@ -21,40 +31,40 @@ const mockdata = [
                 label: 'Dashboard',
                 icon: IconAdjustmentsFilled,
                 links: [
-                    {label: 'Default', link: "/"},
-                    {label: 'Analytics', link: "/"},
-                    {label: 'SaaS', link: "/"},
+                    {label: 'Default', link: PATH_DASHBOARD.default},
+                    {label: 'Analytics', link: PATH_DASHBOARD.analytics},
+                    {label: 'SaaS', link:PATH_DASHBOARD.saas},
                 ]
             },
             {
                 label: 'Pages',
                 icon: IconAppWindow,
                 links: [
-                    {label: 'Profile', link: "/"},
-                    {label: 'Settings', link: "/"},
-                    {label: 'Pricing', link: "/"},
-                    {label: 'Chat', link: "/"},
-                    {label: 'Blank Page', link: "/"},
+                    {label: 'Profile', link: PATH_PAGES.profile},
+                    {label: 'Settings', link:PATH_PAGES.settings},
+                    {label: 'Pricing', link: PATH_PAGES.pricing},
+                    {label: 'Chat', link: PATH_PAGES.chat},
+                    {label: 'Blank Page', link: PATH_PAGES.blank},
                 ]
             },
-            {label: 'Projects', icon: IconBriefcase},
-            {label: 'Orders', icon: IconListDetails},
+            {label: 'Projects', icon: IconBriefcase, link: PATH_PROJECTS.root},
+            {label: 'Orders', icon: IconListDetails, link: PATH_ORDERS.root},
             {
                 label: 'Invoices',
                 icon: IconFileInvoice,
                 links: [
-                    {label: 'List', link: "/"},
-                    {label: 'Details', link: "/"},
+                    {label: 'List', link: PATH_INVOICES.list},
+                    {label: 'Details', link: PATH_INVOICES.detail},
                 ]
             },
-            {label: 'Tasks', icon: IconListDetails},
-            {label: 'Calendar', icon: IconCalendar},
+            {label: 'Tasks', icon: IconListDetails, link: PATH_TASKS.root},
+            {label: 'Calendar', icon: IconCalendar, link: PATH_CALENDAR.root},
             {
                 label: 'Auth',
                 icon: IconUserShield,
                 links: [
-                    {label: 'Sign In', link: "/"},
-                    {label: 'Sign Up', link: "/"},
+                    {label: 'Sign In', link: PATH_AUTH.signin},
+                    {label: 'Sign Up', link: PATH_AUTH.signup},
                     {label: 'Reset Password', link: "/"},
                     {label: '404 Page', link: "/"},
                     {label: '500 Page', link: "/"},

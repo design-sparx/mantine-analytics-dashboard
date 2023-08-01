@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {Box, Collapse, createStyles, Group, rem, Text, UnstyledButton,} from '@mantine/core';
 import {IconCalendarStats, IconChevronLeft, IconChevronRight} from '@tabler/icons-react';
+import * as NextLink from "next/link";
 
 const useStyles = createStyles((theme) => ({
     control: {
@@ -45,21 +46,21 @@ interface LinksGroupProps {
     icon: React.FC<any>;
     label: string;
     initiallyOpened?: boolean;
+    link?: string;
     links?: { label: string; link: string }[];
 }
 
-export function LinksGroup({icon: Icon, label, initiallyOpened, links}: LinksGroupProps) {
+export function LinksGroup({icon: Icon, label, initiallyOpened, link, links}: LinksGroupProps) {
     const {classes, theme} = useStyles();
     const hasLinks = Array.isArray(links);
     const [opened, setOpened] = useState(initiallyOpened || false);
     const ChevronIcon = theme.dir === 'ltr' ? IconChevronRight : IconChevronLeft;
     const items = (hasLinks ? links : []).map((link) => (
-        <Text<'a'>
-            component="a"
+        <Text
+            component={NextLink}
             className={classes.link}
             href={link.link}
             key={link.label}
-            onClick={(event) => event.preventDefault()}
         >
             {link.label}
         </Text>
@@ -67,7 +68,7 @@ export function LinksGroup({icon: Icon, label, initiallyOpened, links}: LinksGro
 
     return (
         <>
-            <UnstyledButton onClick={() => setOpened((o) => !o)} className={classes.control}>
+            <UnstyledButton onClick={() => setOpened((o) => !o)} className={classes.control} component={NextLink} href={link || "#"}>
                 <Group position="apart" spacing={0}>
                     <Box sx={{display: 'flex', alignItems: 'center'}}>
                         <Icon size={18}/>

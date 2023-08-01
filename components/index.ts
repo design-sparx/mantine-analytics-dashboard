@@ -11,6 +11,7 @@ import StatsCard from "@/components/StatsCard/StatsCard";
 import MapChart from "@/components/MapChart/MapChart";
 import LanguageTable from "@/components/LanguageTable/LanguageTable";
 import TrafficTable from "@/components/TrafficTable/TrafficTable";
+import UserProfileCard from "@/components/UserProfileCard/UserProfileCard";
 
 export {
     Logo,
@@ -25,5 +26,6 @@ export {
     StatsCard,
     MapChart,
     LanguageTable,
-    TrafficTable
+    TrafficTable,
+    UserProfileCard
 };

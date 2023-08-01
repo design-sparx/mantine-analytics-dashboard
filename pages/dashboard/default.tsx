@@ -22,7 +22,7 @@ function Default() {
                         <Group>
                             <Stack>
                                 <Title>Default dashboard</Title>
-                                <Text>Welcome back, Lucy! We've missed you. 👋</Text>
+                                <Text>Welcome back, Kelvin! We've missed you. 👋</Text>
                             </Stack>
                             <Group>
                                 <ActionIcon>
