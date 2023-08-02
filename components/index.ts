@@ -12,6 +12,7 @@ import MapChart from "@/components/MapChart/MapChart";
 import LanguageTable from "@/components/LanguageTable/LanguageTable";
 import TrafficTable from "@/components/TrafficTable/TrafficTable";
 import UserProfileCard from "@/components/UserProfileCard/UserProfileCard";
+import PricingCard from "@/components/PricingCard/PricingCard";
 
 export {
     Logo,
@@ -27,5 +28,6 @@ export {
     MapChart,
     LanguageTable,
     TrafficTable,
-    UserProfileCard
+    UserProfileCard,
+    PricingCard
 };
