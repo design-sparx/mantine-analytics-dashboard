@@ -15,6 +15,7 @@ import UserProfileCard from "@/components/UserProfileCard/UserProfileCard";
 import PricingCard from "@/components/PricingCard/PricingCard";
 import ChatsList from "@/components/ChatsList/ChatsList"
 import ChatItem from "@/components/ChatItem/ChatItem"
+import ProjectsCard from "@/components/ProjectsCard/ProjectsCard";
 
 export {
     Logo,
@@ -33,5 +34,6 @@ export {
     UserProfileCard,
     PricingCard,
     ChatsList,
-    ChatItem
+    ChatItem,
+    ProjectsCard
 };
