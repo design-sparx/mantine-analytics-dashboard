@@ -13,6 +13,8 @@ import LanguageTable from "@/components/LanguageTable/LanguageTable";
 import TrafficTable from "@/components/TrafficTable/TrafficTable";
 import UserProfileCard from "@/components/UserProfileCard/UserProfileCard";
 import PricingCard from "@/components/PricingCard/PricingCard";
+import ChatsList from "@/components/ChatsList/ChatsList"
+import ChatItem from "@/components/ChatItem/ChatItem"
 
 export {
     Logo,
@@ -29,5 +31,7 @@ export {
     LanguageTable,
     TrafficTable,
     UserProfileCard,
-    PricingCard
+    PricingCard,
+    ChatsList,
+    ChatItem
 };

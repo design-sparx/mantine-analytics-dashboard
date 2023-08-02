@@ -1,0 +1,47 @@
+[
+  {
+    "id": "2e8f8455-2c9f-4a93-b864-82d44a0ba696",
+    "first_name": "Ilario",
+    "last_name": "Baldocci",
+    "email": "ibaldocci0@cocolog-nifty.com",
+    "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+    "sent_time": "5/5/2023",
+    "last_message": "Proin risus. Praesent lectus."
+  },
+  {
+    "id": "53ba415c-c210-4aa2-9b46-c6e5eb1075dc",
+    "first_name": "Sher",
+    "last_name": "Bleackley",
+    "email": "sbleackley1@rediff.com",
+    "avatar": "https://images.unsplash.com/flagged/photo-1573740144655-bbb6e88fb18a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+    "sent_time": "1/4/2023",
+    "last_message": "In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit."
+  },
+  {
+    "id": "2fde3707-1ee7-4b7d-8679-2c584a163912",
+    "first_name": "Purcell",
+    "last_name": "Kelle",
+    "email": "pkelle2@ft.com",
+    "avatar": "https://images.unsplash.com/photo-1546961329-78bef0414d7c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHVzZXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+    "sent_time": "10/16/2022",
+    "last_message": "Etiam justo. Etiam pretium iaculis justo."
+  },
+  {
+    "id": "ed704cb0-3cad-4b79-a8fc-5817f2fe075f",
+    "first_name": "Laurens",
+    "last_name": "Shewen",
+    "email": "lshewen3@ted.com",
+    "avatar": "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHVzZXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+    "sent_time": "9/6/2022",
+    "last_message": "Phasellus sit amet erat."
+  },
+  {
+    "id": "f89d695d-2069-4acb-a57b-82612246b38e",
+    "first_name": "Lefty",
+    "last_name": "Chalker",
+    "email": "lchalker4@blinklist.com",
+    "avatar": "https://images.unsplash.com/photo-1499887142886-791eca5918cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHVzZXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+    "sent_time": "9/29/2022",
+    "last_message": "Aenean lectus. Pellentesque eget nunc."
+  }
+]
