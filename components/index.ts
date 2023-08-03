@@ -16,6 +16,10 @@ import PricingCard from "@/components/PricingCard/PricingCard";
 import ChatsList from "@/components/ChatsList/ChatsList"
 import ChatItem from "@/components/ChatItem/ChatItem"
 import ProjectsCard from "@/components/ProjectsCard/ProjectsCard";
+import AddTaskCard from "@/components/AddTaskCard/AddTaskCard";
+import KanbanColumn from "@/components/KanbanColumn/KanbanColumn";
+import KanbanCard from "@/components/KanbanCard/KanbanCard";
+import KanbanBoard from "@/components/KanbanBoard/KanbanBoard";
 
 export {
     Logo,
@@ -35,5 +39,9 @@ export {
     PricingCard,
     ChatsList,
     ChatItem,
-    ProjectsCard
+    ProjectsCard,
+    AddTaskCard,
+    KanbanColumn,
+    KanbanCard,
+    KanbanBoard
 };

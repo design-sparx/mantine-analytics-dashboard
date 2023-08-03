@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.0.8",
     "@emotion/react": "^11.11.1",
     "@emotion/server": "^11.11.0",
     "@mantine/carousel": "^6.0.16",
