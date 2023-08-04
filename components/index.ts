@@ -20,6 +20,7 @@ import AddTaskCard from "@/components/AddTaskCard/AddTaskCard";
 import KanbanColumn from "@/components/KanbanColumn/KanbanColumn";
 import KanbanCard from "@/components/KanbanCard/KanbanCard";
 import KanbanBoard from "@/components/KanbanBoard/KanbanBoard";
+import OrdersTable from "@/components/OrdersTable/OrdersTable";
 
 export {
     Logo,
@@ -43,5 +44,6 @@ export {
     AddTaskCard,
     KanbanColumn,
     KanbanCard,
-    KanbanBoard
+    KanbanBoard,
+    OrdersTable
 };

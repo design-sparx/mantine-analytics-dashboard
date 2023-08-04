@@ -14,3 +14,14 @@ export type KanbanTask = {
     comments?: number;
     users?: number;
 };
+
+export type OrderStatus = "shipped" | "processing" | "cancelled" | string
+
+export type Orders = {
+    id: string,
+    product: string,
+    date: string,
+    total: number,
+    status: OrderStatus
+    payment_method: string
+}
