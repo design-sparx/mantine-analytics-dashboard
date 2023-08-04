@@ -53,8 +53,8 @@ const mockdata = [
                 label: 'Invoices',
                 icon: IconFileInvoice,
                 links: [
-                    {label: 'List', link: PATH_INVOICES.list},
-                    {label: 'Details', link: PATH_INVOICES.detail},
+                    {label: 'List', link: PATH_INVOICES.invoices.all},
+                    {label: 'Details', link: PATH_INVOICES.invoices.sample},
                 ]
             },
             {label: 'Tasks', icon: IconListDetails, link: PATH_TASKS.root},

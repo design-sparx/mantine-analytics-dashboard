@@ -40,5 +40,7 @@ export type Invoices = {
     description: string,
     client_email: string,
     client_address: string,
-    client_country: string
+    client_country: string,
+    client_name: string,
+    client_company: string
 }

@@ -1,10 +1,24 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {DataTable, DataTableSortStatus} from "mantine-datatable";
-import {ActionIcon, Avatar, Badge, Flex, Group, MantineColor, MultiSelect, Stack, Text, TextInput, Tooltip} from "@mantine/core"
+import {
+    ActionIcon,
+    Avatar,
+    Badge,
+    Flex,
+    Group,
+    MantineColor,
+    MultiSelect,
+    Stack,
+    Text,
+    TextInput,
+    Tooltip
+} from "@mantine/core"
 import sortBy from 'lodash/sortBy';
 import {Invoices, InvoiceStatus} from "@/types";
 import {useDebouncedValue} from "@mantine/hooks";
-import {IconSearch, IconCloudDownload, IconEye} from "@tabler/icons-react";
+import {IconCloudDownload, IconEye, IconSearch} from "@tabler/icons-react";
+import {useRouter} from "next/router";
+import {PATH_INVOICES} from "@/routes";
 
 const PAGE_SIZES = [5, 10, 20];
 
@@ -55,6 +69,7 @@ const InvoicesTable = ({data}: InvoicesTableProps) => {
     const [query, setQuery] = useState('');
     const [debouncedQuery] = useDebouncedValue(query, 200);
     const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
+    const router = useRouter()
     const statuses = useMemo(() => {
         const statuses = new Set(data.map((e) => e.status));
         // @ts-ignore
@@ -169,7 +184,7 @@ const InvoicesTable = ({data}: InvoicesTableProps) => {
                     {
                         accessor: '',
                         title: 'Actions',
-                        render: () =>
+                        render: (item) =>
                             <Group spacing="sm">
                                 <Tooltip label="Download invoice">
                                     <ActionIcon>
@@ -177,7 +192,9 @@ const InvoicesTable = ({data}: InvoicesTableProps) => {
                                     </ActionIcon>
                                 </Tooltip>
                                 <Tooltip label="View invoice details">
-                                    <ActionIcon>
+                                    <ActionIcon
+                                        onClick={() => router.push(PATH_INVOICES.invoices.invoice_details(item.id))}
+                                    >
                                         <IconEye size={ICON_SIZE}/>
                                     </ActionIcon>
                                 </Tooltip>

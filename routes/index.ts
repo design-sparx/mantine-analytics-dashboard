@@ -41,8 +41,11 @@ export const PATH_ORDERS = {
 
 export const PATH_INVOICES = {
     root: ROOTS_INVOICES,
-    list: path(ROOTS_INVOICES, '/list'),
-    detail: path(ROOTS_INVOICES, '/details'),
+    invoices: {
+        all: path(ROOTS_INVOICES, '/list'),
+        sample: path(ROOTS_INVOICES, `/details/`),
+        invoice_details: (id: string): string => path(ROOTS_INVOICES, `/details/${id}`),
+    }
 }
 
 export const PATH_TASKS = {
