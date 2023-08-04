@@ -25,3 +25,20 @@ export type Orders = {
     status: OrderStatus
     payment_method: string
 }
+
+export type InvoiceStatus = "pending" | "sent" | "cancelled" | "approved" | "suspended" | string
+
+export type Invoices = {
+    id: string,
+    full_name: string,
+    email: string,
+    address: string,
+    country: string,
+    status: InvoiceStatus,
+    amount: number,
+    issue_date: string,
+    description: string,
+    client_email: string,
+    client_address: string,
+    client_country: string
+}

@@ -141,7 +141,7 @@ const OrdersTable = ({data}: OrdersTableProps) => {
                 records={records}
                 selectedRecords={selectedRecords}
                 onSelectedRecordsChange={setSelectedRecords}
-                totalRecords={data.length}
+                totalRecords={(debouncedQuery || selectedStatuses.length > 0) ? records.length : data.length}
                 recordsPerPage={pageSize}
                 page={page}
                 onPageChange={(p) => setPage(p)}
