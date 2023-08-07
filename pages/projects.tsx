@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from "next/head";
-import Layout from "@/layout";
+import {AppLayout} from "@/layout";
 import {Anchor, Breadcrumbs, Container, SimpleGrid, Stack, Title} from "@mantine/core";
 import {PATH_DASHBOARD} from "@/routes";
 import ProjectsData from "../mocks/Projects2.json"
@@ -29,7 +29,7 @@ function Projects() {
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-            <Layout>
+            <AppLayout>
                 <Container>
                     <Stack>
                         <Title>Projects</Title>
@@ -39,7 +39,7 @@ function Projects() {
                         {projectItems}
                     </SimpleGrid>
                 </Container>
-            </Layout>
+            </AppLayout>
         </>
     );
 }

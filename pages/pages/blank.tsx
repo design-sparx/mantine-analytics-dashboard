@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Head from "next/head";
-import Layout from "@/layout";
-import {Anchor, Breadcrumbs, Button, Container, Flex, Paper, SimpleGrid, Stack, Switch, Text, Title} from "@mantine/core";
+import {Anchor, Breadcrumbs, Container, Paper, Stack, Text, Title} from "@mantine/core";
 import {PATH_DASHBOARD} from "@/routes";
-import {PricingCard} from "@/components";
+import {AppLayout} from "@/layout";
 
 const items = [
     {title: 'Dashboard', href: PATH_DASHBOARD.default},
@@ -24,7 +23,7 @@ function Pricing() {
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-            <Layout>
+            <AppLayout>
                 <Container>
                     <Stack>
                         <Title>Settings</Title>
@@ -35,7 +34,7 @@ function Pricing() {
                         <Text>Empty card text</Text>
                     </Paper>
                 </Container>
-            </Layout>
+            </AppLayout>
         </>
     );
 }

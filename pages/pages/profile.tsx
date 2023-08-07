@@ -1,33 +1,36 @@
 import React from 'react';
 import Head from "next/head";
-import Layout from "@/layout";
 import {
     Anchor,
     Badge,
     Breadcrumbs,
     Container,
-    Divider, Flex,
+    Divider,
+    Flex,
     Grid,
     Group,
-    Paper, Progress,
+    Paper,
+    Progress,
     SimpleGrid,
     Stack,
     Text,
     Title
 } from "@mantine/core";
 import {PATH_DASHBOARD} from "@/routes";
-import {ProjectsTable, RevenueChart, StatsCard, UserProfileCard} from "@/components";
+import {ProjectsTable, RevenueChart, UserProfileCard} from "@/components";
 import UserData from "../../mocks/UserProfile.json";
 import {
     IconBrandFacebook,
     IconBrandGithub,
     IconBrandLinkedin,
-    IconBrandTwitter, IconCurrencyDollar,
+    IconBrandTwitter,
+    IconCurrencyDollar,
     IconHome,
-    IconMapPinFilled, IconShoppingCartPlus
+    IconMapPinFilled,
+    IconShoppingCartPlus
 } from "@tabler/icons-react";
-import StatsData from "@/mocks/StatsGrid.json";
 import ProjectsData from "@/mocks/Projects.json";
+import {AppLayout} from "@/layout";
 
 const items = [
     {title: 'Dashboard', href: PATH_DASHBOARD.default},
@@ -52,7 +55,7 @@ function Profile() {
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-            <Layout>
+            <AppLayout>
                 <Container>
                     <Stack>
                         <Title>Profile</Title>
@@ -150,7 +153,7 @@ function Profile() {
                         </Grid.Col>
                     </Grid>
                 </Container>
-            </Layout>
+            </AppLayout>
         </>
     );
 }

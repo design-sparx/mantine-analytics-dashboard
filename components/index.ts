@@ -23,6 +23,7 @@ import KanbanBoard from "@/components/KanbanBoard/KanbanBoard";
 import OrdersTable from "@/components/OrdersTable/OrdersTable";
 import InvoicesTable from "@/components/InvoicesTable/InvoicesTable";
 import InvoiceDetailsCard from "@/components/InvoiceDetailsCard/InvoiceDetailsCard";
+import UserProfileButton from "@/components/UserButton/UserButton";
 
 export {
     Logo,
@@ -49,5 +50,6 @@ export {
     KanbanBoard,
     OrdersTable,
     InvoicesTable,
-    InvoiceDetailsCard
+    InvoiceDetailsCard,
+    UserProfileButton
 };

@@ -1,11 +1,11 @@
 import React from 'react';
 import Head from "next/head";
-import Layout from "@/layout";
 import {ActionIcon, Container, Divider, Grid, Group, Paper, Stack, Text, Title} from "@mantine/core";
 import {IconRefresh} from "@tabler/icons-react";
 import {FilterDateMenu, MapChart, ProjectsTable, RevenueChart, SalesChart, StatsGrid} from "@/components";
 import StatsData from "../../mocks/StatsGrid.json"
 import ProjectsData from "../../mocks/Projects.json"
+import {AppLayout} from "@/layout";
 
 function Saas() {
     return (
@@ -16,7 +16,7 @@ function Saas() {
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-            <Layout>
+            <AppLayout>
                 <Container>
                     <Paper>
                         <Group>
@@ -51,7 +51,7 @@ function Saas() {
                         </Grid.Col>
                     </Grid>
                 </Container>
-            </Layout>
+            </AppLayout>
         </>
     );
 }

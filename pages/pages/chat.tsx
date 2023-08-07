@@ -1,6 +1,5 @@
 import React from 'react';
 import Head from "next/head";
-import Layout from "@/layout";
 import {
     ActionIcon,
     Anchor,
@@ -22,6 +21,7 @@ import {ChatItem, ChatsList} from "@/components";
 import {IconSearch, IconSend} from "@tabler/icons-react";
 import ChatsListData from "../../mocks/ChatsList.json"
 import ChatItemsData from "../../mocks/ChatItems.json"
+import {AppLayout} from "@/layout";
 
 const items = [
     {title: 'Dashboard', href: PATH_DASHBOARD.default},
@@ -46,7 +46,7 @@ function Chat() {
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-            <Layout>
+            <AppLayout>
                 <Container fluid>
                     <Stack>
                         <Title>Settings</Title>
@@ -109,7 +109,7 @@ function Chat() {
                         </Grid>
                     </Paper>
                 </Container>
-            </Layout>
+            </AppLayout>
         </>
     );
 }

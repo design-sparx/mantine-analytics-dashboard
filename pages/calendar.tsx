@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import Head from "next/head";
-import Layout from "@/layout";
 import {Anchor, Breadcrumbs, Container, Paper, Stack, Text, Title} from "@mantine/core";
 import { formatDate } from '@fullcalendar/core'
 import FullCalendar from '@fullcalendar/react'
@@ -9,6 +8,7 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import {PATH_DASHBOARD} from "@/routes";
 import {createEventId, INITIAL_EVENTS} from "@/utils";
+import {AppLayout} from "@/layout";
 
 const items = [
     {title: 'Dashboard', href: PATH_DASHBOARD.default},
@@ -111,10 +111,10 @@ function Calendar() {
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-            <Layout>
+            <AppLayout>
                 <Container>
                     <Stack>
-                        <Title>Settings</Title>
+                        <Title>Calendar</Title>
                         <Breadcrumbs>{items}</Breadcrumbs>
                     </Stack>
                     <Paper>
@@ -144,7 +144,7 @@ function Calendar() {
                         />
                     </Paper>
                 </Container>
-            </Layout>
+            </AppLayout>
         </>
     );
 }

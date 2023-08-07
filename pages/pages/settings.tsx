@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import Head from "next/head";
-import Layout from "@/layout";
 import {
     Anchor,
     Breadcrumbs,
@@ -20,6 +19,7 @@ import {
 import {PATH_DASHBOARD} from "@/routes";
 import {useForm} from "@mantine/form";
 import {IconCloudUpload} from "@tabler/icons-react";
+import {AppLayout} from "@/layout";
 
 const items = [
     {title: 'Dashboard', href: PATH_DASHBOARD.default},
@@ -62,7 +62,7 @@ function Settings() {
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-            <Layout>
+            <AppLayout>
                 <Container>
                     <Stack>
                         <Title>Settings</Title>
@@ -154,7 +154,7 @@ function Settings() {
                         </Stack>
                     </Paper>
                 </Container>
-            </Layout>
+            </AppLayout>
         </>
     );
 }

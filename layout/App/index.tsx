@@ -1,13 +1,13 @@
 import {AppShell, Burger, Container, Footer, Header, MediaQuery,} from '@mantine/core';
 import React, {useState} from 'react';
-import Navigation from "@/layout/Navigation/Navigation";
-import HeaderNav from "@/layout/HeaderNav/HeaderNav";
+import Navigation from "@/layout/App/Navigation/Navigation";
+import HeaderNav from "@/layout/App/HeaderNav/HeaderNav";
 
 type Props = {
     children: React.ReactNode;
 };
 
-function Layout({children}: Props) {
+function AppLayout({children}: Props) {
     const [opened, setOpened] = useState(false);
     return (
         <AppShell
@@ -47,4 +47,4 @@ function Layout({children}: Props) {
     );
 }
 
-export default Layout;
+export default AppLayout;

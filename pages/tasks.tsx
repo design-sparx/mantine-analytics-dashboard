@@ -1,7 +1,7 @@
 import React from "react";
 import {Container} from "@mantine/core"
 import Head from "next/head";
-import Layout from "@/layout";
+import {AppLayout} from "@/layout";
 import {KanbanBoard} from "@/components";
 
 function Tasks() {
@@ -13,11 +13,11 @@ function Tasks() {
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-            <Layout>
+            <AppLayout>
                 <Container>
                     <KanbanBoard/>
                 </Container>
-            </Layout>
+            </AppLayout>
         </>
     );
 }

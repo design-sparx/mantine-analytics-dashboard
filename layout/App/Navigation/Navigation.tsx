@@ -13,8 +13,7 @@ import {
     IconUserShield,
 } from '@tabler/icons-react';
 import useStyles from "./Navigation.styles";
-import {LinksGroup} from "@/layout/Navigation/Links/Links";
-import {Logo} from "@/components";
+import {Logo, UserProfileButton} from "@/components";
 import {
     PATH_AUTH,
     PATH_CALENDAR,
@@ -26,6 +25,8 @@ import {
     PATH_PROJECTS,
     PATH_TASKS
 } from "@/routes";
+import UserProfileData from ".././../../mocks/UserProfile.json";
+import {LinksGroup} from "@/layout/App/Navigation/Links/Links";
 
 const mockdata = [
     {
@@ -116,7 +117,11 @@ const Navigation = ({...others}: NavigationProps) => {
             </Navbar.Section>
 
             <Navbar.Section className={classes.footer}>
-                User
+                <UserProfileButton
+                    email={UserProfileData.email}
+                    image={UserProfileData.avatar}
+                    name={UserProfileData.name}
+                />
             </Navbar.Section>
         </Navbar>
     );

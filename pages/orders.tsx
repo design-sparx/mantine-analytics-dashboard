@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from "next/head";
-import Layout from "@/layout";
+import {AppLayout} from "@/layout";
 import {Anchor, Breadcrumbs, Container, Paper, Stack, Title} from "@mantine/core";
 import {PATH_DASHBOARD} from "@/routes";
 import {OrdersTable} from "@/components";
@@ -25,7 +25,7 @@ function Orders() {
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-            <Layout>
+            <AppLayout>
                 <Container>
                     <Stack>
                         <Title>Settings</Title>
@@ -36,7 +36,7 @@ function Orders() {
                         <OrdersTable data={OrdersData}/>
                     </Paper>
                 </Container>
-            </Layout>
+            </AppLayout>
         </>
     );
 }

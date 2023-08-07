@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Head from "next/head";
-import Layout from "@/layout";
+import {AppLayout} from "@/layout";
 import {Anchor, Breadcrumbs, Button, Container, Flex, Paper, Stack, Title} from "@mantine/core";
 import {IconPlus} from "@tabler/icons-react";
 import {InvoiceDetailsCard, InvoicesTable} from "@/components";
@@ -36,7 +36,7 @@ function InvoiceDetails() {
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-            <Layout>
+            <AppLayout>
                 <Container>
                     <Flex>
                         <Stack>
@@ -50,7 +50,7 @@ function InvoiceDetails() {
                         <InvoiceDetailsCard data={selectedData}/>
                     </Paper>
                 </Container>
-            </Layout>
+            </AppLayout>
         </>
     );
 }

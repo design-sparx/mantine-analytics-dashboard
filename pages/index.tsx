@@ -1,9 +1,8 @@
 import Head from 'next/head'
-import {Inter} from 'next/font/google'
-import Layout from "@/layout";
-import React from "react";
-
-const inter = Inter({subsets: ['latin']})
+import {GuestLayout} from "@/layout";
+import {Button} from "@mantine/core";
+import Link from "next/link";
+import {PATH_DASHBOARD} from "@/routes";
 
 export default function Home() {
     return (
@@ -14,9 +13,9 @@ export default function Home() {
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-            <Layout>
-                Home
-            </Layout>
+            <GuestLayout>
+                <Button component={Link} href={PATH_DASHBOARD.default}>Live Preview</Button>
+            </GuestLayout>
         </>
     )
 }

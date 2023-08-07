@@ -1,11 +1,11 @@
 import React from 'react';
 import Head from "next/head";
-import Layout from "@/layout";
 import {Anchor, Breadcrumbs, Button, Container, Flex, Paper, Stack, Title} from "@mantine/core";
 import {PATH_DASHBOARD} from "@/routes";
 import {InvoicesTable} from "@/components";
 import InvoicesData from "../../mocks/Invoices.json";
 import {IconPlus} from "@tabler/icons-react";
+import {AppLayout} from "@/layout";
 
 const items = [
     {title: 'Dashboard', href: PATH_DASHBOARD.default},
@@ -26,7 +26,7 @@ function List() {
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-            <Layout>
+            <AppLayout>
                 <Container>
                     <Flex>
                         <Stack>
@@ -40,7 +40,7 @@ function List() {
                         <InvoicesTable data={InvoicesData}/>
                     </Paper>
                 </Container>
-            </Layout>
+            </AppLayout>
         </>
     );
 }
