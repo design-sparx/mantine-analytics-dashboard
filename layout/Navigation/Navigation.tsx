@@ -2,10 +2,13 @@ import {Box, Code, Group, Navbar, NavbarProps, ScrollArea, Text} from '@mantine/
 import {
     IconAdjustmentsFilled,
     IconAlertOctagon,
-    IconAppWindow, IconBook2,
+    IconAppWindow,
+    IconBook2,
     IconBriefcase,
     IconCalendar,
-    IconFileInvoice, IconLifebuoy, IconList,
+    IconFileInvoice,
+    IconLifebuoy,
+    IconList,
     IconListDetails,
     IconUserShield,
 } from '@tabler/icons-react';
@@ -16,6 +19,7 @@ import {
     PATH_AUTH,
     PATH_CALENDAR,
     PATH_DASHBOARD,
+    PATH_ERROR,
     PATH_INVOICES,
     PATH_ORDERS,
     PATH_PAGES,
@@ -33,7 +37,7 @@ const mockdata = [
                 links: [
                     {label: 'Default', link: PATH_DASHBOARD.default},
                     {label: 'Analytics', link: PATH_DASHBOARD.analytics},
-                    {label: 'SaaS', link:PATH_DASHBOARD.saas},
+                    {label: 'SaaS', link: PATH_DASHBOARD.saas},
                 ]
             },
             {
@@ -41,7 +45,7 @@ const mockdata = [
                 icon: IconAppWindow,
                 links: [
                     {label: 'Profile', link: PATH_PAGES.profile},
-                    {label: 'Settings', link:PATH_PAGES.settings},
+                    {label: 'Settings', link: PATH_PAGES.settings},
                     {label: 'Pricing', link: PATH_PAGES.pricing},
                     {label: 'Chat', link: PATH_PAGES.chat},
                     {label: 'Blank Page', link: PATH_PAGES.blank},
@@ -65,18 +69,16 @@ const mockdata = [
                 links: [
                     {label: 'Sign In', link: PATH_AUTH.signin},
                     {label: 'Sign Up', link: PATH_AUTH.signup},
-                    {label: 'Reset Password', link: "/"},
-                    {label: '404 Page', link: "/"},
-                    {label: '500 Page', link: "/"},
+                    {label: 'Reset Password', link: PATH_AUTH.passwordReset},
                 ]
             },
             {
                 label: 'Errors',
                 icon: IconAlertOctagon,
                 links: [
-                    {label: '403 Page', link: "/"},
-                    {label: '404 Page', link: "/"},
-                    {label: '500 Page', link: "/"},
+                    {label: '403 Page', link: PATH_ERROR.error403},
+                    {label: '404 Page', link: PATH_ERROR.error404},
+                    {label: '500 Page', link: PATH_ERROR.error500},
                 ]
             },
         ]
