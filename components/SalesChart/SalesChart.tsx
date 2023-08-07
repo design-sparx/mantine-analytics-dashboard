@@ -9,7 +9,7 @@ const SalesChart = () => {
     const series = [44, 55, 41, 17, 15];
 
     const options = {
-        chart: { type: "donut" },
+        chart: { type: "donut", fontFamily: 'Manrope, sans-serif' },
         legend: { show: false },
         dataLabels: { enabled: false },
         tooltip: { enabled: false },

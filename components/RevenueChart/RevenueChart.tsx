@@ -14,7 +14,8 @@ const RevenueChart = () => {
     const options = {
         chart: {
             height: 350,
-            type: 'area'
+            type: 'area',
+            fontFamily: 'Manrope, sans-serif'
         },
         dataLabels: {
             enabled: false

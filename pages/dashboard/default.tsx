@@ -17,7 +17,7 @@ function Default() {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
             <AppLayout>
-                <Container>
+                <Container fluid>
                     <Paper>
                         <Group>
                             <Stack>

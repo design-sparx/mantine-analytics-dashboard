@@ -23,7 +23,8 @@ const MobileDesktopChart = ({...others}: MobileDesktopChartProps) => {
             },
             zoom: {
                 enabled: true
-            }
+            },
+            fontFamily: 'Manrope, sans-serif'
         },
         dataLabels: {
             enabled: false

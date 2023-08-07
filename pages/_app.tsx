@@ -2,8 +2,9 @@ import type {AppProps} from 'next/app'
 import Head from "next/head";
 import {ColorScheme, ColorSchemeProvider, MantineProvider} from '@mantine/core';
 import {useState} from "react";
-import { getCookie, setCookie } from 'cookies-next';
+import {getCookie, setCookie} from 'cookies-next';
 import {GetServerSidePropsContext} from "next";
+import "../styles/globals.css";
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
     const {Component, pageProps} = props;
@@ -36,8 +37,11 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
                 withGlobalStyles
                 withNormalizeCSS
                 theme={{
-                    /** Put your mantine theme override here */
                     colorScheme,
+                    fontFamily: 'Manrope, sans-serif',
+                    headings: {
+                        fontFamily: 'Manrope, sans-serif'
+                    }
                 }}
             >
                 <Component {...pageProps} />
@@ -46,7 +50,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
     </>
 }
 
-App.getInitialProps = ({ ctx }: { ctx: GetServerSidePropsContext }) => ({
+App.getInitialProps = ({ctx}: { ctx: GetServerSidePropsContext }) => ({
     // get color scheme from cookie
     colorScheme: getCookie('mantine-color-scheme', ctx) || 'light',
 });
