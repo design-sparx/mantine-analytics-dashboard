@@ -1,27 +1,19 @@
 import type {AppProps} from 'next/app'
 import Head from "next/head";
 import {ColorScheme, ColorSchemeProvider, MantineProvider} from '@mantine/core';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {getCookie, setCookie} from 'cookies-next';
 import {GetServerSidePropsContext} from "next";
 import "../styles/globals.css";
+import {useColorScheme} from "@mantine/hooks";
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
     const {Component, pageProps} = props;
+    const preferredColorScheme = useColorScheme();
+    const [colorScheme, setColorScheme] = useState<ColorScheme>(preferredColorScheme);
 
-    const [colorScheme, setColorScheme] = useState<ColorScheme>(
-        props.colorScheme
-    );
-
-    const toggleColorScheme = (value?: ColorScheme) => {
-        const nextColorScheme =
-            value || (colorScheme === 'dark' ? 'light' : 'dark');
-        setColorScheme(nextColorScheme);
-        // when color scheme is updated save it to cookie
-        setCookie('mantine-color-scheme', nextColorScheme, {
-            maxAge: 60 * 60 * 24 * 30,
-        });
-    };
+    const toggleColorScheme = (value?: ColorScheme): void =>
+        setColorScheme(value ?? (colorScheme === 'dark' ? 'light' : 'dark'));
 
     return <>
         <Head>

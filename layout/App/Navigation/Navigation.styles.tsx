@@ -2,8 +2,9 @@ import {createStyles, rem} from "@mantine/core";
 
 export default createStyles((theme) => ({
     navbar: {
-        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.white,
+        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.dark[6],
         paddingBottom: 0,
+        border: 'none'
     },
 
     header: {
@@ -12,9 +13,7 @@ export default createStyles((theme) => ({
         marginLeft: `calc(${theme.spacing.md} * -1)`,
         marginRight: `calc(${theme.spacing.md} * -1)`,
         color: theme.colorScheme === 'dark' ? theme.white : theme.black,
-        borderBottom: `${rem(1)} solid ${
-            theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
-        }`,
+        borderBottom: `${rem(1)} solid transparent`,
     },
 
     links: {
@@ -30,8 +29,6 @@ export default createStyles((theme) => ({
     footer: {
         marginLeft: `calc(${theme.spacing.md} * -1)`,
         marginRight: `calc(${theme.spacing.md} * -1)`,
-        borderTop: `${rem(1)} solid ${
-            theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
-        }`,
+        borderTop: `${rem(1)} solid transparent`,
     },
 }));

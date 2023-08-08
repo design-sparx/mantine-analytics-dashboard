@@ -98,7 +98,7 @@ type NavigationProps = Omit<NavbarProps, 'children'>
 
 const Navigation = ({...others}: NavigationProps) => {
     const {classes} = useStyles()
-    const links = mockdata.map(m => <Box pl="md" mb="md" key={m.title}>
+    const links = mockdata.map(m => <Box pl={0} mb="md" key={m.title}>
         <Text tt="uppercase" color="dimmed" size="xs" pl="md" fw={500} mb="sm">{m.title}</Text>
         {m.links.map((item) => <LinksGroup {...item} key={item.label}/>)}
     </Box>)

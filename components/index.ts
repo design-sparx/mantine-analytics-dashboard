@@ -24,6 +24,7 @@ import OrdersTable from "@/components/OrdersTable/OrdersTable";
 import InvoicesTable from "@/components/InvoicesTable/InvoicesTable";
 import InvoiceDetailsCard from "@/components/InvoiceDetailsCard/InvoiceDetailsCard";
 import UserProfileButton from "@/components/UserButton/UserButton";
+import ThemeDrawer from "@/components/ThemeDrawer/ThemeDrawer";
 
 export {
     Logo,
@@ -51,5 +52,6 @@ export {
     OrdersTable,
     InvoicesTable,
     InvoiceDetailsCard,
-    UserProfileButton
+    UserProfileButton,
+    ThemeDrawer
 };
