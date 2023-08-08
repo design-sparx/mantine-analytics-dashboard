@@ -1,4 +1,4 @@
-import {Box, Code, Group, Navbar, NavbarProps, ScrollArea, Text} from '@mantine/core';
+import {Box, Code, Group, Navbar, NavbarProps, ScrollArea, Text, UnstyledButton} from '@mantine/core';
 import {
     IconAdjustmentsFilled,
     IconAlertOctagon,
@@ -97,18 +97,29 @@ const mockdata = [
 type NavigationProps = Omit<NavbarProps, 'children'>
 
 const Navigation = ({...others}: NavigationProps) => {
-    const {classes} = useStyles()
-    const links = mockdata.map(m => <Box pl={0} mb="md" key={m.title}>
-        <Text tt="uppercase" color="dimmed" size="xs" pl="md" fw={500} mb="sm">{m.title}</Text>
-        {m.links.map((item) => <LinksGroup {...item} key={item.label}/>)}
-    </Box>)
+    const {classes, theme} = useStyles()
+
+    const links = mockdata.map(m =>
+        <Box pl={0} mb="md" key={m.title}>
+            <Text tt="uppercase" size="xs" pl="md" fw={500} mb="sm" c="gray.2">{m.title}</Text>
+            {m.links.map((item) => <LinksGroup {...item} key={item.label}/>)}
+        </Box>
+    )
 
     return (
-        <Navbar width={{sm: 300}} p="md" className={classes.navbar} {...others}>
+        <Navbar width={{sm: 300}} px="md" className={classes.navbar} {...others}>
             <Navbar.Section className={classes.header}>
                 <Group position="apart">
                     <Logo size={36}/>
-                    <Code sx={{fontWeight: 700}}>v3.1.2</Code>
+                    <Code
+                        sx={{
+                            fontWeight: 700,
+                            backgroundColor: theme.colors[theme.primaryColor][9],
+                            color: theme.white
+                        }}
+                    >
+                        v1.0.0
+                    </Code>
                 </Group>
             </Navbar.Section>
 
@@ -121,6 +132,7 @@ const Navigation = ({...others}: NavigationProps) => {
                     email={UserProfileData.email}
                     image={UserProfileData.avatar}
                     name={UserProfileData.name}
+                    sx={{color: theme.white}}
                 />
             </Navbar.Section>
         </Navbar>

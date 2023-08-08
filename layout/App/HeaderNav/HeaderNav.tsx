@@ -7,7 +7,7 @@ const ICON_SIZE = 18;
 const HeaderNav = () => {
     return (
         <Group position="apart">
-            <TextInput placeholder="search" icon={<IconSearch size={ICON_SIZE}/>}/>
+            <TextInput placeholder="search" icon={<IconSearch size={ICON_SIZE}/>} sx={{width: 400}}/>
             <Group>
                 <LanguagePicker type="collapsed"/>
                 <ActionIcon>

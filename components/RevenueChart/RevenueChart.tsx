@@ -1,8 +1,14 @@
-import {Paper, Text} from "@mantine/core";
+import {ActionIcon, Group, Paper, PaperProps, Text, useMantineTheme} from "@mantine/core";
 import dynamic from 'next/dynamic';
+import {IconDotsVertical} from "@tabler/icons-react";
 
-const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
-const RevenueChart = () => {
+const Chart = dynamic(() => import('react-apexcharts'), {ssr: false});
+
+type RevenueChartProps = PaperProps
+
+const RevenueChart = ({...others}: RevenueChartProps) => {
+    const theme = useMantineTheme()
+
     const series = [{
         name: 'series1',
         data: [31, 40, 28, 51, 42, 109, 100]
@@ -32,11 +38,17 @@ const RevenueChart = () => {
                 format: 'dd/MM/yy HH:mm'
             },
         },
+        colors: [theme.colors[theme.primaryColor][5], theme.colors[theme.primaryColor][2]]
     }
 
     return (
-        <Paper>
-            <Text>Total revenue</Text>
+        <Paper {...others}>
+            <Group position="apart" mb="md">
+                <Text size="lg" fw={600}>Total revenue</Text>
+                <ActionIcon>
+                    <IconDotsVertical size={18}/>
+                </ActionIcon>
+            </Group>
             {/*@ts-ignore*/}
             <Chart options={options} series={series} type="area" height={350}/>
         </Paper>

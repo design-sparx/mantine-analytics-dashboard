@@ -10,12 +10,12 @@ const StatsCard = ({data, ...others}: StatsCardProps) => {
     const DiffIcon = diff > 0 ? IconArrowUpRight : IconArrowDownRight;
 
     return (
-        <Paper withBorder p="sm" radius="sm" {...others}>
+        <Paper {...others}>
             <Group position="apart">
                 <Text size="xs" color="dimmed" className={classes.title}>
                     {title}
                 </Text>
-                {period && <Badge>{period}</Badge>}
+                {period && <Badge variant="filled" radius="sm">{period}</Badge>}
             </Group>
 
             <Group align="flex-end" spacing="xs" mt={25}>

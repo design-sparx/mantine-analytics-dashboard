@@ -7,7 +7,7 @@ import {
     Divider,
     Grid,
     Group,
-    Paper,
+    Paper, PaperProps,
     rem,
     SimpleGrid,
     Stack,
@@ -31,6 +31,13 @@ import TrafficData from "../../mocks/Traffic.json";
 
 const PRIMARY_COL_HEIGHT = rem(300);
 
+const PAPER_PROPS: PaperProps = {
+    p: "md",
+    shadow: "md",
+    radius: "md",
+    sx: {height: '100%'}
+}
+
 function Analytics() {
     const theme = useMantineTheme();
     const SECONDARY_COL_HEIGHT = `calc(${PRIMARY_COL_HEIGHT} / 2 - ${theme.spacing.md} / 2)`;
@@ -44,42 +51,44 @@ function Analytics() {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
             <AppLayout>
-                <Container>
-                    <Paper>
-                        <Group>
-                            <Stack>
-                                <Title>Analytics dashboard</Title>
-                                <Text>Welcome back, Kelvin! We've missed you. 👋</Text>
-                            </Stack>
-                            <Group>
-                                <ActionIcon>
-                                    <IconRefresh/>
-                                </ActionIcon>
-                                <FilterDateMenu/>
+                <Container fluid>
+                    <Stack spacing="lg">
+                        <Paper sx={{backgroundColor: 'transparent'}}>
+                            <Group position="apart">
+                                <Stack spacing="sm">
+                                    <Title order={3}>Analytics dashboard</Title>
+                                    <Text>Welcome back, Kelvin!</Text>
+                                </Stack>
+                                <Group>
+                                    <ActionIcon>
+                                        <IconRefresh size={18}/>
+                                    </ActionIcon>
+                                    <FilterDateMenu/>
+                                </Group>
                             </Group>
-                        </Group>
-                    </Paper>
-                    <Divider/>
-                    <SimpleGrid cols={2} spacing="md" breakpoints={[{maxWidth: 'sm', cols: 1}]}>
-                        <SimpleGrid cols={2}>
-                            {StatsData?.data.map(s => <StatsCard key={s.title} data={s}/>)}
+                        </Paper>
+                        <Divider/>
+                        <SimpleGrid cols={2} spacing="md" breakpoints={[{maxWidth: 'sm', cols: 1}]}>
+                            <SimpleGrid cols={2}>
+                                {StatsData?.data.map(s => <StatsCard key={s.title} data={s} {...PAPER_PROPS}/>)}
+                            </SimpleGrid>
+                            <MobileDesktopChart {...PAPER_PROPS}/>
                         </SimpleGrid>
-                        <MobileDesktopChart/>
-                    </SimpleGrid>
-                    <Grid>
-                        <Grid.Col lg={8}>
-                            <MapChart/>
-                        </Grid.Col>
-                        <Grid.Col lg={4}>
-                            <SalesChart/>
-                        </Grid.Col>
-                        <Grid.Col lg={4}>
-                            <LanguageTable data={LanguagesData.slice(0, 6)}/>
-                        </Grid.Col>
-                        <Grid.Col lg={8}>
-                            <TrafficTable data={TrafficData.slice(0, 6)}/>
-                        </Grid.Col>
-                    </Grid>
+                        <Grid>
+                            <Grid.Col lg={8}>
+                                <MapChart {...PAPER_PROPS}/>
+                            </Grid.Col>
+                            <Grid.Col lg={4}>
+                                <SalesChart {...PAPER_PROPS}/>
+                            </Grid.Col>
+                            <Grid.Col lg={4}>
+                                <LanguageTable data={LanguagesData.slice(0, 6)} {...PAPER_PROPS}/>
+                            </Grid.Col>
+                            <Grid.Col lg={8}>
+                                <TrafficTable data={TrafficData.slice(0, 6)} {...PAPER_PROPS}/>
+                            </Grid.Col>
+                        </Grid>
+                    </Stack>
                 </Container>
             </AppLayout>
         </>

@@ -23,7 +23,7 @@ const UserProfileButton = ({image, name, email, icon, ...others}: UserProfileBut
                         {name}
                     </Text>
 
-                    <Text color="dimmed" size="xs">
+                    <Text size="xs">
                         {email}
                     </Text>
                 </div>

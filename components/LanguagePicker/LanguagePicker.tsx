@@ -54,8 +54,8 @@ const LanguagePicker = ({type}: LanguagePickerProps) => {
             onOpen={() => setOpened(true)}
             onClose={() => setOpened(false)}
             radius="sm"
-            width="target"
             withinPortal
+            width={200}
         >
             <Menu.Target>
                 <UnstyledButton className={classes.control}>

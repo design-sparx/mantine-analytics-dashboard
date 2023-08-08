@@ -1,11 +1,11 @@
 import {Button, Menu} from "@mantine/core";
-import React from "react";
+import {IconChevronDown} from "@tabler/icons-react";
 
 const FilterDateMenu = () => {
     return (
         <Menu shadow="md" width={120}>
             <Menu.Target>
-                <Button>Today: July 25</Button>
+                <Button variant="subtle" rightIcon={<IconChevronDown size={14}/>}>Today: July 25</Button>
             </Menu.Target>
 
             <Menu.Dropdown>
