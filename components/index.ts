@@ -25,6 +25,10 @@ import InvoicesTable from "@/components/InvoicesTable/InvoicesTable";
 import InvoiceDetailsCard from "@/components/InvoiceDetailsCard/InvoiceDetailsCard";
 import UserProfileButton from "@/components/UserButton/UserButton";
 import ThemeDrawer from "@/components/ThemeDrawer/ThemeDrawer";
+import PageHeader from "@/components/PageHeader/PageHeader";
+import RouterTransition from "@/components/RouterTransition/RouterTransition"
+import ProfileStatsCard from "@/components/ProfileStatsCard/ProfileStatsCard";
+import Faqs from "@/components/Faqs/Faqs";
 
 export {
     Logo,
@@ -53,5 +57,9 @@ export {
     InvoicesTable,
     InvoiceDetailsCard,
     UserProfileButton,
-    ThemeDrawer
+    ThemeDrawer,
+    PageHeader,
+    RouterTransition,
+    ProfileStatsCard,
+    Faqs
 };
