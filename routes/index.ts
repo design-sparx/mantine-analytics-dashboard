@@ -10,7 +10,7 @@ const ROOTS_INVOICES = '/invoices'
 const ROOTS_TASKS = '/tasks'
 const ROOTS_CALENDAR = '/calendar'
 const ROOTS_AUTH = '/auth'
-const ROOTS_ERRORS = '/errors'
+const ROOTS_ERRORS = '/'
 const ROOTS_START = '/start'
 const ROOTS_DOCS = '/docs'
 const ROOTS_CHANGELOG = '/changelog'
@@ -67,7 +67,7 @@ export const PATH_ERROR = {
     root: ROOTS_ERRORS,
     error403: path(ROOTS_ERRORS, '/403'),
     error404: path(ROOTS_ERRORS, '/404'),
-    error500: path(ROOTS_AUTH, '/5000'),
+    error500: path(ROOTS_ERRORS, '/500'),
 }
 
 export const PATH_START = {
