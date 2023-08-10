@@ -21,7 +21,7 @@ const RouterTransition = () => {
         };
     }, [router.asPath]);
 
-    return <NavigationProgress autoReset={true}/>;
+    return <NavigationProgress autoReset={true} color="dark.8"/>;
 }
 
 export default RouterTransition

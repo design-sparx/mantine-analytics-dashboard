@@ -10,7 +10,8 @@ import {
     Image,
     MantineColor,
     Progress,
-    Text
+    Stack,
+    Text, Tooltip
 } from "@mantine/core";
 
 const avatars = [
@@ -44,7 +45,7 @@ const StatusBadge = ({status}: StatusProps) => {
             color = "dark"
             break;
         case 'active':
-            color = "blue"
+            color = "green"
             break;
         case 'cancelled':
             color = "gray"
@@ -62,10 +63,10 @@ const StatusBadge = ({status}: StatusProps) => {
             color = "indigo"
             break;
         case 'pending':
-            color = "yellow"
+            color = "yellow.8"
             break;
         case 'suspended':
-            color = "orange"
+            color = "red"
             break;
         case 'on hold':
             color = "pink"
@@ -75,7 +76,7 @@ const StatusBadge = ({status}: StatusProps) => {
     }
 
     return (
-        <Badge color={color} variant="filled">{status}</Badge>
+        <Badge color={color} variant="filled" radius="sm">{status}</Badge>
     )
 }
 
@@ -89,48 +90,59 @@ type ProjectsCardProps = {
 } & Omit<CardProps, 'children'>
 
 const ProjectsCard = (props: ProjectsCardProps) => {
-    const {id, status, completion, description, title, image} = props
+    const {id, status, completion, description, title, image, ...others} = props
 
     return (
-        <Card withBorder radius="md">
-            <Flex justify="space-between" align="center">
-                <Flex align="center" gap="xs">
-                    {image && <Image src={image} width={24} height={24} radius="50%"/>}
-                    <Text fz="lg" fw={500}>
-                        {title}
-                    </Text>
+        <Card {...others}>
+            <Stack spacing="sm">
+                <Flex justify="space-between" align="center">
+                    <Flex align="center" gap="xs">
+                        {image && <Image src={image} width={20} height={20} radius="50%"/>}
+                        <Text fz="md" fw={600}>
+                            {title}
+                        </Text>
+                    </Flex>
+                    <StatusBadge status={status}/>
                 </Flex>
-                <StatusBadge status={status}/>
-            </Flex>
-            <Text fz="sm" c="dimmed" lineClamp={3} mt="md">
-                {description}
-            </Text>
-
-            <Text c="dimmed" fz="sm" mt="md">
-                Tasks completed:{' '}
-                <Text
-                    span
-                    fw={500}
-                    sx={(theme) => ({color: theme.colorScheme === 'dark' ? theme.white : theme.black})}
-                >
-                    {completion}/100
+                <Text fz="sm" lineClamp={3}>
+                    {description}
                 </Text>
-            </Text>
-            <Progress value={completion} mt={5}/>
 
-            <Avatar.Group spacing="sm">
-                <Avatar src={avatars[0]} radius="xl"/>
-                <Avatar src={avatars[1]} radius="xl"/>
-                <Avatar src={avatars[2]} radius="xl"/>
-                <Avatar radius="xl">+5</Avatar>
-            </Avatar.Group>
-            <Card.Section>
-                <Divider/>
-            </Card.Section>
-            <Group>
-                <Button>Share</Button>
-                <Button>Learn More</Button>
-            </Group>
+                <Text fz="sm">
+                    Tasks completed:{' '}
+                    <Text
+                        span
+                        fw={500}
+                        sx={(theme) => ({color: theme.colorScheme === 'dark' ? theme.white : theme.black})}
+                    >
+                        {completion}/100
+                    </Text>
+                </Text>
+
+                <Progress value={completion} mt={5} size="lg"/>
+
+                <Avatar.Group spacing="sm">
+                    <Tooltip label="Anne Doe">
+                        <Avatar src={avatars[0]} size="md" radius="xl"/>
+                    </Tooltip>
+                    <Tooltip label="Alex Doe">
+                        <Avatar src={avatars[1]} size="md" radius="xl"/>
+                    </Tooltip>
+                    <Tooltip label="Abby Doe">
+                        <Avatar src={avatars[2]} size="md" radius="xl"/>
+                    </Tooltip>
+                    <Tooltip label="and 5 others">
+                        <Avatar size="md" radius="xl">+5</Avatar>
+                    </Tooltip>
+                </Avatar.Group>
+                <Card.Section>
+                    <Divider/>
+                </Card.Section>
+                <Group spacing="sm">
+                    <Button compact variant="subtle">Share</Button>
+                    <Button compact variant="subtle">Learn More</Button>
+                </Group>
+            </Stack>
         </Card>
     );
 };

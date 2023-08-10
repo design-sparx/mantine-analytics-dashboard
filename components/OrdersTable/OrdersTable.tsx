@@ -32,7 +32,7 @@ const StatusBadge = ({status}: StatusBadgeProps) => {
     )
 }
 
-const PAGE_SIZES = [5, 10, 20];
+const PAGE_SIZES = [10, 15, 20];
 
 type OrdersTableProps = {
     data: Orders[]
@@ -87,6 +87,7 @@ const OrdersTable = ({data}: OrdersTableProps) => {
             <DataTable
                 minHeight={200}
                 verticalSpacing="sm"
+                striped={true}
                 columns={[
                     {
                         accessor: 'id',

@@ -11,7 +11,7 @@ import {
     Stack,
     Text,
     TextInput,
-    Tooltip
+    Tooltip, useMantineTheme
 } from "@mantine/core"
 import sortBy from 'lodash/sortBy';
 import {Invoices, InvoiceStatus} from "@/types";
@@ -20,7 +20,7 @@ import {IconCloudDownload, IconEye, IconSearch} from "@tabler/icons-react";
 import {useRouter} from "next/router";
 import {PATH_INVOICES} from "@/routes";
 
-const PAGE_SIZES = [5, 10, 20];
+const PAGE_SIZES = [10, 15, 20];
 
 const ICON_SIZE = 18;
 
@@ -33,7 +33,7 @@ const StatusBadge = ({status}: StatusBadgeProps) => {
 
     switch (status) {
         case 'sent':
-            color = "orange"
+            color = "orange.8"
             break;
         case 'suspended':
             color = "gray"
@@ -61,6 +61,7 @@ type InvoicesTableProps = {
 }
 
 const InvoicesTable = ({data}: InvoicesTableProps) => {
+    const theme = useMantineTheme()
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
     const [selectedRecords, setSelectedRecords] = useState<Invoices[]>([]);
@@ -128,7 +129,7 @@ const InvoicesTable = ({data}: InvoicesTableProps) => {
                                         alt={`${firstName} ${lastName}`}
                                         variant="filled"
                                         radius="xl"
-                                        color="blue"
+                                        color={theme.colors[theme.primaryColor][7]}
                                     >
                                         {Array.from(firstName)[0]}{Array.from(lastName)[0]}
                                     </Avatar>

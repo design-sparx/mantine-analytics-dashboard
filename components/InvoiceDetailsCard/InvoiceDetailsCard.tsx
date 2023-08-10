@@ -1,13 +1,25 @@
 import React from 'react';
 import {Invoices} from "@/types";
-import {Button, Divider, Flex, Menu, Paper, Stack, Table, Text} from "@mantine/core";
+import {
+    Button,
+    Divider,
+    Flex,
+    Menu,
+    Paper,
+    PaperProps,
+    Stack,
+    Table,
+    Text,
+    TextProps,
+    useMantineTheme
+} from "@mantine/core";
 import {IconCloudDownload, IconMail, IconPrinter, IconSend, IconShare} from "@tabler/icons-react";
 
 const ICON_SIZE = 16
 
 type InvoiceDetailsProps = {
     data?: Invoices
-}
+} & PaperProps
 
 const elements = [
     {description: 'Front and rear brake cables', unitPrice: 100, amount: 100},
@@ -15,7 +27,16 @@ const elements = [
     {description: 'Labor - 3hrs', unitPrice: 15, amount: 15},
 ];
 
-const InvoiceDetails = ({data}: InvoiceDetailsProps) => {
+const TEXT_PROPS: TextProps = {
+    fz: "sm"
+}
+
+const InvoiceDetails = ({data, ...others}: InvoiceDetailsProps) => {
+    const theme = useMantineTheme()
+    const LINK_PROPS: TextProps = {
+        color: theme.colors[theme.primaryColor][7]
+    }
+
     const rows = elements.map((element) => (
         <tr key={element.description}>
             <td>{element.description}</td>
@@ -25,15 +46,15 @@ const InvoiceDetails = ({data}: InvoiceDetailsProps) => {
     ));
 
     return (
-        <Paper>
+        <Paper {...others}>
             {data ?
                 <Stack>
-                    <Flex gap="sm">
-                        <Button leftIcon={<IconCloudDownload size={ICON_SIZE}/>}>Download</Button>
-                        <Button leftIcon={<IconPrinter size={ICON_SIZE}/>}>Print</Button>
+                    <Flex gap="sm" justify="flex-end">
+                        <Button leftIcon={<IconCloudDownload size={ICON_SIZE}/>} variant="subtle">Download</Button>
+                        <Button leftIcon={<IconPrinter size={ICON_SIZE}/>} variant="subtle">Print</Button>
                         <Menu shadow="md" width={200}>
                             <Menu.Target>
-                                <Button leftIcon={<IconShare size={ICON_SIZE}/>}>Share</Button>
+                                <Button leftIcon={<IconShare size={ICON_SIZE}/>} variant="subtle">Share</Button>
                             </Menu.Target>
 
                             <Menu.Dropdown>
@@ -42,33 +63,47 @@ const InvoiceDetails = ({data}: InvoiceDetailsProps) => {
                             </Menu.Dropdown>
                         </Menu>
                     </Flex>
-                    <Text>Hello {data.full_name},</Text>
-                    <Text>This is the invoice for a payment of ${data.amount} you made to {data.client_company}</Text>
-                    <Flex>
-                        <Stack>
-                            <Text>Payment No</Text>
-                            <Text>{data.id}</Text>
+                    <Text  {...TEXT_PROPS}>Hello {data.full_name},</Text>
+                    <Text  {...TEXT_PROPS}>This is the invoice for a payment of ${data.amount} you made
+                        to {data.client_company}</Text>
+                    <Flex justify="space-between">
+                        <Stack spacing={4}>
+                            <Text {...TEXT_PROPS}>Payment No</Text>
+                            <Text {...TEXT_PROPS}>{data.id}</Text>
                         </Stack>
-                        <Stack>
-                            <Text>Payment Date</Text>
-                            <Text>{data.issue_date}</Text>
+                        <Stack spacing={4}>
+                            <Text {...TEXT_PROPS}>Payment Date</Text>
+                            <Text {...TEXT_PROPS}>{data.issue_date}</Text>
                         </Stack>
                     </Flex>
                     <Divider/>
-                    <Flex>
-                        <Stack>
-                            <Text>Client</Text>
-                            <Text>{data.client_name}</Text>
-                            <Text>{data.client_address}</Text>
-                            <Text>{data.client_country}</Text>
-                            <Text>{data.client_email}</Text>
+                    <Flex justify="space-between">
+                        <Stack spacing={4}>
+                            <Text {...TEXT_PROPS}>Client</Text>
+                            <Text {...TEXT_PROPS}>{data.client_name}</Text>
+                            <Text {...TEXT_PROPS}>{data.client_address}</Text>
+                            <Text {...TEXT_PROPS}>{data.client_country}</Text>
+                            <Text
+                                component="a"
+                                href={`mailto:${data.client_email}`}
+                                {...TEXT_PROPS}
+                                {...LINK_PROPS}
+                            >
+                                {data.client_email}</Text>
                         </Stack>
-                        <Stack>
-                            <Text>Payment to</Text>
-                            <Text>{data.client_company}</Text>
-                            <Text>{data.address}</Text>
-                            <Text>{data.country}</Text>
-                            <Text>{data.email}</Text>
+                        <Stack spacing={4} sx={{textAlign: 'end'}}>
+                            <Text {...TEXT_PROPS}>Payment to</Text>
+                            <Text {...TEXT_PROPS}>{data.client_company}</Text>
+                            <Text {...TEXT_PROPS}>{data.address}</Text>
+                            <Text {...TEXT_PROPS}>{data.country}</Text>
+                            <Text
+                                component="a"
+                                href={`mailto:${data.email}`}
+                                {...TEXT_PROPS}
+                                {...LINK_PROPS}
+                            >
+                                {data.email}
+                            </Text>
                         </Stack>
                     </Flex>
                     <Divider/>
@@ -108,7 +143,8 @@ const InvoiceDetails = ({data}: InvoiceDetailsProps) => {
                         </tr>
                         </tbody>
                     </Table>
-                    <Text>Extra note: Please send all items at the same time to the shipping address. Thanks in advance.</Text>
+                    <Text ta="center" fz="sm" c="dimmed" mt="md">Extra note: Please send all items at the same time to the
+                        shipping address. Thanks in advance.</Text>
                 </Stack> :
                 <p>Invoice not selected</p>
             }
