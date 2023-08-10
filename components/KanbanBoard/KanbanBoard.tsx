@@ -13,7 +13,7 @@ import {arrayMove, SortableContext} from "@dnd-kit/sortable";
 import {KanbanCard, KanbanColumn} from "@/components"
 import {Id, KanbanColumn as IColumn, KanbanTask as ITask} from "@/types";
 import {IconPlus} from "@tabler/icons-react";
-import {Box, Button, Portal} from "@mantine/core";
+import {Box, Button, Portal, ScrollArea} from "@mantine/core";
 
 const defaultCols: IColumn[] = [
     {
@@ -115,11 +115,8 @@ const defaultTasks: ITask[] = [
 const KanbanBoard = () => {
     const [columns, setColumns] = useState<IColumn[]>(defaultCols);
     const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
-
     const [tasks, setTasks] = useState<ITask[]>(defaultTasks);
-
     const [activeColumn, setActiveColumn] = useState<IColumn | null>(null);
-
     const [activeTask, setActiveTask] = useState<ITask | null>(null);
 
     const sensors = useSensors(
@@ -131,8 +128,9 @@ const KanbanBoard = () => {
     );
 
     return (
-        <Box
-            component="div"
+        <ScrollArea
+            h="100%"
+            w="100%"
             sx={{
                 margin: 'auto',
                 display: 'flex',
@@ -167,16 +165,12 @@ const KanbanBoard = () => {
                         </SortableContext>
                     </Box>
                     <Button
-                        p="md"
                         leftIcon={<IconPlus size={18}/>}
                         sx={{
-                            height: '60px',
                             width: '350px',
                             minWidth: '350px',
-                            display: 'flex',
-                            gap: '.5rem'
                         }}
-                        variant="light"
+                        variant="outline"
                         onClick={() => {
                             createNewColumn();
                         }}
@@ -210,7 +204,7 @@ const KanbanBoard = () => {
                     </DragOverlay>
                 </Portal>
             </DndContext>
-        </Box>
+        </ScrollArea>
     );
 
     function createTask(columnId: Id) {

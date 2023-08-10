@@ -2,14 +2,14 @@ import {useState} from "react";
 import {Id, KanbanTask as ITask} from "../../types";
 import {useSortable} from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities";
-import {IconMessageCircle, IconTrash} from "@tabler/icons-react";
+import {IconDots, IconEdit, IconMessageCircle, IconTrash} from "@tabler/icons-react";
 import {
     ActionIcon,
     Avatar,
     Box,
-    Button,
-    Flex,
-    Paper,
+    Button, Card, Divider,
+    Flex, Menu,
+    Paper, PaperProps,
     rem,
     Stack,
     Text,
@@ -25,6 +25,14 @@ const AVATARS = [
     'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
     'https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
 ];
+
+const PAPER_PROPS: PaperProps = {
+    p: "md",
+    shadow: "md",
+    radius: "md",
+}
+
+const ICON_SIZE = 18
 
 type Props = {
     task: ITask;
@@ -69,26 +77,30 @@ const KanbanCard = (props: Props) => {
             <Box
                 ref={setNodeRef}
                 style={style}
+                p="sm"
                 sx={{
                     backgroundColor: theme.colors.dark[0],
                     opacity: .3,
-                    minHeight: '100px',
+                    minHeight: rem(100),
                     display: 'flex',
                     textAlign: 'left',
                     cursor: 'grab',
                     position: 'relative',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    borderRadius: theme.radius.md
                 }}
-                p="sm"
             />
         );
     }
 
     if (editMode) {
         return (
-            <Box
+            <Paper
                 component="div"
                 ref={setNodeRef}
+                p="md"
+                shadow="md"
+                radius="md"
                 style={style}
                 {...attributes}
                 {...listeners}
@@ -99,18 +111,17 @@ const KanbanCard = (props: Props) => {
                     cursor: 'grab',
                     position: 'relative',
                     alignItems: 'center',
-                    border: `2px solid ${theme.colors.blue[5]}`,
-                    borderRadius: theme.radius.sm
+                    borderRadius: theme.radius.md,
+                    backgroundColor: theme.colors[theme.primaryColor][0]
                 }}
-                p="sm"
             >
                 <Textarea
                     sx={{
-                        height: '90%',
                         border: 'none',
                         outline: 'none',
-                        width: rem(296),
+                        width: '100%'
                     }}
+                    mx="auto"
                     value={task.content}
                     autoFocus
                     placeholder="Task content here"
@@ -122,34 +133,24 @@ const KanbanCard = (props: Props) => {
                     }}
                     onChange={(e) => updateTask(task.id, e.target.value)}
                 />
-            </Box>
+            </Paper>
         );
     }
 
     return (
-        <Paper
+        <Card
             ref={setNodeRef}
             style={style}
-            p="sm"
-            withBorder
-            sx={{
-                minHeight: '100px',
-                textAlign: 'left',
-                cursor: 'grab',
-                position: 'relative',
-            }}
-            onClick={toggleEditMode}
             className={classes.card}
-            onMouseEnter={() => {
-                setMouseIsOver(true);
-            }}
-            onMouseLeave={() => {
-                setMouseIsOver(false);
+            shadow="md"
+            radius="md"
+            sx={{
+                cursor: 'grab',
             }}
             {...attributes}
             {...listeners}
         >
-            <Stack>
+            <Card.Section p="sm">
                 <Flex>
                     <Text
                         my="auto"
@@ -158,39 +159,65 @@ const KanbanCard = (props: Props) => {
                     >
                         {task.content}
                     </Text>
-
-                    {mouseIsOver && (
-                        <Tooltip label="Delete card">
-                            <ActionIcon
-                                sx={{
-                                    position: 'absolute',
-                                    right: rem(7),
-                                    bottom: rem(7)
-                                }}
-                                onClick={() => {
-                                    deleteTask(task.id);
-                                }}
-                            >
-                                <IconTrash size={18}/>
+                    <Menu shadow="md" position="left-start" width={200}>
+                        <Menu.Target>
+                            <ActionIcon>
+                                <IconDots size={ICON_SIZE}/>
                             </ActionIcon>
-                        </Tooltip>
-                    )}
+                        </Menu.Target>
+
+                        <Menu.Dropdown>
+                            <Tooltip label="Rename task">
+                                <Menu.Item
+                                    icon={<IconEdit size={ICON_SIZE}/>}
+                                    onClick={toggleEditMode}
+                                >
+                                    Rename
+                                </Menu.Item>
+                            </Tooltip>
+                            <Tooltip label="Delete task">
+                                <Menu.Item
+                                    icon={<IconMessageCircle size={ICON_SIZE}/>}
+                                    onClick={() => {
+                                        if (confirm('Are you sure')) {
+                                            deleteTask(task.id);
+                                        }
+                                    }}
+                                >
+                                    Delete
+                                </Menu.Item>
+                            </Tooltip>
+                        </Menu.Dropdown>
+                    </Menu>
                 </Flex>
-                <Flex gap="md" align="center">
-                    <Avatar.Group spacing="sm">
-                        <Avatar src={AVATARS[0]} size="md" radius="xl"/>
-                        <Avatar src={AVATARS[1]} size="md" radius="xl"/>
-                        <Avatar src={AVATARS[2]} size="md" radius="xl"/>
-                        <Avatar size="md" radius="xl">+5</Avatar>
+            </Card.Section>
+            <Card.Section>
+                <Divider/>
+            </Card.Section>
+            <Card.Section p="sm">
+                <Flex gap="md" align="center" justify="space-between">
+                    <Avatar.Group spacing="xs">
+                        <Tooltip label="Anne Doe">
+                            <Avatar src={AVATARS[0]} size="sm" radius="xl"/>
+                        </Tooltip>
+                        <Tooltip label="Alex Doe">
+                            <Avatar src={AVATARS[1]} size="sm" radius="xl"/>
+                        </Tooltip>
+                        <Tooltip label="Abby Doe">
+                            <Avatar src={AVATARS[2]} size="sm" radius="xl"/>
+                        </Tooltip>
+                        <Tooltip label="and 5 others">
+                            <Avatar size="sm" radius="xl">+5</Avatar>
+                        </Tooltip>
                     </Avatar.Group>
                     {task?.comments !== undefined &&
-                        <Button rightIcon={<IconMessageCircle size={18}/>} size="sm" variant="white" radius="md">
+                        <Button rightIcon={<IconMessageCircle size={ICON_SIZE}/>} compact variant="subtle" radius="md">
                             {task.comments}
                         </Button>
                     }
                 </Flex>
-            </Stack>
-        </Paper>
+            </Card.Section>
+        </Card>
     );
 }
 

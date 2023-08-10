@@ -2,21 +2,21 @@ import {SortableContext, useSortable} from "@dnd-kit/sortable";
 import {Id, KanbanColumn as IColumn, KanbanTask as ITask} from "../../types";
 import {CSS} from "@dnd-kit/utilities";
 import {useMemo, useState} from "react";
-import {IconCirclePlus, IconTrash} from "@tabler/icons-react";
+import {IconDots, IconEdit, IconPlus, IconTrash} from "@tabler/icons-react";
 import {KanbanCard} from "@/components";
 import {
     ActionIcon,
-    Badge,
-    Box,
+    Badge, Button,
     Flex,
+    Menu,
     Paper,
+    PaperProps,
     rem,
     ScrollArea,
     Stack,
     Text,
     TextInput,
     Tooltip,
-    UnstyledButton,
     useMantineTheme
 } from "@mantine/core";
 
@@ -26,7 +26,6 @@ type Props = {
     column: IColumn;
     deleteColumn: (id: Id) => void;
     updateColumn: (id: Id, title: string) => void;
-
     createTask: (columnId: Id) => void;
     updateTask: (id: Id, content: string) => void;
     deleteTask: (id: Id) => void;
@@ -45,6 +44,18 @@ const KanbanColumn = (props: Props) => {
         updateTask
     } = props;
     const [editMode, setEditMode] = useState(false);
+
+    const PAPER_PROPS: PaperProps = {
+        radius: "md",
+        sx: {
+            width: '350px',
+            height: rem(600),
+            maxHeight: rem(600),
+            display: 'flex',
+            flexDirection: 'column',
+            backgroundColor: 'transparent'
+        }
+    }
 
     const tasksIds = useMemo(() => {
         return tasks.map((task) => task.id);
@@ -78,36 +89,26 @@ const KanbanColumn = (props: Props) => {
                 ref={setNodeRef}
                 style={style}
                 sx={{
-                    width: '350px',
-                    height: '500px',
-                    maxHeight: '500px',
+                    backgroundColor: theme.colors.dark[0],
+                    opacity: .3,
+                    width: rem(350),
+                    height: rem(500),
+                    maxHeight: rem(500),
                     display: 'flex',
                     flexDirection: 'column',
-                    border: `3px solid ${theme.colors.pink[5]}`
                 }}
             ></Paper>
         );
     }
 
     return (
-        <Box
+        <Paper
             ref={setNodeRef}
             style={style}
-            p={4}
-            sx={{
-                width: '350px',
-                height: rem(600),
-                maxHeight: rem(600),
-                display: 'flex',
-                flexDirection: 'column',
-                background: theme.colors.gray[1]
-            }}
+            {...PAPER_PROPS}
         >
             {/* Column title */}
             <Flex
-                onClick={() => {
-                    setEditMode(true);
-                }}
                 p="xs"
                 align="center"
                 justify="space-between"
@@ -117,16 +118,17 @@ const KanbanColumn = (props: Props) => {
                 {...attributes}
                 {...listeners}
             >
-                <Flex gap="sm" align="center">
-                    <Badge
-                        variant="filled"
-                        px="sm"
-                        py="xs"
-                        radius="sm"
-                    >
-                        {tasks.length}
-                    </Badge>
-                    {!editMode && <Text>{column.title}</Text>}
+                <Flex gap="md" align="center">
+                    {!editMode && <>
+                        <Text fz="lg" fw={600}>{column.title}</Text>
+                        <Badge
+                            variant="dot"
+                            radius="sm"
+                            size="lg"
+                        >
+                            {tasks.length}
+                        </Badge>
+                    </>}
                     {editMode && (
                         <TextInput
                             className="bg-black focus:border-rose-500 border rounded outline-none px-2"
@@ -143,22 +145,39 @@ const KanbanColumn = (props: Props) => {
                         />
                     )}
                 </Flex>
-                <Tooltip label="Delete column">
-                    <ActionIcon
-                        onClick={() => {
-                            deleteColumn(column.id);
-                        }}
-                    >
-                        <IconTrash size={ICON_SIZE}/>
-                    </ActionIcon>
-                </Tooltip>
+                <Menu shadow="md" width={200}>
+                    <Menu.Target>
+                        <ActionIcon><IconDots size={ICON_SIZE}/></ActionIcon>
+                    </Menu.Target>
+
+                    <Menu.Dropdown>
+                        <Menu.Item
+                            icon={<IconEdit size={14}/>}
+                            onClick={() => {
+                                setEditMode(true);
+                            }}
+                        >
+                            Rename
+                        </Menu.Item>
+                        <Menu.Item
+                            icon={<IconTrash size={14}/>}
+                            onClick={() => {
+                                if (confirm('Are you sure?')) {
+                                    deleteColumn(column.id);
+                                }
+                            }}
+                        >
+                            Delete
+                        </Menu.Item>
+                    </Menu.Dropdown>
+                </Menu>
             </Flex>
 
             {/* Column task container */}
             <ScrollArea
                 h={500}
                 sx={{flexGrow: 1, overflowX: 'hidden', overflowY: 'auto'}}>
-                <Stack spacing="sm" px="sm">
+                <Stack spacing="sm" px="xs">
                     <SortableContext items={tasksIds}>
                         {tasks.map((task) => (
                             <KanbanCard
@@ -172,27 +191,21 @@ const KanbanColumn = (props: Props) => {
                 </Stack>
             </ScrollArea>
             {/* Column footer */}
-            <UnstyledButton
+            <Button
+                mt="md"
+                mx="sm"
                 p="xs"
-                sx={{
-                    display: 'flex',
-                    gap: rem(7),
-                    alignItems: 'center',
-                    border: `1px solid ${theme.colors.blue[5]}`,
-                    justifyContent: 'flex-start',
-                    backgroundColor: theme.colors.blue[6],
-                    color: theme.white,
-                    borderRadius: theme.radius.sm,
-                    fontWeight: 500
-                }}
+                radius="sm"
+                variant="outline"
+                sx={{boxShadow: theme.shadows.md}}
+                leftIcon={<IconPlus size={ICON_SIZE}/>}
                 onClick={() => {
                     createTask(column.id);
                 }}
             >
-                <IconCirclePlus size={ICON_SIZE}/>
                 Add task
-            </UnstyledButton>
-        </Box>
+            </Button>
+        </Paper>
     );
 }
 
