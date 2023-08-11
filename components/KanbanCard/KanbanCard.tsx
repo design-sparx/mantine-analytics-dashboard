@@ -81,7 +81,7 @@ const KanbanCard = (props: Props) => {
                 This task will be deleted
             </Text>
         ),
-        labels: { confirm: 'Delete bucket', cancel: "No don't delete it" },
+        labels: {confirm: 'Delete bucket', cancel: "No don't delete it"},
         onCancel: () => console.log('Cancel'),
         onConfirm: () => {
             deleteTask(task.id);
@@ -95,8 +95,8 @@ const KanbanCard = (props: Props) => {
                 style={style}
                 p="sm"
                 sx={{
-                    backgroundColor: theme.colors.dark[0],
-                    opacity: .3,
+                    backgroundColor: theme.colorScheme === "dark" ? theme.colors.gray[0] : theme.colors.dark[0],
+                    opacity: theme.colorScheme === "dark" ? .7 : .3,
                     minHeight: rem(100),
                     display: 'flex',
                     textAlign: 'left',

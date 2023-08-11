@@ -50,7 +50,12 @@ const RevenueChart = ({...others}: RevenueChartProps) => {
                 format: 'dd/MM/yy HH:mm'
             },
         },
-        colors: [theme.colors[theme.primaryColor][5], theme.colors[theme.primaryColor][2]]
+        colors: [theme.colors[theme.primaryColor][5], theme.colors[theme.primaryColor][2]],
+        legend: {
+            labels: {
+                colors: [theme.colorScheme === "dark" ? theme.white : theme.black]
+            }
+        }
     }
 
     return (

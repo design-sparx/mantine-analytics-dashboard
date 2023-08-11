@@ -17,7 +17,7 @@ const useStyles = createStyles((theme) => ({
         fontWeight: 900,
         fontSize: rem(220),
         lineHeight: 1,
-        color: theme.colors.dark[4],
+        color: theme.colors.dark[2],
 
         [theme.fn.smallerThan('sm')]: {
             fontSize: rem(120),
@@ -53,11 +53,11 @@ function Error500() {
                 <Stack>
                     <div className={classes.label}>500</div>
                     <Title className={classes.title}>Sorry, unexpected error..</Title>
-                    <Text fz="lg" ta="center" className={classes.description}>
+                    <Text fz="md" ta="center" className={classes.description}>
                         Our servers could not handle your request. Don't worry, our development team was already
                         notified. Try refreshing the page.
                     </Text>
-                    <Group position="center">
+                    <Group position="center" mt="md">
                         <Button size="md" leftIcon={<IconRefresh size={18}/>} onClick={() => router.push(PATH_ERROR.error500)}>
                             Refresh Page
                         </Button>

@@ -43,14 +43,31 @@ const MobileDesktopChart = ({...others}: MobileDesktopChartProps) => {
                             fontSize: '13px',
                             fontWeight: 900
                         }
-                    }
-                }
+                    },
+                },
             },
         },
         xaxis: {
             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+            labels: {
+                style: {
+                    colors: theme.colorScheme === "dark" ? theme.white : theme.black
+                }
+            }
         },
-        colors: [theme.colors[theme.primaryColor][8], theme.colors[theme.primaryColor][2]]
+        yaxis: {
+            labels: {
+                style: {
+                    colors: theme.colorScheme === "dark" ? theme.white : theme.black
+                }
+            }
+        },
+        colors: [theme.colors[theme.primaryColor][8], theme.colors[theme.primaryColor][2]],
+        legend: {
+            labels: {
+                colors: [theme.colorScheme === "dark" ? theme.white : theme.black]
+            }
+        }
     }
 
     return (

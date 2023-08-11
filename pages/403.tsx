@@ -16,7 +16,7 @@ const useStyles = createStyles((theme) => ({
         fontWeight: 900,
         fontSize: rem(220),
         lineHeight: 1,
-        color: theme.colors.dark[4],
+        color: theme.colors.dark[2],
 
         [theme.fn.smallerThan('sm')]: {
             fontSize: rem(120),
@@ -52,11 +52,11 @@ function Error403() {
                 <Stack>
                     <div className={classes.label}>403</div>
                     <Title className={classes.title}>Access Denied.</Title>
-                    <Text fz="lg" ta="center" className={classes.description}>
+                    <Text fz="md" ta="center" className={classes.description}>
                         The page you're trying to access has restricted access. Please refer to your system
                         administrator.
                     </Text>
-                    <Group position="center">
+                    <Group position="center" mt="md">
                         <Button
                             size="md"
                             leftIcon={<IconChevronLeft size={18}/>}

@@ -18,7 +18,7 @@ const useStyles = createStyles((theme) => ({
         fontWeight: 900,
         fontSize: rem(220),
         lineHeight: 1,
-        color: theme.colors.dark[4],
+        color: theme.colors.dark[2],
 
         [theme.fn.smallerThan('sm')]: {
             fontSize: rem(120),
@@ -54,11 +54,11 @@ function Error404() {
                 <Stack>
                     <div className={classes.label}>404</div>
                     <Title className={classes.title}>You have found a secret place.</Title>
-                    <Text fz="lg" ta="center" className={classes.description}>
+                    <Text fz="md" ta="center" className={classes.description}>
                         Unfortunately, this is only a 404 page. You may have mistyped the address, or the page has
                         been moved to another URL.
                     </Text>
-                    <Group position="center">
+                    <Group position="center" mt="md">
                         <Button
                             size="md"
                             leftIcon={<IconChevronLeft size={18}/>}

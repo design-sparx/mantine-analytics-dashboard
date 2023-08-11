@@ -37,7 +37,8 @@ const ErrorLayout = ({children}: ErrorProps) => {
                     sx={{
                         height: '100vh',
                         width: '100vw',
-                        backgroundColor: colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors[primaryColor][0]
+                        backgroundColor: colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors[primaryColor][0],
+                        color: colorScheme === 'dark' ? theme.white : theme.colors.dark[8]
                     }}
                 >
                     {children}
