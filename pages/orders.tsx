@@ -29,7 +29,7 @@ function Orders() {
                 <title>Orders | DesignSparx</title>
             </Head>
             <AppLayout>
-                <Container>
+                <Container fluid>
                     <Stack spacing="lg">
                         <PageHeader title="Orders" breadcrumbItems={items}/>
                         <Paper {...PAPER_PROPS}>

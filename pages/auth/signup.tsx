@@ -14,8 +14,11 @@ import Head from "next/head";
 import Link from "next/link";
 import {PATH_AUTH, PATH_DASHBOARD} from "@/routes";
 import {AuthLayout} from "@/layout";
+import {useMediaQuery} from "@mantine/hooks";
 
 function Signin() {
+    const mobile_match = useMediaQuery('(max-width: 425px)');
+
     return (
         <>
             <Head>
@@ -27,8 +30,11 @@ function Signin() {
                 </Title>
                 <Text ta="center">Create your account to continue</Text>
 
-                <Paper shadow="xl" p="lg" mt={15} radius="md" sx={{width: rem(420)}}>
-                    <Flex gap="sm">
+                <Paper shadow="xl" p="lg" mt={15} radius="md" sx={{width: rem(mobile_match ? 360 : 420)}}>
+                    <Flex
+                        direction={{base: 'column', sm: 'row'}}
+                        gap={{base: 'md'}}
+                    >
                         <TextInput label="First name" placeholder="John" required/>
                         <TextInput label="Last name" placeholder="Doe" required/>
                     </Flex>

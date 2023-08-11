@@ -33,7 +33,7 @@ const StatusBadge = ({status}: StatusBadgeProps) => {
 
     switch (status) {
         case 'sent':
-            color = "orange.8"
+            color = "blue"
             break;
         case 'suspended':
             color = "gray"
@@ -42,10 +42,10 @@ const StatusBadge = ({status}: StatusBadgeProps) => {
             color = "red"
             break;
         case 'approved':
-            color = "green"
+            color = "green.8"
             break;
         case 'pending':
-            color = "cyan"
+            color = "cyan.7"
             break;
         default:
             color = "dark"
@@ -134,8 +134,8 @@ const InvoicesTable = ({data}: InvoicesTableProps) => {
                                         {Array.from(firstName)[0]}{Array.from(lastName)[0]}
                                     </Avatar>
                                     <Stack spacing={1}>
-                                        <Text>{full_name}</Text>
-                                        <Text>{email}</Text>
+                                        <Text fw={600}>{full_name}</Text>
+                                        <Text fz="sm">{email}</Text>
                                     </Stack>
                                 </Flex>)
                         },

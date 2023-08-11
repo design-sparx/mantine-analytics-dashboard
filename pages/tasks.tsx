@@ -21,7 +21,7 @@ function Tasks() {
                 <title>Tasks | DesignSparx</title>
             </Head>
             <AppLayout>
-                <Container>
+                <Container fluid>
                     <Stack spacing="lg">
                         <PageHeader title="Tasks" breadcrumbItems={items}/>
                         <KanbanBoard/>

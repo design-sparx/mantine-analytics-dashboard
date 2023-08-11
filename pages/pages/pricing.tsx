@@ -103,7 +103,13 @@ function Pricing() {
                                 </Flex>
                             </Stack>
                         </Paper>
-                        <SimpleGrid cols={3}>{pricingItems}</SimpleGrid>
+                        <SimpleGrid
+                            breakpoints={[
+                                {maxWidth: 'lg', cols: 3, spacing: 'lg'},
+                                {maxWidth: 'md', cols: 1, spacing: 'md'},
+                                {maxWidth: 'sm', cols: 1, spacing: 'sm'},
+                            ]}
+                        >{pricingItems}</SimpleGrid>
                         <Paper {...PAPER_PROPS}>
                             <Faqs/>
                         </Paper>

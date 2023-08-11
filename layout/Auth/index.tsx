@@ -17,11 +17,17 @@ const AuthLayout = ({children}: AuthProps) => {
     }, []);
 
     return (
-        <MantineProvider inherit theme={{primaryColor: primaryColor || 'blue', primaryShade: 7}}>
+        <MantineProvider inherit theme={{primaryColor: primaryColor || 'blue', primaryShade: 8}}>
             <Center sx={{height: '100vh', width: '100vw', backgroundColor: theme.colors[primaryColor || 'blue'][0]}}>
                 <Stack>
                     <Center>
-                        <Image src="/logo-no-background.png" alt="DesignSparx logo" width={96} height={96}/>
+                        <Image
+                            src="/logo-no-background.png"
+                            alt="DesignSparx logo"
+                            width={96}
+                            height={96}
+                            style={{objectFit: 'contain'}}
+                        />
                     </Center>
                     {children}
                 </Stack>

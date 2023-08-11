@@ -24,7 +24,7 @@ const UserProfileCard = ({data: {avatar, name, email, job}, ...others}: UserInfo
                 {job}
             </Text>
 
-            <Button variant="default" fullWidth mt="md">
+            <Button variant="outline" fullWidth mt="md">
                 Send message
             </Button>
         </Paper>

@@ -112,14 +112,15 @@ const KanbanCard = (props: Props) => {
                     position: 'relative',
                     alignItems: 'center',
                     borderRadius: theme.radius.md,
-                    backgroundColor: theme.colors[theme.primaryColor][0]
+                    backgroundColor: theme.colors[theme.primaryColor][8]
                 }}
             >
                 <Textarea
                     sx={{
                         border: 'none',
                         outline: 'none',
-                        width: '100%'
+                        width: '100%',
+                        borderRadius: theme.radius.md
                     }}
                     mx="auto"
                     value={task.content}

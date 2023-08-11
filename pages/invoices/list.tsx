@@ -29,7 +29,7 @@ function List() {
                 <title>Invoices | DesignSparx</title>
             </Head>
             <AppLayout>
-                <Container>
+                <Container fluid>
                     <Stack spacing="lg">
                         <PageHeader title="Invoices" breadcrumbItems={items} invoiceAction={true}/>
                         <Paper {...PAPER_PROPS}>

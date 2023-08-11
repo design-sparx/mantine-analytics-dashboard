@@ -25,6 +25,8 @@ import {IconSearch, IconSend} from "@tabler/icons-react";
 import ChatsListData from "../../mocks/ChatsList.json"
 import ChatItemsData from "../../mocks/ChatItems.json"
 import {AppLayout} from "@/layout";
+import {useMediaQuery} from "@mantine/hooks";
+import {Carousel} from "@mantine/carousel";
 
 const items = [
     {title: 'Dashboard', href: PATH_DASHBOARD.default},
@@ -45,6 +47,7 @@ const PAPER_PROPS: PaperProps = {
 
 function Chat() {
     const theme = useMantineTheme();
+    const tablet_match = useMediaQuery('(max-width: 768px)');
     const editor = useEditor({
         extensions: [StarterKit, Link, Placeholder.configure({placeholder: 'Type your message'})],
         content: '<p>Select some text to see bubble menu</p>',
@@ -59,7 +62,7 @@ function Chat() {
                 <Container fluid>
                     <Stack>
                         <PageHeader title="Settings" breadcrumbItems={items}/>
-                        <Paper component="div" {...PAPER_PROPS} sx={{height: rem(500)}}>
+                        <Paper component="div" {...PAPER_PROPS} sx={{height: tablet_match ? 'auto' : rem(500)}}>
                             <Grid gutter={0}>
                                 <Grid.Col lg={3}>
                                     <Stack py="md">
@@ -70,21 +73,49 @@ function Chat() {
                                                 icon={<IconSearch size={14}/>}
                                             />
                                         </Box>
-                                        <Stack spacing={0}>
-                                            {ChatsListData.map(c =>
-                                                <ChatsList
-                                                    key={c.id}
-                                                    lastMessage={c.last_message}
-                                                    firstName={c.first_name}
-                                                    lastName={c.last_name}
-                                                    avatar={c.avatar}
-                                                />
-                                            )}
-                                        </Stack>
+                                        {tablet_match ?
+                                            <>
+                                                <Carousel
+                                                    height='100%'
+                                                    slideSize="25%"
+                                                    slideGap="lg"
+                                                    align="start"
+                                                    slidesToScroll={1}
+                                                    px={32}
+                                                    breakpoints={[
+                                                        { maxWidth: 'md', slideSize: '22.5%', slideGap: 'md' },
+                                                        { maxWidth: 'sm', slideSize: '37.5%', slideGap: 'sm' },
+                                                    ]}
+                                                >
+                                                    {ChatsListData.map(c =>
+                                                        <Carousel.Slide key={`carousel-${c.id}`}>
+                                                            <ChatsList
+                                                                lastMessage={c.last_message}
+                                                                firstName={c.first_name}
+                                                                lastName={c.last_name}
+                                                                avatar={c.avatar}
+                                                            />
+                                                        </Carousel.Slide>
+                                                    )}
+                                                </Carousel>
+                                                <Divider/>
+                                            </> : <Stack spacing={0}>
+                                                {ChatsListData.map(c =>
+                                                    <ChatsList
+                                                        key={c.id}
+                                                        lastMessage={c.last_message}
+                                                        firstName={c.first_name}
+                                                        lastName={c.last_name}
+                                                        avatar={c.avatar}
+                                                    />
+                                                )}
+                                            </Stack>
+                                        }
                                     </Stack>
                                 </Grid.Col>
                                 <Grid.Col lg={9}>
-                                    <Box sx={{borderLeft: `1px solid ${theme.colors.gray[3]}`}}>
+                                    <Box
+                                        sx={{borderLeft: tablet_match ? 'none' : `1px solid ${theme.colors.gray[3]}`}}>
                                         <ScrollArea h={415}>
                                             <Stack px="lg" py="xl">
                                                 {ChatItemsData.map(c =>
@@ -97,7 +128,7 @@ function Chat() {
                                                         sender={c.sender}
                                                         sent_time={c.sent_time}
                                                         ml={c.sender ? 'auto' : 0}
-                                                        sx={{maxWidth: '70%'}}
+                                                        sx={{maxWidth: tablet_match ? '100%' : '70%'}}
                                                     />
                                                 )}
                                             </Stack>

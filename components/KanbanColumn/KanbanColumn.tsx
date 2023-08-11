@@ -19,6 +19,7 @@ import {
     Tooltip,
     useMantineTheme
 } from "@mantine/core";
+import {useMediaQuery} from "@mantine/hooks";
 
 const ICON_SIZE = 18
 
@@ -44,16 +45,20 @@ const KanbanColumn = (props: Props) => {
         updateTask
     } = props;
     const [editMode, setEditMode] = useState(false);
+    const tablet_match = useMediaQuery('(max-width: 768px)');
 
     const PAPER_PROPS: PaperProps = {
         radius: "md",
+        shadow: tablet_match ? 'xl' : '',
+        withBorder: tablet_match,
+        pb: tablet_match ? 'md' : 'xs',
         sx: {
             width: '350px',
-            height: rem(600),
-            maxHeight: rem(600),
+            // height: rem(600),
+            // maxHeight: rem(600),
             display: 'flex',
             flexDirection: 'column',
-            backgroundColor: 'transparent'
+            backgroundColor: tablet_match ? theme.white : 'transparent',
         }
     }
 
@@ -114,6 +119,7 @@ const KanbanColumn = (props: Props) => {
                 justify="space-between"
                 sx={{
                     cursor: 'grab',
+                    borderBottom: `1px solid ${theme.colors.dark[1]}`
                 }}
                 {...attributes}
                 {...listeners}
@@ -175,9 +181,8 @@ const KanbanColumn = (props: Props) => {
 
             {/* Column task container */}
             <ScrollArea
-                h={500}
-                sx={{flexGrow: 1, overflowX: 'hidden', overflowY: 'auto'}}>
-                <Stack spacing="sm" px="xs">
+                sx={{overflowX: 'hidden', overflowY: 'auto', maxHeight: rem(500)}}>
+                <Stack spacing="sm" px="sm" py="md">
                     <SortableContext items={tasksIds}>
                         {tasks.map((task) => (
                             <KanbanCard
@@ -192,12 +197,9 @@ const KanbanColumn = (props: Props) => {
             </ScrollArea>
             {/* Column footer */}
             <Button
-                mt="md"
                 mx="sm"
-                p="xs"
                 radius="sm"
                 variant="outline"
-                sx={{boxShadow: theme.shadows.md}}
                 leftIcon={<IconPlus size={ICON_SIZE}/>}
                 onClick={() => {
                     createTask(column.id);

@@ -38,12 +38,11 @@ function InvoiceDetails() {
                 <title>Invoice - {selectedData?.id} | DesignSparx</title>
             </Head>
             <AppLayout>
-                <Container>
+                <Container fluid>
                     <Stack spacing="lg">
                         <PageHeader
                             title={`Invoice #${selectedData?.id.slice(0, 7)}`}
                             breadcrumbItems={items}
-                            invoiceAction={true}
                         />
                         <InvoiceDetailsCard data={selectedData} {...PAPER_PROPS}/>
                     </Stack>

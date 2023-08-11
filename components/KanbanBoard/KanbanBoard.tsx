@@ -14,6 +14,7 @@ import {KanbanCard, KanbanColumn} from "@/components"
 import {Id, KanbanColumn as IColumn, KanbanTask as ITask} from "@/types";
 import {IconPlus} from "@tabler/icons-react";
 import {Box, Button, Portal, ScrollArea} from "@mantine/core";
+import {useMediaQuery} from "@mantine/hooks";
 
 const defaultCols: IColumn[] = [
     {
@@ -118,6 +119,7 @@ const KanbanBoard = () => {
     const [tasks, setTasks] = useState<ITask[]>(defaultTasks);
     const [activeColumn, setActiveColumn] = useState<IColumn | null>(null);
     const [activeTask, setActiveTask] = useState<ITask | null>(null);
+    const tablet_match = useMediaQuery('(max-width: 768px)');
 
     const sensors = useSensors(
         useSensor(PointerSensor, {
@@ -135,6 +137,7 @@ const KanbanBoard = () => {
                 margin: 'auto',
                 display: 'flex',
                 minHeight: '70vh',
+                height: '100%',
                 width: '100%',
                 alignItems: 'center',
                 overflowX: 'auto',
@@ -148,7 +151,10 @@ const KanbanBoard = () => {
                 onDragOver={onDragOver}
             >
                 <Box component="div" sx={{margin: 'auto', display: 'flex', gap: '1rem'}}>
-                    <Box component="div" sx={{display: 'flex', gap: '1rem'}}>
+                    <Box
+                        component="div"
+                        sx={{display: 'flex', flexDirection: tablet_match ? 'column' : 'row', gap: '1rem'}}
+                    >
                         <SortableContext items={columnsId}>
                             {columns.map((col) => (
                                 <KanbanColumn
@@ -170,6 +176,7 @@ const KanbanBoard = () => {
                             width: '350px',
                             minWidth: '350px',
                         }}
+                        size="md"
                         variant="outline"
                         onClick={() => {
                             createNewColumn();

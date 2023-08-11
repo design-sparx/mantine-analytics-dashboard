@@ -8,5 +8,13 @@ export default createStyles((theme) => ({
         '&:hover': {
             backgroundColor: theme.colors[theme.primaryColor][0]
         }
+    },
+    itemRounded: {
+        padding: `${theme.spacing.xs}`,
+        borderRadius: theme.radius.md,
+
+        '&:hover': {
+            backgroundColor: theme.colors[theme.primaryColor][0]
+        }
     }
 }))

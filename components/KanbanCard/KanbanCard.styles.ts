@@ -7,7 +7,6 @@ export default createStyles((theme) => ({
         paddingBottom: 0,
 
         '&:hover': {
-            backgroundColor: theme.colors[theme.primaryColor][0],
             borderColor: theme.colors[theme.primaryColor][7],
         },
     },

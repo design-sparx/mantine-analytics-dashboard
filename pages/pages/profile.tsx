@@ -11,11 +11,11 @@ import {
     Grid,
     Group,
     Paper, PaperProps,
-    Progress,
+    Progress, rem,
     SimpleGrid,
     Stack,
     Text, ThemeIcon,
-    Title, UnstyledButton
+    Title, UnstyledButton, useMantineTheme
 } from "@mantine/core";
 import {PATH_DASHBOARD} from "@/routes";
 import {PageHeader, ProfileStatsCard, ProjectsTable, RevenueChart, UserProfileCard} from "@/components";
@@ -55,9 +55,21 @@ const PAPER_PROPS: PaperProps = {
 }
 
 function Profile() {
+    const theme = useMantineTheme();
     const linkProps = {
-        target: "_blank"
-    }
+        target: "_blank",
+        sx: {
+            borderRadius: theme.radius.md,
+            padding: `${rem(4)} ${rem(8)}`,
+
+            '&:hover': {
+                transition: 'all ease 150ms',
+                backgroundColor: theme.colors.gray[3],
+                color: theme.black,
+                textDecoration: 'none'
+            }
+        }
+    };
 
     return (
         <>
@@ -74,8 +86,9 @@ function Profile() {
                                     <UserProfileCard data={UserData} {...PAPER_PROPS}/>
                                     <Paper {...PAPER_PROPS}>
                                         <Text size="lg" fw={600} mb="md">Skills</Text>
-                                        <Group spacing={4}>
-                                            {skills.map(s => <Badge key={s}>{s}</Badge>)}
+                                        <Group spacing="xs">
+                                            {skills.map(s => <Badge key={s} variant="filled"
+                                                                    color="primary.8">{s}</Badge>)}
                                         </Group>
                                     </Paper>
                                     <Paper {...PAPER_PROPS}>
@@ -92,7 +105,7 @@ function Profile() {
                                         </Stack>
                                     </Paper>
                                     <Paper {...PAPER_PROPS}>
-                                        <Stack>
+                                        <Stack spacing={4}>
                                             <Text size="lg" fw={600}>Social</Text>
                                             <UnstyledButton
                                                 component="a"
@@ -140,7 +153,14 @@ function Profile() {
                             <Grid.Col lg={9}>
                                 <Stack>
                                     <RevenueChart {...PAPER_PROPS}/>
-                                    <SimpleGrid cols={3}>
+                                    <SimpleGrid
+                                        cols={3}
+                                        spacing="lg"
+                                        breakpoints={[
+                                            {maxWidth: 'md', cols: 3, spacing: 'md'},
+                                            {maxWidth: 'sm', cols: 1, spacing: 'sm'},
+                                        ]}
+                                    >
                                         <ProfileStatsCard
                                             amount="$ 81314"
                                             title="total earnings"

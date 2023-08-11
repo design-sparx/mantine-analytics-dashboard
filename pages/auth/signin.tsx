@@ -14,8 +14,11 @@ import Head from "next/head";
 import Link from "next/link";
 import {PATH_AUTH, PATH_DASHBOARD} from "@/routes";
 import {AuthLayout} from "@/layout";
+import {useMediaQuery} from "@mantine/hooks";
 
 function Signin() {
+    const mobile_match = useMediaQuery('(max-width: 425px)');
+
     return (
         <>
             <Head>
@@ -27,7 +30,7 @@ function Signin() {
                 </Title>
                 <Text ta="center">Sign in to your account to continue</Text>
 
-                <Paper shadow="xl" radius="md" p="lg" mt={15} sx={{width: rem(420)}}>
+                <Paper shadow="xl" radius="md" p="lg" mt={15} sx={{width: rem(mobile_match ? 360 : 420)}}>
                     <TextInput label="Email" placeholder="you@mantine.dev" required/>
                     <PasswordInput label="Password" placeholder="Your password" required mt="md"/>
                     <Group position="apart" mt="lg">

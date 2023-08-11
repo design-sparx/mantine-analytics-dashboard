@@ -15,7 +15,7 @@ import {
 import React, {useEffect, useState} from 'react';
 import Navigation from "@/layout/App/Navigation/Navigation";
 import HeaderNav from "@/layout/App/HeaderNav/HeaderNav";
-import {useDisclosure} from "@mantine/hooks";
+import {useDisclosure, useMediaQuery} from "@mantine/hooks";
 import {ThemeDrawer} from "@/components";
 import FooterNav from "@/layout/App/FooterNav/FooterNav";
 import {IconPaint} from "@tabler/icons-react";
@@ -29,6 +29,7 @@ function AppLayout({children}: Props) {
     const [primaryColor, setPrimaryColor] = useState<any>('');
     const [themeOpened, {open: themeOpen, close: themeClose}] = useDisclosure(false);
     const theme = useMantineTheme()
+    const tablet_match = useMediaQuery('(max-width: 768px)');
 
     const handleThemeChange = (c: string) => {
         setPrimaryColor(c);
@@ -47,37 +48,51 @@ function AppLayout({children}: Props) {
         <MantineProvider inherit theme={{primaryColor: primaryColor || 'blue', primaryShade: 7}}>
             <AppShell
                 layout="alt"
-                navbarOffsetBreakpoint="sm"
-                asideOffsetBreakpoint="sm"
+                navbarOffsetBreakpoint="md"
+                asideOffsetBreakpoint="md"
                 styles={{
                     main: {
                         background: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
+                        paddingTop: tablet_match ? Number(theme.spacing.xl) * 4 : Number(theme.spacing.xl) * 2
                     },
                 }}
                 navbar={
                     <Navigation
-                        hiddenBreakpoint="sm"
+                        hiddenBreakpoint="md"
                         hidden={!opened}
-                        width={{sm: 200, lg: 320}}
+                        width={{sm: 240, lg: 320}}
+                        sx={{
+                            zIndex: 101
+                        }}
                     />
                 }
                 header={
-                    <Header height={{base: 50, md: 60}} sx={{border: 'none', boxShadow: theme.shadows.sm}}>
-                        <MediaQuery largerThan="sm" styles={{display: 'none'}}>
-                            <Burger
-                                opened={opened}
-                                onClick={() => setOpened((o) => !o)}
-                                size="sm"
-                                mr="xl"
-                            />
-                        </MediaQuery>
-                        <Container fluid p="sm">
-                            <HeaderNav/>
+                    <Header
+                        height={{base: 60, md: 60}}
+                        sx={{
+                            border: 'none',
+                            boxShadow: tablet_match ? theme.shadows.md : theme.shadows.sm,
+                            left: tablet_match ? 0 : 'var(--mantine-navbar-width, 0)',
+                            right: tablet_match ? 0 : 'var(--mantine-navbar-width, 0)',
+                            width: tablet_match ? '100%' : 'calc(100vw - var(--mantine-navbar-width))'
+                        }}
+                    >
+                        <Container fluid py="sm" px="lg">
+                            <HeaderNav opened={opened} handleOpen={() => setOpened((o) => !o)}/>
                         </Container>
                     </Header>
                 }
                 footer={
-                    <Footer height={{base: 50, md: 60}} px="md" py="sm">
+                    <Footer
+                        height={{base: 60, md: 60}}
+                        px="md"
+                        py="sm"
+                        sx={{
+                            width: tablet_match ? '100%' : 'calc(100vw - var(--mantine-navbar-width))',
+                            left: tablet_match ? 0 : 'var(--mantine-navbar-width, 0)',
+                            right: tablet_match ? 0 : 'var(--mantine-navbar-width, 0)',
+                        }}
+                    >
                         <FooterNav/>
                     </Footer>
                 }

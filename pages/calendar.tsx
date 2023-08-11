@@ -61,9 +61,16 @@ const _StylePaper = styled(Paper)`
     background-color: ${({theme}) => (theme.colors[theme.primaryColor][9])};
     border-color: ${({theme}) => (theme.colors[theme.primaryColor][9])};
   }
-  
-  .fc-toolbar-title{
+
+  .fc-toolbar-title {
     font-size: 20px;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .fc .fc-toolbar {
+      flex-direction: column;
+      gap: 8px;
+    }
   }
 `
 const StyledPaper = createPolymorphicComponent<'div', PaperProps>(_StylePaper)

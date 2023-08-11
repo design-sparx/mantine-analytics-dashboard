@@ -119,7 +119,7 @@ const ProjectsCard = (props: ProjectsCardProps) => {
                     </Text>
                 </Text>
 
-                <Progress value={completion} mt={5} size="lg"/>
+                <Progress value={completion} mt={5} size="sm"/>
 
                 <Avatar.Group spacing="sm">
                     <Tooltip label="Anne Doe">
