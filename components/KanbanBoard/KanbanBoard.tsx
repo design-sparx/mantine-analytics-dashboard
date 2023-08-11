@@ -12,7 +12,7 @@ import {
 import {arrayMove, SortableContext} from "@dnd-kit/sortable";
 import {KanbanCard, KanbanColumn} from "@/components"
 import {Id, KanbanColumn as IColumn, KanbanTask as ITask} from "@/types";
-import {IconPlus} from "@tabler/icons-react";
+import {IconNewSection, IconPlus} from "@tabler/icons-react";
 import {Box, Button, Portal, ScrollArea} from "@mantine/core";
 import {useMediaQuery} from "@mantine/hooks";
 
@@ -150,7 +150,15 @@ const KanbanBoard = () => {
                 onDragEnd={onDragEnd}
                 onDragOver={onDragOver}
             >
-                <Box component="div" sx={{margin: 'auto', display: 'flex', gap: '1rem'}}>
+                <Box
+                    component="div"
+                    sx={{
+                        margin: 'auto',
+                        display: 'flex',
+                        flexDirection: tablet_match ? 'column' : 'row',
+                        gap: '1rem'
+                    }}
+                >
                     <Box
                         component="div"
                         sx={{display: 'flex', flexDirection: tablet_match ? 'column' : 'row', gap: '1rem'}}
@@ -171,18 +179,20 @@ const KanbanBoard = () => {
                         </SortableContext>
                     </Box>
                     <Button
-                        leftIcon={<IconPlus size={18}/>}
+                        mt={tablet_match ? 'lg' : 0}
+                        size="md"
+                        variant="outline"
+                        leftIcon={<IconNewSection/>}
                         sx={{
                             width: '350px',
                             minWidth: '350px',
+                            borderStyle: 'dashed'
                         }}
-                        size="md"
-                        variant="outline"
                         onClick={() => {
                             createNewColumn();
                         }}
                     >
-                        Add Column
+                        Add a new bucket
                     </Button>
                 </Box>
 

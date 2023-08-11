@@ -28,14 +28,13 @@ const PageHeader = ({withActions, breadcrumbItems, title, invoiceAction}: PageHe
         sx: {
             'a': {
                 padding: rem(8),
-                borderRadius: theme.radius.md,
+                borderRadius: theme.radius.sm,
                 fontWeight: 500,
-                color: theme.black,
+                color: theme.colorScheme === "dark" ? theme.white : theme.black,
 
                 '&:hover': {
                     transition: 'all ease 150ms',
-                    backgroundColor: theme.colors.gray[3],
-                    color: theme.black,
+                    backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2],
                     textDecoration: 'none'
                 }
             }
@@ -71,7 +70,7 @@ const PageHeader = ({withActions, breadcrumbItems, title, invoiceAction}: PageHe
                             >
                                 <Stack>
                                     <Title order={3}>{title}</Title>
-                                    <Breadcrumbs>{breadcrumbItems}</Breadcrumbs>
+                                    <Breadcrumbs {...BREADCRUMBS_PROPS}>{breadcrumbItems}</Breadcrumbs>
                                 </Stack>
                                 <Button leftIcon={<IconPlus size={18}/>}>New Invoice</Button>
                             </Flex> :

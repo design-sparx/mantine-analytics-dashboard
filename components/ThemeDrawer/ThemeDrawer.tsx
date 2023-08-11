@@ -1,24 +1,26 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
     ColorSwatch,
     Drawer,
     DrawerProps,
-    Group,
     MantineTheme,
     useMantineTheme,
     Text,
-    UnstyledButton, rem, Box, SimpleGrid
+    UnstyledButton, rem, SimpleGrid, ColorScheme, Tooltip, Button, Stack
 } from "@mantine/core";
-import {IconCheck} from "@tabler/icons-react";
+import {IconCheck, IconMoonStars, IconSunFilled, IconSunHigh} from "@tabler/icons-react";
 import {showNotification} from "@mantine/notifications";
+import {upperFirst, useHotkeys, useLocalStorage} from "@mantine/hooks";
 
 type ThemeDrawerProps = {
-    primaryColor: string,
-    setPrimaryColor: (color: string) => void
+    primaryColor: string;
+    setPrimaryColor: (color: string) => void;
+    colorScheme: ColorScheme;
+    toggleColorScheme: () => void;
 } & Pick<DrawerProps, 'opened' | 'onClose'>
 
-const ThemeDrawer = ({primaryColor, setPrimaryColor, ...others}: ThemeDrawerProps) => {
-    const theme = useMantineTheme()
+const ThemeDrawer = ({primaryColor, setPrimaryColor, colorScheme, toggleColorScheme, ...others}: ThemeDrawerProps) => {
+    const theme = useMantineTheme();
     const colors = Object.keys(theme.colors).map((color) => ({
         swatch: theme.colors[color][6],
         color
@@ -49,14 +51,48 @@ const ThemeDrawer = ({primaryColor, setPrimaryColor, ...others}: ThemeDrawerProp
                 >
                     {color === primaryColor && <IconCheck width={rem(32)}/>}
                 </ColorSwatch>
-                <Text>{color}</Text>
+                <Text tt="capitalize" mt="xs">{color}</Text>
             </UnstyledButton>
         }
     );
 
     return (
-        <Drawer {...others} position="right">
-            <SimpleGrid cols={4} spacing="xs">{swatches}</SimpleGrid>
+        <Drawer {...others} position="right" title="Theme Customizer" padding="lg" size="xs">
+            <Stack spacing="lg">
+                <Tooltip label="switch to light/dark mode">
+                    <Button
+                        leftIcon={colorScheme === 'light' ? <IconMoonStars size={18}/> : <IconSunHigh size={18}/>}
+                        onClick={() => {
+                            toggleColorScheme();
+                            showNotification({
+                                title: `${upperFirst(colorScheme === 'dark' ? 'light' : 'dark')} is on`,
+                                message: `You just switched to ${colorScheme === 'dark' ? 'light' : 'dark'} mode. Hope you like it`,
+                                styles: (theme) => ({
+                                    root: {
+                                        backgroundColor: colorScheme === 'dark' ? theme.colors.gray[7] : theme.colors.gray[2],
+                                        borderColor: colorScheme === 'dark' ? theme.colors.gray[7] : theme.colors.gray[2],
+
+                                        '&::before': {backgroundColor: colorScheme === 'dark' ? theme.colors.gray[2] : theme.colors.gray[7]}
+                                    },
+
+                                    title: {color: colorScheme === 'dark' ? theme.colors.gray[2] : theme.colors.gray[7]},
+                                    description: {color: colorScheme === 'dark' ? theme.colors.gray[2] : theme.colors.gray[7]},
+                                    closeButton: {
+                                        color: colorScheme === 'dark' ? theme.colors.gray[2] : theme.colors.gray[7],
+                                        '&:hover': {
+                                            backgroundColor: theme.colors.red[5],
+                                            color: theme.white
+                                        }
+                                    }
+                                })
+                            });
+                        }}
+                    >
+                        Switch to {colorScheme === 'light' ? 'dark' : 'light'} mode
+                    </Button>
+                </Tooltip>
+                <SimpleGrid cols={4} spacing="sm">{swatches}</SimpleGrid>
+            </Stack>
         </Drawer>
     );
 };

@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {Id, KanbanTask as ITask} from "../../types";
+import {Id, KanbanColumn as IColumn, KanbanTask as ITask} from "../../types";
 import {useSortable} from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities";
 import {IconDots, IconEdit, IconMessageCircle, IconTrash} from "@tabler/icons-react";
@@ -19,6 +19,7 @@ import {
 } from "@mantine/core";
 import {useHover} from "@mantine/hooks";
 import useStyles from "./KanbanCard.styles"
+import {modals} from "@mantine/modals";
 
 const AVATARS = [
     'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
@@ -71,6 +72,21 @@ const KanbanCard = (props: Props) => {
         setEditMode((prev) => !prev);
         setMouseIsOver(false);
     };
+
+    const confirmModal = (task: ITask) => modals.openConfirmModal({
+        title: `Delete Task?`,
+        centered: true,
+        children: (
+            <Text size="sm">
+                This task will be deleted
+            </Text>
+        ),
+        labels: { confirm: 'Delete bucket', cancel: "No don't delete it" },
+        onCancel: () => console.log('Cancel'),
+        onConfirm: () => {
+            deleteTask(task.id);
+        },
+    });
 
     if (isDragging) {
         return (
@@ -178,11 +194,9 @@ const KanbanCard = (props: Props) => {
                             </Tooltip>
                             <Tooltip label="Delete task">
                                 <Menu.Item
-                                    icon={<IconMessageCircle size={ICON_SIZE}/>}
+                                    icon={<IconTrash size={ICON_SIZE}/>}
                                     onClick={() => {
-                                        if (confirm('Are you sure')) {
-                                            deleteTask(task.id);
-                                        }
+                                        confirmModal(task)
                                     }}
                                 >
                                     Delete

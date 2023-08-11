@@ -33,13 +33,13 @@ const SalesChart = ({...others}: SalesChartProps) => {
                             show: true,
                             fontSize: '12px',
                             fontWeight: '400',
-                            color: '#6E7191'
+                            color: theme.colorScheme === 'dark' ? theme.white : theme.colors.dark[6],
                         },
                         value: {
                             show: true,
                             fontSize: '22px',
                             fontWeight: '600',
-                            color: '#2E285C'
+                            color: theme.colorScheme === 'dark' ? theme.white : theme.colors.dark[6],
                         },
                         total: {
                             show: true,
@@ -50,7 +50,8 @@ const SalesChart = ({...others}: SalesChartProps) => {
                                 const result = totals.reduce((a: number, b: number) => a + b, 0);
 
                                 return (result / 1000).toFixed(3);
-                            }
+                            },
+                            color: theme.colorScheme === 'dark' ? theme.white : theme.colors.dark[6],
                         }
                     }
                 }

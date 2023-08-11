@@ -8,7 +8,7 @@ import {
     rem,
     Stack,
     Text,
-    TextInput,
+    TextInput, Tooltip,
     useMantineTheme
 } from "@mantine/core";
 import {
@@ -167,12 +167,14 @@ const HeaderNav = ({handleOpen, opened}: HeaderNavProps) => {
                     </ActionIcon>
                 }
                 <LanguagePicker type="collapsed"/>
-                <Menu shadow="md" width={320}>
+                <Menu shadow="lg" width={320}>
                     <Menu.Target>
-                        <Indicator processing size={12} offset={6}>
-                            <ActionIcon size="lg">
-                                <IconMessageCircle size={ICON_SIZE}/>
-                            </ActionIcon>
+                        <Indicator processing size={10} offset={6}>
+                            <Tooltip label="Messages">
+                                <ActionIcon size="lg" title="Nessages">
+                                    <IconMessageCircle size={ICON_SIZE}/>
+                                </ActionIcon>
+                            </Tooltip>
                         </Indicator>
                     </Menu.Target>
                     <Menu.Dropdown>
@@ -185,12 +187,14 @@ const HeaderNav = ({handleOpen, opened}: HeaderNavProps) => {
                         </Menu.Item>
                     </Menu.Dropdown>
                 </Menu>
-                <Menu shadow="md" width={320}>
+                <Menu shadow="lg" width={320}>
                     <Menu.Target>
-                        <Indicator processing size={12} offset={6}>
-                            <ActionIcon size="lg">
-                                <IconBell size={ICON_SIZE}/>
-                            </ActionIcon>
+                        <Indicator processing size={10} offset={6}>
+                            <Tooltip label="Notifications">
+                                <ActionIcon size="lg" title="Notifications">
+                                    <IconBell size={ICON_SIZE}/>
+                                </ActionIcon>
+                            </Tooltip>
                         </Indicator>
                     </Menu.Target>
                     <Menu.Dropdown>
@@ -203,9 +207,11 @@ const HeaderNav = ({handleOpen, opened}: HeaderNavProps) => {
                         </Menu.Item>
                     </Menu.Dropdown>
                 </Menu>
-                <ActionIcon>
-                    <IconPower size={ICON_SIZE}/>
-                </ActionIcon>
+                <Tooltip label="Logout">
+                    <ActionIcon>
+                        <IconPower size={ICON_SIZE}/>
+                    </ActionIcon>
+                </Tooltip>
             </Group>
         </Group>
     );

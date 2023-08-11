@@ -20,6 +20,7 @@ import {
     useMantineTheme
 } from "@mantine/core";
 import {useMediaQuery} from "@mantine/hooks";
+import {modals} from "@mantine/modals";
 
 const ICON_SIZE = 18
 
@@ -53,7 +54,7 @@ const KanbanColumn = (props: Props) => {
         withBorder: tablet_match,
         pb: tablet_match ? 'md' : 'xs',
         sx: {
-            width: '350px',
+            width: tablet_match ? '100%' : '350px',
             // height: rem(600),
             // maxHeight: rem(600),
             display: 'flex',
@@ -86,6 +87,21 @@ const KanbanColumn = (props: Props) => {
         transition,
         transform: CSS.Transform.toString(transform),
     };
+
+    const confirmModal = (column: IColumn) => modals.openConfirmModal({
+        title: `Delete ${column.title}?`,
+        centered: true,
+        children: (
+            <Text size="sm">
+                All tasks in this bucket will also be deleted.
+            </Text>
+        ),
+        labels: { confirm: 'Delete bucket', cancel: "No don't delete it" },
+        onCancel: () => console.log('Cancel'),
+        onConfirm: () => {
+            deleteColumn(column.id);
+        },
+    });
 
     if (isDragging) {
         return (
@@ -158,7 +174,7 @@ const KanbanColumn = (props: Props) => {
 
                     <Menu.Dropdown>
                         <Menu.Item
-                            icon={<IconEdit size={14}/>}
+                            icon={<IconEdit size={ICON_SIZE}/>}
                             onClick={() => {
                                 setEditMode(true);
                             }}
@@ -166,11 +182,9 @@ const KanbanColumn = (props: Props) => {
                             Rename
                         </Menu.Item>
                         <Menu.Item
-                            icon={<IconTrash size={14}/>}
+                            icon={<IconTrash size={ICON_SIZE}/>}
                             onClick={() => {
-                                if (confirm('Are you sure?')) {
-                                    deleteColumn(column.id);
-                                }
+                                confirmModal(column)
                             }}
                         >
                             Delete

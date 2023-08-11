@@ -7,7 +7,7 @@ import {
     rem,
     Stack,
     Text,
-    TextInput,
+    TextInput, TextProps,
     Title,
     UnstyledButton
 } from '@mantine/core';
@@ -34,15 +34,26 @@ const useStyles = createStyles((theme) => ({
     },
 
     control: {
+        padding: `${rem(6)} ${rem(10)}`,
+        borderRadius: theme.radius.sm,
+        fontWeight: 500,
+
         [theme.fn.smallerThan('xs')]: {
             width: '100%',
             textAlign: 'center',
         },
+
+        '&:hover': {
+            transition: 'all ease 150ms',
+            backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2],
+            color: theme.black,
+            textDecoration: 'none'
+        }
     },
 }));
 
 function PasswordReset() {
-    const {classes} = useStyles();
+    const {classes, theme} = useStyles();
     const mobile_match = useMediaQuery('(max-width: 425px)');
 
     return (
@@ -72,10 +83,7 @@ function PasswordReset() {
                                 <Text size="sm" ml={5}>Back to the login page</Text>
                             </Group>
                         </UnstyledButton>
-                        <Button
-                            className={classes.control}
-                            component={Link} href={PATH_DASHBOARD.default}
-                        >
+                        <Button component={Link} href={PATH_DASHBOARD.default} fullWidth={mobile_match}>
                             Reset password
                         </Button>
                     </Group>
