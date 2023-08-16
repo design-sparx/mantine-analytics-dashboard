@@ -84,7 +84,7 @@ function Pricing() {
                 <title>Pricing | DesignSparx</title>
             </Head>
             <AppLayout>
-                <Container>
+                <Container fluid>
                     <Stack spacing="lg">
                         <PageHeader title="Pricing" breadcrumbItems={items}/>
                         <Paper sx={{backgroundColor: 'transparent'}}>
@@ -104,6 +104,8 @@ function Pricing() {
                             </Stack>
                         </Paper>
                         <SimpleGrid
+                            cols={3}
+                            spacing="lg"
                             breakpoints={[
                                 {maxWidth: 'lg', cols: 3, spacing: 'lg'},
                                 {maxWidth: 'md', cols: 1, spacing: 'md'},

@@ -4,6 +4,8 @@ const HEADER_HEIGHT = rem(60);
 
 export default createStyles((theme) => ({
     inner: {
+        backgroundColor: theme.black,
+        color: theme.white,
         height: HEADER_HEIGHT,
         display: 'flex',
         justifyContent: 'space-between',
@@ -25,17 +27,19 @@ export default createStyles((theme) => ({
     },
 
     link: {
-        display: 'block',
-        lineHeight: 1,
+        display: 'flex',
+        alignItems: 'center',
         padding: `${rem(8)} ${rem(12)}`,
         borderRadius: theme.radius.sm,
         textDecoration: 'none',
-        color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
+        color: theme.white,
         fontSize: theme.fontSizes.sm,
         fontWeight: 500,
+        height: 38,
 
         '&:hover': {
-            backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+            transition: 'all ease 150ms',
+            backgroundColor: theme.colors.dark[5],
         },
     },
 

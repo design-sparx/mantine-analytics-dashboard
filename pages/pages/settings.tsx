@@ -68,7 +68,7 @@ function Settings() {
                 <title>Settings | DesignSparx</title>
             </Head>
             <AppLayout>
-                <Container>
+                <Container fluid>
                     <Stack spacing="lg">
                         <PageHeader title="Settings" breadcrumbItems={items}/>
                         <Paper {...PAPER_PROPS}>
@@ -102,6 +102,7 @@ function Settings() {
                                             {(props) =>
                                                 <Button
                                                     {...props}
+                                                    variant="subtle"
                                                     leftIcon={<IconCloudUpload size={ICON_SIZE}/>}
                                                 >
                                                     Upload image

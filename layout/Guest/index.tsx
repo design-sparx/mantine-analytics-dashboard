@@ -1,5 +1,16 @@
 import HeaderNav from "@/layout/Guest/HeaderNav/HeaderNav";
-import {ReactNode} from "react";
+import React, {ReactNode} from "react";
+import {ActionIcon, Button, Container, Divider, Flex, Group, MantineProvider, Text, Title} from "@mantine/core";
+import {Logo} from "@/components";
+import {
+    IconBrandFacebook,
+    IconBrandGithub,
+    IconBrandInstagram,
+    IconBrandLinkedin,
+    IconBrandTwitter,
+    IconWorld
+} from "@tabler/icons-react";
+import FooterNav from "@/layout/Guest/FooterNav/FooterNav";
 
 type GuestLayoutProps = {
     children: ReactNode
@@ -7,10 +18,11 @@ type GuestLayoutProps = {
 
 const GuestLayout = ({children}: GuestLayoutProps) => {
     return (
-        <div>
+        <MantineProvider inherit theme={{primaryShade: 8}}>
             <HeaderNav/>
             {children}
-        </div>
+            <FooterNav/>
+        </MantineProvider>
     );
 };
 
