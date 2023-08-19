@@ -1,4 +1,4 @@
-import {Box, Code, Group, Navbar, NavbarProps, ScrollArea, Text, UnstyledButton} from '@mantine/core';
+import {ActionIcon, Box, Code, Flex, Group, Navbar, NavbarProps, ScrollArea, Text, UnstyledButton} from '@mantine/core';
 import {
     IconAdjustmentsFilled,
     IconAlertOctagon,
@@ -10,7 +10,7 @@ import {
     IconLifebuoy,
     IconList,
     IconListDetails,
-    IconUserShield,
+    IconUserShield, IconX,
 } from '@tabler/icons-react';
 import useStyles from "./Navigation.styles";
 import {Logo, UserProfileButton} from "@/components";
@@ -27,6 +27,7 @@ import {
 } from "@/routes";
 import UserProfileData from ".././../../mocks/UserProfile.json";
 import {LinksGroup} from "@/layout/App/Navigation/Links/Links";
+import {useMediaQuery} from "@mantine/hooks";
 
 const mockdata = [
     {
@@ -87,17 +88,26 @@ const mockdata = [
     {
         title: 'Documentation',
         links: [
-            {label: 'Getting started', icon: IconLifebuoy,},
-            {label: 'Documentation', icon: IconBook2,},
+            {
+                label: 'Getting started',
+                icon: IconLifebuoy,
+                link: 'https://analytics-dashboard-docs.netlify.app/getting-started'
+            },
+            {
+                label: 'Documentation',
+                icon: IconBook2,
+                link: 'https://analytics-dashboard-docs.netlify.app/'
+            },
             {label: 'Changelog', icon: IconList,},
         ]
     }
 ];
 
-type NavigationProps = Omit<NavbarProps, 'children'>
+type NavigationProps = { onClose: () => void } & Omit<NavbarProps, 'children'>
 
-const Navigation = ({...others}: NavigationProps) => {
+const Navigation = ({onClose, ...others}: NavigationProps) => {
     const {classes, theme} = useStyles()
+    const tablet_match = useMediaQuery('(max-width: 768px)');
 
     const links = mockdata.map(m =>
         <Box pl={0} mb="md" key={m.title}>
@@ -107,20 +117,27 @@ const Navigation = ({...others}: NavigationProps) => {
     )
 
     return (
-        <Navbar width={{sm: 300}} px="md" className={classes.navbar} {...others}>
+        <Navbar width={{sm: 300, md: 400}} px="md" className={classes.navbar} {...others}>
             <Navbar.Section className={classes.header}>
-                <Group position="apart">
-                    <Logo size={36}/>
-                    <Code
-                        sx={{
-                            fontWeight: 700,
-                            backgroundColor: theme.colors[theme.primaryColor][9],
-                            color: theme.white
-                        }}
-                    >
-                        v1.0.0
-                    </Code>
-                </Group>
+                <Flex justify="space-between" align="center" gap="sm">
+                    <Group position="apart" sx={{flex: tablet_match ? 'auto' : 1}}>
+                        <Logo sx={{color: theme.white}}/>
+                        <Code
+                            sx={{
+                                fontWeight: 700,
+                                backgroundColor: theme.colors[theme.primaryColor][9],
+                                color: theme.white
+                            }}
+                        >
+                            v1.0.0
+                        </Code>
+                    </Group>
+                    {tablet_match &&
+                        <ActionIcon onClick={onClose} variant="transparent">
+                            <IconX color="white"/>
+                        </ActionIcon>
+                    }
+                </Flex>
             </Navbar.Section>
 
             <Navbar.Section grow className={classes.links} component={ScrollArea}>

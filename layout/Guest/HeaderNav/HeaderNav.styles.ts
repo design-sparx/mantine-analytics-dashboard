@@ -36,14 +36,31 @@ export default createStyles((theme) => ({
         fontSize: theme.fontSizes.sm,
         fontWeight: 500,
         height: 38,
+        textTransform: 'capitalize',
 
         '&:hover': {
             transition: 'all ease 150ms',
             backgroundColor: theme.colors.dark[5],
         },
+
+        [theme.fn.smallerThan('sm')]: {
+            color: theme.black,
+        },
     },
 
     linkLabel: {
         marginRight: rem(5),
+    },
+
+    hiddenMobile: {
+        [theme.fn.smallerThan('sm')]: {
+            display: 'none',
+        },
+    },
+
+    hiddenDesktop: {
+        [theme.fn.largerThan('sm')]: {
+            display: 'none',
+        },
     },
 }));

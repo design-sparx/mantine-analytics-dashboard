@@ -18,6 +18,9 @@ import {
     IconBrandTwitter,
     IconWorld
 } from "@tabler/icons-react";
+import {useMediaQuery} from "@mantine/hooks";
+
+const ICON_SIZE = 18
 
 const ACTION_ICON_PROPS: ActionIconProps = {
     size: "lg",
@@ -26,7 +29,8 @@ const ACTION_ICON_PROPS: ActionIconProps = {
 }
 
 const FooterNav = () => {
-    const {classes} = useStyles();
+    const {classes, theme} = useStyles();
+    const mobile_match = useMediaQuery('(max-width: 425px)');
 
     return (
         <footer className={classes.footer}>
@@ -34,17 +38,21 @@ const FooterNav = () => {
                 <Stack>
                     <Title ta="center" order={2}>Start building with Design Sparx today</Title>
                     <Text ta="center">Stop wasting time building your application from scratch. Design Sparx is fast,
-                        extendable
-                        and fully customizable.</Text>
+                        extendable and fully customizable.</Text>
                     <Group position="center">
                         <Button>Documentation</Button>
                         <Button>Purchase Now</Button>
                     </Group>
                 </Stack>
             </Container>
-            <Divider my="md"/>
-            <Flex justify="space-between">
-                <Logo/>
+            <Divider mt="xl" mb="md"/>
+            <Flex
+                direction={{base: 'column', sm: 'row'}}
+                gap={{base: 'sm', sm: 'lg'}}
+                justify={{base: 'center', sm: 'space-between'}}
+                align={{base: 'center'}}
+            >
+                <Logo sx={{color: theme.white}}/>
                 <Group spacing="xs" position="right" noWrap>
                     <ActionIcon
                         component="a"
@@ -52,7 +60,7 @@ const FooterNav = () => {
                         target="_blank"
                         {...ACTION_ICON_PROPS}
                     >
-                        <IconWorld/>
+                        <IconWorld size={ICON_SIZE}/>
                     </ActionIcon>
                     <ActionIcon
                         size="lg"
@@ -61,7 +69,7 @@ const FooterNav = () => {
                         target="_blank"
                         {...ACTION_ICON_PROPS}
                     >
-                        <IconBrandGithub/>
+                        <IconBrandGithub size={ICON_SIZE}/>
                     </ActionIcon>
                     <ActionIcon
                         size="lg"
@@ -70,7 +78,7 @@ const FooterNav = () => {
                         target="_blank"
                         {...ACTION_ICON_PROPS}
                     >
-                        <IconBrandTwitter/>
+                        <IconBrandTwitter size={ICON_SIZE}/>
                     </ActionIcon>
                     <ActionIcon
                         size="lg"
@@ -79,7 +87,7 @@ const FooterNav = () => {
                         target="_blank"
                         {...ACTION_ICON_PROPS}
                     >
-                        <IconBrandLinkedin/>
+                        <IconBrandLinkedin size={ICON_SIZE}/>
                     </ActionIcon>
                     <ActionIcon
                         size="lg"
@@ -88,7 +96,7 @@ const FooterNav = () => {
                         target="_blank"
                         {...ACTION_ICON_PROPS}
                     >
-                        <IconBrandFacebook/>
+                        <IconBrandFacebook size={ICON_SIZE}/>
                     </ActionIcon>
                     <ActionIcon
                         size="lg"
@@ -97,7 +105,7 @@ const FooterNav = () => {
                         target="_blank"
                         {...ACTION_ICON_PROPS}
                     >
-                        <IconBrandInstagram/>
+                        <IconBrandInstagram size={ICON_SIZE}/>
                     </ActionIcon>
                 </Group>
             </Flex>

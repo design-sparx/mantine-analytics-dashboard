@@ -74,7 +74,8 @@ function AppLayout({children}: Props) {
                         <Navigation
                             hiddenBreakpoint="md"
                             hidden={!opened}
-                            width={{sm: 240, lg: 320}}
+                            width={{sm: 320, lg: 320}}
+                            onClose={() => setOpened(false)}
                             sx={{
                                 zIndex: 101
                             }}
@@ -116,7 +117,7 @@ function AppLayout({children}: Props) {
                     <Box mt={16}>
                         {children}
                     </Box>
-                    <Affix position={{bottom: rem(48), right: rem(40)}}>
+                    <Affix position={{bottom: rem(48), right: rem(40)}} sx={{zIndex: 100}}>
                         <ActionIcon
                             size={56}
                             onClick={themeOpen}

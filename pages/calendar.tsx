@@ -165,7 +165,7 @@ function Calendar() {
                 <title>Calendar | DesignSparx</title>
             </Head>
             <AppLayout>
-                <Container>
+                <Container fluid>
                     <Stack spacing="lg">
                         <PageHeader title="Calendar" breadcrumbItems={items}/>
                         <StyledPaper

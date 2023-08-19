@@ -22,7 +22,7 @@ import {
     ThemeIcon,
     ThemeIconProps,
     Title,
-    Tooltip, UnstyledButton
+    Tooltip, UnstyledButton, useMantineTheme
 } from "@mantine/core";
 import Link from "next/link";
 import {PATH_DASHBOARD} from "@/routes";
@@ -36,6 +36,7 @@ import {
 } from "@tabler/icons-react";
 import React from "react";
 import CountUp from "react-countup";
+import {useMediaQuery} from "@mantine/hooks";
 
 const useStyles = createStyles((theme) => ({
     hero: {
@@ -45,6 +46,13 @@ const useStyles = createStyles((theme) => ({
         paddingBottom: `calc(${theme.spacing.xl} * 4)`,
         paddingLeft: `calc(${theme.spacing.xl} * 4)`,
         paddingRight: `calc(${theme.spacing.xl} * 4)`,
+
+        [theme.fn.smallerThan('sm')]: {
+            paddingTop: `calc(${theme.spacing.xl})`,
+            paddingBottom: `calc(${theme.spacing.xl})`,
+            paddingLeft: `calc(${theme.spacing.xl})`,
+            paddingRight: `calc(${theme.spacing.xl})`,
+        },
     },
     title: {
         fontWeight: 800,
@@ -81,7 +89,7 @@ const useStyles = createStyles((theme) => ({
 
 const TECH_STACK = [
     {title: 'nextjs', version: '13.14.12', href: 'https://nextjs.org/',},
-    {title: 'nextjs', version: '18.2.0', href: 'https://react.dev/',},
+    {title: 'react', version: '18.2.0', href: 'https://react.dev/',},
     {title: 'typescript', version: '5.1.6', href: 'https://www.typescriptlang.org/',},
     {title: 'mantine', version: '6.0.16', href: 'https://mantine.dev/'},
     {title: 'tabler icons', version: '2.28.0', href: 'https://tabler-icons.io/'},
@@ -97,18 +105,13 @@ const TECH_STACK = [
     {title: 'react simple maps', version: '3.0.0', href: 'https://www.react-simple-maps.io/'},
 ]
 
-const BOX_PROPS: BoxProps = {
-    mt: 120,
-    mb: 80,
-    px: 48
-}
-
 const PAPER_PROPS: PaperProps = {
     p: "md",
     shadow: "md",
     radius: "md",
     sx: {
-        height: '100%'
+        height: '100%',
+        backgroundColor: 'transparent'
     }
 }
 
@@ -119,11 +122,13 @@ const THEME_ICON_PROPS: Omit<ThemeIconProps, 'children'> = {
 
 export default function Home() {
     const {classes, theme} = useStyles()
+    const tablet_match = useMediaQuery('(max-width: 768px)');
 
-    const IMAGE_PAPER_PROPS = {
+    const IMAGE_PAPER_PROPS: PaperProps = {
         p: 'md',
         sx: {
             height: '100%',
+            backgroundColor: 'transparent',
 
             '&:hover': {
                 'img': {
@@ -133,6 +138,12 @@ export default function Home() {
                 }
             }
         }
+    }
+
+    const BOX_PROPS: BoxProps = {
+        mt: 120,
+        pb: 80,
+        px: tablet_match ? 20 : 48,
     }
 
     return (
@@ -157,11 +168,25 @@ export default function Home() {
                                     dashboard or app.
                                 </Title>
                                 <Text>Design Sparx comes with hundreds of UI elements, forms, tables, charts, pages and
-                                    icons
-                                    that helps you to create your web apps or applications faster.</Text>
-                                <Group>
-                                    <Button component={Link} href={PATH_DASHBOARD.default}>Live Demo</Button>
-                                    <Button>Read Docs</Button>
+                                    icons that helps you to create your web apps or applications faster.</Text>
+                                <Group my="lg">
+                                    <Button
+                                        component={Link}
+                                        href={PATH_DASHBOARD.default}
+                                        size="md"
+                                        rightIcon={<IconArrowRight/>}
+                                    >
+                                        Live Demo
+                                    </Button>
+                                    <Button
+                                        size="md"
+                                        component="a"
+                                        href="https://analytics-dashboard-docs.netlify.app/"
+                                        target="_blank"
+                                        variant="white"
+                                    >
+                                        Read Docs
+                                    </Button>
                                 </Group>
                                 <Stack>
                                     <Text>Tech Stack:</Text>
@@ -216,34 +241,69 @@ export default function Home() {
                     <Container size="lg">
                         <Title ta="center" order={2}>Carefully crafted components ready to use in your
                             project</Title>
-                        <SimpleGrid cols={4} spacing="lg" my="xl">
+                        <SimpleGrid
+                            cols={4}
+                            spacing="lg"
+                            my="xl"
+                            breakpoints={[
+                                {maxWidth: 'md', cols: 2, spacing: 'md'},
+                                {maxWidth: 'sm', cols: 1, spacing: 'sm'},
+                            ]}
+                        >
                             <Paper {...PAPER_PROPS}>
-                                <Flex gap="xs">
+                                <Flex
+                                    align="center"
+                                    direction={{base: 'column', sm: 'row'}}
+                                    gap={{base: 'sm', sm: 'lg'}}
+                                    justify={{sm: 'center'}}
+                                >
                                     <Title color="blue.7"><CountUp end={50}/>+</Title>
                                     <Text>Beautifully coded page examples</Text>
                                 </Flex>
                             </Paper>
                             <Paper {...PAPER_PROPS}>
-                                <Flex gap="xs">
+                                <Flex
+                                    align="center"
+                                    direction={{base: 'column', sm: 'row'}}
+                                    gap={{base: 'sm', sm: 'lg'}}
+                                    justify={{sm: 'center'}}
+                                >
                                     <Title color="blue.7"><CountUp end={100}/>+</Title>
                                     <Text>Components and widgets</Text>
                                 </Flex>
                             </Paper>
                             <Paper {...PAPER_PROPS}>
-                                <Flex gap="xs">
+                                <Flex
+                                    align="center"
+                                    direction={{base: 'column', sm: 'row'}}
+                                    gap={{base: 'sm', sm: 'lg'}}
+                                    justify={{sm: 'center'}}
+                                >
                                     <IconDevices size={50} color={theme.colors.blue[7]}/>
                                     <Text>Optimized to work for most devices</Text>
                                 </Flex>
                             </Paper>
                             <Paper {...PAPER_PROPS}>
-                                <Flex gap="xs">
+                                <Flex
+                                    align="center"
+                                    direction={{base: 'column', sm: 'row'}}
+                                    gap={{base: 'sm', sm: 'lg'}}
+                                    justify={{sm: 'center'}}
+                                >
                                     <IconColorSwatch size={50} color={theme.colors.blue[7]}/>
                                     <Text>Customize it to meet your brand's identity</Text>
                                 </Flex>
                             </Paper>
                         </SimpleGrid>
                     </Container>
-                    <SimpleGrid cols={3}>
+                    <SimpleGrid
+                        cols={3}
+                        spacing="lg"
+                        breakpoints={[
+                            {maxWidth: 'md', cols: 2, spacing: 'md'},
+                            {maxWidth: 'sm', cols: 1, spacing: 'sm'},
+                        ]}
+                    >
                         <Paper {...IMAGE_PAPER_PROPS}>
                             <Image src="/a-dashboard.png" className={classes.variantImg}/>
                             <Text className={classes.variantTitle}>Default variant</Text>
@@ -286,7 +346,14 @@ export default function Home() {
                         <Badge size="lg" variant="filled" mb="md">Key features</Badge>
                         <Text mb="lg">Quick helps you build beautiful websites that stand out and automatically adapt to
                             your style.</Text>
-                        <SimpleGrid cols={4}>
+                        <SimpleGrid
+                            cols={4}
+                            spacing="lg"
+                            breakpoints={[
+                                {maxWidth: 'md', cols: 2, spacing: 'md'},
+                                {maxWidth: 'sm', cols: 1, spacing: 'sm'},
+                            ]}
+                        >
                             <Paper {...PAPER_PROPS}>
                                 <ThemeIcon {...THEME_ICON_PROPS}>
                                     <IconFolderCode size={24}/>
@@ -317,19 +384,23 @@ export default function Home() {
                             </Paper>
                         </SimpleGrid>
                         <Center mt="lg">
-                            <Button size="md" component="a" href="https://analytics-dashboard-docs.netlify.app/" target="_blank"
-                                    leftIcon={<IconBook size={16}/>}>Read
-                                Documentation</Button>
+                            <Button
+                                size="md"
+                                component="a"
+                                href="https://analytics-dashboard-docs.netlify.app/"
+                                target="_blank"
+                                leftIcon={<IconBook size={16}/>}
+                            >
+                                Read Documentation
+                            </Button>
                         </Center>
                     </Container>
                 </Box>
                 <Box {...BOX_PROPS}>
-                    <Center>
-                        <Paper>
-                            <Title order={5} mb="md">For any queries?</Title>
-                            <Button variant="subtle" rightIcon={<IconArrowRight size={16}/>}>Contact Us</Button>
-                        </Paper>
-                    </Center>
+                    <Paper sx={{backgroundColor: 'transparent', textAlign: 'center'}}>
+                        <Title order={3} mb="md">For any queries?</Title>
+                        <Button variant="subtle" rightIcon={<IconArrowRight size={16}/>}>Contact Us</Button>
+                    </Paper>
                 </Box>
             </GuestLayout>
         </>

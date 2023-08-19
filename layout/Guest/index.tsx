@@ -1,6 +1,18 @@
 import HeaderNav from "@/layout/Guest/HeaderNav/HeaderNav";
 import React, {ReactNode} from "react";
-import {ActionIcon, Button, Container, Divider, Flex, Group, MantineProvider, Text, Title} from "@mantine/core";
+import {
+    ActionIcon,
+    Box,
+    Button,
+    Container,
+    Divider,
+    Flex,
+    Group,
+    MantineProvider,
+    Text,
+    Title,
+    useMantineTheme
+} from "@mantine/core";
 import {Logo} from "@/components";
 import {
     IconBrandFacebook,
@@ -17,10 +29,16 @@ type GuestLayoutProps = {
 }
 
 const GuestLayout = ({children}: GuestLayoutProps) => {
+    const theme = useMantineTheme()
+
     return (
         <MantineProvider inherit theme={{primaryShade: 8}}>
             <HeaderNav/>
-            {children}
+            <Box
+                sx={{backgroundColor: theme.colors.gray[0]}}
+            >
+                {children}
+            </Box>
             <FooterNav/>
         </MantineProvider>
     );

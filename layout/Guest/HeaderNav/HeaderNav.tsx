@@ -1,4 +1,17 @@
-import {Burger, Button, Center, Container, Group, Header, Menu, rem, Text} from '@mantine/core';
+import {
+    Box,
+    Burger,
+    Button,
+    Center,
+    Container,
+    Drawer,
+    Group,
+    Header,
+    Menu,
+    rem,
+    ScrollArea,
+    Text
+} from '@mantine/core';
 import {useDisclosure} from '@mantine/hooks';
 import {IconChevronDown} from '@tabler/icons-react';
 import useStyles from "./HeaderNav.styles";
@@ -24,7 +37,8 @@ const HEADER_HEIGHT = rem(60);
 
 const HeaderNav = () => {
     const {classes, theme} = useStyles();
-    const [opened, {toggle}] = useDisclosure(false);
+    const [drawerOpened, {toggle: toggleDrawer, close: closeDrawer}] = useDisclosure(false);
+
     const items = MOCK_DATA.map((link) => {
         return (
             <a
@@ -32,7 +46,6 @@ const HeaderNav = () => {
                 href={link.link}
                 target="_blank"
                 className={classes.link}
-                onClick={(event) => event.preventDefault()}
             >
                 {link.label}
             </a>
@@ -40,17 +53,38 @@ const HeaderNav = () => {
     });
 
     return (
-        <Header height={HEADER_HEIGHT}>
-            <Container className={classes.inner} fluid>
-                <Logo sx={{color: theme.white}}/>
-                <Group spacing="xs" className={classes.links}>
+        <Box>
+            <Header height={HEADER_HEIGHT}>
+                <Container className={classes.inner} fluid>
+                    <Logo sx={{color: theme.white}}/>
+                    <Group spacing="xs" className={classes.links}>
+                        {items}
+                        <Button>
+                            Buy Now
+                        </Button>
+                    </Group>
+                    <Burger
+                        opened={drawerOpened}
+                        onClick={toggleDrawer}
+                        className={classes.hiddenDesktop}
+                        color={theme.white}
+                    />
+                </Container>
+            </Header>
+            <Drawer
+                opened={drawerOpened}
+                onClose={closeDrawer}
+                size="100%"
+                padding="md"
+                title="Menu"
+                className={classes.hiddenDesktop}
+                zIndex={1000000}
+            >
+                <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
                     {items}
-                    <Button>
-                        Buy Now
-                    </Button>
-                </Group>
-            </Container>
-        </Header>
+                </ScrollArea>
+            </Drawer>
+        </Box>
     );
 }
 
