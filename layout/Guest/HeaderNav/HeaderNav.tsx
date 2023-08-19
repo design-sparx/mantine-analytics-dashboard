@@ -15,7 +15,7 @@ import {
 import {useDisclosure} from '@mantine/hooks';
 import {IconChevronDown} from '@tabler/icons-react';
 import useStyles from "./HeaderNav.styles";
-import {PATH_DASHBOARD} from "@/routes";
+import {PATH_DASHBOARD, PATH_DOCS} from "@/routes";
 import {Logo} from "@/components";
 
 const MOCK_DATA = [
@@ -24,7 +24,7 @@ const MOCK_DATA = [
         "label": "live preview"
     },
     {
-        "link": "https://analytics-dashboard-docs.netlify.app/",
+        "link": PATH_DOCS.root,
         "label": "documentation"
     },
     {
@@ -60,7 +60,7 @@ const HeaderNav = () => {
                     <Group spacing="xs" className={classes.links}>
                         {items}
                         <Button>
-                            Buy Now
+                            Purchase Now
                         </Button>
                     </Group>
                     <Burger

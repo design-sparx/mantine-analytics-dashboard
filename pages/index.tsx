@@ -25,7 +25,7 @@ import {
     Tooltip, UnstyledButton, useMantineTheme
 } from "@mantine/core";
 import Link from "next/link";
-import {PATH_DASHBOARD} from "@/routes";
+import {PATH_DASHBOARD, PATH_DOCS} from "@/routes";
 import {
     IconAdjustmentsHorizontal, IconArrowRight, IconBook, IconChevronDown, IconChevronUp,
     IconColorSwatch,
@@ -54,6 +54,7 @@ const useStyles = createStyles((theme) => ({
             paddingRight: `calc(${theme.spacing.xl})`,
         },
     },
+
     title: {
         fontWeight: 800,
         fontSize: rem(40),
@@ -65,9 +66,11 @@ const useStyles = createStyles((theme) => ({
             textAlign: 'left',
         },
     },
+
     highlight: {
-        color: theme.colors[theme.primaryColor][6],
+        color: theme.colors[theme.primaryColor][5],
     },
+
     stackControl: {
         textTransform: 'capitalize',
         backgroundColor: theme.colors.dark[6],
@@ -75,11 +78,13 @@ const useStyles = createStyles((theme) => ({
         padding: `${rem(6)} ${rem(10)}`,
         borderRadius: theme.radius.md
     },
+
     variantImg: {
         maxHeight: rem(280),
         width: '100%',
         objectFit: 'contain',
     },
+
     variantTitle: {
         textAlign: 'center',
         marginTop: theme.spacing.md,
@@ -181,11 +186,11 @@ export default function Home() {
                                     <Button
                                         size="md"
                                         component="a"
-                                        href="https://analytics-dashboard-docs.netlify.app/"
+                                        href={PATH_DOCS.root}
                                         target="_blank"
                                         variant="white"
                                     >
-                                        Read Docs
+                                        Read Documentation
                                     </Button>
                                 </Group>
                                 <Stack>
@@ -387,7 +392,7 @@ export default function Home() {
                             <Button
                                 size="md"
                                 component="a"
-                                href="https://analytics-dashboard-docs.netlify.app/"
+                                href={PATH_DOCS.root}
                                 target="_blank"
                                 leftIcon={<IconBook size={16}/>}
                             >

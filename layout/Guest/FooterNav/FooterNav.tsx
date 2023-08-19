@@ -19,6 +19,7 @@ import {
     IconWorld
 } from "@tabler/icons-react";
 import {useMediaQuery} from "@mantine/hooks";
+import {PATH_DOCS} from "@/routes";
 
 const ICON_SIZE = 18
 
@@ -35,13 +36,13 @@ const FooterNav = () => {
     return (
         <footer className={classes.footer}>
             <Container mb="xl">
-                <Stack>
+                <Stack spacing="lg">
                     <Title ta="center" order={2}>Start building with Design Sparx today</Title>
                     <Text ta="center">Stop wasting time building your application from scratch. Design Sparx is fast,
                         extendable and fully customizable.</Text>
                     <Group position="center">
-                        <Button>Documentation</Button>
-                        <Button>Purchase Now</Button>
+                        <Button size="md" component="a" target="_blank" href={PATH_DOCS.root}>Read Documentation</Button>
+                        <Button size="md">Purchase Now</Button>
                     </Group>
                 </Stack>
             </Container>

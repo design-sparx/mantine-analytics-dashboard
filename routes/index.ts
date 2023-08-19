@@ -71,13 +71,17 @@ export const PATH_ERROR = {
 }
 
 export const PATH_START = {
-    root: ROOTS_START,
+    root: 'https://mantine-analytics-dashboard-docs.netlify.app/getting-started',
 }
 
 export const PATH_DOCS = {
-    root: ROOTS_DOCS,
+    root: 'https://mantine-analytics-dashboard-docs.netlify.app/',
 }
 
 export const PATH_CHANGELOG = {
     root: ROOTS_CHANGELOG,
+}
+
+export const PATH_GITHUB = {
+    org: "https://github.com/design-sparx",
 }
