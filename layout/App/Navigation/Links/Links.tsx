@@ -3,6 +3,7 @@ import {Box, Collapse, Group, rem, Text, UnstyledButton,} from '@mantine/core';
 import {IconCalendarStats, IconChevronLeft, IconChevronRight} from '@tabler/icons-react';
 import Link from "next/link";
 import useStyles from "./Links.styles";
+import {useRouter} from "next/router";
 
 interface LinksGroupProps {
     icon: React.FC<any>;
@@ -14,6 +15,7 @@ interface LinksGroupProps {
 
 export function LinksGroup({icon: Icon, label, initiallyOpened, link, links}: LinksGroupProps) {
     const {classes, theme} = useStyles();
+    const router = useRouter()
     const hasLinks = Array.isArray(links);
     const [opened, setOpened] = useState(initiallyOpened || false);
     const ChevronIcon = theme.dir === 'ltr' ? IconChevronRight : IconChevronLeft;
@@ -32,9 +34,13 @@ export function LinksGroup({icon: Icon, label, initiallyOpened, link, links}: Li
     return (
         <>
             <UnstyledButton
-                onClick={() => setOpened((o) => !o)} className={classes.control}
-                component={Link}
-                href={link || "#"}
+                onClick={
+                    (evt) => {
+                        setOpened((o) => !o);
+                        (hasLinks && link) ? router.push(link) : evt.preventDefault()
+                    }
+                }
+                className={classes.control}
             >
                 <Group position="apart" spacing={0}>
                     <Box sx={{display: 'flex', alignItems: 'center'}}>
