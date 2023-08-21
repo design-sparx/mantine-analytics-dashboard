@@ -12,7 +12,7 @@ import {
     ScrollArea,
     Text
 } from '@mantine/core';
-import {useDisclosure} from '@mantine/hooks';
+import {useDisclosure, useMediaQuery} from '@mantine/hooks';
 import {IconChevronDown} from '@tabler/icons-react';
 import useStyles from "./HeaderNav.styles";
 import {PATH_DASHBOARD, PATH_DOCS} from "@/routes";
@@ -38,6 +38,7 @@ const HEADER_HEIGHT = rem(60);
 const HeaderNav = () => {
     const {classes, theme} = useStyles();
     const [drawerOpened, {toggle: toggleDrawer, close: closeDrawer}] = useDisclosure(false);
+    const tablet_match = useMediaQuery('(max-width: 768px)');
 
     const items = MOCK_DATA.map((link) => {
         return (
@@ -79,6 +80,9 @@ const HeaderNav = () => {
                 title="Menu"
                 className={classes.hiddenDesktop}
                 zIndex={1000000}
+                transitionProps={{
+                    transition: tablet_match ? 'slide-up' : 'slide-left',
+                }}
             >
                 <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
                     {items}

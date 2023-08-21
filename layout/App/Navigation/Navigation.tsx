@@ -17,7 +17,7 @@ import {Logo, UserProfileButton} from "@/components";
 import {
     PATH_AUTH,
     PATH_CALENDAR,
-    PATH_DASHBOARD,
+    PATH_DASHBOARD, PATH_DOCS,
     PATH_ERROR,
     PATH_INVOICES,
     PATH_ORDERS,
@@ -91,12 +91,12 @@ const mockdata = [
             {
                 label: 'Getting started',
                 icon: IconLifebuoy,
-                link: 'https://analytics-dashboard-docs.netlify.app/getting-started'
+                link: PATH_DOCS.root
             },
             {
                 label: 'Documentation',
                 icon: IconBook2,
-                link: 'https://analytics-dashboard-docs.netlify.app/'
+                link: PATH_DOCS.root
             },
             {label: 'Changelog', icon: IconList,},
         ]
