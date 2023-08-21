@@ -8,6 +8,7 @@ import {useColorScheme} from "@mantine/hooks";
 import {ModalsProvider} from "@mantine/modals";
 import {RouterTransition} from '@/components';
 import "../styles/globals.css";
+import {Notifications} from "@mantine/notifications";
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
     const {Component, pageProps} = props;
@@ -46,6 +47,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
             >
                 <ModalsProvider>
                     <RouterTransition/>
+                    <Notifications/>
                     <Component {...pageProps} />
                 </ModalsProvider>
             </MantineProvider>

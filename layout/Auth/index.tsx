@@ -2,6 +2,7 @@ import {Center, ColorScheme, ColorSchemeProvider, MantineProvider, Stack, useMan
 import Image from "next/image";
 import React, {ReactNode, useEffect, useState} from "react";
 import {useHotkeys, useLocalStorage} from "@mantine/hooks";
+import {MantineColor} from "@mantine/styles/lib/theme/types/MantineColor";
 
 type AuthProps = {
     children: ReactNode
@@ -9,7 +10,11 @@ type AuthProps = {
 
 const AuthLayout = ({children}: AuthProps) => {
     const theme = useMantineTheme()
-    const [primaryColor, setPrimaryColor] = useState<any>('blue');
+    const [primaryColor, setPrimaryColor] = useLocalStorage<MantineColor>({
+        key: 'mantine-preferred-color-dash-sparx',
+        defaultValue: 'blue',
+        getInitialValueInEffect: true,
+    });
     const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
         key: 'mantine-color-scheme-dash-sparx',
         defaultValue: 'light',
@@ -24,12 +29,6 @@ const AuthLayout = ({children}: AuthProps) => {
         setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 
     useHotkeys([['mod+J', () => toggleColorScheme()]]);
-
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            setPrimaryColor(localStorage.getItem('mantine-preferred-color-dash-sparx'))
-        }
-    }, []);
 
     return (
         <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>

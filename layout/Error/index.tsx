@@ -1,6 +1,7 @@
 import React, {ReactNode, useEffect, useState} from 'react';
 import {Center, ColorScheme, ColorSchemeProvider, MantineProvider, useMantineTheme} from "@mantine/core";
 import {useHotkeys, useLocalStorage} from "@mantine/hooks";
+import {MantineColor} from "@mantine/styles/lib/theme/types/MantineColor";
 
 type ErrorProps = {
     children: ReactNode
@@ -8,7 +9,11 @@ type ErrorProps = {
 
 const ErrorLayout = ({children}: ErrorProps) => {
     const theme = useMantineTheme()
-    const [primaryColor, setPrimaryColor] = useState<any>('blue');
+    const [primaryColor, setPrimaryColor] = useLocalStorage<MantineColor>({
+        key: 'mantine-preferred-color-dash-sparx',
+        defaultValue: 'blue',
+        getInitialValueInEffect: true,
+    });
     const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
         key: 'mantine-color-scheme-dash-sparx',
         defaultValue: 'light',
@@ -24,12 +29,6 @@ const ErrorLayout = ({children}: ErrorProps) => {
 
     useHotkeys([['mod+J', () => toggleColorScheme()]]);
 
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            setPrimaryColor(localStorage.getItem('mantine-preferred-color-dash-sparx'))
-        }
-    }, []);
-
     return (
         <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
             <MantineProvider inherit theme={{primaryColor, primaryShade: 7, colorScheme}}>
@@ -37,7 +36,7 @@ const ErrorLayout = ({children}: ErrorProps) => {
                     sx={{
                         height: '100vh',
                         width: '100vw',
-                        backgroundColor: colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors[primaryColor][0],
+                        backgroundColor: colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors[primaryColor][0],
                         color: colorScheme === 'dark' ? theme.white : theme.colors.dark[8]
                     }}
                 >

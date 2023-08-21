@@ -18,7 +18,7 @@ const useStyles = createStyles((theme) => ({
         fontWeight: 900,
         fontSize: rem(220),
         lineHeight: 1,
-        color: theme.colors[theme.primaryColor][6],
+        color: theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.dark[2],
 
         [theme.fn.smallerThan('sm')]: {
             fontSize: rem(120),

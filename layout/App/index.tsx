@@ -11,13 +11,14 @@ import {
     MantineProvider,
     rem, useMantineTheme,
 } from '@mantine/core';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Navigation from "@/layout/App/Navigation/Navigation";
 import HeaderNav from "@/layout/App/HeaderNav/HeaderNav";
 import {useDisclosure, useHotkeys, useLocalStorage, useMediaQuery} from "@mantine/hooks";
 import {ThemeDrawer} from "@/components";
 import FooterNav from "@/layout/App/FooterNav/FooterNav";
 import {IconPaint} from "@tabler/icons-react";
+import {MantineColor} from "@mantine/styles/lib/theme/types/MantineColor";
 
 type Props = {
     children: React.ReactNode;
@@ -25,10 +26,14 @@ type Props = {
 
 function AppLayout({children}: Props) {
     const [opened, setOpened] = useState(false);
-    const [primaryColor, setPrimaryColor] = useState<any>('blue');
     const [themeOpened, {open: themeOpen, close: themeClose}] = useDisclosure(false);
     const theme = useMantineTheme()
     const tablet_match = useMediaQuery('(max-width: 768px)');
+    const [primaryColor, setPrimaryColor] = useLocalStorage<MantineColor>({
+        key: 'mantine-preferred-color-dash-sparx',
+        defaultValue: 'blue',
+        getInitialValueInEffect: true,
+    });
     const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
         key: 'mantine-color-scheme-dash-sparx',
         defaultValue: 'light',
@@ -46,16 +51,7 @@ function AppLayout({children}: Props) {
 
     const handleThemeChange = (c: string) => {
         setPrimaryColor(c);
-        if (typeof window !== 'undefined') {
-            localStorage.setItem('mantine-preferred-color-dash-sparx', c)
-        }
     }
-
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            setPrimaryColor(localStorage.getItem('mantine-preferred-color-dash-sparx'))
-        }
-    }, []);
 
     return (
         <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
