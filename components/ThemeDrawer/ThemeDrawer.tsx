@@ -10,7 +10,7 @@ import {
 } from "@mantine/core";
 import {IconCheck, IconMoonStars, IconSunFilled, IconSunHigh} from "@tabler/icons-react";
 import {showNotification} from "@mantine/notifications";
-import {upperFirst, useHotkeys, useLocalStorage} from "@mantine/hooks";
+import {upperFirst, useHotkeys, useLocalStorage, useMediaQuery} from "@mantine/hooks";
 
 type ThemeDrawerProps = {
     primaryColor: string;
@@ -25,6 +25,7 @@ const ThemeDrawer = ({primaryColor, setPrimaryColor, colorScheme, toggleColorSch
         swatch: theme.colors[color][6],
         color
     }));
+    const tablet_match = useMediaQuery('(max-width: 768px)');
 
     /**
      * swatches items
@@ -57,7 +58,15 @@ const ThemeDrawer = ({primaryColor, setPrimaryColor, colorScheme, toggleColorSch
     );
 
     return (
-        <Drawer {...others} position="right" title="Theme Customizer" padding="lg" size="xs">
+        <Drawer
+            {...others}
+            position="right"
+            title="Theme Customizer"
+            padding="lg" size="xs"
+            transitionProps={{
+                transition: tablet_match ? 'slide-up' : 'slide-left',
+            }}
+        >
             <Stack spacing="lg">
                 <Tooltip label="switch to light/dark mode">
                     <Button

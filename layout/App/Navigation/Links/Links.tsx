@@ -37,7 +37,7 @@ export function LinksGroup({icon: Icon, label, initiallyOpened, link, links}: Li
                 onClick={
                     (evt) => {
                         setOpened((o) => !o);
-                        (hasLinks && link) ? router.push(link) : evt.preventDefault()
+                        link && (router.push(link || "#"))
                     }
                 }
                 className={classes.control}
