@@ -1,3 +1,9 @@
+![thumbnail-img-b](https://github.com/design-sparx/mantine-analytics-dashboard/assets/26582923/b82ec1c2-479a-4eb3-9ef2-0c5e6435c78c)
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/72758493-91b7-4ec0-ab26-697db44db93e/deploy-status)](https://app.netlify.com/sites/mantine-analytics-dashboard/deploys)
+
+[Live Preview](https://mantine-analytics-dashboard.netlify.app/)
+
 ## Quick start
 
 This is a Next.js project bootstrapped with create-next-app. You'll need to install Node.js (v16 or up) before using
