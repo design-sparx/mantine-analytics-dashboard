@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@changesets/cli": "^2.26.2",
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/sortable": "^7.0.2",
     "@emotion/react": "^11.11.1",
