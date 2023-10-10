@@ -1,5 +1,12 @@
 # analytics-dashboard
 
+## 1.0.1
+
+### Patch Changes
+
+- 342a66a: ### Updated
+  - Update issue templates
+
 ## 1.0.0
 
 ### Major Changes
