@@ -1,0 +1,17 @@
+.item {
+  padding: var(--mantine-radius-sm);
+  border-bottom: 1px solid var(--mantine-color-gray-3);
+
+  @mixin hover {
+    background-color: var(--mantine-primary-color-filled);
+  }
+}
+
+.itemRounded {
+  padding: var(--mantine-spacing-xs);
+  border-radius: var(--mantine-radius-sm);
+
+  @mixin hover {
+    background-color: var(--mantine-primary-color-filled);
+  }
+}

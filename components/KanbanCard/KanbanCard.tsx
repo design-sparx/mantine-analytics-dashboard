@@ -1,24 +1,28 @@
+"use client"
+
 import {useState} from "react";
-import {Id, KanbanColumn as IColumn, KanbanTask as ITask} from "../../types";
+import {Id, KanbanTask as ITask} from "../../types";
 import {useSortable} from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities";
 import {IconDots, IconEdit, IconMessageCircle, IconTrash} from "@tabler/icons-react";
 import {
-    ActionIcon,
-    Avatar,
-    Box,
-    Button, Card, Divider,
-    Flex, Menu,
-    Paper, PaperProps,
-    rem,
-    Stack,
-    Text,
-    Textarea,
-    Tooltip,
-    useMantineTheme
+  ActionIcon,
+  Avatar,
+  Box,
+  Button,
+  Card,
+  Divider,
+  Flex,
+  Menu,
+  Paper,
+  PaperProps,
+  rem,
+  Text,
+  Textarea,
+  Tooltip,
+  useMantineTheme
 } from "@mantine/core";
 import {useHover} from "@mantine/hooks";
-import useStyles from "./KanbanCard.styles"
 import {modals} from "@mantine/modals";
 
 const AVATARS = [
@@ -42,7 +46,6 @@ type Props = {
 }
 
 const KanbanCard = (props: Props) => {
-    const {classes} = useStyles()
     const {task, deleteTask, updateTask} = props;
     const theme = useMantineTheme()
     const [mouseIsOver, setMouseIsOver] = useState(false);
@@ -94,17 +97,7 @@ const KanbanCard = (props: Props) => {
                 ref={setNodeRef}
                 style={style}
                 p="sm"
-                sx={{
-                    backgroundColor: theme.colorScheme === "dark" ? theme.colors.gray[0] : theme.colors.dark[0],
-                    opacity: theme.colorScheme === "dark" ? .7 : .3,
-                    minHeight: rem(100),
-                    display: 'flex',
-                    textAlign: 'left',
-                    cursor: 'grab',
-                    position: 'relative',
-                    alignItems: 'center',
-                    borderRadius: theme.radius.md
-                }}
+                className={classes.dragBox}
             />
         );
     }

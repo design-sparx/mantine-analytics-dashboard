@@ -1,7 +1,9 @@
+"use client"
+
 import {useState} from "react";
 import {Group, Image, Menu, UnstyledButton,} from "@mantine/core";
 import {IconChevronDown} from "@tabler/icons-react";
-import useStyles from "./LanguagePicker.styles";
+import classes from "./LanguagePicker.module.css";
 
 const data = [
     {
@@ -37,7 +39,6 @@ type LanguagePickerProps = {
 
 const LanguagePicker = ({type}: LanguagePickerProps) => {
     const [opened, setOpened] = useState(false);
-    const {classes} = useStyles({opened});
     const [selected, setSelected] = useState(data[0]);
     const items = data.map((item) => (
         <Menu.Item

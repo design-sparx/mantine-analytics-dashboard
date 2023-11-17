@@ -1,0 +1,9 @@
+.user {
+    display: block;
+    width: 100%;
+    padding: var(--mantine-spacing-md);
+
+    @mixin hover {
+        background-color: var(--mantine-primary-color-filled)
+    }
+}

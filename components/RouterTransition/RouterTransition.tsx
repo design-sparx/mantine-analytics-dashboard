@@ -1,3 +1,4 @@
+"use client"
 // components/RouterTransition.tsx
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -21,7 +22,7 @@ const RouterTransition = () => {
         };
     }, [router.asPath]);
 
-    return <NavigationProgress autoReset={true} color="dark.8"/>;
+    return <NavigationProgress color="dark.8"/>;
 }
 
 export default RouterTransition

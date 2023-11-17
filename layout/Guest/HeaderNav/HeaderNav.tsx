@@ -1,20 +1,6 @@
-import {
-    Box,
-    Burger,
-    Button,
-    Center,
-    Container,
-    Drawer,
-    Group,
-    Header,
-    Menu,
-    rem,
-    ScrollArea,
-    Text
-} from '@mantine/core';
+import {Box, Burger, Button, Container, Drawer, Group, rem, ScrollArea, useMantineTheme} from '@mantine/core';
 import {useDisclosure, useMediaQuery} from '@mantine/hooks';
-import {IconChevronDown} from '@tabler/icons-react';
-import useStyles from "./HeaderNav.styles";
+import classes from "./HeaderNav.module.css";
 import {PATH_DASHBOARD, PATH_DOCS} from "@/routes";
 import {Logo} from "@/components";
 
@@ -36,7 +22,7 @@ const MOCK_DATA = [
 const HEADER_HEIGHT = rem(60);
 
 const HeaderNav = () => {
-    const {classes, theme} = useStyles();
+    const theme = useMantineTheme()
     const [drawerOpened, {toggle: toggleDrawer, close: closeDrawer}] = useDisclosure(false);
     const tablet_match = useMediaQuery('(max-width: 768px)');
 
@@ -55,9 +41,9 @@ const HeaderNav = () => {
 
     return (
         <Box>
-            <Header height={HEADER_HEIGHT}>
+            <header className={classes.header}>
                 <Container className={classes.inner} fluid>
-                    <Logo sx={{color: theme.white}}/>
+                    <Logo style={{color: theme.white}}/>
                     <Group spacing="xs" className={classes.links}>
                         {items}
                         <Button>
@@ -71,7 +57,7 @@ const HeaderNav = () => {
                         color={theme.white}
                     />
                 </Container>
-            </Header>
+            </header>
             <Drawer
                 opened={drawerOpened}
                 onClose={closeDrawer}

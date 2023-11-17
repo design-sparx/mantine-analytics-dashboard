@@ -1,3 +1,5 @@
+"use client"
+
 import React, {useEffect, useMemo, useState} from "react";
 import {ComposableMap, Geographies, Geography, Marker} from "react-simple-maps";
 import {csv} from "d3-fetch";

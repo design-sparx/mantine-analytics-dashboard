@@ -1,3 +1,5 @@
+"use client"
+
 import dynamic from "next/dynamic";
 import {ActionIcon, Group, Paper, PaperProps, Text, useMantineTheme} from "@mantine/core";
 import {IconDotsVertical} from "@tabler/icons-react";

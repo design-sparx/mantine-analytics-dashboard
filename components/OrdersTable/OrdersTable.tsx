@@ -1,3 +1,5 @@
+"use client"
+
 import React, {useEffect, useMemo, useState} from 'react';
 import {DataTable, DataTableSortStatus} from "mantine-datatable";
 import {Badge, MantineColor, MultiSelect, Text, TextInput} from "@mantine/core"

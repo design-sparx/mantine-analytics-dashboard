@@ -1,3 +1,5 @@
+"use client"
+
 import React, {useState} from 'react';
 import {Flex, Text, Input, Button} from "@mantine/core";
 

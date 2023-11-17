@@ -1,7 +1,7 @@
 import {ReactNode} from "react";
 import {Avatar, Group, Text, UnstyledButton, UnstyledButtonProps,} from '@mantine/core';
 import {IconChevronRight} from '@tabler/icons-react';
-import useStyles from "./UserButton.styles";
+import classes from "./UserButton.module.css";
 
 type UserProfileButtonProps = {
     image: string;
@@ -11,8 +11,6 @@ type UserProfileButtonProps = {
 } & UnstyledButtonProps
 
 const UserProfileButton = ({image, name, email, icon, ...others}: UserProfileButtonProps) => {
-    const {classes} = useStyles();
-
     return (
         <UnstyledButton className={classes.user} {...others}>
             <Group>

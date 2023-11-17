@@ -1,3 +1,5 @@
+"use client"
+
 import {SortableContext, useSortable} from "@dnd-kit/sortable";
 import {Id, KanbanColumn as IColumn, KanbanTask as ITask} from "../../types";
 import {CSS} from "@dnd-kit/utilities";

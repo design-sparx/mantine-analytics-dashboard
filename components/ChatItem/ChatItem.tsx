@@ -21,7 +21,7 @@ const ChatItem = (props: ChatItemProps) => {
                 <Box>
                     <Paper
                         p="sm"
-                        sx={{
+                        style={{
                             backgroundColor: isMe ? theme.colors[theme.primaryColor][7] : theme.colors.gray[1],
                             color: isMe ? theme.white : theme.black
                         }}
@@ -29,7 +29,7 @@ const ChatItem = (props: ChatItemProps) => {
                         <Text size="sm" fw={600} tt="capitalize" mb={4}>{fullName}</Text>
                         <Text size="sm">{message}</Text>
                     </Paper>
-                    <Text align="end" size="sm" mt={4}>{sent_time}</Text>
+                    <Text ta="end" size="sm" mt={4}>{sent_time}</Text>
                 </Box>
             </Flex>
         </Box>
