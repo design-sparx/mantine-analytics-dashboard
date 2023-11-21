@@ -1,4 +1,4 @@
-import {ActionIcon, AppShell, Box, Code, Flex, Group, Text, useMantineTheme} from '@mantine/core';
+import {ActionIcon, Box, Code, Flex, Group, ScrollArea, Text, useMantineTheme} from '@mantine/core';
 import {
   IconAdjustmentsFilled,
   IconAlertOctagon,
@@ -121,42 +121,35 @@ const Navigation = ({onClose, ...others}: NavigationProps) => {
   )
 
   return (
-    <>
-      <AppShell.Section className={classes.header}>
-        <Flex justify="space-between" align="center" gap="sm" p="md">
+    <nav className={classes.navbar}>
+      <div className={classes.header}>
+        <Flex justify="space-between" align="center" gap="sm">
           <Group justify="space-between" style={{flex: tablet_match ? 'auto' : 1}}>
-            <Logo />
-            <Code
-              style={{
-                fontWeight: 700,
-                backgroundColor: theme.colors[theme.primaryColor][9],
-                color: theme.white
-              }}
-            >
+            <Logo c="white" fw={700}/>
+            <Code fw={700}>
               v1.0.0
             </Code>
           </Group>
           {tablet_match &&
-            <ActionIcon onClick={onClose} variant="transparent">
-              <IconX color="white"/>
-            </ActionIcon>
+              <ActionIcon onClick={onClose} variant="transparent">
+                  <IconX color="white"/>
+              </ActionIcon>
           }
         </Flex>
-      </AppShell.Section>
+      </div>
 
-      <AppShell.Section grow className={classes.links}>
+      <ScrollArea className={classes.links}>
         <div className={classes.linksInner}>{links}</div>
-      </AppShell.Section>
+      </ScrollArea>
 
-      <AppShell.Section className={classes.footer}>
+      <div className={classes.footer}>
         <UserProfileButton
           email={UserProfileData.email}
           image={UserProfileData.avatar}
           name={UserProfileData.name}
-          style={{color: theme.white}}
         />
-      </AppShell.Section>
-    </>
+      </div>
+    </nav>
   );
 };
 
