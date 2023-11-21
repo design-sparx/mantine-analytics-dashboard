@@ -12,7 +12,7 @@ const AddTaskCard = ({addCard}: AddCardProps) => {
 
     return (
         <Flex align="center">
-            <Text align="center">
+            <Text ta="center">
                 Card Title
             </Text>
             <Input

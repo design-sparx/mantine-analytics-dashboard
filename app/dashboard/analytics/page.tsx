@@ -1,6 +1,5 @@
-import React from 'react';
-import Head from "next/head";
-import {AppLayout} from "@/layout";
+"use client"
+
 import {Container, Grid, PaperProps, rem, SimpleGrid, Stack, useMantineTheme} from "@mantine/core";
 import {
   LanguageTable,
@@ -14,54 +13,59 @@ import {
 import StatsData from "../../../mocks/StatsGrid.json";
 import LanguagesData from "../../../mocks/Languages.json";
 import TrafficData from "../../../mocks/Traffic.json";
+import {Metadata} from "next";
+
+const metadata: Metadata = {
+  title: "Analytics Dashboard | DesignSparx",
+  description: "Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!",
+};
 
 const PRIMARY_COL_HEIGHT = rem(300);
 
 const PAPER_PROPS: PaperProps = {
-    p: "md",
-    shadow: "md",
-    radius: "md",
-    style: {height: '100%'}
+  p: "md",
+  shadow: "md",
+  radius: "md",
+  style: {height: '100%'}
 }
 
 function Page() {
-    const theme = useMantineTheme();
-    const SECONDARY_COL_HEIGHT = `calc(${PRIMARY_COL_HEIGHT} / 2 - ${theme.spacing.md} / 2)`;
+  const theme = useMantineTheme();
+  const SECONDARY_COL_HEIGHT = `calc(${PRIMARY_COL_HEIGHT} / 2 - var(--mantine-spacing-md) / 2)`;
 
-    return (
-        <>
-            <Head>
-                <title>Page Dashboard | DesignSparx</title>
-            </Head>
-            <AppLayout>
-                <Container fluid>
-                    <Stack spacing="lg">
-                        <PageHeader title="Page dashboard" withActions={true}/>
-                        <SimpleGrid cols={2} spacing="md" breakpoints={[{maxWidth: 'sm', cols: 1}]}>
-                            <SimpleGrid cols={2}>
-                                {StatsData?.data.map(s => <StatsCard key={s.title} data={s} {...PAPER_PROPS}/>)}
-                            </SimpleGrid>
-                            <MobileDesktopChart {...PAPER_PROPS}/>
-                        </SimpleGrid>
-                        <Grid>
-                            <Grid.Col lg={8}>
-                                <MapChart {...PAPER_PROPS}/>
-                            </Grid.Col>
-                            <Grid.Col lg={4}>
-                                <SalesChart {...PAPER_PROPS}/>
-                            </Grid.Col>
-                            <Grid.Col lg={4}>
-                                <LanguageTable data={LanguagesData.slice(0, 6)} {...PAPER_PROPS}/>
-                            </Grid.Col>
-                            <Grid.Col lg={8}>
-                                <TrafficTable data={TrafficData.slice(0, 6)} {...PAPER_PROPS}/>
-                            </Grid.Col>
-                        </Grid>
-                    </Stack>
-                </Container>
-            </AppLayout>
-        </>
-    );
+  return (
+    <>
+      <Container fluid>
+        <Stack gap="lg">
+          <PageHeader title="Analytics dashboard" withActions={true}/>
+          <SimpleGrid
+            cols={{base: 1, sm: 2, lg: 2}}
+            spacing={{base: 10, sm: 'xl'}}
+            verticalSpacing={{base: 'md', sm: 'xl'}}
+          >
+            <SimpleGrid cols={2}>
+              {StatsData?.data.map(s => <StatsCard key={s.title} data={s} {...PAPER_PROPS}/>)}
+            </SimpleGrid>
+            <MobileDesktopChart {...PAPER_PROPS}/>
+          </SimpleGrid>
+          <Grid>
+            <Grid.Col span={{base: 12, md: 6, lg: 8}}>
+              <MapChart {...PAPER_PROPS}/>
+            </Grid.Col>
+            <Grid.Col span={{base: 12, md: 6, lg: 4}}>
+              <SalesChart {...PAPER_PROPS}/>
+            </Grid.Col>
+            <Grid.Col span={{base: 12, md: 6, lg: 4}}>
+              <LanguageTable data={LanguagesData.slice(0, 6)} {...PAPER_PROPS}/>
+            </Grid.Col>
+            <Grid.Col span={{base: 12, md: 6, lg: 8}}>
+              <TrafficTable data={TrafficData.slice(0, 6)} {...PAPER_PROPS}/>
+            </Grid.Col>
+          </Grid>
+        </Stack>
+      </Container>
+    </>
+  );
 }
 
 export default Page;

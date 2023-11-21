@@ -1,45 +1,45 @@
-import React from 'react';
-import Head from "next/head";
-import {Anchor, Breadcrumbs, Container, Paper, PaperProps, Stack, Text, Title} from "@mantine/core";
+"use client"
+
+import {Anchor, Container, Paper, PaperProps, Stack, Text} from "@mantine/core";
 import {PATH_DASHBOARD} from "@/routes";
-import {AppLayout} from "@/layout";
-import {PageHeader} from "@/components";
+import {PageHeader, Surface} from "@/components";
+import {Metadata} from "next";
 
 const items = [
-    {title: 'Dashboard', href: PATH_DASHBOARD.default},
-    {title: 'Pages', href: '#'},
-    {title: 'Blank', href: '#'},
+  {title: 'Dashboard', href: PATH_DASHBOARD.default},
+  {title: 'Pages', href: '#'},
+  {title: 'Blank', href: '#'},
 ].map((item, index) => (
-    <Anchor href={item.href} key={index}>
-        {item.title}
-    </Anchor>
+  <Anchor href={item.href} key={index}>
+    {item.title}
+  </Anchor>
 ));
 
 const PAPER_PROPS: PaperProps = {
-    p: "md",
-    shadow: "md",
-    radius: "md",
+  p: "md",
+  shadow: "md",
+  radius: "md",
 }
 
+const metadata: Metadata = {
+  title: "Blank page | DesignSparx",
+  description: "Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!",
+};
+
 function Pricing() {
-    return (
-        <>
-            <Head>
-                <title>Blank page | DesignSparx</title>
-            </Head>
-            <AppLayout>
-                <Container>
-                    <Stack spacing="lg">
-                        <PageHeader title="Blank page" breadcrumbItems={items}/>
-                        <Paper {...PAPER_PROPS}>
-                            <Text size="lg" fw={600}>Empty card header</Text>
-                            <Text>Empty card text</Text>
-                        </Paper>
-                    </Stack>
-                </Container>
-            </AppLayout>
-        </>
-    );
+  return (
+    <>
+      <Container>
+        <Stack gap="lg">
+          <PageHeader title="Blank page" breadcrumbItems={items}/>
+          <Surface component={Paper} {...PAPER_PROPS}>
+            <Text size="lg" fw={600}>Empty card header</Text>
+            <Text>Empty card text</Text>
+          </Surface>
+        </Stack>
+      </Container>
+    </>
+  );
 }
 
 export default Pricing;

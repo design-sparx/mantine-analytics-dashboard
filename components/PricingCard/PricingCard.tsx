@@ -1,6 +1,7 @@
 import {Button, Group, List, Paper, PaperProps, rem, Text, ThemeIcon, Title} from '@mantine/core';
 import {IconArrowRight, IconCheck} from '@tabler/icons-react';
 import CountUp from 'react-countup';
+import {Surface} from "@/components";
 
 type PricingCardProps = {
     tier: string,
@@ -19,15 +20,15 @@ const PricingCard = (props: PricingCardProps) => {
     const {price, actionText, preferred, features, tier, monthly, description, ...others} = props;
 
     return (
-        <Paper {...others}>
-            <Group spacing={4} position="center">
+        <Surface component={Paper} {...others}>
+            <Group gap={4} align="center" justify="center">
                 <sup style={{fontSize: rem(24)}}>$</sup>
-                <Group align="flex-end" spacing={1}>
+                <Group align="flex-end" gap={1}>
                     <Title size={48}><CountUp end={monthly ? price.year : price.month}/></Title>
                     <Text size="md" fw={500} mb={6}>/mo</Text>
                 </Group>
             </Group>
-            <Title ta="center" my="md" tt="capitalize" order={3}>{tier}</Title>
+            <Title ta="center" my="md" tt="capitalize" order={3} fw={600}>{tier}</Title>
             <Text ta="center">{description}</Text>
             <List
                 spacing="xs"
@@ -44,16 +45,16 @@ const PricingCard = (props: PricingCardProps) => {
             </List>
             <Button
                 variant={preferred ? "filled" : "outline"}
-                rightIcon={<IconArrowRight size={20}/>}
+                rightSection={<IconArrowRight size={18}/>}
                 fullWidth
                 size="md"
                 mb="sm"
-                sx={{textTransform: 'capitalize'}}
+                style={{textTransform: 'capitalize'}}
             >
                 {actionText}
             </Button>
-            <Text ta="center" color="dimmed" size="sm">No card required</Text>
-        </Paper>
+            <Text ta="center" c="dimmed" size="sm">No card required</Text>
+        </Surface>
     );
 };
 

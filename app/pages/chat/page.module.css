@@ -1,0 +1,39 @@
+.chatItems {
+  @mixin light {
+    background-image: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
+  }
+
+  @mixin dark {
+    background-image: linear-gradient(to right, #868f96 0%, #596164 100%);
+  }
+}
+
+.chatHeader {
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+  border-top-right-radius: var(--mantine-radius-default);
+  border-bottom: 1px solid var(--mantine-color-gray-0);
+
+  @mixin light {
+    background-color: var(--mantine-color-white);
+  }
+
+  @mixin dark {
+    background-color: var(--mantine-color-black);
+  }
+}
+
+.user {
+  border-radius: var(--mantine-radius-default)
+}
+
+.replyBox {
+  padding: var(--mantine-spacing-sm);
+
+  @mixin light {
+    background-color: var(--mantine-color-white);
+  }
+
+  @mixin dark {
+    background-color: var(--mantine-color-black);
+  }
+}

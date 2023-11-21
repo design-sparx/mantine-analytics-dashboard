@@ -1,13 +1,17 @@
+"use client"
+
 import type {Metadata} from "next";
 import {ColorSchemeScript, MantineProvider} from "@mantine/core";
 import {ModalsProvider} from "@mantine/modals";
 import {Notifications} from "@mantine/notifications";
 import {Open_Sans} from 'next/font/google'
+import {myTheme} from "@/theme/theme";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
+import '@mantine/tiptap/styles.css';
+import '@mantine/carousel/styles.css';
 import 'mantine-datatable/styles.layer.css';
 import "./globals.css";
-import {myTheme} from "@/theme/theme";
 
 // If loading a variable font, you don't need to specify the font weight
 const openSans = Open_Sans({
@@ -15,7 +19,7 @@ const openSans = Open_Sans({
   display: 'swap',
 })
 
-export const metadata: Metadata = {
+const metadata: Metadata = {
   title: "DesignSparx - Nextjs Mantine Dashboard",
   description: "Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!",
 };

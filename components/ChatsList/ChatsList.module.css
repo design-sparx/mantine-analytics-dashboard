@@ -1,9 +1,10 @@
 .item {
-  padding: var(--mantine-radius-sm);
+  padding: var(--mantine-spacing-xs) var(--mantine-spacing-sm);
   border-bottom: 1px solid var(--mantine-color-gray-3);
 
   @mixin hover {
-    background-color: var(--mantine-primary-color-filled);
+    background-color: var(--mantine-primary-color-light);
+    transition: all ease 150ms;
   }
 }
 

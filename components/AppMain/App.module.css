@@ -1,0 +1,9 @@
+.main {
+  @mixin light {
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  }
+
+  @mixin dark {
+    background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+  }
+}

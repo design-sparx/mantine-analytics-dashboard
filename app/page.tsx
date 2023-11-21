@@ -1,7 +1,6 @@
 "use client"
 
 import Head from 'next/head'
-import {GuestLayout} from "@/layout";
 import {
   Badge,
   Box,
@@ -15,7 +14,6 @@ import {
   Image,
   Paper,
   PaperProps,
-  rem,
   SimpleGrid,
   Spoiler,
   Stack,
@@ -23,21 +21,24 @@ import {
   ThemeIcon,
   ThemeIconProps,
   Title,
-  Tooltip, UnstyledButton, useMantineTheme
+  Tooltip,
+  UnstyledButton
 } from "@mantine/core";
 import Link from "next/link";
 import {PATH_DASHBOARD, PATH_DOCS} from "@/routes";
 import {
-  IconAdjustmentsHorizontal, IconArrowRight, IconBook, IconChevronDown, IconChevronUp,
+  IconAdjustmentsHorizontal,
+  IconArrowRight,
+  IconBook,
   IconColorSwatch,
   IconDevices,
   IconFolderCode,
   IconScaleOutline,
   IconSettingsCog
 } from "@tabler/icons-react";
-import React from "react";
 import CountUp from "react-countup";
 import {useMediaQuery} from "@mantine/hooks";
+import GuestLayout from "@/layout/Guest";
 import classes from "./page.module.css"
 
 const TECH_STACK = [
@@ -102,10 +103,13 @@ export default function Home() {
                   The simplest and fastest way to build your next{' '}
                   <Text component="span" inherit className={classes.highlight}>
                     Mantine UI{' '}
+                  </Text>&{' '}
+                  <Text component="span" inherit className={classes.highlight}>
+                    Nextjs{' '}
                   </Text>
                   dashboard or app.
                 </Title>
-                <Text>Design Sparx comes with hundreds of UI elements, forms, tables, charts, pages and
+                <Text>This template comes with hundreds of UI elements, forms, tables, charts, pages and
                   icons that helps you to create your web apps or applications faster.</Text>
                 <Group my="lg">
                   <Button
@@ -130,27 +134,13 @@ export default function Home() {
                   <Text>Tech Stack:</Text>
                   <Spoiler
                     maxHeight={48}
-                    showLabel={
-                      <Button
-                        variant="default"
-                        size="compact-md"
-                        leftSection={<IconChevronDown size={12}/>}
-                      >
-                        Show more
-                      </Button>
-                    }
-                    hideLabel={
-                      <Button
-                        variant="default"
-                        size="compact-md"
-                        mt="md"
-                        leftSection={<IconChevronUp size={12}/>}
-                      >
-                        Hide
-                      </Button>
+                    showLabel="Show more"
+                    hideLabel="Hide"
+                    styles={
+                      {control: {color: "white", margin: '4px 8px'}}
                     }
                   >
-                    <Group>
+                    <Group pb="sm">
                       {TECH_STACK.map(t =>
                         <Tooltip key={t.title} label={`${t.title}-${t.version}`}>
                           <UnstyledButton
@@ -181,7 +171,7 @@ export default function Home() {
               project</Title>
             <SimpleGrid
               my="xl"
-              cols={{base: 1, sm: 1, md: 2}}
+              cols={{base: 1, sm: 1, md: 2, lg: 4}}
               spacing={{base: "sm", sm: "sm", md: "sm"}}
               verticalSpacing={{base: "sm", sm: "sm", md: "sm"}}
             >
@@ -203,7 +193,7 @@ export default function Home() {
                   gap={{base: 'sm', sm: 'lg'}}
                   justify={{sm: 'center'}}
                 >
-                  <Title c="blue.7"><CountUp end={100}/>+</Title>
+                  <Title className={classes.statsTitle}><CountUp end={100}/>+</Title>
                   <Text>Components and widgets</Text>
                 </Flex>
               </Paper>
@@ -214,7 +204,7 @@ export default function Home() {
                   gap={{base: 'sm', sm: 'lg'}}
                   justify={{sm: 'center'}}
                 >
-                  <IconDevices size={50} color="blue.7"/>
+                  <IconDevices size={50} className={classes.statsTitle}/>
                   <Text>Optimized to work for most devices</Text>
                 </Flex>
               </Paper>
@@ -225,7 +215,7 @@ export default function Home() {
                   gap={{base: 'sm', sm: 'lg'}}
                   justify={{sm: 'center'}}
                 >
-                  <IconColorSwatch size={50} color="blue.7"/>
+                  <IconColorSwatch size={50} className={classes.statsTitle}/>
                   <Text>Customize it to meet your brand's identity</Text>
                 </Flex>
               </Paper>
@@ -262,17 +252,6 @@ export default function Home() {
             </Paper>
           </SimpleGrid>
         </Box>
-        {/*<Box {...BOX_PROPS}>*/}
-        {/*    <Title ta="center" mb="md" order={2}>We build it, you rock it!</Title>*/}
-        {/*    <Text ta="center" mb="lg">Start focusing on your goals, by spending less time creating pages using*/}
-        {/*        our examples.</Text>*/}
-        {/*    <SimpleGrid cols={4}>*/}
-        {/*        <Image src="/a-dashboard.png"/>*/}
-        {/*        <Image src="/profile.png"/>*/}
-        {/*        <Image src="/tasks.png"/>*/}
-        {/*        <Image src="/invoices.png"/>*/}
-        {/*    </SimpleGrid>*/}
-        {/*</Box>*/}
         <Box {...BOX_PROPS}>
           <Container size="lg">
             <Badge size="lg" variant="filled" mb="md">Key features</Badge>

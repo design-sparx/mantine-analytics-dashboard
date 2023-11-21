@@ -2,6 +2,7 @@ import {ActionIcon, Group, Paper, PaperProps, Text} from "@mantine/core";
 import {DataTable} from "mantine-datatable";
 import {IconDotsVertical} from "@tabler/icons-react";
 import dayjs from "dayjs";
+import {Surface} from "@/components";
 
 type LanguageTableProps = {
     data?: { id: string, source: string, sessions: number, bounce_rate: number, avg_session_period: number }[]
@@ -9,11 +10,11 @@ type LanguageTableProps = {
 
 const TrafficTable = ({data, ...others}: LanguageTableProps) => {
     return (
-        <Paper {...others}>
-            <Group position="apart" mb="sm">
+        <Surface component={Paper} {...others}>
+            <Group justify="space-between" mb="sm">
                 <Text size="lg" fw={600}>Network Traffic</Text>
-                <ActionIcon>
-                    <IconDotsVertical size={18}/>
+                <ActionIcon variant="subtle">
+                    <IconDotsVertical size={16}/>
                 </ActionIcon>
             </Group>
             <DataTable
@@ -42,7 +43,7 @@ const TrafficTable = ({data, ...others}: LanguageTableProps) => {
                 ]}
                 records={data}
             />
-        </Paper>
+        </Surface>
     );
 };
 

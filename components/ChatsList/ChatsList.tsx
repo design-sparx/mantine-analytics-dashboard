@@ -1,6 +1,6 @@
 import {Avatar, Flex, Indicator, Stack, Text, UnstyledButton, UnstyledButtonProps} from "@mantine/core";
-import classes from "./ChatsList.module.css";
 import {useMediaQuery} from "@mantine/hooks";
+import classes from "./ChatsList.module.css";
 
 type ChatsListProps = {
   avatar: string
@@ -35,9 +35,9 @@ const ChatsList = ({avatar, lastName, lastMessage, firstName}: ChatsListProps) =
               src={avatar}
             />
           </Indicator>
-          <Stack spacing={1}>
+          <Stack gap={1}>
             <Text size="sm" fw={600} lineClamp={1}>{firstName} {lastName}</Text>
-            <Text lineClamp={1} size="sm" color="dimmed">{lastMessage}</Text>
+            <Text lineClamp={1} size="xs" c="dimmed">{lastMessage}</Text>
           </Stack>
         </Flex>
       </UnstyledButton>

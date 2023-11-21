@@ -1,7 +1,7 @@
 "use client"
 
 import React, {useEffect, useMemo, useState} from 'react';
-import {DataTable, DataTableSortStatus} from "mantine-datatable";
+import {DataTable, DataTableProps, DataTableSortStatus} from "mantine-datatable";
 import {Badge, MantineColor, MultiSelect, Text, TextInput} from "@mantine/core"
 import sortBy from 'lodash/sortBy';
 import {Orders, OrderStatus} from "@/types";
@@ -55,6 +55,58 @@ const OrdersTable = ({data}: OrdersTableProps) => {
         return [...statuses];
     }, [data]);
 
+    const columns: DataTableProps<Orders>["columns"] = [
+      {
+        accessor: 'id',
+        render: (item: Orders) => <Text>#{item.id.slice(0, 7)}</Text>
+      },
+      {
+        accessor: 'product',
+        sortable: true,
+        filter: (
+          <TextInput
+            label="Products"
+            description="Show products whose names include the specified text"
+            placeholder="Search products..."
+            leftSection={<IconSearch size={16}/>}
+            value={query}
+            onChange={(e) => setQuery(e.currentTarget.value)}
+          />
+        ),
+        filtering: query !== '',
+      },
+      {
+        accessor: 'date'
+      },
+      {
+        accessor: 'total',
+        sortable: true,
+        render: (item: Orders) => <Text>${item.total}</Text>
+      },
+      {
+        accessor: 'status',
+        render: (item:Orders) => <StatusBadge status={item.status}/>,
+        filter: (
+          <MultiSelect
+            label="Status"
+            description="Show all products with status"
+            data={statuses}
+            value={selectedStatuses}
+            placeholder="Search statuses…"
+            onChange={setSelectedStatuses}
+            leftSection={<IconSearch size={16}/>}
+            clearable
+            searchable
+          />
+        ),
+        filtering: selectedStatuses.length > 0,
+      },
+      {
+        accessor: 'payment_method',
+        sortable: true
+      }
+    ]
+
     useEffect(() => {
         setPage(1);
     }, [pageSize]);
@@ -90,57 +142,7 @@ const OrdersTable = ({data}: OrdersTableProps) => {
                 minHeight={200}
                 verticalSpacing="sm"
                 striped={true}
-                columns={[
-                    {
-                        accessor: 'id',
-                        render: (item) => <Text>#{item.id.slice(0, 7)}</Text>
-                    },
-                    {
-                        accessor: 'product',
-                        sortable: true,
-                        filter: (
-                            <TextInput
-                                label="Products"
-                                description="Show products whose names include the specified text"
-                                placeholder="Search products..."
-                                icon={<IconSearch size={16}/>}
-                                value={query}
-                                onChange={(e) => setQuery(e.currentTarget.value)}
-                            />
-                        ),
-                        filtering: query !== '',
-                    },
-                    {
-                        accessor: 'date'
-                    },
-                    {
-                        accessor: 'total',
-                        sortable: true,
-                        render: (item) => <Text>${item.total}</Text>
-                    },
-                    {
-                        accessor: 'status',
-                        render: (item) => <StatusBadge status={item.status}/>,
-                        filter: (
-                            <MultiSelect
-                                label="Status"
-                                description="Show all products with status"
-                                data={statuses}
-                                value={selectedStatuses}
-                                placeholder="Search statuses…"
-                                onChange={setSelectedStatuses}
-                                icon={<IconSearch size={16}/>}
-                                clearable
-                                searchable
-                            />
-                        ),
-                        filtering: selectedStatuses.length > 0,
-                    },
-                    {
-                        accessor: 'payment_method',
-                        sortable: true
-                    }
-                ]}
+                columns={columns}
                 records={records}
                 selectedRecords={selectedRecords}
                 onSelectedRecordsChange={setSelectedRecords}

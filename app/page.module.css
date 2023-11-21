@@ -21,7 +21,7 @@
 }
 
 .highlight {
-  color: var(--mantine-color-blue-5);
+  color: var(--mantine-primary-color-filled);
 }
 
 
@@ -62,7 +62,7 @@
 }
 
 .statsTitle{
-  color: var(--mantine-color-blue-7)
+  color: var(--mantine-primary-color-filled)
 }
 
 .contactPaper{

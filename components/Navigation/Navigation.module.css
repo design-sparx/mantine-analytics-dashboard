@@ -1,0 +1,24 @@
+.header {
+  margin: 0;
+  color: var(--mantine-color-white);
+  border-bottom: rem(1px) solid transparent;
+  background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-5));
+}
+
+.links {
+  margin: 0 var(--mantine-spacing-md);
+  color: light-dark(var(--mantine-color-dark-6), var(--mantine-color-gray-0));
+}
+
+.linksInner {
+  padding: var(--mantine-spacing-md) 0;
+}
+
+.linkHeader {
+  color: light-dark(var(--mantine-color-dark-4), var(--mantine-color-gray-3));
+}
+
+.footer {
+  margin: 0 var(--mantine-spacing-md);
+  border-top: rem(1px) solid transparent;
+}

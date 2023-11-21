@@ -1,72 +1,50 @@
-import React from 'react';
-import {
-    Button, Center,
-    Checkbox,
-    Group,
-    Paper,
-    PasswordInput,
-    rem,
-    Text,
-    TextInput, TextProps,
-    Title, useMantineTheme,
-} from "@mantine/core";
-import Head from "next/head";
+"use client"
+
+import {Button, Center, Checkbox, Group, Paper, PasswordInput, Text, TextInput, TextProps, Title,} from "@mantine/core";
 import Link from "next/link";
 import {PATH_AUTH, PATH_DASHBOARD} from "@/routes";
-import {AuthLayout} from "@/layout";
-import {useMediaQuery} from "@mantine/hooks";
+import {Metadata} from "next";
+import {Surface} from "@/components";
+import classes from "./page.module.css";
 
-function Signin() {
-    const theme = useMantineTheme()
-    const mobile_match = useMediaQuery('(max-width: 425px)');
+const metadata: Metadata = {
+  title: "Signin | DesignSparx",
+  description: "Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!",
+};
 
-    const LINK_PROPS: TextProps = {
-        sx: {
-            padding: `${rem(6)} ${rem(10)}`,
-            borderRadius: theme.radius.sm,
-            fontWeight: 500,
+function Page() {
+  const LINK_PROPS: TextProps = {
+    className: classes.link
+  }
 
-            '&:hover': {
-                transition: 'all ease 150ms',
-                backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2],
-                color: theme.black,
-                textDecoration: 'none'
-            }
-        }
-    }
+  return (
+    <>
+      <Title ta="center">
+        Welcome back!
+      </Title>
+      <Text ta="center">Sign in to your account to continue</Text>
 
-    return (
-        <>
-            <Head>
-                <title>Signin | DesignSparx</title>
-            </Head>
-            <AuthLayout>
-                <Title ta="center">
-                    Welcome back!
-                </Title>
-                <Text ta="center">Sign in to your account to continue</Text>
-
-                <Paper shadow="xl" radius="md" p="lg" mt={15} sx={{width: rem(mobile_match ? 360 : 420)}}>
-                    <TextInput label="Email" placeholder="you@mantine.dev" required/>
-                    <PasswordInput label="Password" placeholder="Your password" required mt="md"/>
-                    <Group position="apart" mt="lg">
-                        <Checkbox label="Remember me"/>
-                        <Text component={Link} href={PATH_AUTH.passwordReset} size="sm" {...LINK_PROPS}>
-                            Forgot password?
-                        </Text>
-                    </Group>
-                    <Button fullWidth mt="xl" component={Link} href={PATH_DASHBOARD.default}>
-                        Sign in
-                    </Button>
-                    <Center mt="md">
-                        <Text fz="sm" ta="center" component={Link} href={PATH_AUTH.signup} {...LINK_PROPS}>
-                            Do not have an account yet? Create account
-                        </Text>
-                    </Center>
-                </Paper>
-            </AuthLayout>
-        </>
-    );
+      <Surface component={Paper} className={classes.card}>
+        <TextInput label="Email" placeholder="you@mantine.dev" required classNames={{label: classes.label}}/>
+        <PasswordInput label="Password" placeholder="Your password" required mt="md"
+                       classNames={{label: classes.label}}/>
+        <Group justify="space-between" mt="lg">
+          <Checkbox label="Remember me" classNames={{label: classes.label}}/>
+          <Text component={Link} href={PATH_AUTH.passwordReset} size="sm" {...LINK_PROPS}>
+            Forgot password?
+          </Text>
+        </Group>
+        <Button fullWidth mt="xl" component={Link} href={PATH_DASHBOARD.default}>
+          Sign in
+        </Button>
+        <Center mt="md">
+          <Text fz="sm" ta="center" component={Link} href={PATH_AUTH.signup} {...LINK_PROPS}>
+            Do not have an account yet? Create account
+          </Text>
+        </Center>
+      </Surface>
+    </>
+  );
 }
 
-export default Signin;
+export default Page;

@@ -1,6 +1,7 @@
 import {ActionIcon, Group, Paper, PaperProps, Text} from "@mantine/core";
 import {DataTable} from "mantine-datatable";
 import {IconDotsVertical} from "@tabler/icons-react";
+import {Surface} from "@/components";
 
 type LanguageTableProps = {
     data?: { id: string, language: string, users: number, users_percentage: number }[]
@@ -8,11 +9,11 @@ type LanguageTableProps = {
 
 const LanguageTable = ({data, ...others}: LanguageTableProps) => {
     return (
-        <Paper {...others}>
-            <Group position="apart" mb="sm">
+        <Surface component={Paper} {...others}>
+            <Group justify="space-between" mb="sm">
                 <Text size="lg" fw={600}>Languages</Text>
-                <ActionIcon>
-                    <IconDotsVertical size={18}/>
+                <ActionIcon variant="subtle">
+                    <IconDotsVertical size={16}/>
                 </ActionIcon>
             </Group>
             <DataTable
@@ -25,7 +26,7 @@ const LanguageTable = ({data, ...others}: LanguageTableProps) => {
                 ]}
                 records={data}
             />
-        </Paper>
+        </Surface>
     );
 };
 

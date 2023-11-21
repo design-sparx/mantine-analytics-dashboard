@@ -11,7 +11,7 @@ type LogoProps = {
 const Logo = ({href, ...others}: LogoProps) => {
   return (
     <UnstyledButton className={classes.logo} component={Link} href={href || "/"} {...others}>
-      <Group spacing="xs">
+      <Group gap="xs">
         <Image src="/logo.png" height={24} width={24} alt="design sparx logo"/>
         <Text>Design Sparx</Text>
       </Group>

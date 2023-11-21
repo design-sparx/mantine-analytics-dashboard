@@ -1,7 +1,6 @@
 {
   "name": "analytics-dashboard",
   "version": "1.0.1",
-  "private": false,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -35,9 +34,14 @@
     "@mantine/spotlight": "^7.2.2",
     "@mantine/tiptap": "^7.2.2",
     "@tabler/icons-react": "^2.40.0",
+    "@tiptap/extension-highlight": "^2.1.12",
     "@tiptap/extension-link": "^2.1.12",
     "@tiptap/extension-placeholder": "^2.0.4",
-    "@tiptap/pm": "^2.0.4",
+    "@tiptap/extension-subscript": "^2.1.12",
+    "@tiptap/extension-superscript": "^2.1.12",
+    "@tiptap/extension-text-align": "^2.1.12",
+    "@tiptap/extension-underline": "^2.1.12",
+    "@tiptap/pm": "^2.1.12",
     "@tiptap/react": "^2.1.12",
     "@tiptap/starter-kit": "^2.1.12",
     "@types/node": "20.4.4",
@@ -49,7 +53,7 @@
     "d3-fetch": "^3.0.1",
     "d3-scale": "^4.0.2",
     "dayjs": "^1.11.10",
-    "embla-carousel-react": "^8.0.0-rc14",
+    "embla-carousel-react": "7.1.0",
     "eslint-config-next": "^14.0.2",
     "lodash": "^4.17.21",
     "mantine-datatable": "^7.1.7",
@@ -69,5 +73,6 @@
     "postcss": "^8.4.31",
     "postcss-preset-mantine": "^1.11.0",
     "postcss-simple-vars": "^7.0.1"
-  }
+  },
+  "packageManager": "yarn@4.0.2"
 }

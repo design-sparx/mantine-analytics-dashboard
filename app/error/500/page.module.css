@@ -1,0 +1,30 @@
+.root {
+  padding: rem(80px) 0;
+}
+
+.label {
+  text-align: center;
+  font-weight: 900;
+  font-size: rem(220px);
+  line-height: 1;
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    font-size: rem(120px);
+  }
+}
+
+.title {
+  text-align: center;
+  font-weight: 900;
+  font-size: rem(38px);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    font-size: rem(32px);
+  }
+}
+
+.description {
+  max-width: rem(500px);
+  margin: auto;
+}

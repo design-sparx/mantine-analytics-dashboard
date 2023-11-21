@@ -16,7 +16,7 @@ const ICON_SIZE = 18
 
 const ACTION_ICON_PROPS: ActionIconProps = {
   size: "lg",
-  color: "blue.3",
+  color: "primary.3",
   variant: "transparent"
 }
 
@@ -26,11 +26,11 @@ const FooterNav = () => {
   return (
     <footer className={classes.footer}>
       <Container mb="xl">
-        <Stack spacing="lg">
+        <Stack gap="lg">
           <Title ta="center" order={2}>Start building with Design Sparx today</Title>
           <Text ta="center">Stop wasting time building your application from scratch. Design Sparx is fast,
             extendable and fully customizable.</Text>
-          <Group position="center">
+          <Group justify="center">
             <Button size="md" component="a" target="_blank" href={PATH_DOCS.root}>Read Documentation</Button>
             <Button size="md">Purchase Now</Button>
           </Group>
@@ -44,7 +44,7 @@ const FooterNav = () => {
         align={{base: 'center'}}
       >
         <Logo c="white"/>
-        <Group spacing="xs" position="right" noWrap>
+        <Group gap="xs" justify="flex-end" wrap="nowrap">
           <ActionIcon
             component="a"
             href="https://kelvinkiprop.netlify.app/"
