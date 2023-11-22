@@ -13,7 +13,7 @@ import {
   useMantineTheme
 } from "@mantine/core";
 import {
-  IconBell,
+  IconBell, IconLayoutSidebarLeftCollapse, IconLayoutSidebarLeftExpand,
   IconMessageCircle,
   IconPower,
   IconSearch,
@@ -103,7 +103,7 @@ type HeaderNavProps = {
 }
 
 const HeaderNav = (props: HeaderNavProps) => {
-  const {handleOpen, opened, desktopOpened, toggleDesktop,toggleMobile, mobileOpened} = props
+  const {handleOpen, opened, desktopOpened, toggleDesktop, toggleMobile, mobileOpened} = props
   const theme = useMantineTheme()
   const laptop_match = useMediaQuery('(max-width: 992px)');
   const tablet_match = useMediaQuery('(max-width: 768px)');
@@ -151,22 +151,27 @@ const HeaderNav = (props: HeaderNavProps) => {
   return (
     <Group justify="space-between">
       <Group gap={0}>
-        <Burger opened={mobileOpened} onClick={toggleMobile} hiddenFrom="md" size="sm" />
-        <Burger opened={desktopOpened} onClick={toggleDesktop} visibleFrom="md" size="sm" />
+        <Tooltip label="Toggle side navigation">
+          <ActionIcon visibleFrom="md" onClick={toggleDesktop}>
+            {desktopOpened ? <IconLayoutSidebarLeftCollapse/> : <IconLayoutSidebarLeftExpand/>}
+          </ActionIcon>
+        </Tooltip>
+        <Burger opened={mobileOpened} onClick={toggleMobile} hiddenFrom="md" size="sm"/>
+        {/*<Burger opened={desktopOpened} onClick={toggleDesktop} visibleFrom="md" size="sm"/>*/}
         {!mobile_match &&
-            <TextInput
-                placeholder="search"
-                rightSection={<IconSearch size={ICON_SIZE}/>}
-                ml="md"
-                style={{width: tablet_match ? 'auto' : rem(400)}}
-            />
+          <TextInput
+            placeholder="search"
+            rightSection={<IconSearch size={ICON_SIZE}/>}
+            ml="md"
+            style={{width: tablet_match ? 'auto' : rem(400)}}
+          />
         }
       </Group>
       <Group>
         {mobile_match &&
-            <ActionIcon>
-                <IconSearch size={ICON_SIZE}/>
-            </ActionIcon>
+          <ActionIcon>
+            <IconSearch size={ICON_SIZE}/>
+          </ActionIcon>
         }
         <LanguagePicker type="collapsed"/>
         <Menu shadow="lg" width={320}>

@@ -41,13 +41,9 @@ export function LinksGroup({icon: Icon, label, initiallyOpened, link, links}: Li
 
   useEffect(() => {
     const paths = pathname.split('/');
-    console.log('paths', paths)
     setDefaultOpened(paths[1].toLowerCase() === label.toLowerCase());
     setCurrentPath(_.last(paths)?.toLowerCase() || undefined)
   }, [pathname, label]);
-
-  console.log('label', label)
-  console.log('current-path', currentPath)
 
   return (
     <>

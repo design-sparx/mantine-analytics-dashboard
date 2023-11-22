@@ -14,12 +14,6 @@ import StatsData from "../../../mocks/StatsGrid.json";
 import LanguagesData from "../../../mocks/Languages.json";
 import TrafficData from "../../../mocks/Traffic.json";
 import {Metadata} from "next";
-
-const metadata: Metadata = {
-  title: "Analytics Dashboard | DesignSparx",
-  description: "Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!",
-};
-
 const PRIMARY_COL_HEIGHT = rem(300);
 
 const PAPER_PROPS: PaperProps = {
@@ -35,6 +29,11 @@ function Page() {
 
   return (
     <>
+      <head>
+        <title>Analytics Dashboard | DesignSparx</title>
+        <meta name="description"
+              content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"/>
+      </head>
       <Container fluid>
         <Stack gap="lg">
           <PageHeader title="Analytics dashboard" withActions={true}/>

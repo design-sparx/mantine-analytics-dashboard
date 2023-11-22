@@ -9,7 +9,6 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import {PATH_DASHBOARD} from "@/routes";
 import {createEventId, INITIAL_EVENTS} from "@/utils";
-import {AppLayout} from "@/layout";
 import {PageHeader, Surface} from "@/components";
 import {Metadata} from "next";
 import "./page.css";
@@ -40,11 +39,6 @@ function renderSidebarEvent(event: any) {
     </li>
   )
 }
-
-const metadata: Metadata = {
-  title: "Calendar | DesignSparx",
-  description: "Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!",
-};
 
 function Calendar() {
   const [weekendsVisible, setWeekendsVisible] = useState(true);
@@ -114,45 +108,48 @@ function Calendar() {
 
   return (
     <>
-      <AppLayout>
-        <Container fluid>
-          <Stack gap="lg">
-            <PageHeader title="Calendar" breadcrumbItems={items}/>
-            <Surface
-              component={Paper}
-              p="md"
-              shadow="md"
-              radius="md"
-            >
-              <FullCalendar
-                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                headerToolbar={{
-                  left: 'prev,next today',
-                  center: 'title',
-                  right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                }}
-                initialView='dayGridMonth'
-                editable={true}
-                selectable={true}
-                selectMirror={true}
-                dayMaxEvents={true}
-                weekends={weekendsVisible}
-                initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
-                select={handleDateSelect}
-                eventContent={renderEventContent} // custom render function
-                eventClick={handleEventClick}
-                eventsSet={handleEvents}
-                // called after events are initialized/added/changed/removed
-                /* you can update a remote database when these fire:
-                eventAdd={function(){}}
-                eventChange={function(){}}
-                eventRemove={function(){}}
-                */
-              />
-            </Surface>
-          </Stack>
-        </Container>
-      </AppLayout>
+      <head>
+        <title>Calendar | DesignSparx</title>
+        <meta name="description"
+              content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"/>
+      </head>
+      <Container fluid>
+        <Stack gap="lg">
+          <PageHeader title="Calendar" breadcrumbItems={items}/>
+          <Surface
+            component={Paper}
+            p="md"
+            shadow="md"
+            radius="md"
+          >
+            <FullCalendar
+              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+              headerToolbar={{
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+              }}
+              initialView='dayGridMonth'
+              editable={true}
+              selectable={true}
+              selectMirror={true}
+              dayMaxEvents={true}
+              weekends={weekendsVisible}
+              initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+              select={handleDateSelect}
+              eventContent={renderEventContent} // custom render function
+              eventClick={handleEventClick}
+              eventsSet={handleEvents}
+              // called after events are initialized/added/changed/removed
+              /* you can update a remote database when these fire:
+              eventAdd={function(){}}
+              eventChange={function(){}}
+              eventRemove={function(){}}
+              */
+            />
+          </Surface>
+        </Stack>
+      </Container>
     </>
   );
 }

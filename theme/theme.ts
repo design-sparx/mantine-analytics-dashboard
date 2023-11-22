@@ -1,4 +1,4 @@
-import {ActionIcon, createTheme} from '@mantine/core';
+import {ActionIcon, createTheme, Loader} from '@mantine/core';
 
 export const myTheme = createTheme({
   primaryColor: 'indigo',
@@ -10,6 +10,11 @@ export const myTheme = createTheme({
     ActionIcon: ActionIcon.extend({
       defaultProps: {
         variant: "subtle"
+      }
+    }),
+    Loader: Loader.extend({
+      defaultProps: {
+        type: "bars"
       }
     })
   }

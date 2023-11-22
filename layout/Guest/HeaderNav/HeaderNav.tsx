@@ -1,14 +1,11 @@
 import {Box, Burger, Button, Container, Drawer, Group, rem, ScrollArea, useMantineTheme} from '@mantine/core';
 import {useDisclosure, useMediaQuery} from '@mantine/hooks';
-import classes from "./HeaderNav.module.css";
 import {PATH_DASHBOARD, PATH_DOCS} from "@/routes";
 import {Logo} from "@/components";
+import Link from "next/link";
+import classes from "./HeaderNav.module.css";
 
 const MOCK_DATA = [
-  {
-    "link": PATH_DASHBOARD.default,
-    "label": "live preview"
-  },
   {
     "link": PATH_DOCS.root,
     "label": "documentation"
@@ -16,7 +13,7 @@ const MOCK_DATA = [
   {
     "link": "mailto:kelvin.kiprop96@gmail.com",
     "label": "support",
-  },
+  }
 ]
 
 const HEADER_HEIGHT = rem(60);
@@ -46,9 +43,7 @@ const HeaderNav = () => {
           <Logo style={{color: theme.white}}/>
           <Group gap="xs" className={classes.links}>
             {items}
-            <Button>
-              Purchase Now
-            </Button>
+            <Button component={Link} href={PATH_DASHBOARD.default}>Live Preview</Button>
           </Group>
           <Burger
             opened={drawerOpened}
@@ -72,6 +67,7 @@ const HeaderNav = () => {
       >
         <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
           {items}
+          <Button component={Link} href={PATH_DASHBOARD.default}>Live Previews</Button>
         </ScrollArea>
       </Drawer>
     </Box>

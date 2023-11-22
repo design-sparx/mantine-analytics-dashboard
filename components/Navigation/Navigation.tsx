@@ -125,15 +125,12 @@ const Navigation = ({onClose, ...others}: NavigationProps) => {
       <div className={classes.header}>
         <Flex justify="space-between" align="center" gap="sm">
           <Group justify="space-between" style={{flex: tablet_match ? 'auto' : 1}}>
-            <Logo c="white" fw={700}/>
-            <Code fw={700}>
-              v1.0.0
-            </Code>
+            <Logo c="white"/>
           </Group>
           {tablet_match &&
-              <ActionIcon onClick={onClose} variant="transparent">
-                  <IconX color="white"/>
-              </ActionIcon>
+            <ActionIcon onClick={onClose} variant="transparent">
+              <IconX color="white"/>
+            </ActionIcon>
           }
         </Flex>
       </div>

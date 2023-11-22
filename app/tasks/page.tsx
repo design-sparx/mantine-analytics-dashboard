@@ -1,4 +1,3 @@
-import React from "react";
 import {Anchor, Container, Stack} from "@mantine/core"
 import {KanbanBoard, PageHeader} from "@/components";
 import {PATH_DASHBOARD} from "@/routes";

@@ -14,7 +14,7 @@
   letter-spacing: rem(-1);
   margin-bottom: var(--mantine-spacing-xs);
 
-  @media (max-width: $mantine-breakpoint-xs) {
+  @media (max-width: $mantine-breakpoint-sm) {
     font-size: rem(28);
     text-align: left;
   }

@@ -29,7 +29,7 @@
   display: flex;
   align-items: center;
   padding: rem(8px) rem(12px);
-  border-radius: var(--mantine-radius-sm);
+  border-radius: var(--mantine-radius-default);
   text-decoration: none;
   color: var(--mantine-color-white);
   font-size: var(--mantine-font-size-sm);
