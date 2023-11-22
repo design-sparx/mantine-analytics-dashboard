@@ -74,7 +74,7 @@ const SalesChart = ({...others}: SalesChartProps) => {
         </ActionIcon>
       </Group>
       {/*@ts-ignore*/}
-      <Chart options={options} series={series} type="donut" height={160}/>
+      <Chart options={options} series={series} type="donut" height={160} width={"100%"}/>
       <DataTable
         highlightOnHover
         columns={[{accessor: 'source'}, {accessor: 'revenue'}, {accessor: 'value'}]}

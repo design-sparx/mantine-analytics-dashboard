@@ -47,7 +47,7 @@
     "@types/node": "20.4.4",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
-    "apexcharts": "^3.41.0",
+    "apexcharts": "^3.44.0",
     "clsx": "^2.0.0",
     "cookies-next": "^2.1.2",
     "d3-fetch": "^3.0.1",

@@ -84,7 +84,7 @@ const MobileDesktopChart = ({...others}: MobileDesktopChartProps) => {
         </ActionIcon>
       </Group>
       {/*@ts-ignore*/}
-      <Chart options={options} series={series} type="bar" height={300}/>
+      <Chart options={options} series={series} type="bar" height={300} width={"100%"}/>
     </Surface>
   );
 };

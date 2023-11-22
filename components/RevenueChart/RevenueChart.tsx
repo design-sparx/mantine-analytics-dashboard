@@ -72,7 +72,7 @@ const RevenueChart = ({...others}: RevenueChartProps) => {
         </ActionIcon>
       </Group>
       {/*@ts-ignore*/}
-      <Chart options={options} series={series} type="area" height={350}/>
+      <Chart options={options} series={series} type="area" height={350} width={"100%"}/>
     </Surface>
   );
 };

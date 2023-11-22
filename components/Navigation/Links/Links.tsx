@@ -1,18 +1,9 @@
-import {useState} from 'react';
-import {
-  Box,
-  Collapse,
-  Group,
-  MantineTheme,
-  rem,
-  Text,
-  UnstyledButton,
-  useMantineTheme,
-  MantineThemeOther
-} from '@mantine/core';
-import {IconCalendarStats, IconChevronLeft, IconChevronRight} from '@tabler/icons-react';
+import {useEffect, useState} from 'react';
+import {Box, Collapse, Group, MantineTheme, rem, Text, UnstyledButton, useMantineTheme} from '@mantine/core';
+import {IconCalendarStats, IconChevronRight} from '@tabler/icons-react';
 import Link from "next/link";
-import {useRouter} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
+import * as _ from 'lodash';
 import classes from "./Links.module.css";
 
 interface LinksGroupProps {
@@ -29,8 +20,11 @@ interface LinksGroupProps {
 export function LinksGroup({icon: Icon, label, initiallyOpened, link, links}: LinksGroupProps) {
   const theme = useMantineTheme()
   const router = useRouter()
+  const pathname = usePathname()
   const hasLinks = Array.isArray(links);
   const [opened, setOpened] = useState(initiallyOpened || false);
+  const [defaultOpened, setDefaultOpened] = useState(false)
+  const [currentPath, setCurrentPath] = useState<string | undefined>()
   const ChevronIcon = IconChevronRight;
 
   const items = (hasLinks ? links : []).map((link) => (
@@ -39,10 +33,21 @@ export function LinksGroup({icon: Icon, label, initiallyOpened, link, links}: Li
       className={classes.link}
       href={link.link}
       key={link.label}
+      data-active={link.label.toLowerCase() === currentPath || undefined}
     >
       {link.label}
     </Text>
   ));
+
+  useEffect(() => {
+    const paths = pathname.split('/');
+    console.log('paths', paths)
+    setDefaultOpened(paths[1].toLowerCase() === label.toLowerCase());
+    setCurrentPath(_.last(paths)?.toLowerCase() || undefined)
+  }, [pathname, label]);
+
+  console.log('label', label)
+  console.log('current-path', currentPath)
 
   return (
     <>
@@ -54,6 +59,7 @@ export function LinksGroup({icon: Icon, label, initiallyOpened, link, links}: Li
           }
         }
         className={classes.control}
+        data-active={defaultOpened || undefined}
       >
         <Group justify="space-between" gap={0}>
           <Box style={{display: 'flex', alignItems: 'center'}}>
@@ -66,13 +72,13 @@ export function LinksGroup({icon: Icon, label, initiallyOpened, link, links}: Li
               size="1rem"
               stroke={1.5}
               style={{
-                transform: opened ? `rotate(90deg)` : 'none',
+                transform: opened||defaultOpened ? `rotate(90deg)` : 'none',
               }}
             />
           )}
         </Group>
       </UnstyledButton>
-      {hasLinks ? <Collapse in={opened}>{items}</Collapse> : null}
+      {hasLinks ? <Collapse in={defaultOpened || opened}>{items}</Collapse> : null}
     </>
   );
 }

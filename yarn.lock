@@ -1765,6 +1765,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yr/monotone-cubic-spline@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@yr/monotone-cubic-spline@npm:1.0.3"
+  checksum: 6098d2138dcf8b722c80f2e9167d24a064184c37fb5b3276e34c717351b496735777b71f7e69c3fa6b94f8a81eba309c4a1e37349a26b8541113b1afa84d7bf8
+  languageName: node
+  linkType: hard
+
 "analytics-dashboard@workspace:.":
   version: 0.0.0-use.local
   resolution: "analytics-dashboard@workspace:."
@@ -1812,7 +1819,7 @@ __metadata:
     "@types/react": "npm:^18.2.37"
     "@types/react-dom": "npm:^18.2.15"
     "@types/react-simple-maps": "npm:^3.0.0"
-    apexcharts: "npm:^3.41.0"
+    apexcharts: "npm:^3.44.0"
     clsx: "npm:^2.0.0"
     cookies-next: "npm:^2.1.2"
     d3-fetch: "npm:^3.0.1"
@@ -1867,17 +1874,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"apexcharts@npm:^3.41.0":
-  version: 3.41.0
-  resolution: "apexcharts@npm:3.41.0"
+"apexcharts@npm:^3.44.0":
+  version: 3.44.0
+  resolution: "apexcharts@npm:3.44.0"
   dependencies:
+    "@yr/monotone-cubic-spline": "npm:^1.0.3"
     svg.draggable.js: "npm:^2.2.2"
     svg.easing.js: "npm:^2.0.0"
     svg.filter.js: "npm:^2.0.2"
     svg.pathmorphing.js: "npm:^0.1.3"
     svg.resize.js: "npm:^1.4.3"
     svg.select.js: "npm:^3.0.1"
-  checksum: b6c5ab14d6247f81de392c71fd160a59c9467cda8e07725d6ee3e10ba8013e69807ac57e35e62f9e81e772cfe8dc928c7a76e032619f19c90ad8cb7b5dfb9eba
+  checksum: 1bfa20821f4269685552b7c260556cedfcb5b225606c0d7966d6731201f89bbc6d1bce2239b2ced331d5e4364a124ef948bea53400dddd5afa057832d9b5acfd
   languageName: node
   linkType: hard
 
