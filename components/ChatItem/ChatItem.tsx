@@ -1,4 +1,4 @@
-import {Avatar, Box, BoxProps, Flex, Paper, Text, useMantineTheme} from "@mantine/core";
+import {Avatar, Box, BoxProps, Flex, Paper, Text} from "@mantine/core";
 import classes from "./ChatItem.module.css";
 
 type ChatItemProps = {
@@ -12,7 +12,6 @@ type ChatItemProps = {
 
 const ChatItem = (props: ChatItemProps) => {
   const {id, avatar, message, fullName, sender, sent_time, ...others} = props
-  const theme = useMantineTheme()
   const isMe = fullName.toLowerCase() === 'you'
 
   return (
@@ -24,8 +23,8 @@ const ChatItem = (props: ChatItemProps) => {
             p="sm"
             className={isMe ? classes.isMeChatItem : classes.chatItem}
           >
-            <Text size="sm" fw={600} tt="capitalize" mb={4}>{fullName}</Text>
-            <Text size="sm">{message}</Text>
+            <Text size="sm" fw={600} tt="capitalize" mb={4} c={isMe ? "white": "initial"}>{fullName}</Text>
+            <Text size="sm" c={isMe ? "white": "initial"}>{message}</Text>
           </Paper>
           <Text ta="end" size="sm" mt={4}>{sent_time}</Text>
         </Box>

@@ -1,22 +1,19 @@
 "use client"
 
-import {ActionIcon, Affix, AppShell, Container, rem, useMantineTheme,} from '@mantine/core';
-import React, {useState} from 'react';
-import {useColorScheme, useDisclosure, useMediaQuery} from "@mantine/hooks";
-import {ThemeDrawer} from "@/components";
-import {IconPaint} from "@tabler/icons-react";
+import {AppShell, Container, rem, useMantineTheme,} from '@mantine/core';
+import {ReactNode, useState} from 'react';
+import {useDisclosure, useMediaQuery} from "@mantine/hooks";
 import AppMain from "@/components/AppMain";
 import Navigation from "@/components/Navigation";
 import HeaderNav from "@/components/HeaderNav";
 import FooterNav from "@/components/FooterNav";
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
-function InvoiceLayout({children}: Props) {
+function CalendarLayout({children}: Props) {
   const theme = useMantineTheme()
-  const colorScheme = useColorScheme()
   const [opened, setOpened] = useState(false);
   const [themeOpened, {open: themeOpen, close: themeClose}] = useDisclosure(false);
   const tablet_match = useMediaQuery('(max-width: 768px)');
@@ -56,21 +53,6 @@ function InvoiceLayout({children}: Props) {
         <AppMain>
           {children}
         </AppMain>
-        <Affix position={{bottom: rem(48), right: rem(40)}} style={{zIndex: 100}}>
-          <ActionIcon
-            size={56}
-            onClick={themeOpen}
-            variant="default"
-            radius="50%"
-            style={{boxShadow: theme.shadows.xl}}
-          >
-            <IconPaint size={24}/>
-          </ActionIcon>
-        </Affix>
-        <ThemeDrawer
-          opened={themeOpened}
-          onClose={themeClose}
-        />
       </AppShell.Main>
       <AppShell.Footer p="md">
         <Container fluid px="lg">
@@ -81,4 +63,4 @@ function InvoiceLayout({children}: Props) {
   );
 }
 
-export default InvoiceLayout;
+export default CalendarLayout;

@@ -1,26 +1,37 @@
 "use client"
 
 import {
-  ActionIcon, Avatar,
+  ActionIcon,
+  Avatar,
   Burger,
   Flex,
-  Group, Indicator,
+  Group,
+  Indicator,
+  MantineTheme,
   Menu,
   rem,
   Stack,
   Text,
-  TextInput, Tooltip,
+  TextInput,
+  Tooltip,
+  useMantineColorScheme,
   useMantineTheme
 } from "@mantine/core";
 import {
-  IconBell, IconLayoutSidebarLeftCollapse, IconLayoutSidebarLeftExpand,
+  IconBell,
+  IconColorPicker,
+  IconDeviceDesktop,
+  IconLayoutSidebarLeftCollapse,
+  IconLayoutSidebarLeftExpand,
   IconMessageCircle,
+  IconMoonStars,
   IconPower,
   IconSearch,
+  IconSunHigh,
 } from "@tabler/icons-react";
 import {LanguagePicker} from "@/components";
-import {useMediaQuery} from "@mantine/hooks";
-import {useDisclosure} from "@mantine/hooks";
+import {upperFirst, useMediaQuery} from "@mantine/hooks";
+import {showNotification} from "@mantine/notifications";
 
 const ICON_SIZE = 20;
 
@@ -105,18 +116,21 @@ type HeaderNavProps = {
 const HeaderNav = (props: HeaderNavProps) => {
   const {handleOpen, opened, desktopOpened, toggleDesktop, toggleMobile, mobileOpened} = props
   const theme = useMantineTheme()
+  const {setColorScheme, colorScheme} = useMantineColorScheme()
   const laptop_match = useMediaQuery('(max-width: 992px)');
   const tablet_match = useMediaQuery('(max-width: 768px)');
   const mobile_match = useMediaQuery('(max-width: 425px)');
 
   const messages = MESSAGES.map(m =>
-    <Menu.Item key={m.id} style={{borderBottom: `1px solid ${theme.colors.gray[3]}`}}>
+    <Menu.Item
+      key={m.id}
+      style={{borderBottom: `1px solid ${colorScheme === "dark" ? theme.colors.gray[7] : theme.colors.gray[3]}`}}
+    >
       <Flex gap="sm" align="center">
         <Avatar
           src={null}
           alt={`${m.first_name} ${m.last_name}`}
           variant="filled"
-          radius="xl"
           size="sm"
           color={theme.colors[theme.primaryColor][7]}
         >
@@ -131,13 +145,15 @@ const HeaderNav = (props: HeaderNavProps) => {
   )
 
   const notifications = NOTIFICATIONS.slice(0, 3).map(n =>
-    <Menu.Item key={n.id} style={{borderBottom: `1px solid ${theme.colors.gray[3]}`}}>
+    <Menu.Item
+      key={n.id}
+      style={{borderBottom: `1px solid ${colorScheme === "dark" ? theme.colors.gray[7] : theme.colors.gray[3]}`}}
+    >
       <Flex gap="sm" align="center">
         <Avatar
           src={n.icon}
           alt={n.title}
           variant="filled"
-          radius="xl"
           size="sm"
         />
         <Stack gap={1}>
@@ -147,6 +163,32 @@ const HeaderNav = (props: HeaderNavProps) => {
       </Flex>
     </Menu.Item>
   )
+
+  const handleColorSwitch = (mode: "light" | "dark" | "auto") => {
+    setColorScheme(mode);
+    showNotification({
+      title: `${upperFirst(mode)} is on`,
+      message: `You just switched to ${colorScheme === 'dark' ? 'light' : 'dark'} mode. Hope you like it`,
+      styles: (theme: MantineTheme) => ({
+        root: {
+          backgroundColor: colorScheme === 'dark' ? theme.colors.gray[7] : theme.colors.gray[2],
+          borderColor: colorScheme === 'dark' ? theme.colors.gray[7] : theme.colors.gray[2],
+
+          '&::before': {backgroundColor: colorScheme === 'dark' ? theme.colors.gray[2] : theme.colors.gray[7]}
+        },
+
+        title: {color: colorScheme === 'dark' ? theme.colors.gray[2] : theme.colors.gray[7]},
+        description: {color: colorScheme === 'dark' ? theme.colors.gray[2] : theme.colors.gray[7]},
+        closeButton: {
+          color: colorScheme === 'dark' ? theme.colors.gray[2] : theme.colors.gray[7],
+          '&:hover': {
+            backgroundColor: theme.colors.red[5],
+            color: theme.white
+          }
+        }
+      })
+    });
+  }
 
   return (
     <Group justify="space-between">
@@ -219,6 +261,33 @@ const HeaderNav = (props: HeaderNavProps) => {
             <IconPower size={ICON_SIZE}/>
           </ActionIcon>
         </Tooltip>
+        <Menu shadow="lg" width={200}>
+          <Menu.Target>
+            <Tooltip label="Switch color modes">
+              <ActionIcon variant="light">
+                {colorScheme === "auto" ? <IconDeviceDesktop size={ICON_SIZE}/> :
+                  (colorScheme === "dark" ?
+                      <IconMoonStars size={ICON_SIZE}/> :
+                      <IconSunHigh size={ICON_SIZE}/>
+                  )}
+              </ActionIcon>
+            </Tooltip>
+          </Menu.Target>
+          <Menu.Dropdown>
+            <Menu.Label tt="uppercase" ta="center" fw={600}>
+              Select color modes
+            </Menu.Label>
+            <Menu.Item leftSection={<IconSunHigh size={16}/>} onClick={() => setColorScheme("light")}>
+              Light
+            </Menu.Item>
+            <Menu.Item leftSection={<IconMoonStars size={16}/>} onClick={() => setColorScheme("dark")}>
+              Dark
+            </Menu.Item>
+            <Menu.Item leftSection={<IconDeviceDesktop size={16}/>} onClick={() => setColorScheme("auto")}>
+              Use System Colors
+            </Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
       </Group>
     </Group>
   );

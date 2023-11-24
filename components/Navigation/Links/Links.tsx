@@ -18,12 +18,10 @@ interface LinksGroupProps {
 }
 
 export function LinksGroup({icon: Icon, label, initiallyOpened, link, links}: LinksGroupProps) {
-  const theme = useMantineTheme()
   const router = useRouter()
   const pathname = usePathname()
   const hasLinks = Array.isArray(links);
   const [opened, setOpened] = useState(initiallyOpened || false);
-  const [defaultOpened, setDefaultOpened] = useState(false)
   const [currentPath, setCurrentPath] = useState<string | undefined>()
   const ChevronIcon = IconChevronRight;
 
@@ -41,7 +39,7 @@ export function LinksGroup({icon: Icon, label, initiallyOpened, link, links}: Li
 
   useEffect(() => {
     const paths = pathname.split('/');
-    setDefaultOpened(paths[1].toLowerCase() === label.toLowerCase());
+    setOpened(paths[1].toLowerCase() === label.toLowerCase());
     setCurrentPath(_.last(paths)?.toLowerCase() || undefined)
   }, [pathname, label]);
 
@@ -49,13 +47,13 @@ export function LinksGroup({icon: Icon, label, initiallyOpened, link, links}: Li
     <>
       <UnstyledButton
         onClick={
-          (evt) => {
+          () => {
             setOpened((o) => !o);
             link && (router.push(link || "#"))
           }
         }
         className={classes.control}
-        data-active={defaultOpened || undefined}
+        data-active={opened || undefined}
       >
         <Group justify="space-between" gap={0}>
           <Box style={{display: 'flex', alignItems: 'center'}}>
@@ -68,37 +66,13 @@ export function LinksGroup({icon: Icon, label, initiallyOpened, link, links}: Li
               size="1rem"
               stroke={1.5}
               style={{
-                transform: opened||defaultOpened ? `rotate(90deg)` : 'none',
+                transform: opened ? `rotate(90deg)` : 'none',
               }}
             />
           )}
         </Group>
       </UnstyledButton>
-      {hasLinks ? <Collapse in={defaultOpened || opened}>{items}</Collapse> : null}
+      {hasLinks ? <Collapse in={opened}>{items}</Collapse> : null}
     </>
-  );
-}
-
-const mockdata = {
-  label: 'Releases',
-  icon: IconCalendarStats,
-  links: [
-    {label: 'Upcoming releases', link: '/'},
-    {label: 'Previous releases', link: '/'},
-    {label: 'Releases schedule', link: '/'},
-  ],
-};
-
-export function NavbarLinksGroup() {
-  return (
-    <Box
-      style={(theme: MantineTheme) => ({
-        minHeight: rem(220),
-        padding: theme.spacing.md,
-        backgroundColor: theme.white,
-      })}
-    >
-      <LinksGroup {...mockdata} />
-    </Box>
   );
 }

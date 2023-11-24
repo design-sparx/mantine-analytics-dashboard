@@ -56,22 +56,22 @@ function Chat() {
   const tablet_match = useMediaQuery('(max-width: 768px)');
   const editor = useEditor({
     extensions: [StarterKit, Link, Placeholder.configure({placeholder: 'Type your message'})],
-    content: '<p>Type your message here. Select some text to see a bubble menu</p>',
+    content: '<p>Select some text to see a bubble menu</p>',
   });
 
   return (
     <>
-      <head>
+      <>
         <title>Chat | DesignSparx</title>
         <meta name="description"
               content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"/>
-      </head>
+      </>
       <Container fluid>
         <Stack>
           <PageHeader title="Settings" breadcrumbItems={items}/>
           <Surface component={Paper} {...PAPER_PROPS} style={{height: tablet_match ? 'auto' : rem(565)}}>
             <Grid gutter={0}>
-              <Grid.Col span={{base: 12, md: 4, lg: 3}}>
+              <Grid.Col span={{base: 12, sm: 3, md: 4, lg: 3}}>
                 <Stack py="md" style={{height: "100%"}}>
                   <Box px="sm">
                     <TextInput
@@ -87,7 +87,7 @@ function Chat() {
                         align="start"
                         slidesToScroll={1}
                         px={32}
-                        slideSize={{base: '100%', sm: '37.5%', md: '22.5%', lg: "25%"}}
+                        slideSize={{base: '27.5%', sm: '37.5%', md: '22.5%', lg: "25%"}}
                         slideGap={{base: 0, sm: 'md', md: "md", lg: "lg"}}
                       >
                         {ChatsListData.map(c =>
@@ -102,7 +102,8 @@ function Chat() {
                         )}
                       </Carousel>
                       <Divider/>
-                    </> : <Stack gap={0}>
+                    </> :
+                    <Stack gap={0}>
                       {ChatsListData.map(c =>
                         <ChatsList
                           key={c.id}
@@ -116,11 +117,8 @@ function Chat() {
                   }
                 </Stack>
               </Grid.Col>
-              <Grid.Col span={{base: 12, md: 8, lg: 9}}>
-                <Box
-                  className={classes.chatItems}
-                  style={{borderLeft: tablet_match ? 'none' : `1px solid ${theme.colors.gray[3]}`}}
-                >
+              <Grid.Col span={{base: 12, sm: 9, md: 8, lg: 9}}>
+                <Box className={classes.chatItems}>
                   <Box className={classes.chatHeader}>
                     <Flex align="center" justify="space-between">
                       <UserButton

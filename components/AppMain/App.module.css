@@ -1,9 +1,11 @@
 .main {
+  min-height: 90vh;
+
   @mixin light {
-    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+    background-color: var(--mantine-color-gray-1);
   }
 
   @mixin dark {
-    background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+    background-color: var(--mantine-color-dark-6);
   }
 }

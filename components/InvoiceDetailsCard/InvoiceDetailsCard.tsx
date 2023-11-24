@@ -15,7 +15,7 @@ import {
   useMantineTheme
 } from "@mantine/core";
 import {IconCloudDownload, IconMail, IconPrinter, IconSend, IconShare} from "@tabler/icons-react";
-import {useMediaQuery} from "@mantine/hooks";
+import {useColorScheme, useMediaQuery} from "@mantine/hooks";
 import {Surface} from "@/components";
 
 const ICON_SIZE = 16
@@ -36,8 +36,10 @@ const TEXT_PROPS: TextProps = {
 
 const InvoiceDetails = ({data, ...others}: InvoiceDetailsProps) => {
   const theme = useMantineTheme()
+  const colorScheme = useColorScheme()
   const LINK_PROPS: TextProps = {
-    c: theme.colors[theme.primaryColor][7]
+    c: colorScheme === "dark" ? theme.colors[theme.primaryColor][4] : theme.colors[theme.primaryColor][6],
+    td: "underline"
   }
   const tablet_match = useMediaQuery('(max-width: 768px)');
 
@@ -54,11 +56,11 @@ const InvoiceDetails = ({data, ...others}: InvoiceDetailsProps) => {
       {data ?
         <Stack>
           <Flex gap="sm" justify="flex-end">
-            <Button leftSection={<IconCloudDownload size={ICON_SIZE}/>} variant="subtle">Download</Button>
-            <Button leftSection={<IconPrinter size={ICON_SIZE}/>} variant="subtle">Print</Button>
+            <Button leftSection={<IconCloudDownload size={ICON_SIZE}/>} variant="light">Download</Button>
+            <Button leftSection={<IconPrinter size={ICON_SIZE}/>} variant="light">Print</Button>
             <Menu shadow="md" width={200}>
               <Menu.Target>
-                <Button leftSection={<IconShare size={ICON_SIZE}/>} variant="subtle">Share</Button>
+                <Button leftSection={<IconShare size={ICON_SIZE}/>} variant="light">Share</Button>
               </Menu.Target>
 
               <Menu.Dropdown>

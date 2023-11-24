@@ -1,6 +1,5 @@
 "use client"
 
-import type {Metadata} from "next";
 import {ColorSchemeScript, MantineProvider} from "@mantine/core";
 import {ModalsProvider} from "@mantine/modals";
 import {Notifications} from "@mantine/notifications";
@@ -10,6 +9,7 @@ import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import '@mantine/tiptap/styles.css';
 import '@mantine/carousel/styles.css';
+import '@mantine/notifications/styles.css';
 import 'mantine-datatable/styles.layer.css';
 import "./globals.css";
 
@@ -18,16 +18,11 @@ const openSans = Open_Sans({
   subsets: ['latin'],
   display: 'swap',
 })
-
-const metadata: Metadata = {
-  title: "DesignSparx - Nextjs Mantine Dashboard",
-  description: "Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!",
-};
-
 export default function RootLayout({children}: { children: React.ReactNode; }) {
   return (
     <html lang="en" className={openSans.className}>
     <head>
+      <title>DesignSparx - Nextjs Mantine Dashboard</title>
       <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
       <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
@@ -37,12 +32,12 @@ export default function RootLayout({children}: { children: React.ReactNode; }) {
         name="description"
         content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"
       />
-      <ColorSchemeScript/>
+      <ColorSchemeScript defaultColorScheme="auto"/>
     </head>
     <body>
-    <MantineProvider theme={myTheme}>
+    <MantineProvider theme={myTheme} defaultColorScheme="auto">
+      <Notifications position="bottom-right" zIndex={1000}/>
       <ModalsProvider>
-        <Notifications/>
         {children}
       </ModalsProvider>
     </MantineProvider>
