@@ -6,7 +6,7 @@ import {DataTable} from "mantine-datatable";
 import {IconDotsVertical} from "@tabler/icons-react";
 import {Surface} from "@/components";
 import {useColorScheme} from "@mantine/hooks";
-import SalesData from "../../mocks/Sales.json";
+import SalesData from "@/public/mocks/Sales.json";
 
 const Chart = dynamic(() => import('react-apexcharts'), {ssr: false});
 

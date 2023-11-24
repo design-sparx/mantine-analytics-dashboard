@@ -5,7 +5,7 @@ import {Anchor, Container, PaperProps, Stack} from "@mantine/core";
 import {InvoiceDetailsCard, PageHeader} from "@/components";
 import {PATH_DASHBOARD, PATH_INVOICES} from "@/routes";
 import {Invoices} from "@/types";
-import InvoicesData from "@/mocks/Invoices.json";
+import InvoicesData from "@/public/mocks/Invoices.json";
 
 const items = [
   {title: 'Dashboard', href: PATH_DASHBOARD.default},

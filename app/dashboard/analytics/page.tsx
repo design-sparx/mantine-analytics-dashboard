@@ -10,9 +10,9 @@ import {
   StatsCard,
   TrafficTable
 } from "@/components";
-import StatsData from "../../../mocks/StatsGrid.json";
-import LanguagesData from "../../../mocks/Languages.json";
-import TrafficData from "../../../mocks/Traffic.json";
+import StatsData from "@/public/mocks/StatsGrid.json";
+import LanguagesData from "@/public/mocks/Languages.json";
+import TrafficData from "@/public/mocks/Traffic.json";
 import {Metadata} from "next";
 const PRIMARY_COL_HEIGHT = rem(300);
 

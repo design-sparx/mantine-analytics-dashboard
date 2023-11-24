@@ -3,7 +3,7 @@
 import {ActionIcon, Anchor, Container, Group, Paper, PaperProps, Stack, Text} from "@mantine/core";
 import {PATH_DASHBOARD} from "@/routes";
 import {OrdersTable, PageHeader} from "@/components";
-import OrdersData from "../../mocks/Orders.json";
+import OrdersData from "@/public/mocks/Orders.json";
 import {IconDotsVertical} from "@tabler/icons-react";
 import {Metadata} from "next";
 

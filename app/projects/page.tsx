@@ -2,7 +2,7 @@
 
 import {Anchor, CardProps, Container, SimpleGrid, Stack} from "@mantine/core";
 import {PATH_DASHBOARD} from "@/routes";
-import ProjectsData from "@/mocks/Projects2.json"
+import ProjectsData from "@/public/mocks/Projects2.json"
 import {PageHeader, ProjectsCard} from "@/components";
 
 const items = [

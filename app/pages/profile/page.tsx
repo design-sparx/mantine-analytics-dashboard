@@ -30,8 +30,8 @@ import {
   IconListCheck,
   IconMapPinFilled
 } from "@tabler/icons-react";
-import ProjectsData from "@/mocks/Projects.json";
-import UserData from "@/mocks/UserProfile.json";
+import ProjectsData from "@/public/mocks/Projects.json";
+import UserData from "@/public/mocks/UserProfile.json";
 import {Metadata} from "next";
 
 const items = [

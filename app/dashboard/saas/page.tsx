@@ -3,8 +3,8 @@
 import {Button, Container, Grid, Group, Paper, PaperProps, Stack, Text,} from "@mantine/core";
 import {IconChevronRight} from "@tabler/icons-react";
 import {MapChart, PageHeader, ProjectsTable, RevenueChart, SalesChart, StatsGrid} from "@/components";
-import StatsData from "../../../mocks/StatsGrid.json"
-import ProjectsData from "../../../mocks/Projects.json"
+import StatsData from "@/public/mocks/StatsGrid.json"
+import ProjectsData from "@/public/mocks/Projects.json"
 import {Metadata} from "next";
 
 const PAPER_PROPS: PaperProps = {

@@ -7,7 +7,7 @@ import {scaleLinear} from "d3-scale";
 import sortBy from "lodash/sortBy";
 import {ActionIcon, Group, Paper, PaperProps, Text, useMantineTheme} from "@mantine/core";
 import {IconDotsVertical} from "@tabler/icons-react";
-import WorldCountriesMap from "@/mocks/WorldAtlasCountries.json";
+import WorldCountriesMap from "@/public/mocks/WorldAtlasCountries.json";
 import {Surface} from "@/components";
 
 const geoUrl = WorldCountriesMap;

@@ -32,6 +32,7 @@ import Faqs from "@/components/Faqs/Faqs";
 import Surface from "@/components/Surface";
 import TextEditor from "@/components/TextEditor"
 import UserButton from "@/components/UserButton"
+import ErrorAlert from "@/components/ErrorAlert";
 
 export {
   Logo,
@@ -67,5 +68,6 @@ export {
   Faqs,
   Surface,
   TextEditor,
-  UserButton
+  UserButton,
+  ErrorAlert
 };

@@ -26,7 +26,7 @@ import {
   PATH_PROJECTS,
   PATH_TASKS
 } from "@/routes";
-import UserProfileData from "@/mocks/UserProfile.json";
+import UserProfileData from "@/public/mocks/UserProfile.json";
 import {useMediaQuery} from "@mantine/hooks";
 import classes from "./Navigation.module.css";
 import {LinksGroup} from "@/components/Navigation/Links/Links";
