@@ -3,9 +3,8 @@
 import {ActionIcon, Anchor, Container, Group, Paper, PaperProps, Stack, Text} from "@mantine/core";
 import {PATH_DASHBOARD} from "@/routes";
 import {OrdersTable, PageHeader} from "@/components";
-import OrdersData from "@/public/mocks/Orders.json";
 import {IconDotsVertical} from "@tabler/icons-react";
-import {Metadata} from "next";
+import {useFetchData} from "@/hooks";
 
 const items = [
   {title: 'Dashboard', href: PATH_DASHBOARD.default},
@@ -23,6 +22,8 @@ const PAPER_PROPS: PaperProps = {
 }
 
 function Page() {
+  const {data: ordersData, loading: ordersLoading, error: ordersError} = useFetchData("/mocks/Orders.json");
+
   return (
     <>
       <>
@@ -40,7 +41,7 @@ function Page() {
                 <IconDotsVertical size={18}/>
               </ActionIcon>
             </Group>
-            <OrdersTable data={OrdersData}/>
+            <OrdersTable data={ordersData} error={ordersError} loading={ordersLoading}/>
           </Paper>
         </Stack>
       </Container>

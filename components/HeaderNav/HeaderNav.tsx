@@ -19,8 +19,7 @@ import {
 } from "@mantine/core";
 import {
   IconBell,
-  IconColorPicker,
-  IconDeviceDesktop,
+  IconCircleHalf2,
   IconLayoutSidebarLeftCollapse,
   IconLayoutSidebarLeftExpand,
   IconMessageCircle,
@@ -265,7 +264,7 @@ const HeaderNav = (props: HeaderNavProps) => {
           <Menu.Target>
             <Tooltip label="Switch color modes">
               <ActionIcon variant="light">
-                {colorScheme === "auto" ? <IconDeviceDesktop size={ICON_SIZE}/> :
+                {colorScheme === "auto" ? <IconCircleHalf2 size={ICON_SIZE}/> :
                   (colorScheme === "dark" ?
                       <IconMoonStars size={ICON_SIZE}/> :
                       <IconSunHigh size={ICON_SIZE}/>
@@ -283,7 +282,7 @@ const HeaderNav = (props: HeaderNavProps) => {
             <Menu.Item leftSection={<IconMoonStars size={16}/>} onClick={() => setColorScheme("dark")}>
               Dark
             </Menu.Item>
-            <Menu.Item leftSection={<IconDeviceDesktop size={16}/>} onClick={() => setColorScheme("auto")}>
+            <Menu.Item leftSection={<IconCircleHalf2 size={16}/>} onClick={() => setColorScheme("auto")}>
               Use System Colors
             </Menu.Item>
           </Menu.Dropdown>

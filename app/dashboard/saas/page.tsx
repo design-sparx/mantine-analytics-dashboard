@@ -3,9 +3,7 @@
 import {Button, Container, Grid, Group, Paper, PaperProps, Stack, Text,} from "@mantine/core";
 import {IconChevronRight} from "@tabler/icons-react";
 import {MapChart, PageHeader, ProjectsTable, RevenueChart, SalesChart, StatsGrid} from "@/components";
-import StatsData from "@/public/mocks/StatsGrid.json"
-import ProjectsData from "@/public/mocks/Projects.json"
-import {Metadata} from "next";
+import {useFetchData} from "@/hooks";
 
 const PAPER_PROPS: PaperProps = {
   p: "md",
@@ -15,6 +13,9 @@ const PAPER_PROPS: PaperProps = {
 }
 
 function Page() {
+  const {data: statsData, error: statsError, loading: statsLoading} = useFetchData("/mocks/StatsGrid.json")
+  const {data: projectsData, error: projectsError, loading: projectsLoading} = useFetchData("/mocks/Projects.json")
+
   return (
     <>
       <>
@@ -25,7 +26,7 @@ function Page() {
       <Container fluid>
         <Stack gap="lg">
           <PageHeader title="Saas dashboard" withActions={true}/>
-          <StatsGrid data={StatsData.data} paperProps={PAPER_PROPS}/>
+          <StatsGrid data={statsData.data} error={statsError} loading={statsLoading} paperProps={PAPER_PROPS}/>
           <Grid>
             <Grid.Col span={{base: 12, md: 6, lg: 5}}>
               <MapChart {...PAPER_PROPS}/>
@@ -42,7 +43,7 @@ function Page() {
                   <Text size="lg" fw={600}>Tasks</Text>
                   <Button variant="subtle" rightSection={<IconChevronRight size={16}/>}>View all</Button>
                 </Group>
-                <ProjectsTable data={ProjectsData.slice(0, 6)}/>
+                <ProjectsTable data={projectsData.slice(0, 6)} error={projectsError} loading={projectsLoading}/>
               </Paper>
             </Grid.Col>
           </Grid>

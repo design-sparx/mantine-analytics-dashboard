@@ -97,7 +97,7 @@ function Settings() {
               <Grid.Col span={{base: 12, md: 6, lg: 3}}>
                 <Stack align="center">
                   <Image
-                    src="https://res.cloudinary.com/ddh7hfzso/image/upload/v1690925057/me/v0zcdrmf6myw75ehijkb.jpg"
+                    src="https://res.cloudinary.com/ddh7hfzso/image/upload/v1700303804/me/ovqjhhs79u3g2fwbl2dd.jpg"
                     h={128}
                     w={128}
                     radius="50%"

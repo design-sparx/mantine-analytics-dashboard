@@ -1,12 +1,12 @@
 "use client"
 
-import {ActionIcon, Group, Paper, PaperProps, Text, useMantineTheme} from "@mantine/core";
+import {ActionIcon, Group, Paper, PaperProps, Text, useMantineTheme, useMantineColorScheme} from "@mantine/core";
 import dynamic from 'next/dynamic';
 import {DataTable} from "mantine-datatable";
 import {IconDotsVertical} from "@tabler/icons-react";
-import {Surface} from "@/components";
-import {useColorScheme} from "@mantine/hooks";
+import {ErrorAlert, Surface} from "@/components";
 import SalesData from "@/public/mocks/Sales.json";
+import {useFetchData} from "@/hooks";
 
 const Chart = dynamic(() => import('react-apexcharts'), {ssr: false});
 
@@ -14,8 +14,9 @@ type SalesChartProps = PaperProps
 
 const SalesChart = ({...others}: SalesChartProps) => {
   const theme = useMantineTheme()
-  const colorScheme = useColorScheme()
+  const {colorScheme} = useMantineColorScheme()
   const series = [44, 55, 41, 17, 15];
+  const {data: salesData, error: salesError, loading: salesLoading} = useFetchData("/mocks/Sales.json")
 
   const options = {
     chart: {type: "donut", fontFamily: 'Open Sans, sans-serif'},
@@ -75,12 +76,16 @@ const SalesChart = ({...others}: SalesChartProps) => {
       </Group>
       {/*@ts-ignore*/}
       <Chart options={options} series={series} type="donut" height={160} width={"100%"}/>
-      <DataTable
-        highlightOnHover
-        columns={[{accessor: 'source'}, {accessor: 'revenue'}, {accessor: 'value'}]}
-        records={SalesData.slice(0, 4)}
-        height={200}
-      />
+      {salesError ?
+        <ErrorAlert title="Error loading sales" message={salesError.toString()}/> :
+        <DataTable
+          highlightOnHover
+          columns={[{accessor: 'source'}, {accessor: 'revenue'}, {accessor: 'value'}]}
+          records={salesData.slice(0, 4)}
+          height={200}
+          fetching={salesLoading}
+        />
+      }
     </Surface>
   );
 };

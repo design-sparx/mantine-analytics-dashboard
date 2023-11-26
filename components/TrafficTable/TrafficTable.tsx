@@ -2,13 +2,16 @@ import {ActionIcon, Group, Paper, PaperProps, Text} from "@mantine/core";
 import {DataTable} from "mantine-datatable";
 import {IconDotsVertical} from "@tabler/icons-react";
 import dayjs from "dayjs";
-import {Surface} from "@/components";
+import {ErrorAlert, Surface} from "@/components";
+import React, {ReactNode} from "react";
 
 type LanguageTableProps = {
     data?: { id: string, source: string, sessions: number, bounce_rate: number, avg_session_period: number }[]
+  loading: boolean
+  error: ReactNode
 } & PaperProps
 
-const TrafficTable = ({data, ...others}: LanguageTableProps) => {
+const TrafficTable = ({data,error,loading, ...others}: LanguageTableProps) => {
     return (
         <Surface component={Paper} {...others}>
             <Group justify="space-between" mb="sm">
@@ -17,6 +20,8 @@ const TrafficTable = ({data, ...others}: LanguageTableProps) => {
                     <IconDotsVertical size={16}/>
                 </ActionIcon>
             </Group>
+          {error ?
+            <ErrorAlert title="Error loading languages" message={error.toString()}/> :
             <DataTable
                 verticalSpacing='sm'
                 highlightOnHover
@@ -42,7 +47,9 @@ const TrafficTable = ({data, ...others}: LanguageTableProps) => {
                     }
                 ]}
                 records={data}
+                fetching={loading}
             />
+          }
         </Surface>
     );
 };

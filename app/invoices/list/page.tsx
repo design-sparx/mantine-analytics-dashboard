@@ -6,6 +6,7 @@ import {InvoicesTable, PageHeader} from "@/components";
 import InvoicesData from "@/public/mocks/Invoices.json";
 import {IconDotsVertical} from "@tabler/icons-react";
 import {Metadata} from "next";
+import {useFetchData} from "@/hooks";
 
 const items = [
   {title: 'Dashboard', href: PATH_DASHBOARD.default},
@@ -23,6 +24,8 @@ const PAPER_PROPS: PaperProps = {
 }
 
 function Page() {
+  const {data: invoicesData, loading: invoicesLoading, error: invoicesError} = useFetchData("/mocks/Invoices.json")
+
   return (
     <>
       <>
@@ -40,7 +43,7 @@ function Page() {
                 <IconDotsVertical size={18}/>
               </ActionIcon>
             </Group>
-            <InvoicesTable data={InvoicesData}/>
+            <InvoicesTable data={invoicesData} error={invoicesError} loading={invoicesLoading}/>
           </Paper>
         </Stack>
       </Container>

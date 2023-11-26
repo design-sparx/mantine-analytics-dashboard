@@ -4,7 +4,7 @@ import {
   ActionIcon,
   Anchor,
   Badge,
-  Container,
+  Container, Flex,
   Grid,
   Group,
   Paper,
@@ -17,7 +17,7 @@ import {
   useMantineTheme
 } from "@mantine/core";
 import {PATH_DASHBOARD} from "@/routes";
-import {PageHeader, ProfileStatsCard, ProjectsTable, RevenueChart, UserProfileCard} from "@/components";
+import {PageHeader, ProfileStatsCard, ProjectsTable, RevenueChart, Surface, UserProfileCard} from "@/components";
 import {
   IconBrandFacebook,
   IconBrandGithub,
@@ -32,7 +32,7 @@ import {
 } from "@tabler/icons-react";
 import ProjectsData from "@/public/mocks/Projects.json";
 import UserData from "@/public/mocks/UserProfile.json";
-import {Metadata} from "next";
+import classes from "./page.module.css"
 
 const items = [
   {title: 'Dashboard', href: PATH_DASHBOARD.default},
@@ -59,17 +59,7 @@ function Profile() {
   const theme = useMantineTheme();
   const linkProps = {
     target: "_blank",
-    style: {
-      borderRadius: theme.radius.md,
-      padding: `${rem(4)} ${rem(8)}`,
-
-      '&:hover': {
-        transition: 'all ease 150ms',
-        backgroundColor: theme.colors.gray[3],
-        color: theme.black,
-        textDecoration: 'none'
-      }
-    }
+    className: classes.socialLink
   };
 
   return (
@@ -83,16 +73,16 @@ function Profile() {
         <Stack gap="lg">
           <PageHeader title="Profile" breadcrumbItems={items}/>
           <Grid>
-            <Grid.Col span={{base: 12, md: 6, lg: 3}}>
+            <Grid.Col span={{base: 12, md: 5, lg: 4}}>
               <Stack>
                 <UserProfileCard data={UserData} {...PAPER_PROPS}/>
-                <Paper {...PAPER_PROPS}>
+                <Surface component={Paper} {...PAPER_PROPS}>
                   <Text size="lg" fw={600} mb="md">Skills</Text>
                   <Group gap="xs">
                     {skills.map(s => <Badge key={s} variant="filled" c="primary.8">{s}</Badge>)}
                   </Group>
-                </Paper>
-                <Paper {...PAPER_PROPS}>
+                </Surface>
+                <Surface component={Paper} {...PAPER_PROPS}>
                   <Stack>
                     <Text size="lg" fw={600}>About</Text>
                     <Group>
@@ -104,9 +94,13 @@ function Profile() {
                       <Text>Works at Company ABC</Text>
                     </Group>
                   </Stack>
-                </Paper>
-                <Paper {...PAPER_PROPS}>
-                  <Stack gap={4}>
+                </Surface>
+                <Surface component={Paper} {...PAPER_PROPS}>
+                  <Flex
+                    direction={{base: 'row', md: "column"}}
+                    gap={{base: 'sm', md: 'xs'}}
+                    align={{base: "center", md: "stretch"}}
+                  >
                     <Text size="lg" fw={600}>Social</Text>
                     <UnstyledButton
                       component="a"
@@ -147,28 +141,29 @@ function Profile() {
                         <Text>Github</Text>
                       </Group>
                     </UnstyledButton>
-                  </Stack>
-                </Paper>
+                  </Flex>
+                </Surface>
               </Stack>
             </Grid.Col>
-            <Grid.Col span={{base: 12, md: 6, lg: 9}}>
+            <Grid.Col span={{base: 12, md: 7, lg: 8}}>
               <Stack>
                 <RevenueChart {...PAPER_PROPS}/>
                 <SimpleGrid
-                  cols={{base: 1, sm: 2, lg: 3}}
+                  cols={{base: 1, md: 1, lg: 3}}
                   spacing={{base: 10, sm: 'xl'}}
                   verticalSpacing={{base: 'md', sm: 'xl'}}
                 >
                   <ProfileStatsCard
-                    amount="$ 81314"
+                    amount={81314}
                     title="total earnings"
                     icon={IconCoins}
                     progressValue={45}
                     color="indigo.7"
+                    asCurrency
                     {...PAPER_PROPS}
                   />
                   <ProfileStatsCard
-                    amount="2532"
+                    amount={2532}
                     title="today's orders"
                     icon={IconListCheck}
                     progressValue={72}
@@ -176,11 +171,12 @@ function Profile() {
                     {...PAPER_PROPS}
                   />
                   <ProfileStatsCard
-                    amount="$ 97219"
+                    amount={97219}
                     title="total revenue"
                     icon={IconBusinessplan}
                     progressValue={12}
                     color="lime.7"
+                    asCurrency
                     {...PAPER_PROPS}
                   />
                 </SimpleGrid>

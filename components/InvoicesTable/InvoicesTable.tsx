@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {ReactNode, useEffect, useMemo, useState} from 'react';
 import {DataTable, DataTableProps, DataTableSortStatus} from "mantine-datatable";
 import {
   ActionIcon,
@@ -21,8 +21,9 @@ import {useDebouncedValue} from "@mantine/hooks";
 import {IconCloudDownload, IconEye, IconSearch} from "@tabler/icons-react";
 import {useRouter} from "next/navigation";
 import {PATH_INVOICES} from "@/routes";
+import {ErrorAlert} from "@/components";
 
-const PAGE_SIZES = [10, 15, 20];
+const PAGE_SIZES = [5, 10, 20];
 
 const ICON_SIZE = 18;
 
@@ -60,9 +61,11 @@ const StatusBadge = ({status}: StatusBadgeProps) => {
 
 type InvoicesTableProps = {
   data: Invoices[]
+  error: ReactNode
+  loading: boolean
 }
 
-const InvoicesTable = ({data}: InvoicesTableProps) => {
+const InvoicesTable = ({data, error, loading}: InvoicesTableProps) => {
   const theme = useMantineTheme()
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
@@ -210,7 +213,8 @@ const InvoicesTable = ({data}: InvoicesTableProps) => {
   }, [sortStatus, data, page, pageSize, debouncedQuery, selectedStatuses]);
 
   return (
-    <>
+    error ?
+      <ErrorAlert title="Error loading invoices" message={error.toString()}/> :
       <DataTable
         minHeight={200}
         verticalSpacing="xs"
@@ -228,8 +232,8 @@ const InvoicesTable = ({data}: InvoicesTableProps) => {
         onRecordsPerPageChange={setPageSize}
         sortStatus={sortStatus}
         onSortStatusChange={setSortStatus}
+        fetching={loading}
       />
-    </>
   );
 };
 

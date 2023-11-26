@@ -1,0 +1,11 @@
+.socialLink {
+  border-radius: var(--mantine-radius-default);
+  padding: rem(6px) rem(8px);
+
+  @mixin hover {
+    transition: all ease 150ms;
+    background-color: var(--mantine-color-gray-3);
+    color: var(--mantine-color-black);
+    text-decoration: none;
+  }
+}

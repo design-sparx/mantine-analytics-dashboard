@@ -11,11 +11,16 @@ import {
   Group,
   Image,
   MantineColor,
+  Paper,
   Progress,
   Stack,
-  Text, Tooltip, useMantineTheme
+  Text,
+  Tooltip,
+  useMantineColorScheme
 } from "@mantine/core";
-import {useColorScheme} from "@mantine/hooks";
+import {Surface} from "@/components";
+import {IconNotebook, IconShare} from "@tabler/icons-react";
+import classes from "./ProjectsCard.module.css"
 
 const avatars = [
   'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
@@ -41,7 +46,7 @@ type StatusProps = {
 }
 
 const StatusBadge = ({status}: StatusProps) => {
-  let color: MantineColor = '';
+  let color: MantineColor;
 
   switch (status) {
     case 'expired':
@@ -93,12 +98,11 @@ type ProjectsCardProps = {
 } & Omit<CardProps, 'children'>
 
 const ProjectsCard = (props: ProjectsCardProps) => {
-  const theme = useMantineTheme()
-  const colorScheme = useColorScheme()
+  const {colorScheme} = useMantineColorScheme()
   const {id, status, completion, description, title, image, ...others} = props
 
   return (
-    <Card {...others}>
+    <Surface component={Paper} {...others}>
       <Stack gap="sm">
         <Flex justify="space-between" align="center">
           <Flex align="center" gap="xs">
@@ -117,16 +121,26 @@ const ProjectsCard = (props: ProjectsCardProps) => {
           Tasks completed:{' '}
           <Text
             span
+            fz="sm"
             fw={500}
-            style={(theme) => ({color: colorScheme === 'dark' ? theme.white : theme.black})}
+            className={classes.tasksCompleted}
           >
             {completion}/100
           </Text>
         </Text>
 
-        <Progress value={completion} mt={5} size="sm"/>
+        <Progress
+          value={completion}
+          mt={5}
+          size="sm"
+          color={completion < 21 ? "red" :
+            (completion < 51 ? "yellow" :
+              (completion < 86 ? "blue" :
+                "green"))
+          }
+        />
 
-        <Avatar.Group gap="sm">
+        <Avatar.Group spacing="sm">
           <Tooltip label="Anne Doe">
             <Avatar src={avatars[0]} size="md" radius="xl"/>
           </Tooltip>
@@ -140,15 +154,15 @@ const ProjectsCard = (props: ProjectsCardProps) => {
             <Avatar size="md" radius="xl">+5</Avatar>
           </Tooltip>
         </Avatar.Group>
-        <Card.Section>
-          <Divider/>
-        </Card.Section>
+
+        <Divider/>
+
         <Group gap="sm">
-          <Button size="compact-sm" variant="subtle">Share</Button>
-          <Button size="compact-sm" variant="subtle">Learn More</Button>
+          <Button size="compact-md" variant="subtle" leftSection={<IconShare size={14}/>}>Share</Button>
+          <Button size="compact-md" variant="subtle" leftSection={<IconNotebook size={14}/>}>Learn More</Button>
         </Group>
       </Stack>
-    </Card>
+    </Surface>
   );
 };
 

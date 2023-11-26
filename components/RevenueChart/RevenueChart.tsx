@@ -1,10 +1,9 @@
 "use client"
 
-import {ActionIcon, Group, Paper, PaperProps, Text, useMantineTheme} from "@mantine/core";
+import {ActionIcon, Group, Paper, PaperProps, Text, useMantineColorScheme, useMantineTheme} from "@mantine/core";
 import dynamic from 'next/dynamic';
 import {IconDotsVertical} from "@tabler/icons-react";
 import {Surface} from "@/components";
-import {useColorScheme} from "@mantine/hooks";
 
 const Chart = dynamic(() => import('react-apexcharts'), {ssr: false});
 
@@ -12,7 +11,7 @@ type RevenueChartProps = PaperProps
 
 const RevenueChart = ({...others}: RevenueChartProps) => {
   const theme = useMantineTheme()
-  const colorScheme = useColorScheme()
+  const {colorScheme} = useMantineColorScheme()
 
   const series = [{
     name: 'series1',

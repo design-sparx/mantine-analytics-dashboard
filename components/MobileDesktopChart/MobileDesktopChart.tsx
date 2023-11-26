@@ -1,9 +1,8 @@
 "use client"
 
 import dynamic from "next/dynamic";
-import {ActionIcon, Group, Paper, PaperProps, Text, useMantineTheme} from "@mantine/core";
+import {ActionIcon, Group, Paper, PaperProps, Text, useMantineColorScheme, useMantineTheme} from "@mantine/core";
 import {IconDotsVertical} from "@tabler/icons-react";
-import {useColorScheme} from "@mantine/hooks";
 import {Surface} from "@/components";
 
 const Chart = dynamic(() => import('react-apexcharts'), {ssr: false});
@@ -11,7 +10,8 @@ const Chart = dynamic(() => import('react-apexcharts'), {ssr: false});
 type MobileDesktopChartProps = PaperProps
 const MobileDesktopChart = ({...others}: MobileDesktopChartProps) => {
   const theme = useMantineTheme()
-  const colorScheme = useColorScheme()
+  const {colorScheme} = useMantineColorScheme()
+
   const series = [{
     name: 'PRODUCT A',
     data: [44, 55, 41, 67, 22, 43, 34]

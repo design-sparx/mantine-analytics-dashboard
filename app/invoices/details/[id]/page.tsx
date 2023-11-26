@@ -1,11 +1,11 @@
 "use client"
 
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Anchor, Container, PaperProps, Stack} from "@mantine/core";
 import {InvoiceDetailsCard, PageHeader} from "@/components";
 import {PATH_DASHBOARD, PATH_INVOICES} from "@/routes";
 import {Invoices} from "@/types";
-import InvoicesData from "@/public/mocks/Invoices.json";
+import {useFetchData} from "@/hooks";
 
 const items = [
   {title: 'Dashboard', href: PATH_DASHBOARD.default},
@@ -25,10 +25,11 @@ const PAPER_PROPS: PaperProps = {
 
 function InvoiceDetails({params}: { params: { id: string } }) {
   const [selectedData, setSelectedData] = useState<Invoices>();
+  const {data: invoicesData, loading: invoicesLoading, error: invoicesError} = useFetchData('mocks/Invoices.json')
 
   useEffect(() => {
-    setSelectedData(InvoicesData.find(_ => _.id === params.id))
-  }, [InvoicesData, params]);
+    setSelectedData(invoicesData.find((_: Invoices) => _.id === params.id))
+  }, [invoicesData, params]);
 
   return (
     <>
