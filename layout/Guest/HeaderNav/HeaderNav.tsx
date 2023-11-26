@@ -1,27 +1,38 @@
-import {Box, Burger, Button, Container, Drawer, Group, rem, ScrollArea, useMantineTheme} from '@mantine/core';
-import {useDisclosure, useMediaQuery} from '@mantine/hooks';
-import {PATH_DASHBOARD, PATH_DOCS} from "@/routes";
-import {Logo} from "@/components";
+import {
+  Box,
+  Burger,
+  Button,
+  Container,
+  Drawer,
+  Group,
+  rem,
+  ScrollArea,
+  useMantineTheme,
+} from "@mantine/core";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
+import { PATH_DASHBOARD, PATH_DOCS } from "@/routes";
+import { Logo } from "@/components";
 import Link from "next/link";
 import classes from "./HeaderNav.module.css";
 
 const MOCK_DATA = [
   {
-    "link": PATH_DOCS.root,
-    "label": "documentation"
+    link: PATH_DOCS.root,
+    label: "documentation",
   },
   {
-    "link": "mailto:kelvin.kiprop96@gmail.com",
-    "label": "support",
-  }
-]
+    link: "mailto:kelvin.kiprop96@gmail.com",
+    label: "support",
+  },
+];
 
 const HEADER_HEIGHT = rem(60);
 
 const HeaderNav = () => {
-  const theme = useMantineTheme()
-  const [drawerOpened, {toggle: toggleDrawer, close: closeDrawer}] = useDisclosure(false);
-  const tablet_match = useMediaQuery('(max-width: 768px)');
+  const theme = useMantineTheme();
+  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
+    useDisclosure(false);
+  const tablet_match = useMediaQuery("(max-width: 768px)");
 
   const items = MOCK_DATA.map((link) => {
     return (
@@ -40,10 +51,12 @@ const HeaderNav = () => {
     <Box>
       <header className={classes.header}>
         <Container className={classes.inner} fluid>
-          <Logo style={{color: theme.white}}/>
+          <Logo style={{ color: theme.white }} />
           <Group gap="xs" className={classes.links}>
             {items}
-            <Button component={Link} href={PATH_DASHBOARD.default}>Live Preview</Button>
+            <Button component={Link} href={PATH_DASHBOARD.default}>
+              Live Preview
+            </Button>
           </Group>
           <Burger
             opened={drawerOpened}
@@ -62,16 +75,18 @@ const HeaderNav = () => {
         className={classes.hiddenDesktop}
         zIndex={1000000}
         transitionProps={{
-          transition: tablet_match ? 'slide-up' : 'slide-left',
+          transition: tablet_match ? "slide-up" : "slide-left",
         }}
       >
         <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
           {items}
-          <Button component={Link} href={PATH_DASHBOARD.default}>Live Previews</Button>
+          <Button component={Link} href={PATH_DASHBOARD.default}>
+            Live Previews
+          </Button>
         </ScrollArea>
       </Drawer>
     </Box>
   );
-}
+};
 
-export default HeaderNav
+export default HeaderNav;

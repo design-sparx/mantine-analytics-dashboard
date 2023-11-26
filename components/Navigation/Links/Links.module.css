@@ -7,13 +7,13 @@
   font-size: var(--mantine-font-size-sm);
 
   @mixin hover {
-    background-color: var(--mantine-primary-color-filled-hover)
+    background-color: var(--mantine-primary-color-filled-hover);
   }
 
   &[data-active] {
     &,
     &:hover {
-      background-color: var(--mantine-primary-color-filled-hover)
+      background-color: var(--mantine-primary-color-filled-hover);
     }
   }
 }
@@ -26,16 +26,17 @@
   margin-left: var(--mantine-spacing-xl);
   font-size: var(--mantine-font-size-sm);
   color: var(--mantine-color-white);
-  border-left: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  border-left: 1px solid
+    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
 
   @mixin hover {
-    background-color: var(--mantine-primary-color-filled-hover)
+    background-color: var(--mantine-primary-color-filled-hover);
   }
 
   &[data-active] {
     &,
     &:hover {
-      background-color: var(--mantine-primary-color-filled-hover)
+      background-color: var(--mantine-primary-color-filled-hover);
     }
   }
 }

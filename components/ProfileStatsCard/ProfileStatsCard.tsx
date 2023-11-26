@@ -1,21 +1,28 @@
-import {Flex, MantineColor, Paper, PaperProps, Progress, Stack, Text, ThemeIcon} from "@mantine/core";
-import {Surface} from "@/components";
+import {
+  Flex,
+  MantineColor,
+  Paper,
+  PaperProps,
+  Progress,
+  Stack,
+  Text,
+  ThemeIcon,
+} from "@mantine/core";
+import { Surface } from "@/components";
 import CountUp from "react-countup";
 
-type ProfileStatsCardProps =
-  { amount: number; title: string; icon: any, color: MantineColor, progressValue: number, asCurrency?: boolean }
-  & PaperProps
+type ProfileStatsCardProps = {
+  amount: number;
+  title: string;
+  icon: any;
+  color: MantineColor;
+  progressValue: number;
+  asCurrency?: boolean;
+} & PaperProps;
 
 const ProfileStatsCard = (props: ProfileStatsCardProps) => {
-  const {
-    amount,
-    color,
-    title,
-    icon,
-    progressValue,
-    asCurrency,
-    ...others
-  } = props
+  const { amount, color, title, icon, progressValue, asCurrency, ...others } =
+    props;
   const Icon = icon;
 
   return (
@@ -23,16 +30,18 @@ const ProfileStatsCard = (props: ProfileStatsCardProps) => {
       <Flex align="center" justify="space-between" mb="md">
         <Stack gap={2}>
           <Text size="lg" fw={700} tt="capitalize">
-            {asCurrency && '$ '}
-            <CountUp end={amount}/>
+            {asCurrency && "$ "}
+            <CountUp end={amount} />
           </Text>
-          <Text size="sm" c="dimmed" tt="capitalize">{title}</Text>
+          <Text size="sm" c="dimmed" tt="capitalize">
+            {title}
+          </Text>
         </Stack>
         <ThemeIcon color={color} size="lg" radius="xl">
-          <Icon size={18}/>
+          <Icon size={18} />
         </ThemeIcon>
       </Flex>
-      <Progress value={progressValue} color={color} size="sm"/>
+      <Progress value={progressValue} color={color} size="sm" />
     </Surface>
   );
 };

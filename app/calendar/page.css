@@ -1,6 +1,9 @@
 /*Had to avoid using page.module.css naming conventions as I need to override the styles below*/
 
-.fc-event-bg-color, .fc-event-main, .fc-v-event, .fc-h-event {
+.fc-event-bg-color,
+.fc-event-main,
+.fc-v-event,
+.fc-h-event {
   background-color: var(--mantine-primary-color-filled);
   border-color: var(--mantine-primary-color-filled);
 }
@@ -23,7 +26,9 @@
   cursor: not-allowed;
 }
 
-.active button, .fc .fc-button-primary:not(:disabled).fc-button-active, .fc .fc-button-primary:not(:disabled):active {
+.active button,
+.fc .fc-button-primary:not(:disabled).fc-button-active,
+.fc .fc-button-primary:not(:disabled):active {
   background-color: var(--mantine-primary-color-filled-hover);
   border-color: var(--mantine-primary-color-filled-hover);
 }

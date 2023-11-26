@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import {useMemo, useState} from "react";
+import { useMemo, useState } from "react";
 import {
   DndContext,
   DragEndEvent,
@@ -11,12 +11,12 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import {arrayMove, SortableContext} from "@dnd-kit/sortable";
-import {KanbanCard, KanbanColumn} from "@/components"
-import {Id, KanbanColumn as IColumn, KanbanTask as ITask} from "@/types";
-import {IconNewSection, IconPlus} from "@tabler/icons-react";
-import {Box, Button, Portal, ScrollArea} from "@mantine/core";
-import {useMediaQuery} from "@mantine/hooks";
+import { arrayMove, SortableContext } from "@dnd-kit/sortable";
+import { KanbanCard, KanbanColumn } from "@/components";
+import { Id, KanbanColumn as IColumn, KanbanTask as ITask } from "@/types";
+import { IconNewSection, IconPlus } from "@tabler/icons-react";
+import { Box, Button, Portal, ScrollArea } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 
 const defaultCols: IColumn[] = [
   {
@@ -38,80 +38,80 @@ const defaultTasks: ITask[] = [
     id: "1",
     columnId: "todo",
     content: "List admin APIs for dashboard",
-    comments: 0
+    comments: 0,
   },
   {
     id: "2",
     columnId: "todo",
     content:
       "Develop user registration functionality with OTP delivered on SMS after email confirmation and phone number confirmation",
-    comments: 3
+    comments: 3,
   },
   {
     id: "3",
     columnId: "doing",
     content: "Conduct security testing",
-    comments: 2
+    comments: 2,
   },
   {
     id: "4",
     columnId: "doing",
     content: "Analyze competitors",
-    comments: 0
+    comments: 0,
   },
   {
     id: "5",
     columnId: "done",
     content: "Create UI kit documentation",
-    comments: 1
+    comments: 1,
   },
   {
     id: "6",
     columnId: "done",
     content: "Dev meeting",
-    comments: 4
+    comments: 4,
   },
   {
     id: "7",
     columnId: "done",
     content: "Deliver dashboard prototype",
-    comments: 15
+    comments: 15,
   },
   {
     id: "8",
     columnId: "todo",
     content: "Optimize application performance",
-    comments: 21
+    comments: 21,
   },
   {
     id: "9",
     columnId: "todo",
     content: "Implement data validation",
-    comments: 16
+    comments: 16,
   },
   {
     id: "10",
     columnId: "todo",
     content: "Design database schema",
-    comments: 56
+    comments: 56,
   },
   {
     id: "11",
     columnId: "todo",
     content: "Integrate SSL web certificates into workflow",
-    comments: 99
+    comments: 99,
   },
   {
     id: "12",
     columnId: "doing",
     content: "Implement error logging and monitoring",
-    comments: 76
+    comments: 76,
   },
   {
     id: "13",
     columnId: "doing",
     content: "Design and implement responsive UI",
-    comments: 45
+    comments: 45,
   },
 ];
 
@@ -121,14 +121,14 @@ const KanbanBoard = () => {
   const [tasks, setTasks] = useState<ITask[]>(defaultTasks);
   const [activeColumn, setActiveColumn] = useState<IColumn | null>(null);
   const [activeTask, setActiveTask] = useState<ITask | null>(null);
-  const tablet_match = useMediaQuery('(max-width: 768px)');
+  const tablet_match = useMediaQuery("(max-width: 768px)");
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
         distance: 10,
       },
-    })
+    }),
   );
 
   return (
@@ -136,14 +136,14 @@ const KanbanBoard = () => {
       h="100%"
       w="100%"
       style={{
-        margin: 'auto',
-        display: 'flex',
-        minHeight: '70vh',
-        height: '100%',
-        width: '100%',
-        alignItems: 'center',
-        overflowX: 'auto',
-        overflowY: 'hidden'
+        margin: "auto",
+        display: "flex",
+        minHeight: "70vh",
+        height: "100%",
+        width: "100%",
+        alignItems: "center",
+        overflowX: "auto",
+        overflowY: "hidden",
       }}
     >
       <DndContext
@@ -155,15 +155,19 @@ const KanbanBoard = () => {
         <Box
           component="div"
           style={{
-            margin: 'auto',
-            display: 'flex',
-            flexDirection: tablet_match ? 'column' : 'row',
-            gap: '1rem'
+            margin: "auto",
+            display: "flex",
+            flexDirection: tablet_match ? "column" : "row",
+            gap: "1rem",
           }}
         >
           <Box
             component="div"
-            style={{display: 'flex', flexDirection: tablet_match ? 'column' : 'row', gap: '1rem'}}
+            style={{
+              display: "flex",
+              flexDirection: tablet_match ? "column" : "row",
+              gap: "1rem",
+            }}
           >
             <SortableContext items={columnsId}>
               {columns.map((col) => (
@@ -181,14 +185,14 @@ const KanbanBoard = () => {
             </SortableContext>
           </Box>
           <Button
-            mt={tablet_match ? 'lg' : 0}
+            mt={tablet_match ? "lg" : 0}
             size="md"
             variant="outline"
-            leftSection={<IconNewSection size={16}/>}
+            leftSection={<IconNewSection size={16} />}
             style={{
-              width: '350px',
-              minWidth: '350px',
-              borderStyle: 'dashed'
+              width: "350px",
+              minWidth: "350px",
+              borderStyle: "dashed",
             }}
             onClick={() => {
               createNewColumn();
@@ -209,7 +213,7 @@ const KanbanBoard = () => {
                 deleteTask={deleteTask}
                 updateTask={updateTask}
                 tasks={tasks.filter(
-                  (task) => task.columnId === activeColumn.id
+                  (task) => task.columnId === activeColumn.id,
                 )}
               />
             )}
@@ -244,7 +248,7 @@ const KanbanBoard = () => {
   function updateTask(id: Id, content: string) {
     const newTasks = tasks.map((task) => {
       if (task.id !== id) return task;
-      return {...task, content};
+      return { ...task, content };
     });
 
     setTasks(newTasks);
@@ -270,7 +274,7 @@ const KanbanBoard = () => {
   function updateColumn(id: Id, title: string) {
     const newColumns = columns.map((col) => {
       if (col.id !== id) return col;
-      return {...col, title};
+      return { ...col, title };
     });
 
     setColumns(newColumns);
@@ -292,7 +296,7 @@ const KanbanBoard = () => {
     setActiveColumn(null);
     setActiveTask(null);
 
-    const {active, over} = event;
+    const { active, over } = event;
     if (!over) return;
 
     const activeId = active.id;
@@ -310,7 +314,7 @@ const KanbanBoard = () => {
   }
 
   function onDragOver(event: DragOverEvent) {
-    const {active, over} = event;
+    const { active, over } = event;
     if (!over) return;
 
     const activeId = active.id;
@@ -348,7 +352,7 @@ const KanbanBoard = () => {
       });
     }
   }
-}
+};
 
 function generateId() {
   /* Generate a random number between 0 and 10000 */

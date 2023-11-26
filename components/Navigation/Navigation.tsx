@@ -1,4 +1,13 @@
-import {ActionIcon, Box, Code, Flex, Group, ScrollArea, Text, useMantineTheme} from '@mantine/core';
+import {
+  ActionIcon,
+  Box,
+  Code,
+  Flex,
+  Group,
+  ScrollArea,
+  Text,
+  useMantineTheme,
+} from "@mantine/core";
 import {
   IconAdjustmentsFilled,
   IconAlertOctagon,
@@ -12,8 +21,8 @@ import {
   IconListDetails,
   IconUserShield,
   IconX,
-} from '@tabler/icons-react';
-import {Logo, UserProfileButton} from "@/components";
+} from "@tabler/icons-react";
+import { Logo, UserProfileButton } from "@/components";
 import {
   PATH_AUTH,
   PATH_CALENDAR,
@@ -24,114 +33,128 @@ import {
   PATH_ORDERS,
   PATH_PAGES,
   PATH_PROJECTS,
-  PATH_TASKS
+  PATH_TASKS,
 } from "@/routes";
 import UserProfileData from "@/public/mocks/UserProfile.json";
-import {useMediaQuery} from "@mantine/hooks";
+import { useMediaQuery } from "@mantine/hooks";
 import classes from "./Navigation.module.css";
-import {LinksGroup} from "@/components/Navigation/Links/Links";
+import { LinksGroup } from "@/components/Navigation/Links/Links";
 
 const mockdata = [
   {
-    title: 'Pages',
+    title: "Pages",
     links: [
       {
-        label: 'Dashboard',
+        label: "Dashboard",
         icon: IconAdjustmentsFilled,
         links: [
-          {label: 'Default', link: PATH_DASHBOARD.default},
-          {label: 'Analytics', link: PATH_DASHBOARD.analytics},
-          {label: 'SaaS', link: PATH_DASHBOARD.saas},
-        ]
+          { label: "Default", link: PATH_DASHBOARD.default },
+          { label: "Analytics", link: PATH_DASHBOARD.analytics },
+          { label: "SaaS", link: PATH_DASHBOARD.saas },
+        ],
       },
       {
-        label: 'Pages',
+        label: "Pages",
         icon: IconAppWindow,
         links: [
-          {label: 'Profile', link: PATH_PAGES.profile},
-          {label: 'Settings', link: PATH_PAGES.settings},
-          {label: 'Pricing', link: PATH_PAGES.pricing},
-          {label: 'Chat', link: PATH_PAGES.chat},
-          {label: 'Blank Page', link: PATH_PAGES.blank},
-        ]
+          { label: "Profile", link: PATH_PAGES.profile },
+          { label: "Settings", link: PATH_PAGES.settings },
+          { label: "Pricing", link: PATH_PAGES.pricing },
+          { label: "Chat", link: PATH_PAGES.chat },
+          { label: "Blank Page", link: PATH_PAGES.blank },
+        ],
       },
-      {label: 'Projects', icon: IconBriefcase, link: PATH_PROJECTS.root},
-      {label: 'Orders', icon: IconListDetails, link: PATH_ORDERS.root},
+      { label: "Projects", icon: IconBriefcase, link: PATH_PROJECTS.root },
+      { label: "Orders", icon: IconListDetails, link: PATH_ORDERS.root },
       {
-        label: 'Invoices',
+        label: "Invoices",
         icon: IconFileInvoice,
         links: [
-          {label: 'List', link: PATH_INVOICES.invoices.all},
-          {label: 'Details', link: PATH_INVOICES.invoices.sample},
-        ]
+          { label: "List", link: PATH_INVOICES.invoices.all },
+          { label: "Details", link: PATH_INVOICES.invoices.sample },
+        ],
       },
-      {label: 'Tasks', icon: IconListDetails, link: PATH_TASKS.root},
-      {label: 'Calendar', icon: IconCalendar, link: PATH_CALENDAR.root},
+      { label: "Tasks", icon: IconListDetails, link: PATH_TASKS.root },
+      { label: "Calendar", icon: IconCalendar, link: PATH_CALENDAR.root },
       {
-        label: 'Auth',
+        label: "Auth",
         icon: IconUserShield,
         links: [
-          {label: 'Sign In', link: PATH_AUTH.signin},
-          {label: 'Sign Up', link: PATH_AUTH.signup},
-          {label: 'Reset Password', link: PATH_AUTH.passwordReset},
-        ]
+          { label: "Sign In", link: PATH_AUTH.signin },
+          { label: "Sign Up", link: PATH_AUTH.signup },
+          { label: "Reset Password", link: PATH_AUTH.passwordReset },
+        ],
       },
       {
-        label: 'Errors',
+        label: "Errors",
         icon: IconAlertOctagon,
         links: [
-          {label: '403 Page', link: PATH_ERROR.error403},
-          {label: '404 Page', link: PATH_ERROR.error404},
-          {label: '500 Page', link: PATH_ERROR.error500},
-        ]
+          { label: "403 Page", link: PATH_ERROR.error403 },
+          { label: "404 Page", link: PATH_ERROR.error404 },
+          { label: "500 Page", link: PATH_ERROR.error500 },
+        ],
       },
-    ]
+    ],
   },
   {
-    title: 'Documentation',
+    title: "Documentation",
     links: [
       {
-        label: 'Getting started',
+        label: "Getting started",
         icon: IconLifebuoy,
-        link: PATH_DOCS.root
+        link: PATH_DOCS.root,
       },
       {
-        label: 'Documentation',
+        label: "Documentation",
         icon: IconBook2,
-        link: PATH_DOCS.root
+        link: PATH_DOCS.root,
       },
-      {label: 'Changelog', icon: IconList,},
-    ]
-  }
+      { label: "Changelog", icon: IconList },
+    ],
+  },
 ];
 
 type NavigationProps = {
-  onClose: () => void
-}
+  onClose: () => void;
+};
 
-const Navigation = ({onClose, ...others}: NavigationProps) => {
-  const theme = useMantineTheme()
-  const tablet_match = useMediaQuery('(max-width: 768px)');
+const Navigation = ({ onClose, ...others }: NavigationProps) => {
+  const theme = useMantineTheme();
+  const tablet_match = useMediaQuery("(max-width: 768px)");
 
-  const links = mockdata.map(m =>
+  const links = mockdata.map((m) => (
     <Box pl={0} mb="md" key={m.title}>
-      <Text tt="uppercase" size="xs" pl="md" fw={500} mb="sm" className={classes.linkHeader}>{m.title}</Text>
-      {m.links.map((item) => <LinksGroup {...item} key={item.label}/>)}
+      <Text
+        tt="uppercase"
+        size="xs"
+        pl="md"
+        fw={500}
+        mb="sm"
+        className={classes.linkHeader}
+      >
+        {m.title}
+      </Text>
+      {m.links.map((item) => (
+        <LinksGroup {...item} key={item.label} />
+      ))}
     </Box>
-  )
+  ));
 
   return (
     <nav className={classes.navbar}>
       <div className={classes.header}>
         <Flex justify="space-between" align="center" gap="sm">
-          <Group justify="space-between" style={{flex: tablet_match ? 'auto' : 1}}>
-            <Logo c="white"/>
+          <Group
+            justify="space-between"
+            style={{ flex: tablet_match ? "auto" : 1 }}
+          >
+            <Logo c="white" />
           </Group>
-          {tablet_match &&
+          {tablet_match && (
             <ActionIcon onClick={onClose} variant="transparent">
-              <IconX color="white"/>
+              <IconX color="white" />
             </ActionIcon>
-          }
+          )}
         </Flex>
       </div>
 

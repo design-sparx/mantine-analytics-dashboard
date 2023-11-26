@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import {SortableContext, useSortable} from "@dnd-kit/sortable";
-import {Id, KanbanColumn as IColumn, KanbanTask as ITask} from "../../types";
-import {CSS} from "@dnd-kit/utilities";
-import {useMemo, useState} from "react";
-import {IconDots, IconEdit, IconPlus, IconTrash} from "@tabler/icons-react";
-import {KanbanCard} from "@/components";
+import { SortableContext, useSortable } from "@dnd-kit/sortable";
+import { Id, KanbanColumn as IColumn, KanbanTask as ITask } from "../../types";
+import { CSS } from "@dnd-kit/utilities";
+import { useMemo, useState } from "react";
+import { IconDots, IconEdit, IconPlus, IconTrash } from "@tabler/icons-react";
+import { KanbanCard } from "@/components";
 import {
   ActionIcon,
   Badge,
@@ -19,12 +19,12 @@ import {
   Stack,
   Text,
   TextInput,
-  useMantineTheme
+  useMantineTheme,
 } from "@mantine/core";
-import {useMediaQuery} from "@mantine/hooks";
-import {modals} from "@mantine/modals";
+import { useMediaQuery } from "@mantine/hooks";
+import { modals } from "@mantine/modals";
 
-const ICON_SIZE = 18
+const ICON_SIZE = 18;
 
 type Props = {
   column: IColumn;
@@ -34,10 +34,10 @@ type Props = {
   updateTask: (id: Id, content: string) => void;
   deleteTask: (id: Id) => void;
   tasks: ITask[];
-}
+};
 
 const KanbanColumn = (props: Props) => {
-  const theme = useMantineTheme()
+  const theme = useMantineTheme();
   const {
     column,
     deleteColumn,
@@ -45,25 +45,25 @@ const KanbanColumn = (props: Props) => {
     createTask,
     tasks,
     deleteTask,
-    updateTask
+    updateTask,
   } = props;
   const [editMode, setEditMode] = useState(false);
-  const tablet_match = useMediaQuery('(max-width: 768px)');
+  const tablet_match = useMediaQuery("(max-width: 768px)");
 
   const PAPER_PROPS: PaperProps = {
     radius: "md",
-    shadow: tablet_match ? 'xl' : '',
+    shadow: tablet_match ? "xl" : "",
     withBorder: tablet_match,
-    pb: tablet_match ? 'md' : 'xs',
+    pb: tablet_match ? "md" : "xs",
     style: {
-      width: tablet_match ? '100%' : '350px',
+      width: tablet_match ? "100%" : "350px",
       // height: rem(600),
       // maxHeight: rem(600),
-      display: 'flex',
-      flexDirection: 'column',
-      backgroundColor: tablet_match ? theme.white : 'transparent',
-    }
-  }
+      display: "flex",
+      flexDirection: "column",
+      backgroundColor: tablet_match ? theme.white : "transparent",
+    },
+  };
 
   const tasksIds = useMemo(() => {
     return tasks.map((task) => task.id);
@@ -90,20 +90,19 @@ const KanbanColumn = (props: Props) => {
     transform: CSS.Transform.toString(transform),
   };
 
-  const confirmModal = (column: IColumn) => modals.openConfirmModal({
-    title: `Delete ${column.title}?`,
-    centered: true,
-    children: (
-      <Text size="sm">
-        All tasks in this bucket will also be deleted.
-      </Text>
-    ),
-    labels: {confirm: 'Delete bucket', cancel: "No don't delete it"},
-    onCancel: () => console.log('Cancel'),
-    onConfirm: () => {
-      deleteColumn(column.id);
-    },
-  });
+  const confirmModal = (column: IColumn) =>
+    modals.openConfirmModal({
+      title: `Delete ${column.title}?`,
+      centered: true,
+      children: (
+        <Text size="sm">All tasks in this bucket will also be deleted.</Text>
+      ),
+      labels: { confirm: "Delete bucket", cancel: "No don't delete it" },
+      onCancel: () => console.log("Cancel"),
+      onConfirm: () => {
+        deleteColumn(column.id);
+      },
+    });
 
   if (isDragging) {
     return (
@@ -113,47 +112,42 @@ const KanbanColumn = (props: Props) => {
         style={{
           ...style,
           backgroundColor: theme.colors.dark[0],
-          opacity: .3,
+          opacity: 0.3,
           width: rem(350),
           height: rem(500),
           maxHeight: rem(500),
-          display: 'flex',
-          flexDirection: 'column',
+          display: "flex",
+          flexDirection: "column",
         }}
       ></Paper>
     );
   }
 
   return (
-    <Paper
-      ref={setNodeRef}
-      style={style}
-      {...PAPER_PROPS}
-    >
+    <Paper ref={setNodeRef} style={style} {...PAPER_PROPS}>
       {/* Column title */}
       <Flex
         p="xs"
         align="center"
         justify="space-between"
         style={{
-          cursor: 'grab',
-          borderBottom: `1px solid ${theme.colors.dark[1]}`
+          cursor: "grab",
+          borderBottom: `1px solid ${theme.colors.dark[1]}`,
         }}
         {...attributes}
         {...listeners}
       >
         <Flex gap="md" align="center">
-          {!editMode && <>
-            <Text fz="lg" fw={600}>{column.title}</Text>
-            <Badge
-              variant="dot"
-              radius="sm"
-              size="md"
-            >
-              {tasks.length}
-            </Badge>
-          </>
-          }
+          {!editMode && (
+            <>
+              <Text fz="lg" fw={600}>
+                {column.title}
+              </Text>
+              <Badge variant="dot" radius="sm" size="md">
+                {tasks.length}
+              </Badge>
+            </>
+          )}
           {editMode && (
             <TextInput
               className="bg-black focus:border-rose-500 border rounded outline-none px-2"
@@ -172,12 +166,14 @@ const KanbanColumn = (props: Props) => {
         </Flex>
         <Menu shadow="md" width={200}>
           <Menu.Target>
-            <ActionIcon variant="subtle"><IconDots size={ICON_SIZE}/></ActionIcon>
+            <ActionIcon variant="subtle">
+              <IconDots size={ICON_SIZE} />
+            </ActionIcon>
           </Menu.Target>
 
           <Menu.Dropdown>
             <Menu.Item
-              leftSection={<IconEdit size={ICON_SIZE}/>}
+              leftSection={<IconEdit size={ICON_SIZE} />}
               onClick={() => {
                 setEditMode(true);
               }}
@@ -185,9 +181,9 @@ const KanbanColumn = (props: Props) => {
               Rename
             </Menu.Item>
             <Menu.Item
-              leftSection={<IconTrash size={ICON_SIZE}/>}
+              leftSection={<IconTrash size={ICON_SIZE} />}
               onClick={() => {
-                confirmModal(column)
+                confirmModal(column);
               }}
             >
               Delete
@@ -198,7 +194,8 @@ const KanbanColumn = (props: Props) => {
 
       {/* Column task container */}
       <ScrollArea
-        style={{overflowX: 'hidden', overflowY: 'auto', maxHeight: rem(500)}}>
+        style={{ overflowX: "hidden", overflowY: "auto", maxHeight: rem(500) }}
+      >
         <Stack gap="sm" px="sm" py="md">
           <SortableContext items={tasksIds}>
             {tasks.map((task) => (
@@ -217,7 +214,7 @@ const KanbanColumn = (props: Props) => {
         mx="sm"
         radius="sm"
         variant="outline"
-        leftSection={<IconPlus size={ICON_SIZE}/>}
+        leftSection={<IconPlus size={ICON_SIZE} />}
         onClick={() => {
           createTask(column.id);
         }}
@@ -226,6 +223,6 @@ const KanbanColumn = (props: Props) => {
       </Button>
     </Paper>
   );
-}
+};
 
 export default KanbanColumn;

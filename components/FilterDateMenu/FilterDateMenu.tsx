@@ -1,11 +1,13 @@
-import {Button, Menu} from "@mantine/core";
-import {IconChevronDown} from "@tabler/icons-react";
+import { Button, Menu } from "@mantine/core";
+import { IconChevronDown } from "@tabler/icons-react";
 
 const FilterDateMenu = () => {
   return (
     <Menu shadow="md" width={120}>
       <Menu.Target>
-        <Button variant="subtle" rightSection={<IconChevronDown size={14}/>}>Today: July 25</Button>
+        <Button variant="subtle" rightSection={<IconChevronDown size={14} />}>
+          Today: July 25
+        </Button>
       </Menu.Target>
 
       <Menu.Dropdown>
@@ -20,4 +22,4 @@ const FilterDateMenu = () => {
   );
 };
 
-export default FilterDateMenu
+export default FilterDateMenu;

@@ -23,7 +23,8 @@
 .chatHeader {
   padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
   border-top-right-radius: var(--mantine-radius-default);
-  border-bottom: 1px solid light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-0));
+  border-bottom: 1px solid
+    light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-0));
 
   @mixin light {
     background-color: var(--mantine-color-white);
@@ -37,7 +38,7 @@
 }
 
 .user {
-  border-radius: var(--mantine-radius-default)
+  border-radius: var(--mantine-radius-default);
 }
 
 .replyBox {

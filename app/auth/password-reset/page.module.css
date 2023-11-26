@@ -35,7 +35,10 @@
 
   @mixin hover {
     transition: all ease 150ms;
-    background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-4));
+    background-color: light-dark(
+      var(--mantine-color-gray-2),
+      var(--mantine-color-dark-4)
+    );
     color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
     text-decoration: none;
   }

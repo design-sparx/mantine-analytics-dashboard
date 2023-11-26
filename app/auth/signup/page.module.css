@@ -8,7 +8,7 @@
 
   @mixin light {
     background-color: var(--mantine-color-gray-0);
-    color: var(--mantine-color-black)
+    color: var(--mantine-color-black);
   }
 
   @mixin dark {
@@ -28,7 +28,7 @@
   font-weight: 500;
 
   @mixin light {
-    color: var(--mantine-color-black)
+    color: var(--mantine-color-black);
   }
 
   @mixin dark {
@@ -36,7 +36,10 @@
   }
 
   @mixin hover {
-    background-color: light-dark(var(--mantine-color-dark-5), var(--mantine-color-gray-2));
+    background-color: light-dark(
+      var(--mantine-color-dark-5),
+      var(--mantine-color-gray-2)
+    );
     text-decoration: none;
     transition: all ease 150ms;
 

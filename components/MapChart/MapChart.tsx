@@ -1,21 +1,33 @@
-"use client"
+"use client";
 
-import React, {useEffect, useMemo, useState} from "react";
-import {ComposableMap, Geographies, Geography, Marker} from "react-simple-maps";
-import {csv} from "d3-fetch";
-import {scaleLinear} from "d3-scale";
+import React, { useEffect, useMemo, useState } from "react";
+import {
+  ComposableMap,
+  Geographies,
+  Geography,
+  Marker,
+} from "react-simple-maps";
+import { csv } from "d3-fetch";
+import { scaleLinear } from "d3-scale";
 import sortBy from "lodash/sortBy";
-import {ActionIcon, Group, Paper, PaperProps, Text, useMantineTheme} from "@mantine/core";
-import {IconDotsVertical} from "@tabler/icons-react";
+import {
+  ActionIcon,
+  Group,
+  Paper,
+  PaperProps,
+  Text,
+  useMantineTheme,
+} from "@mantine/core";
+import { IconDotsVertical } from "@tabler/icons-react";
 import WorldCountriesMap from "@/public/mocks/WorldAtlasCountries.json";
-import {Surface} from "@/components";
+import { Surface } from "@/components";
 
 const geoUrl = WorldCountriesMap;
 
-type MapChartProps = PaperProps
+type MapChartProps = PaperProps;
 
-const MapChart = ({...others}: MapChartProps) => {
-  const theme = useMantineTheme()
+const MapChart = ({ ...others }: MapChartProps) => {
+  const theme = useMantineTheme();
   const [data, setData] = useState<any>([]);
   const [maxValue, setMaxValue] = useState(0);
 
@@ -29,33 +41,43 @@ const MapChart = ({...others}: MapChartProps) => {
 
   const popScale = useMemo(
     () => scaleLinear().domain([0, maxValue]).range([0, 24]),
-    []
+    [],
   );
 
   return (
     <Surface component={Paper} {...others}>
       <Group justify="space-between" mb="md">
-        <Text size="lg" fw={600}>Real time</Text>
+        <Text size="lg" fw={600}>
+          Real time
+        </Text>
         <ActionIcon variant="subtle">
-          <IconDotsVertical size={16}/>
+          <IconDotsVertical size={16} />
         </ActionIcon>
       </Group>
       {/*@ts-ignore*/}
-      <ComposableMap projectionConfig={{rotate: [-10, 0, 0]}}>
+      <ComposableMap projectionConfig={{ rotate: [-10, 0, 0] }}>
         {/*@ts-ignore*/}
         <Geographies geography={geoUrl}>
-          {({geographies}) =>
+          {({ geographies }) =>
             geographies.map((geo) => (
               // @ts-ignore
-              <Geography key={geo.rsmKey} geography={geo} fill={theme.colors[theme.primaryColor][1]}/>
+              <Geography
+                key={geo.rsmKey}
+                geography={geo}
+                fill={theme.colors[theme.primaryColor][1]}
+              />
             ))
           }
         </Geographies>
-        {data.map(({city_code, lng, lat, population}: any) => {
+        {data.map(({ city_code, lng, lat, population }: any) => {
           return (
             // @ts-ignore
             <Marker key={city_code} coordinates={[lng, lat]}>
-              <circle fill={theme.colors[theme.primaryColor][7]} stroke="#FFF" r={popScale(population)}/>
+              <circle
+                fill={theme.colors[theme.primaryColor][7]}
+                stroke="#FFF"
+                r={popScale(population)}
+              />
             </Marker>
           );
         })}

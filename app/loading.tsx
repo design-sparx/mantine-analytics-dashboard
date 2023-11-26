@@ -1,4 +1,4 @@
-import {Center, Loader} from "@mantine/core";
+import { Center, Loader } from "@mantine/core";
 
 export default function Loading() {
   return (

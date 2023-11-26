@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import {AppShell, Container, rem, useMantineTheme,} from '@mantine/core';
-import {ReactNode, useState} from 'react';
-import {useDisclosure, useMediaQuery} from "@mantine/hooks";
+import { AppShell, Container, rem, useMantineTheme } from "@mantine/core";
+import { ReactNode, useState } from "react";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import AppMain from "@/components/AppMain";
 import Navigation from "@/components/Navigation";
 import HeaderNav from "@/components/HeaderNav";
@@ -12,26 +12,31 @@ type Props = {
   children: ReactNode;
 };
 
-function CalendarLayout({children}: Props) {
-  const theme = useMantineTheme()
+function CalendarLayout({ children }: Props) {
+  const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
-  const [themeOpened, {open: themeOpen, close: themeClose}] = useDisclosure(false);
-  const tablet_match = useMediaQuery('(max-width: 768px)');
-  const [mobileOpened, {toggle: toggleMobile}] = useDisclosure();
-  const [desktopOpened, {toggle: toggleDesktop}] = useDisclosure(true);
+  const [themeOpened, { open: themeOpen, close: themeClose }] =
+    useDisclosure(false);
+  const tablet_match = useMediaQuery("(max-width: 768px)");
+  const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
+  const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
 
   return (
     <AppShell
       layout="alt"
-      header={{height: 60}}
-      footer={{height: 60}}
-      navbar={{width: 300, breakpoint: 'md', collapsed: {mobile: !mobileOpened, desktop: !desktopOpened}}}
+      header={{ height: 60 }}
+      footer={{ height: 60 }}
+      navbar={{
+        width: 300,
+        breakpoint: "md",
+        collapsed: { mobile: !mobileOpened, desktop: !desktopOpened },
+      }}
       padding={0}
     >
       <AppShell.Header
         style={{
           height: rem(60),
-          border: 'none',
+          border: "none",
           boxShadow: tablet_match ? theme.shadows.md : theme.shadows.sm,
         }}
       >
@@ -47,16 +52,14 @@ function CalendarLayout({children}: Props) {
         </Container>
       </AppShell.Header>
       <AppShell.Navbar>
-        <Navigation onClose={() => setOpened(false)}/>
+        <Navigation onClose={() => setOpened(false)} />
       </AppShell.Navbar>
       <AppShell.Main>
-        <AppMain>
-          {children}
-        </AppMain>
+        <AppMain>{children}</AppMain>
       </AppShell.Main>
       <AppShell.Footer p="md">
         <Container fluid px="lg">
-          <FooterNav/>
+          <FooterNav />
         </Container>
       </AppShell.Footer>
     </AppShell>

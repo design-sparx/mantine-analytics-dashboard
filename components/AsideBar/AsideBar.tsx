@@ -1,11 +1,7 @@
-import React from 'react';
+import React from "react";
 
 const AsideBard = () => {
-    return (
-        <div>
-            aside bar
-        </div>
-    );
+  return <div>aside bar</div>;
 };
 
 export default AsideBard;

@@ -6,7 +6,7 @@
     transition: all ease 150ms;
   }
 
-  @mixin light{
+  @mixin light {
     border-bottom: rem(1px) solid var(--mantine-color-gray-3);
   }
 

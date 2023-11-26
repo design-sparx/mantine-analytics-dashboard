@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import React from 'react';
+import React from "react";
 import {
   ActionIcon,
   Breadcrumbs,
@@ -13,48 +13,56 @@ import {
   Stack,
   Text,
   Title,
-  useMantineTheme
+  useMantineTheme,
 } from "@mantine/core";
-import {IconPlus, IconRefresh} from "@tabler/icons-react";
-import {FilterDateMenu, Surface} from "@/components";
-import {useColorScheme} from "@mantine/hooks";
+import { IconPlus, IconRefresh } from "@tabler/icons-react";
+import { FilterDateMenu, Surface } from "@/components";
+import { useColorScheme } from "@mantine/hooks";
 
 type PageHeaderProps = {
   title: string;
   withActions?: boolean;
   breadcrumbItems?: any;
   invoiceAction?: boolean;
-}
+};
 
-const PageHeader = ({withActions, breadcrumbItems, title, invoiceAction}: PageHeaderProps) => {
-  const theme = useMantineTheme()
-  const colorScheme = useColorScheme()
+const PageHeader = ({
+  withActions,
+  breadcrumbItems,
+  title,
+  invoiceAction,
+}: PageHeaderProps) => {
+  const theme = useMantineTheme();
+  const colorScheme = useColorScheme();
 
-  const BREADCRUMBS_PROPS: Omit<BreadcrumbsProps, 'children'> = {
+  const BREADCRUMBS_PROPS: Omit<BreadcrumbsProps, "children"> = {
     style: {
-      'a': {
+      a: {
         padding: rem(8),
         borderRadius: theme.radius.sm,
         fontWeight: 500,
         color: colorScheme === "dark" ? theme.white : theme.black,
 
-        '&:hover': {
-          transition: 'all ease 150ms',
-          backgroundColor: colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2],
-          textDecoration: 'none'
-        }
-      }
-    }
-  }
+        "&:hover": {
+          transition: "all ease 150ms",
+          backgroundColor:
+            colorScheme === "dark"
+              ? theme.colors.dark[5]
+              : theme.colors.gray[2],
+          textDecoration: "none",
+        },
+      },
+    },
+  };
 
   return (
     <>
-      <Surface component={Paper} style={{backgroundColor: 'transparent'}}>
-        {withActions ?
+      <Surface component={Paper} style={{ backgroundColor: "transparent" }}>
+        {withActions ? (
           <Flex
             justify="space-between"
-            direction={{base: 'column', sm: 'row'}}
-            gap={{base: 'sm', sm: 4}}
+            direction={{ base: "column", sm: "row" }}
+            gap={{ base: "sm", sm: 4 }}
           >
             <Stack gap={4}>
               <Title order={3}>{title}</Title>
@@ -62,33 +70,36 @@ const PageHeader = ({withActions, breadcrumbItems, title, invoiceAction}: PageHe
             </Stack>
             <Flex align="center" gap="sm">
               <ActionIcon variant="subtle">
-                <IconRefresh size={16}/>
+                <IconRefresh size={16} />
               </ActionIcon>
-              <FilterDateMenu/>
+              <FilterDateMenu />
             </Flex>
-          </Flex> :
-          (invoiceAction ?
-              <Flex
-                align="center"
-                justify="space-between"
-                direction={{base: 'row', sm: 'row'}}
-                gap={{base: 'sm', sm: 4}}
-              >
-                <Stack>
-                  <Title order={3}>{title}</Title>
-                  <Breadcrumbs {...BREADCRUMBS_PROPS}>{breadcrumbItems}</Breadcrumbs>
-                </Stack>
-                <Button leftSection={<IconPlus size={18}/>}>New Invoice</Button>
-              </Flex> :
-              <Stack gap="sm">
-                <Title order={3}>{title}</Title>
-                <Breadcrumbs {...BREADCRUMBS_PROPS}>{breadcrumbItems}</Breadcrumbs>
-              </Stack>
-          )}
+          </Flex>
+        ) : invoiceAction ? (
+          <Flex
+            align="center"
+            justify="space-between"
+            direction={{ base: "row", sm: "row" }}
+            gap={{ base: "sm", sm: 4 }}
+          >
+            <Stack>
+              <Title order={3}>{title}</Title>
+              <Breadcrumbs {...BREADCRUMBS_PROPS}>
+                {breadcrumbItems}
+              </Breadcrumbs>
+            </Stack>
+            <Button leftSection={<IconPlus size={18} />}>New Invoice</Button>
+          </Flex>
+        ) : (
+          <Stack gap="sm">
+            <Title order={3}>{title}</Title>
+            <Breadcrumbs {...BREADCRUMBS_PROPS}>{breadcrumbItems}</Breadcrumbs>
+          </Stack>
+        )}
       </Surface>
-      <Divider/>
+      <Divider />
     </>
-  )
+  );
 };
 
 export default PageHeader;

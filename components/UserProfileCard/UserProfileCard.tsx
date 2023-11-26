@@ -1,6 +1,6 @@
-import {Avatar, Button, Paper, PaperProps, Stack, Text} from '@mantine/core';
-import {Surface} from "@/components";
-import {IconSend} from "@tabler/icons-react";
+import { Avatar, Button, Paper, PaperProps, Stack, Text } from "@mantine/core";
+import { Surface } from "@/components";
+import { IconSend } from "@tabler/icons-react";
 
 type UserInfoActionProps = {
   data: {
@@ -8,15 +8,20 @@ type UserInfoActionProps = {
     name: string;
     email: string;
     job: string;
-  }
-} & PaperProps
+  };
+} & PaperProps;
 
-const UserProfileCard = ({data: {avatar, name, email, job}, ...others}: UserInfoActionProps) => {
+const UserProfileCard = ({
+  data: { avatar, name, email, job },
+  ...others
+}: UserInfoActionProps) => {
   return (
     <Surface component={Paper} {...others}>
       <Stack gap={4} align="center">
-        <Text size="lg" fw={600} mb="md">Profile details</Text>
-        <Avatar src={avatar} size={120} radius={120} mx="auto" mb="md"/>
+        <Text size="lg" fw={600} mb="md">
+          Profile details
+        </Text>
+        <Avatar src={avatar} size={120} radius={120} mx="auto" mb="md" />
         <Text fz="md" fw={500} mt="md" mx="auto">
           {name}
         </Text>
@@ -27,12 +32,17 @@ const UserProfileCard = ({data: {avatar, name, email, job}, ...others}: UserInfo
           {job}
         </Text>
 
-        <Button variant="outline" fullWidth mt="md" rightSection={<IconSend size={14}/>}>
+        <Button
+          variant="outline"
+          fullWidth
+          mt="md"
+          rightSection={<IconSend size={14} />}
+        >
           Send message
         </Button>
       </Stack>
     </Surface>
   );
-}
+};
 
-export default UserProfileCard
+export default UserProfileCard;

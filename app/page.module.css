@@ -4,7 +4,7 @@
   padding: calc(var(--mantine-spacing-xl) * 4);
 
   @media (max-width: $mantine-breakpoint-sm) {
-    padding-top: var(--mantine-spacing-xl)
+    padding-top: var(--mantine-spacing-xl);
   }
 }
 
@@ -24,13 +24,12 @@
   color: var(--mantine-primary-color-filled);
 }
 
-
 .stackControl {
   text-transform: capitalize;
   background-color: var(--mantine-color-dark-6);
   color: var(--mantine-color-white);
   padding: rem(6) rem(10);
-  border-radius: var(--mantine-radius-md)
+  border-radius: var(--mantine-radius-md);
 }
 
 .variantImg {
@@ -42,7 +41,7 @@
 .variantTitle {
   text-align: center;
   margin-top: var(--mantine-spacing-md);
-  font-weight: 600
+  font-weight: 600;
 }
 
 .paper {
@@ -61,11 +60,11 @@
   }
 }
 
-.statsTitle{
-  color: var(--mantine-primary-color-filled)
+.statsTitle {
+  color: var(--mantine-primary-color-filled);
 }
 
-.contactPaper{
+.contactPaper {
   background-color: transparent;
   text-align: center;
 }

@@ -1,7 +1,7 @@
 .user {
-    padding: var(--mantine-spacing-md);
+  padding: var(--mantine-spacing-md);
 
-    @mixin hover {
-        background-color: var(--mantine-primary-color-light)
-    }
+  @mixin hover {
+    background-color: var(--mantine-primary-color-light);
+  }
 }

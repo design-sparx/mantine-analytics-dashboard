@@ -1,4 +1,4 @@
-import Logo from "./Logo/Logo"
+import Logo from "./Logo/Logo";
 import ToggleTheme from "./ToggleTheme/ToggleTheme";
 import LanguagePicker from "@/components/LanguagePicker/LanguagePicker";
 import FilterDateMenu from "@/components/FilterDateMenu/FilterDateMenu";
@@ -13,8 +13,8 @@ import LanguageTable from "@/components/LanguageTable/LanguageTable";
 import TrafficTable from "@/components/TrafficTable/TrafficTable";
 import UserProfileCard from "@/components/UserProfileCard/UserProfileCard";
 import PricingCard from "@/components/PricingCard/PricingCard";
-import ChatsList from "@/components/ChatsList/ChatsList"
-import ChatItem from "@/components/ChatItem/ChatItem"
+import ChatsList from "@/components/ChatsList/ChatsList";
+import ChatItem from "@/components/ChatItem/ChatItem";
 import ProjectsCard from "@/components/ProjectsCard/ProjectsCard";
 import AddTaskCard from "@/components/AddTaskCard/AddTaskCard";
 import KanbanColumn from "@/components/KanbanColumn/KanbanColumn";
@@ -26,12 +26,12 @@ import InvoiceDetailsCard from "@/components/InvoiceDetailsCard/InvoiceDetailsCa
 import UserProfileButton from "@/components/UserButton/UserButton";
 import ThemeDrawer from "@/components/ThemeDrawer/ThemeDrawer";
 import PageHeader from "@/components/PageHeader/PageHeader";
-import RouterTransition from "@/components/RouterTransition/RouterTransition"
+import RouterTransition from "@/components/RouterTransition/RouterTransition";
 import ProfileStatsCard from "@/components/ProfileStatsCard/ProfileStatsCard";
 import Faqs from "@/components/Faqs/Faqs";
 import Surface from "@/components/Surface";
-import TextEditor from "@/components/TextEditor"
-import UserButton from "@/components/UserButton"
+import TextEditor from "@/components/TextEditor";
+import UserButton from "@/components/UserButton";
 import ErrorAlert from "@/components/ErrorAlert";
 
 export {
@@ -69,5 +69,5 @@ export {
   Surface,
   TextEditor,
   UserButton,
-  ErrorAlert
+  ErrorAlert,
 };

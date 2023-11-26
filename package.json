@@ -5,7 +5,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "",
+    "postinstall": "husky install",
+    "prepack": "pinst --disable",
+    "postpack": "pinst --enable",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@changesets/cli": "^2.26.2",
@@ -66,13 +72,29 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
+    "@storybook/addon-essentials": "7.5.3",
+    "@storybook/addon-interactions": "7.5.3",
+    "@storybook/addon-links": "7.5.3",
+    "@storybook/addon-onboarding": "1.0.8",
+    "@storybook/blocks": "7.5.3",
+    "@storybook/nextjs": "7.5.3",
+    "@storybook/react": "7.5.3",
+    "@storybook/testing-library": "0.2.2",
     "@types/d3-fetch": "^3.0.2",
     "@types/d3-scale": "^4.0.3",
     "@types/lodash": "^4.14.195",
     "@types/react-simple-maps": "^3.0.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.1.0",
+    "pinst": "^3.0.0",
     "postcss": "^8.4.31",
     "postcss-preset-mantine": "^1.11.0",
-    "postcss-simple-vars": "^7.0.1"
+    "postcss-simple-vars": "^7.0.1",
+    "prettier": "3.1.0",
+    "storybook": "7.5.3"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   },
   "packageManager": "yarn@4.0.2"
 }
