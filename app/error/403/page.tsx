@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { Button, Group, Stack, Text, Title } from "@mantine/core";
-import { IconChevronLeft } from "@tabler/icons-react";
-import { useRouter } from "next/navigation";
-import classes from "./page.module.css";
-import { Metadata } from "next";
+import { Button, Group, Stack, Text, Title } from '@mantine/core';
+import { IconChevronLeft } from '@tabler/icons-react';
+import { useRouter } from 'next/navigation';
+import classes from './page.module.css';
+import { Metadata } from 'next';
 
 function Error403() {
   const router = useRouter();
@@ -28,6 +28,7 @@ function Error403() {
         <Group justify="center" mt="md">
           <Button
             size="md"
+            variant="subtle"
             leftSection={<IconChevronLeft size={18} />}
             onClick={() => {
               router.back();

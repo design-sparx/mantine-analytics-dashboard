@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ReactNode, useEffect, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import {
   DataTable,
   DataTableProps,
@@ -240,15 +240,16 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
   return error ? (
     <ErrorAlert title="Error loading invoices" message={error.toString()} />
   ) : (
-    // @ts-ignore
     <DataTable
       minHeight={200}
       verticalSpacing="xs"
       striped
       highlightOnHover
+      // @ts-ignore
       columns={columns}
       records={records}
       selectedRecords={selectedRecords}
+      // @ts-ignore
       onSelectedRecordsChange={setSelectedRecords}
       totalRecords={
         debouncedQuery || selectedStatuses.length > 0

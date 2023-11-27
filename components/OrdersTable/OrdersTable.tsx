@@ -50,7 +50,7 @@ const StatusBadge = ({ status }: StatusBadgeProps) => {
 const PAGE_SIZES = [5, 10, 20];
 
 type OrdersTableProps = {
-  data?: Orders[];
+  data: Orders[];
   error?: ReactNode;
   loading?: boolean;
 };
@@ -168,9 +168,11 @@ const OrdersTable = ({ data, loading, error }: OrdersTableProps) => {
       minHeight={200}
       verticalSpacing="sm"
       striped={true}
+      // @ts-ignore
       columns={columns}
       records={records}
       selectedRecords={selectedRecords}
+      // @ts-ignore
       onSelectedRecordsChange={setSelectedRecords}
       totalRecords={
         debouncedQuery || selectedStatuses.length > 0

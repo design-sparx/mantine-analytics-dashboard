@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import dynamic from "next/dynamic";
+import dynamic from 'next/dynamic';
 import {
   ActionIcon,
   Group,
@@ -9,11 +9,11 @@ import {
   Text,
   useMantineColorScheme,
   useMantineTheme,
-} from "@mantine/core";
-import { IconDotsVertical } from "@tabler/icons-react";
-import { Surface } from "@/components";
+} from '@mantine/core';
+import { IconDotsVertical } from '@tabler/icons-react';
+import { Surface } from '@/components';
 
-const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 type MobileDesktopChartProps = PaperProps;
 const MobileDesktopChart = ({ ...others }: MobileDesktopChartProps) => {
@@ -22,18 +22,18 @@ const MobileDesktopChart = ({ ...others }: MobileDesktopChartProps) => {
 
   const series = [
     {
-      name: "PRODUCT A",
+      name: 'PRODUCT A',
       data: [44, 55, 41, 67, 22, 43, 34],
     },
     {
-      name: "PRODUCT B",
+      name: 'PRODUCT B',
       data: [13, 23, 20, 8, 13, 27, 10],
     },
   ];
 
-  const options = {
+  const options: any = {
     chart: {
-      type: "bar",
+      type: 'bar',
       height: 300,
       stacked: true,
       toolbar: {
@@ -42,7 +42,7 @@ const MobileDesktopChart = ({ ...others }: MobileDesktopChartProps) => {
       zoom: {
         enabled: true,
       },
-      fontFamily: "Open Sans, sans-serif",
+      fontFamily: 'Open Sans, sans-serif',
     },
     dataLabels: {
       enabled: false,
@@ -51,12 +51,12 @@ const MobileDesktopChart = ({ ...others }: MobileDesktopChartProps) => {
       bar: {
         horizontal: false,
         borderRadius: 4,
-        columnWidth: "25%",
+        columnWidth: '25%',
         dataLabels: {
           total: {
             enabled: false,
             style: {
-              fontSize: "13px",
+              fontSize: '13px',
               fontWeight: 900,
             },
           },
@@ -64,17 +64,17 @@ const MobileDesktopChart = ({ ...others }: MobileDesktopChartProps) => {
       },
     },
     xaxis: {
-      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
       labels: {
         style: {
-          colors: colorScheme === "dark" ? theme.white : theme.black,
+          colors: colorScheme === 'dark' ? theme.white : theme.black,
         },
       },
     },
     yaxis: {
       labels: {
         style: {
-          colors: colorScheme === "dark" ? theme.white : theme.black,
+          colors: colorScheme === 'dark' ? theme.white : theme.black,
         },
       },
     },
@@ -84,7 +84,7 @@ const MobileDesktopChart = ({ ...others }: MobileDesktopChartProps) => {
     ],
     legend: {
       labels: {
-        colors: [colorScheme === "dark" ? theme.white : theme.black],
+        colors: [colorScheme === 'dark' ? theme.white : theme.black],
       },
     },
   };
@@ -105,7 +105,7 @@ const MobileDesktopChart = ({ ...others }: MobileDesktopChartProps) => {
         series={series}
         type="bar"
         height={300}
-        width={"100%"}
+        width={'100%'}
       />
     </Surface>
   );
