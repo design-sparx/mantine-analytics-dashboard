@@ -35,3 +35,9 @@ yarn-error.log*
 next-env.d.ts
 
 .idea
+
+### StorybookJs ###
+# gitignore template for the Storybook, UI guide for front apps
+# website: https://storybook.js.org/
+
+storybook-static/

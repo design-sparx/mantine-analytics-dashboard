@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   ActionIcon,
@@ -10,14 +10,13 @@ import {
   Group,
   Paper,
   PaperProps,
-  rem,
   SimpleGrid,
   Stack,
   Text,
   UnstyledButton,
   useMantineTheme,
-} from "@mantine/core";
-import { PATH_DASHBOARD } from "@/routes";
+} from '@mantine/core';
+import { PATH_DASHBOARD } from '@/routes';
 import {
   PageHeader,
   ProfileStatsCard,
@@ -25,7 +24,7 @@ import {
   RevenueChart,
   Surface,
   UserProfileCard,
-} from "@/components";
+} from '@/components';
 import {
   IconBrandFacebook,
   IconBrandGithub,
@@ -37,15 +36,15 @@ import {
   IconHome,
   IconListCheck,
   IconMapPinFilled,
-} from "@tabler/icons-react";
-import ProjectsData from "@/public/mocks/Projects.json";
-import UserData from "@/public/mocks/UserProfile.json";
-import classes from "./page.module.css";
+} from '@tabler/icons-react';
+import UserData from '@/public/mocks/UserProfile.json';
+import classes from './page.module.css';
+import { useFetchData } from '@/hooks';
 
 const items = [
-  { title: "Dashboard", href: PATH_DASHBOARD.default },
-  { title: "Pages", href: "#" },
-  { title: "Profile", href: "#" },
+  { title: 'Dashboard', href: PATH_DASHBOARD.default },
+  { title: 'Pages', href: '#' },
+  { title: 'Profile', href: '#' },
 ].map((item, index) => (
   <Anchor href={item.href} key={index}>
     {item.title}
@@ -55,25 +54,30 @@ const items = [
 const ICON_SIZE = 16;
 
 const skills = [
-  "React",
-  "Mantine",
-  "Figma",
-  "Bootstrap",
-  "Typescript",
-  "Sass/SCSS",
+  'React',
+  'Mantine',
+  'Figma',
+  'Bootstrap',
+  'Typescript',
+  'Sass/SCSS',
 ];
 
 const PAPER_PROPS: PaperProps = {
-  p: "md",
-  shadow: "md",
-  radius: "md",
-  style: { height: "100%" },
+  p: 'md',
+  shadow: 'md',
+  radius: 'md',
+  style: { height: '100%' },
 };
 
 function Profile() {
   const theme = useMantineTheme();
+  const {
+    data: projectsData,
+    loading: projectsLoading,
+    error: projectsError,
+  } = useFetchData('/mocks/Projects.json');
   const linkProps = {
-    target: "_blank",
+    target: '_blank',
     className: classes.socialLink,
   };
 
@@ -122,9 +126,9 @@ function Profile() {
                 </Surface>
                 <Surface component={Paper} {...PAPER_PROPS}>
                   <Flex
-                    direction={{ base: "row", md: "column" }}
-                    gap={{ base: "sm", md: "xs" }}
-                    align={{ base: "center", md: "stretch" }}
+                    direction={{ base: 'row', md: 'column' }}
+                    gap={{ base: 'sm', md: 'xs' }}
+                    align={{ base: 'center', md: 'stretch' }}
                   >
                     <Text size="lg" fw={600}>
                       Social
@@ -178,8 +182,8 @@ function Profile() {
                 <RevenueChart {...PAPER_PROPS} />
                 <SimpleGrid
                   cols={{ base: 1, md: 1, lg: 3 }}
-                  spacing={{ base: 10, sm: "xl" }}
-                  verticalSpacing={{ base: "md", sm: "xl" }}
+                  spacing={{ base: 10, sm: 'xl' }}
+                  verticalSpacing={{ base: 'md', sm: 'xl' }}
                 >
                   <ProfileStatsCard
                     amount={81314}
@@ -217,7 +221,11 @@ function Profile() {
                       <IconDotsVertical size={ICON_SIZE} />
                     </ActionIcon>
                   </Group>
-                  <ProjectsTable data={ProjectsData.slice(0, 10)} />
+                  <ProjectsTable
+                    data={projectsData.slice(0, 10)}
+                    loading={projectsLoading}
+                    error={projectsError}
+                  />
                 </Paper>
               </Stack>
             </Grid.Col>
