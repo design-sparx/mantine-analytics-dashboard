@@ -5,10 +5,9 @@ import {
   Flex,
   Paper,
   Skeleton,
-  Stack,
   Text,
-} from "@mantine/core";
-import classes from "./ChatItem.module.css";
+} from '@mantine/core';
+import classes from './ChatItem.module.css';
 
 type ChatItemProps = {
   id: string;
@@ -31,7 +30,7 @@ const ChatItem = (props: ChatItemProps) => {
     loading,
     ...others
   } = props;
-  const isMe = fullName.toLowerCase() === "you";
+  const isMe = fullName.toLowerCase() === 'you';
 
   return loading ? (
     <Flex gap="sm">
@@ -52,11 +51,11 @@ const ChatItem = (props: ChatItemProps) => {
               fw={600}
               tt="capitalize"
               mb={4}
-              c={isMe ? "white" : "initial"}
+              c={isMe ? 'white' : 'initial'}
             >
               {fullName}
             </Text>
-            <Text size="sm" c={isMe ? "white" : "initial"}>
+            <Text size="sm" c={isMe ? 'white' : 'initial'}>
               {message}
             </Text>
           </Paper>

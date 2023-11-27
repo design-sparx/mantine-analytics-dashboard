@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import React, { ReactNode, useEffect, useMemo, useState } from "react";
+import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 import {
   DataTable,
   DataTableProps,
   DataTableSortStatus,
-} from "mantine-datatable";
+} from 'mantine-datatable';
 import {
   ActionIcon,
   Avatar,
@@ -21,14 +21,14 @@ import {
   Tooltip,
   UnstyledButton,
   useMantineTheme,
-} from "@mantine/core";
-import sortBy from "lodash/sortBy";
-import { Invoices, InvoiceStatus } from "@/types";
-import { useDebouncedValue } from "@mantine/hooks";
-import { IconCloudDownload, IconEye, IconSearch } from "@tabler/icons-react";
-import { useRouter } from "next/navigation";
-import { PATH_INVOICES } from "@/routes";
-import { ErrorAlert } from "@/components";
+} from '@mantine/core';
+import sortBy from 'lodash/sortBy';
+import { Invoices, InvoiceStatus } from '@/types';
+import { useDebouncedValue } from '@mantine/hooks';
+import { IconCloudDownload, IconEye, IconSearch } from '@tabler/icons-react';
+import { useRouter } from 'next/navigation';
+import { PATH_INVOICES } from '@/routes';
+import { ErrorAlert } from '@/components';
 
 const PAGE_SIZES = [5, 10, 20];
 
@@ -39,26 +39,26 @@ type StatusBadgeProps = {
 };
 
 const StatusBadge = ({ status }: StatusBadgeProps) => {
-  let color: MantineColor = "";
+  let color: MantineColor = '';
 
   switch (status) {
-    case "sent":
-      color = "blue";
+    case 'sent':
+      color = 'blue';
       break;
-    case "suspended":
-      color = "gray";
+    case 'suspended':
+      color = 'gray';
       break;
-    case "cancelled":
-      color = "red";
+    case 'cancelled':
+      color = 'red';
       break;
-    case "approved":
-      color = "green.8";
+    case 'approved':
+      color = 'green.8';
       break;
-    case "pending":
-      color = "cyan.7";
+    case 'pending':
+      color = 'cyan.7';
       break;
     default:
-      color = "dark";
+      color = 'dark';
   }
 
   return (
@@ -70,8 +70,8 @@ const StatusBadge = ({ status }: StatusBadgeProps) => {
 
 type InvoicesTableProps = {
   data: Invoices[];
-  error: ReactNode;
-  loading: boolean;
+  error?: ReactNode;
+  loading?: boolean;
 };
 
 const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
@@ -81,10 +81,10 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
   const [selectedRecords, setSelectedRecords] = useState<Invoices[]>([]);
   const [records, setRecords] = useState<Invoices[]>(data.slice(0, pageSize));
   const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
-    columnAccessor: "full_name",
-    direction: "asc",
+    columnAccessor: 'full_name',
+    direction: 'asc',
   });
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [debouncedQuery] = useDebouncedValue(query, 200);
   const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
   const router = useRouter();
@@ -94,13 +94,13 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
     return [...statuses];
   }, [data]);
 
-  const columns: DataTableProps<Invoices>["columns"] = [
+  const columns: DataTableProps<Invoices>['columns'] = [
     {
-      accessor: "full_name",
-      title: "Customer",
+      accessor: 'full_name',
+      title: 'Customer',
       render: ({ full_name, email }: any) => {
-        const firstName = full_name.split(" ")[0],
-          lastName = full_name.split(" ")[1];
+        const firstName = full_name.split(' ')[0],
+          lastName = full_name.split(' ')[1];
 
         return (
           <HoverCard shadow="md" openDelay={500} closeDelay={500}>
@@ -143,10 +143,10 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
           onChange={(e) => setQuery(e.currentTarget.value)}
         />
       ),
-      filtering: query !== "",
+      filtering: query !== '',
     },
     {
-      accessor: "status",
+      accessor: 'status',
       render: (item: any) => <StatusBadge status={item.status} />,
       filter: (
         <MultiSelect
@@ -164,20 +164,20 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
       filtering: selectedStatuses.length > 0,
     },
     {
-      accessor: "id",
+      accessor: 'id',
       render: (item: any) => <Text>#{item.id.slice(0, 7)}</Text>,
     },
     {
-      accessor: "amount",
+      accessor: 'amount',
       sortable: true,
       render: (item: any) => <Text>${item.amount}</Text>,
     },
     {
-      accessor: "issue_date",
+      accessor: 'issue_date',
     },
     {
-      accessor: "",
-      title: "Actions",
+      accessor: '',
+      title: 'Actions',
       render: (item: any) => (
         <Group gap="sm">
           <Tooltip label="Download invoice">
@@ -207,14 +207,14 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
     const from = (page - 1) * pageSize;
     const to = from + pageSize;
     const d = sortBy(data, sortStatus.columnAccessor) as Invoices[];
-    const dd = sortStatus.direction === "desc" ? d.reverse() : d;
+    const dd = sortStatus.direction === 'desc' ? d.reverse() : d;
     let filtered = dd.slice(from, to) as Invoices[];
 
     if (debouncedQuery || selectedStatuses.length) {
       filtered = data
         .filter(({ full_name, status }) => {
           if (
-            debouncedQuery !== "" &&
+            debouncedQuery !== '' &&
             !full_name
               .toLowerCase()
               .includes(debouncedQuery.trim().toLowerCase())
@@ -240,6 +240,7 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
   return error ? (
     <ErrorAlert title="Error loading invoices" message={error.toString()} />
   ) : (
+    // @ts-ignore
     <DataTable
       minHeight={200}
       verticalSpacing="xs"

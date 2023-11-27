@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   ActionIcon,
@@ -17,12 +17,12 @@ import {
   TextInput,
   Tooltip,
   useMantineTheme,
-} from "@mantine/core";
-import { Link, RichTextEditor } from "@mantine/tiptap";
-import { BubbleMenu, useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import Placeholder from "@tiptap/extension-placeholder";
-import { PATH_DASHBOARD } from "@/routes";
+} from '@mantine/core';
+import { Link, RichTextEditor } from '@mantine/tiptap';
+import { BubbleMenu, useEditor } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import Placeholder from '@tiptap/extension-placeholder';
+import { PATH_DASHBOARD } from '@/routes';
 import {
   ChatItem,
   ChatsList,
@@ -30,21 +30,21 @@ import {
   PageHeader,
   Surface,
   UserButton,
-} from "@/components";
-import { IconDotsVertical, IconSearch, IconSend } from "@tabler/icons-react";
-import { useColorScheme, useMediaQuery } from "@mantine/hooks";
-import { Carousel } from "@mantine/carousel";
-import ChatsListData from "@/public/mocks/ChatsList.json";
-import ChatItemsData from "@/public/mocks/ChatItems.json";
-import UserProfileData from "@/public/mocks/UserProfile.json";
-import { useFetchData } from "@/hooks";
+} from '@/components';
+import { IconDotsVertical, IconSearch, IconSend } from '@tabler/icons-react';
+import { useColorScheme, useMediaQuery } from '@mantine/hooks';
+import { Carousel } from '@mantine/carousel';
+import ChatsListData from '@/public/mocks/ChatsList.json';
+import ChatItemsData from '@/public/mocks/ChatItems.json';
+import UserProfileData from '@/public/mocks/UserProfile.json';
+import { useFetchData } from '@/hooks';
 
-import classes from "./page.module.css";
+import classes from './page.module.css';
 
 const items = [
-  { title: "Dashboard", href: PATH_DASHBOARD.default },
-  { title: "Pages", href: "#" },
-  { title: "Chat", href: "#" },
+  { title: 'Dashboard', href: PATH_DASHBOARD.default },
+  { title: 'Pages', href: '#' },
+  { title: 'Chat', href: '#' },
 ].map((item, index) => (
   <Anchor href={item.href} key={index}>
     {item.title}
@@ -54,32 +54,32 @@ const items = [
 const ICON_SIZE = 16;
 
 const PAPER_PROPS: PaperProps = {
-  shadow: "md",
-  radius: "md",
+  shadow: 'md',
+  radius: 'md',
 };
 
 function Chat() {
   const theme = useMantineTheme();
   const colorScheme = useColorScheme();
-  const tablet_match = useMediaQuery("(max-width: 768px)");
+  const tablet_match = useMediaQuery('(max-width: 768px)');
   const editor = useEditor({
     extensions: [
       StarterKit,
       Link,
-      Placeholder.configure({ placeholder: "Type your message" }),
+      Placeholder.configure({ placeholder: 'Type your message' }),
     ],
-    content: "<p>Select some text to see a bubble menu</p>",
+    content: '<p>Select some text to see a bubble menu</p>',
   });
   const {
     data: chatsListData,
     loading: chatsListLoading,
     error: chatsListError,
-  } = useFetchData("/mocks/ChatsList.json");
+  } = useFetchData('/mocks/ChatsList.json');
   const {
     data: chatItemsData,
     loading: chatsItemsLoading,
     error: chatsItemsError,
-  } = useFetchData("/mocks/ChatItems.json");
+  } = useFetchData('/mocks/ChatItems.json');
 
   return (
     <>
@@ -96,11 +96,11 @@ function Chat() {
           <Surface
             component={Paper}
             {...PAPER_PROPS}
-            style={{ height: tablet_match ? "auto" : rem(565) }}
+            style={{ height: tablet_match ? 'auto' : rem(565) }}
           >
             <Grid gutter={0}>
               <Grid.Col span={{ base: 12, sm: 3, md: 4, lg: 3 }}>
-                <Stack py="md" style={{ height: "100%" }}>
+                <Stack py="md" style={{ height: '100%' }}>
                   <Box px="sm">
                     <TextInput
                       aria-label="search contact"
@@ -116,12 +116,12 @@ function Chat() {
                         slidesToScroll={1}
                         px={32}
                         slideSize={{
-                          base: "27.5%",
-                          sm: "37.5%",
-                          md: "22.5%",
-                          lg: "25%",
+                          base: '27.5%',
+                          sm: '37.5%',
+                          md: '22.5%',
+                          lg: '25%',
                         }}
-                        slideGap={{ base: 0, sm: "md", md: "md", lg: "lg" }}
+                        slideGap={{ base: 0, sm: 'md', md: 'md', lg: 'lg' }}
                       >
                         {chatsListLoading ? (
                           Array.from({ length: 6 }).map((o, i) => (
@@ -215,7 +215,7 @@ function Chat() {
                         />
                       ) : (
                         chatItemsData.length > 0 &&
-                        chatItemsData.map((c) => (
+                        chatItemsData.map((c: any) => (
                           <ChatItem
                             key={c.id}
                             avatar={c.avatar}
@@ -223,13 +223,13 @@ function Chat() {
                             message={c.message}
                             fullName={
                               c.sender
-                                ? "you"
+                                ? 'you'
                                 : `${c?.first_name} ${c.last_name}`
                             }
                             sender={c.sender}
                             sent_time={c.sent_time}
-                            ml={c.sender ? "auto" : 0}
-                            style={{ maxWidth: tablet_match ? "100%" : "70%" }}
+                            ml={c.sender ? 'auto' : 0}
+                            style={{ maxWidth: tablet_match ? '100%' : '70%' }}
                             loading={chatsItemsLoading}
                           />
                         ))

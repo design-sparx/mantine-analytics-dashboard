@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   ActionIcon,
@@ -8,12 +8,12 @@ import {
   Text,
   useMantineColorScheme,
   useMantineTheme,
-} from "@mantine/core";
-import dynamic from "next/dynamic";
-import { IconDotsVertical } from "@tabler/icons-react";
-import { Surface } from "@/components";
+} from '@mantine/core';
+import dynamic from 'next/dynamic';
+import { IconDotsVertical } from '@tabler/icons-react';
+import { Surface } from '@/components';
 
-const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 type RevenueChartProps = PaperProps;
 
@@ -23,54 +23,54 @@ const RevenueChart = ({ ...others }: RevenueChartProps) => {
 
   const series = [
     {
-      name: "series1",
+      name: 'series1',
       data: [31, 40, 28, 51, 42, 109, 100],
     },
     {
-      name: "series2",
+      name: 'series2',
       data: [11, 32, 45, 32, 34, 52, 41],
     },
   ];
 
-  const options = {
+  const options: any = {
     chart: {
       height: 350,
-      type: "area",
-      fontFamily: "Open Sans, sans-serif",
+      type: 'area',
+      fontFamily: 'Open Sans, sans-serif',
     },
     dataLabels: {
       enabled: false,
     },
     stroke: {
-      curve: "smooth",
+      curve: 'smooth',
     },
     xaxis: {
-      type: "datetime",
+      type: 'datetime',
       categories: [
-        "2018-09-19T00:00:00.000Z",
-        "2018-09-19T01:30:00.000Z",
-        "2018-09-19T02:30:00.000Z",
-        "2018-09-19T03:30:00.000Z",
-        "2018-09-19T04:30:00.000Z",
-        "2018-09-19T05:30:00.000Z",
-        "2018-09-19T06:30:00.000Z",
+        '2018-09-19T00:00:00.000Z',
+        '2018-09-19T01:30:00.000Z',
+        '2018-09-19T02:30:00.000Z',
+        '2018-09-19T03:30:00.000Z',
+        '2018-09-19T04:30:00.000Z',
+        '2018-09-19T05:30:00.000Z',
+        '2018-09-19T06:30:00.000Z',
       ],
       labels: {
         style: {
-          colors: colorScheme === "dark" ? theme.white : theme.black,
+          colors: colorScheme === 'dark' ? theme.white : theme.black,
         },
       },
     },
     yaxis: {
       labels: {
         style: {
-          colors: colorScheme === "dark" ? theme.white : theme.black,
+          colors: colorScheme === 'dark' ? theme.white : theme.black,
         },
       },
     },
     tooltip: {
       x: {
-        format: "dd/MM/yy HH:mm",
+        format: 'dd/MM/yy HH:mm',
       },
     },
     colors: [
@@ -79,7 +79,7 @@ const RevenueChart = ({ ...others }: RevenueChartProps) => {
     ],
     legend: {
       labels: {
-        colors: [colorScheme === "dark" ? theme.white : theme.black],
+        colors: [colorScheme === 'dark' ? theme.white : theme.black],
       },
     },
   };
@@ -100,7 +100,7 @@ const RevenueChart = ({ ...others }: RevenueChartProps) => {
         series={series}
         type="area"
         height={350}
-        width={"100%"}
+        width={'100%'}
       />
     </Surface>
   );

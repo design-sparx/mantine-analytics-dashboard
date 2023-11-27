@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Container,
@@ -9,7 +9,7 @@ import {
   Skeleton,
   Stack,
   useMantineTheme,
-} from "@mantine/core";
+} from '@mantine/core';
 import {
   ErrorAlert,
   LanguageTable,
@@ -19,16 +19,16 @@ import {
   SalesChart,
   StatsCard,
   TrafficTable,
-} from "@/components";
-import { useFetchData } from "@/hooks";
+} from '@/components';
+import { useFetchData } from '@/hooks';
 
 const PRIMARY_COL_HEIGHT = rem(300);
 
 const PAPER_PROPS: PaperProps = {
-  p: "md",
-  shadow: "md",
-  radius: "md",
-  style: { height: "100%" },
+  p: 'md',
+  shadow: 'md',
+  radius: 'md',
+  style: { height: '100%' },
 };
 
 function Page() {
@@ -38,17 +38,17 @@ function Page() {
     data: statsData,
     error: statsError,
     loading: statsLoading,
-  } = useFetchData("/mocks/StatsGrid.json");
+  } = useFetchData('/mocks/StatsGrid.json');
   const {
     data: languagesData,
     error: languageError,
     loading: languageLoading,
-  } = useFetchData("/mocks/Languages.json");
+  } = useFetchData('/mocks/Languages.json');
   const {
     data: trafficData,
     error: trafficError,
     loading: trafficLoading,
-  } = useFetchData("/mocks/Traffic.json");
+  } = useFetchData('/mocks/Traffic.json');
 
   return (
     <>
@@ -64,8 +64,8 @@ function Page() {
           <PageHeader title="Analytics dashboard" withActions={true} />
           <SimpleGrid
             cols={{ base: 1, sm: 2, lg: 2 }}
-            spacing={{ base: 10, sm: "xl" }}
-            verticalSpacing={{ base: "md", sm: "xl" }}
+            spacing={{ base: 10, sm: 'xl' }}
+            verticalSpacing={{ base: 'md', sm: 'xl' }}
           >
             {statsError ? (
               <ErrorAlert
@@ -82,7 +82,7 @@ function Page() {
                         height={200}
                       />
                     ))
-                  : statsData?.data?.map((s) => (
+                  : statsData?.data?.map((s: any) => (
                       <StatsCard key={s.title} data={s} {...PAPER_PROPS} />
                     ))}
               </SimpleGrid>

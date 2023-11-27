@@ -1,21 +1,24 @@
-"use client";
+'use client';
 
-import { Link, RichTextEditor, RichTextEditorProps } from "@mantine/tiptap";
-import { useEditor } from "@tiptap/react";
-import Highlight from "@tiptap/extension-highlight";
-import StarterKit from "@tiptap/starter-kit";
-import Underline from "@tiptap/extension-underline";
-import TextAlign from "@tiptap/extension-text-align";
-import Superscript from "@tiptap/extension-superscript";
-import SubScript from "@tiptap/extension-subscript";
-import { Stack, Text } from "@mantine/core";
+import { Link, RichTextEditor, RichTextEditorProps } from '@mantine/tiptap';
+import { useEditor } from '@tiptap/react';
+import Highlight from '@tiptap/extension-highlight';
+import StarterKit from '@tiptap/starter-kit';
+import Underline from '@tiptap/extension-underline';
+import TextAlign from '@tiptap/extension-text-align';
+import Superscript from '@tiptap/extension-superscript';
+import SubScript from '@tiptap/extension-subscript';
+import { Stack, StackProps, Text } from '@mantine/core';
+import { CSSProperties } from 'react';
 
 type TextEditorProps = {
   label: string;
   content: string;
-} & Omit<RichTextEditorProps, "children" | "editor">;
+  width?: CSSProperties['width'];
+} & Omit<RichTextEditorProps, 'children' | 'editor'> &
+  StackProps;
 
-const TextEditor = ({ content, label }: TextEditorProps) => {
+const TextEditor = ({ content, label, width, ...others }: TextEditorProps) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -24,15 +27,15 @@ const TextEditor = ({ content, label }: TextEditorProps) => {
       Superscript,
       SubScript,
       Highlight,
-      TextAlign.configure({ types: ["heading", "paragraph"] }),
+      TextAlign.configure({ types: ['heading', 'paragraph'] }),
     ],
     content,
   });
 
   return (
-    <Stack>
+    <Stack {...others}>
       <Text>{label}</Text>
-      <RichTextEditor editor={editor}>
+      <RichTextEditor editor={editor} style={{ width }}>
         <RichTextEditor.Toolbar sticky stickyOffset={60}>
           <RichTextEditor.ControlsGroup>
             <RichTextEditor.Bold />

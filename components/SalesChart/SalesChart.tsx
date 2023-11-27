@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   ActionIcon,
@@ -6,17 +6,16 @@ import {
   Paper,
   PaperProps,
   Text,
-  useMantineTheme,
   useMantineColorScheme,
-} from "@mantine/core";
-import dynamic from "next/dynamic";
-import { DataTable } from "mantine-datatable";
-import { IconDotsVertical } from "@tabler/icons-react";
-import { ErrorAlert, Surface } from "@/components";
-import SalesData from "@/public/mocks/Sales.json";
-import { useFetchData } from "@/hooks";
+  useMantineTheme,
+} from '@mantine/core';
+import dynamic from 'next/dynamic';
+import { DataTable } from 'mantine-datatable';
+import { IconDotsVertical } from '@tabler/icons-react';
+import { ErrorAlert, Surface } from '@/components';
+import { useFetchData } from '@/hooks';
 
-const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 type SalesChartProps = PaperProps;
 
@@ -28,38 +27,38 @@ const SalesChart = ({ ...others }: SalesChartProps) => {
     data: salesData,
     error: salesError,
     loading: salesLoading,
-  } = useFetchData("/mocks/Sales.json");
+  } = useFetchData('/mocks/Sales.json');
 
-  const options = {
-    chart: { type: "donut", fontFamily: "Open Sans, sans-serif" },
+  const options: any = {
+    chart: { type: 'donut', fontFamily: 'Open Sans, sans-serif' },
     legend: { show: false },
     dataLabels: { enabled: false },
     tooltip: { enabled: false },
     states: {
-      hover: { filter: { type: "lighten", value: 0.5 } },
-      active: { filter: { type: "none", value: 0 } },
+      hover: { filter: { type: 'lighten', value: 0.5 } },
+      active: { filter: { type: 'none', value: 0 } },
     },
     stroke: { width: 0 },
     plotOptions: {
       pie: {
         expandOnClick: false,
         donut: {
-          size: "75%",
+          size: '75%',
           labels: {
             show: true,
             name: {
               show: true,
-              fontSize: "12px",
-              fontWeight: "400",
+              fontSize: '12px',
+              fontWeight: '400',
               color:
-                colorScheme === "dark" ? theme.white : theme.colors.dark[6],
+                colorScheme === 'dark' ? theme.white : theme.colors.dark[6],
             },
             value: {
               show: true,
-              fontSize: "22px",
-              fontWeight: "600",
+              fontSize: '22px',
+              fontWeight: '600',
               color:
-                colorScheme === "dark" ? theme.white : theme.colors.dark[6],
+                colorScheme === 'dark' ? theme.white : theme.colors.dark[6],
             },
             total: {
               show: true,
@@ -75,7 +74,7 @@ const SalesChart = ({ ...others }: SalesChartProps) => {
                 return (result / 1000).toFixed(3);
               },
               color:
-                colorScheme === "dark" ? theme.white : theme.colors.dark[6],
+                colorScheme === 'dark' ? theme.white : theme.colors.dark[6],
             },
           },
         },
@@ -105,20 +104,20 @@ const SalesChart = ({ ...others }: SalesChartProps) => {
         series={series}
         type="donut"
         height={160}
-        width={"100%"}
+        width={'100%'}
       />
       {salesError ? (
         <ErrorAlert
-          title="Error loading sales"
+          title="Error loading sales data"
           message={salesError.toString()}
         />
       ) : (
         <DataTable
           highlightOnHover
           columns={[
-            { accessor: "source" },
-            { accessor: "revenue" },
-            { accessor: "value" },
+            { accessor: 'source' },
+            { accessor: 'revenue' },
+            { accessor: 'value' },
           ]}
           records={salesData.slice(0, 4)}
           height={200}
