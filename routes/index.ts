@@ -14,6 +14,7 @@ const ROOTS_ERRORS = "/error";
 const ROOTS_START = "/start";
 const ROOTS_DOCS = "/docs";
 const ROOTS_CHANGELOG = "/changelog";
+const ROOTS_AUTH_PROVIDERS = "/authProviders"
 
 export const PATH_DASHBOARD = {
   root: ROOTS_DASHBOARD,
@@ -85,4 +86,9 @@ export const PATH_CHANGELOG = {
 
 export const PATH_GITHUB = {
   org: "https://github.com/design-sparx",
+};
+
+export const PATH_AUTH_PROVIDERS = {
+  root: ROOTS_AUTH_PROVIDERS,
+  clerk: path(ROOTS_AUTH_PROVIDERS, "/clerk"),
 };

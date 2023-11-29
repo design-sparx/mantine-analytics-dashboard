@@ -18,13 +18,13 @@ import {
   IconFileInvoice,
   IconLifebuoy,
   IconList,
-  IconListDetails,
+  IconListDetails, IconShieldCog,
   IconUserShield,
   IconX,
 } from "@tabler/icons-react";
 import { Logo, UserProfileButton } from "@/components";
 import {
-  PATH_AUTH,
+  PATH_AUTH, PATH_AUTH_PROVIDERS,
   PATH_CALENDAR,
   PATH_DASHBOARD,
   PATH_DOCS,
@@ -86,14 +86,12 @@ const mockdata = [
         ],
       },
       {
-        label: "Errors",
-        icon: IconAlertOctagon,
+        label: "Auth Providers",
+        icon: IconShieldCog,
         links: [
-          { label: "403 Page", link: PATH_ERROR.error403 },
-          { label: "404 Page", link: PATH_ERROR.error404 },
-          { label: "500 Page", link: PATH_ERROR.error500 },
+          { label: "Clerk", link: PATH_AUTH_PROVIDERS.clerk },
         ],
-      },
+      }
     ],
   },
   {

@@ -15,6 +15,8 @@
   },
   "dependencies": {
     "@changesets/cli": "^2.26.2",
+    "@clerk/nextjs": "^4.27.2",
+    "@clerk/themes": "^1.7.9",
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/sortable": "^7.0.2",
     "@emotion/react": "^11.11.1",
@@ -64,6 +66,7 @@
     "lodash": "^4.17.21",
     "mantine-datatable": "^7.1.7",
     "next": "^14.0.2",
+    "next-auth": "^4.24.5",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
     "react-countup": "^6.4.2",
