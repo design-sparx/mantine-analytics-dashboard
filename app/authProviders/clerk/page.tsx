@@ -25,6 +25,9 @@ import {
 } from "@mantine/core";
 import {dark, neobrutalism, shadesOfPurple} from '@clerk/themes';
 import {useEffect, useState} from "react";
+import {IconLogin, IconLogin2, IconUserCircle} from "@tabler/icons-react";
+
+const ICON_SIZE=18
 
 function Home() {
   const {colorScheme} = useMantineColorScheme()
@@ -73,13 +76,13 @@ function Home() {
               <Text fz="sm">Click on the buttons to trigger a signup/signin using Clerk</Text>
               <Group>
                 <SignInButton>
-                  <Button>Sign In</Button>
+                  <Button leftSection={<IconLogin2 size={ICON_SIZE}/>}>Sign In</Button>
                 </SignInButton>
                 <SignUpButton>
-                  <Button>Sign Up</Button>
+                  <Button leftSection={<IconUserCircle size={ICON_SIZE}/>}>Sign Up</Button>
                 </SignUpButton>
                 <SignOutButton>
-                  <Button>Sign out</Button>
+                  <Button leftSection={<IconLogin size={ICON_SIZE}/>}>Sign out</Button>
                 </SignOutButton>
               </Group>
             </Stack>

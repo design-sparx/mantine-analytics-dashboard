@@ -6,15 +6,16 @@ import {
   Menu,
   rem,
   Text,
+  useMantineColorScheme,
   useMantineTheme,
 } from "@mantine/core";
-import { useColorScheme, useMediaQuery } from "@mantine/hooks";
-import { IconDots } from "@tabler/icons-react";
-import { PATH_GITHUB } from "@/routes";
+import {useMediaQuery} from "@mantine/hooks";
+import {IconDots} from "@tabler/icons-react";
+import {PATH_GITHUB} from "@/routes";
 
 const FooterNav = () => {
   const theme = useMantineTheme();
-  const colorScheme = useColorScheme();
+  const {colorScheme} = useMantineColorScheme();
   const mobile_match = useMediaQuery("(max-width: 425px)");
 
   const BUTTON_PROPS: ButtonProps = {
@@ -38,7 +39,7 @@ const FooterNav = () => {
         <Menu shadow="md" width={200} position="right-end">
           <Menu.Target>
             <ActionIcon>
-              <IconDots size={18} />
+              <IconDots size={18}/>
             </ActionIcon>
           </Menu.Target>
 

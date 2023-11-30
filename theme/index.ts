@@ -2,7 +2,7 @@ import { ActionIcon, createTheme, Loader } from "@mantine/core";
 
 export const myTheme = createTheme({
   primaryColor: "indigo",
-  defaultRadius: 6,
+  defaultRadius: "md",
   focusRing: "always",
   fontFamily: "Open Sans, sans-serif",
   headings: { fontFamily: "Open Sans, sans-serif" },

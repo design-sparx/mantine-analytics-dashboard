@@ -90,6 +90,7 @@ const mockdata = [
         icon: IconShieldCog,
         links: [
           { label: "Clerk", link: PATH_AUTH_PROVIDERS.clerk },
+          { label: "Auth0", link: PATH_AUTH_PROVIDERS.auth0 },
         ],
       }
     ],

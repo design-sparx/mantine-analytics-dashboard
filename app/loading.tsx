@@ -1,9 +1,12 @@
-import { Center, Loader } from "@mantine/core";
+import {Center, Loader, Text, Stack} from "@mantine/core";
 
 export default function Loading() {
   return (
-    <Center p="xl">
-      <Loader />
+    <Center pt={80}>
+      <Stack align="center">
+        <Loader/>
+        <Text>Hang in there...</Text>
+      </Stack>
     </Center>
   );
 }

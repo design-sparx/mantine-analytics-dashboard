@@ -9,7 +9,7 @@ const ROOTS_ORDERS = "/orders";
 const ROOTS_INVOICES = "/invoices";
 const ROOTS_TASKS = "/tasks";
 const ROOTS_CALENDAR = "/calendar";
-const ROOTS_AUTH = "/auth";
+const ROOTS_AUTH = "/authentication";
 const ROOTS_ERRORS = "/error";
 const ROOTS_START = "/start";
 const ROOTS_DOCS = "/docs";
@@ -91,4 +91,5 @@ export const PATH_GITHUB = {
 export const PATH_AUTH_PROVIDERS = {
   root: ROOTS_AUTH_PROVIDERS,
   clerk: path(ROOTS_AUTH_PROVIDERS, "/clerk"),
+  auth0: path(ROOTS_AUTH_PROVIDERS, "/auth0"),
 };
