@@ -4,9 +4,9 @@ name: 'Chromatic Deployment'
 # Event for the workflow
 on:
   push:
-    branches: [master]
+    branches: [ master ]
   pull_request:
-    branches: [master]
+    branches: [ master ]
 
 # List of jobs
 jobs:
@@ -16,7 +16,7 @@ jobs:
     # Job steps
     steps:
       - uses: actions/checkout@v3
-      - run: yarn set version berry && yarn
+      - run: yarn
         #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
