@@ -1,5 +1,11 @@
 # analytics-dashboard
 
+## 2.0.1
+
+### Patch Changes
+
+- 4371af7: added github, components, previous version links on landing page
+
 ## 2.0.0
 
 ### Major Changes
