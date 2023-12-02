@@ -1,0 +1,30 @@
+.root {
+  padding: 0;
+}
+
+.value {
+  font-size: rem(24px);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.diff {
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  @mixin dark {
+    color: var(--mantine-color-dark-3);
+  }
+
+  @mixin light {
+    color: var(--mantine-color-gray-4);
+  }
+}
+
+.title {
+  font-weight: 500;
+  text-transform: uppercase;
+}

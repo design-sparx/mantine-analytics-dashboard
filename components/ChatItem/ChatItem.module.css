@@ -1,0 +1,23 @@
+.chatItem {
+  @mixin light {
+    background-color: var(--mantine-color-white);
+    color: --var(--mantine-color-black);
+  }
+
+  @mixin dark {
+    background-color: --var(--mantine-color-black);
+    color: var(--mantine-color-white);
+  }
+}
+
+.isMeChatItem {
+  color: --var(--mantine-color-white);
+
+  @mixin light {
+    background-color: var(--mantine-primary-color-filled);
+  }
+
+  @mixin dark {
+    background-color: var(--mantine-primary-color-light);
+  }
+}

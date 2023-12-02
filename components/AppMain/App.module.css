@@ -1,0 +1,11 @@
+.main {
+  min-height: 90vh;
+
+  @mixin light {
+    background-color: var(--mantine-color-gray-1);
+  }
+
+  @mixin dark {
+    background-color: var(--mantine-color-dark-6);
+  }
+}

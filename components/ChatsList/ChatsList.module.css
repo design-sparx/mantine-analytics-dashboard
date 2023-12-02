@@ -1,0 +1,25 @@
+.item {
+  padding: var(--mantine-spacing-xs) var(--mantine-spacing-sm);
+
+  @mixin hover {
+    background-color: var(--mantine-primary-color-light);
+    transition: all ease 150ms;
+  }
+
+  @mixin light {
+    border-bottom: rem(1px) solid var(--mantine-color-gray-3);
+  }
+
+  @mixin dark {
+    border-bottom: rem(1px) solid var(--mantine-color-gray-7);
+  }
+}
+
+.itemRounded {
+  padding: var(--mantine-spacing-xs);
+  border-radius: var(--mantine-radius-default);
+
+  @mixin hover {
+    background-color: var(--mantine-primary-color-light);
+  }
+}

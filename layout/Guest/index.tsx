@@ -1,47 +1,28 @@
-import HeaderNav from "@/layout/Guest/HeaderNav/HeaderNav";
-import React, {ReactNode} from "react";
-import {
-    ActionIcon,
-    Box,
-    Button,
-    Container,
-    Divider,
-    Flex,
-    Group,
-    MantineProvider,
-    Text,
-    Title,
-    useMantineTheme
-} from "@mantine/core";
-import {Logo} from "@/components";
-import {
-    IconBrandFacebook,
-    IconBrandGithub,
-    IconBrandInstagram,
-    IconBrandLinkedin,
-    IconBrandTwitter,
-    IconWorld
-} from "@tabler/icons-react";
-import FooterNav from "@/layout/Guest/FooterNav/FooterNav";
+import { ReactNode } from 'react';
+import { AppShell, Box, rem, useMantineTheme } from '@mantine/core';
+import HeaderNav from '@/layout/Guest/HeaderNav/HeaderNav';
+import FooterNav from '@/layout/Guest/FooterNav/FooterNav';
+import { useHeadroom } from '@mantine/hooks';
 
 type GuestLayoutProps = {
-    children: ReactNode
-}
-
-const GuestLayout = ({children}: GuestLayoutProps) => {
-    const theme = useMantineTheme()
-
-    return (
-        <MantineProvider inherit theme={{primaryShade: 8}}>
-            <HeaderNav/>
-            <Box
-                sx={{backgroundColor: theme.colors.gray[0]}}
-            >
-                {children}
-            </Box>
-            <FooterNav/>
-        </MantineProvider>
-    );
+  children: ReactNode;
 };
+
+function GuestLayout({ children }: GuestLayoutProps) {
+  const theme = useMantineTheme();
+  const pinned = useHeadroom({ fixedAt: 120 });
+
+  return (
+    <AppShell header={{ height: 60, collapsed: !pinned, offset: false }}>
+      <AppShell.Header>
+        <HeaderNav />
+      </AppShell.Header>
+      <AppShell.Main>
+        <Box style={{ backgroundColor: theme.colors.gray[0] }}>{children}</Box>
+        <FooterNav />
+      </AppShell.Main>
+    </AppShell>
+  );
+}
 
 export default GuestLayout;

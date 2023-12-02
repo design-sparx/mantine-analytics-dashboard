@@ -1,27 +1,49 @@
-import React from 'react';
-import {Flex, MantineColor, Paper, PaperProps, Progress, Stack, Text, ThemeIcon} from "@mantine/core";
+import {
+  Flex,
+  MantineColor,
+  Paper,
+  PaperProps,
+  Progress,
+  Stack,
+  Text,
+  ThemeIcon,
+} from '@mantine/core';
+import { Surface } from '@/components';
+import CountUp from 'react-countup';
+import { createElement } from 'react';
 
-type ProfileStatsCardProps =
-    { amount: string; title: string; icon: any, color: MantineColor, progressValue: number }
-    & PaperProps
+type ProfileStatsCardProps = {
+  amount: number;
+  title: string;
+  icon: any;
+  color: MantineColor;
+  progressValue: number;
+  asCurrency?: boolean;
+} & PaperProps;
 
-const ProfileStatsCard = ({amount, color, title, icon, progressValue, ...others}: ProfileStatsCardProps) => {
-    const Icon = icon;
+const ProfileStatsCard = (props: ProfileStatsCardProps) => {
+  const { amount, color, title, icon, progressValue, asCurrency, ...others } =
+    props;
 
-    return (
-        <Paper {...others}>
-            <Flex align="center" justify="space-between" mb="md">
-                <Stack spacing={2}>
-                    <Text size="lg" fw={700} tt="capitalize">{amount}</Text>
-                    <Text size="sm" color="dimmed" tt="capitalize">{title}</Text>
-                </Stack>
-                <ThemeIcon color={color} size="lg" radius="xl">
-                    <Icon size={18}/>
-                </ThemeIcon>
-            </Flex>
-            <Progress value={progressValue} color={color} size="sm"/>
-        </Paper>
-    );
+  return (
+    <Surface component={Paper} {...others}>
+      <Flex align="center" justify="space-between" mb="md">
+        <Stack gap={2}>
+          <Text size="lg" fw={700} tt="capitalize">
+            {asCurrency && '$ '}
+            <CountUp end={amount} />
+          </Text>
+          <Text size="sm" c="dimmed" tt="capitalize">
+            {title}
+          </Text>
+        </Stack>
+        <ThemeIcon color={color} size="lg" radius="xl">
+          {createElement(icon, { style: { fontSize: 16 } })}
+        </ThemeIcon>
+      </Flex>
+      <Progress value={progressValue} color={color} size="sm" />
+    </Surface>
+  );
 };
 
 export default ProfileStatsCard;

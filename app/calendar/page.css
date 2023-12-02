@@ -1,0 +1,45 @@
+/*Had to avoid using page.module.css naming conventions as I need to override the styles below*/
+
+.fc-event-bg-color,
+.fc-event-main,
+.fc-v-event,
+.fc-h-event {
+  background-color: var(--mantine-primary-color-filled);
+  border-color: var(--mantine-primary-color-filled);
+}
+
+.fc-button {
+  text-transform: capitalize !important;
+  font-weight: 600;
+  background-color: var(--mantine-primary-color-filled) !important;
+  border-color: var(--mantine-primary-color-filled) !important;
+}
+
+.fc .fc-button-primary:hover {
+  background-color: var(--mantine-primary-color-filled-hover) !important;
+  border-color: var(--mantine-primary-color-filled-hover) !important;
+}
+
+.fc .fc-button-primary:disabled {
+  background-color: var(--mantine-primary-color-light);
+  border-color: var(--mantine-primary-color-light);
+  cursor: not-allowed;
+}
+
+.active button,
+.fc .fc-button-primary:not(:disabled).fc-button-active,
+.fc .fc-button-primary:not(:disabled):active {
+  background-color: var(--mantine-primary-color-filled-hover);
+  border-color: var(--mantine-primary-color-filled-hover);
+}
+
+.fc-toolbar-title {
+  font-size: 20px;
+}
+
+.fc .fc-toolbar {
+  @media (max-width: em(768px)) {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

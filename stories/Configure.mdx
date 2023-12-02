@@ -1,0 +1,288 @@
+import { Meta } from '@storybook/blocks';
+import Image from 'next/image';
+
+import Github from './assets/github.svg';
+import Landing from './assets/thumbnail-img.png';
+import Logo from './assets/logo-no-background.png';
+import Nextjs from './assets/nextjs.png';
+import Mantine from './assets/mantine.png';
+import { IconBrandMantine, IconBrandNextjs } from '@tabler/icons-react';
+
+export const RightArrow = () => (
+  <svg
+    viewBox="0 0 14 14"
+    width="8px"
+    height="14px"
+    style={{
+      marginLeft: '4px',
+      display: 'inline-block',
+      shapeRendering: 'inherit',
+      verticalAlign: 'middle',
+      fill: 'currentColor',
+      'path fill': 'currentColor',
+    }}
+  >
+    <path d="m11.1 7.35-5.5 5.5a.5.5 0 0 1-.7-.7L10.04 7 4.9 1.85a.5.5 0 1 1 .7-.7l5.5 5.5c.2.2.2.5 0 .7Z" />
+  </svg>
+);
+
+<Meta title="Welcome"/>
+<div className="sb-container">
+  <div className='sb-section-title'>
+    # Mantine Analytics Dashboard
+  </div>
+  <div className="sb-section">
+    <div className="sb-section-item">
+      <Image
+        src={Landing}
+        alt="A wall of logos representing different styling technologies"
+        width={0}
+        height={0}
+        style={{width: '100%', height: '500px', objectFit: "cover"}}
+      />
+    </div>
+  </div>
+</div>
+<div className="sb-container">
+  <div className='sb-section-title'>
+    # Overview
+    A professional admin & dashboard template based on Mantine v7 that comes with hundreds of UI components,
+    forms, tables, charts, pages and icons. This template is built using Nextjs, Mantine, Apex Charts and Tabler Icons.
+  </div>
+</div>
+<div className="sb-container">
+  <div className='sb-section-title'>
+    # Features
+    <ul>
+      <li>
+        Customizable: You don't need to be an expert to customize the template. Our code is very readable and
+        well-documented.
+      </li>
+      <li>
+        Fully Responsive: With mobile, tablet & desktop support it doesn't matter what device you're using. Antd
+        Dashboard is responsive in all browsers.
+      </li>
+      <li>
+        Cross-Browser: Our themes are working perfectly with Chrome, Firefox, Opera, and Edge. We're working
+        hard to
+        support them.
+      </li>
+      <li>
+        Clean Code: We strictly follow Ant Design's guidelines to make your integration as easy as possible. All
+        code is
+        handwritten.
+      </li>
+      <li>
+        Regular Updates: From time to time you'll receive an update containing new components, improvements, and
+        bug
+        fixes.
+      </li>
+    </ul>
+  </div>
+</div>
+<div className="sb-section">
+  <div className="sb-section-item">
+    <Image src={Github} alt="Github logo" height={32} className="sb-explore-image"/>
+    Join our contributors building the future of UI development.
+
+    <a
+      href="https://github.com/design-sparx/antd-multipurpose-dashboard"
+      target="_blank"
+    >Star on GitHub<RightArrow/></a>
+
+  </div>
+  <div className="sb-section-item">
+    <Image src={Logo} alt="Discord logo" height={32} className="sb-explore-image"/>
+    <div>
+      Questions? Reach out on Github
+
+      <a
+        href="https://github.com/design-sparx"
+        target="_blank"
+      >GitHub<RightArrow/></a>
+    </div>
+
+  </div>
+  <div className="sb-section-item">
+    <Image src={Nextjs} alt="Github logo" height={32} className="sb-explore-image"/>
+    <div>
+      Nextjs documentation
+
+      <a
+        href="https://nextjs.org/"
+        target="_blank"
+      >Nextjs<RightArrow/></a>
+    </div>
+
+  </div>
+  <div className="sb-section-item">
+    <Image src={Mantine} alt="Github logo" height={32} className="sb-explore-image"/>
+    <div>
+      Mantine documentation
+
+      <a
+        href="https://github.com/design-sparx"
+        target="_blank"
+      >Mantine<RightArrow/></a>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  {`
+  .sb-container {
+    margin-bottom: 48px;
+  }
+
+    .sb-section {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+    }
+
+    img {
+      object-fit: cover;
+    }
+
+    .sb-section-title {
+      margin-bottom: 32px;
+    }
+
+    .sb-section a:not(h1 a, h2 a, h3 a) {
+      font-size: 14px;
+    }
+
+    .sb-section-item, .sb-grid-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sb-section-item-heading {
+      padding-top: 20px !important;
+      padding-bottom: 5px !important;
+      margin: 0 !important;
+    }
+    .sb-section-item-paragraph {
+      margin: 0;
+      padding-bottom: 10px;
+    }
+
+    .sb-chevron {
+      margin-left: 5px;
+    }
+
+    .sb-features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 32px 20px;
+    }
+
+    .sb-socials {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .sb-socials p {
+      margin-bottom: 10px;
+    }
+
+    .sb-explore-image {
+      max-height: 32px;
+      align-self: flex-start;
+    }
+
+    .sb-addon {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background-color: #EEF3F8;
+      border-radius: 5px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      background: #EEF3F8;
+      height: 180px;
+      margin-bottom: 48px;
+      overflow: hidden;
+    }
+
+    .sb-addon-text {
+      padding-left: 48px;
+      max-width: 240px;
+    }
+
+    .sb-addon-text h4 {
+      padding-top: 0px;
+    }
+
+    .sb-addon-img {
+      position: absolute;
+      left: 345px;
+      top: 0;
+      height: 100%;
+      width: 200%;
+      overflow: hidden;
+    }
+
+    .sb-addon-img img {
+      width: 650px;
+      transform: rotate(-15deg);
+      margin-left: 40px;
+      margin-top: -72px;
+      box-shadow: 0 0 1px rgba(255, 255, 255, 0);
+      backface-visibility: hidden;
+    }
+
+    @media screen and (max-width: 800px) {
+      .sb-addon-img {
+        left: 300px;
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      .sb-section {
+        flex-direction: column;
+      }
+
+      .sb-features-grid {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      .sb-socials {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .sb-addon {
+        height: 280px;
+        align-items: flex-start;
+        padding-top: 32px;
+        overflow: hidden;
+      }
+
+      .sb-addon-text {
+        padding-left: 24px;
+      }
+
+      .sb-addon-img {
+        right: 0;
+        left: 0;
+        top: 130px;
+        bottom: 0;
+        overflow: hidden;
+        height: auto;
+        width: 124%;
+      }
+
+      .sb-addon-img img {
+        width: 1200px;
+        transform: rotate(-12deg);
+        margin-left: 0;
+        margin-top: 48px;
+        margin-bottom: -40px;
+        margin-left: -24px;
+      }
+    }
+`}
+</style>

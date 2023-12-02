@@ -1,0 +1,8 @@
+.user {
+  padding: var(--mantine-spacing-md);
+  border-radius: var(--mantine-radius-default);
+
+  @mixin hover {
+    background-color: var(--mantine-primary-color-light);
+  }
+}

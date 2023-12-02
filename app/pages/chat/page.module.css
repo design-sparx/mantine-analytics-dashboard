@@ -1,0 +1,54 @@
+.chatItems {
+  @mixin light {
+    background-color: var(--mantine-color-gray-1);
+    border-left: rem(1px) solid var(--mantine-color-gray-3);
+  }
+
+  @mixin dark {
+    background-color: var(--mantine-color-dark-6);
+    border-left: rem(1px) solid var(--mantine-color-gray-7);
+  }
+
+  @media (max-width: $mantine-breakpoint-md) {
+    @mixin light {
+      border-left: rem(1px) solid var(--mantine-color-gray-3);
+    }
+
+    @mixin dark {
+      border-left: rem(1px) solid var(--mantine-color-gray-7);
+    }
+  }
+}
+
+.chatHeader {
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+  border-top-right-radius: var(--mantine-radius-default);
+  border-bottom: 1px solid
+    light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-0));
+
+  @mixin light {
+    background-color: var(--mantine-color-white);
+    border-bottom: rem(1px) solid var(--mantine-color-gray-3);
+  }
+
+  @mixin dark {
+    background-color: var(--mantine-color-black);
+    border-bottom: rem(1px) solid var(--mantine-color-gray-7);
+  }
+}
+
+.user {
+  border-radius: var(--mantine-radius-default);
+}
+
+.replyBox {
+  padding: var(--mantine-spacing-sm);
+
+  @mixin light {
+    background-color: var(--mantine-color-white);
+  }
+
+  @mixin dark {
+    background-color: var(--mantine-color-black);
+  }
+}

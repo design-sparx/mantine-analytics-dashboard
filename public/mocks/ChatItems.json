@@ -1,0 +1,92 @@
+[
+  {
+    "id": "50d72d75-93b2-4c38-9d48-53a8292bf4bc",
+    "first_name": "Ilario",
+    "last_name": "Baldocci",
+    "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+    "sent_time": "7/6/2023",
+    "message": "Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.",
+    "sender": false
+  },
+  {
+    "id": "2c9689f4-4ba2-43c2-9d65-dce7254466a6",
+    "first_name": "Ilario",
+    "last_name": "Baldocci",
+    "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+    "sent_time": "8/22/2022",
+    "message": "Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla.",
+    "sender": false
+  },
+  {
+    "id": "878f6b1f-b5c6-4191-baf0-2a5d7580dd6a",
+    "first_name": "Ilario",
+    "last_name": "Baldocci",
+    "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+    "sent_time": "7/3/2023",
+    "message": "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque. Duis bibendum.",
+    "sender": false
+  },
+  {
+    "id": "9ea35e6c-a91e-4f05-a29e-c313a043538a",
+    "first_name": "Ilario",
+    "last_name": "Baldocci",
+    "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+    "sent_time": "12/24/2022",
+    "message": "Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+    "sender": false
+  },
+  {
+    "id": "392b9a28-0cdc-48e8-bb41-4cdf7d6bbfb2",
+    "first_name": "Fernande",
+    "last_name": "Trynor",
+    "avatar": "https://res.cloudinary.com/ddh7hfzso/image/upload/v1700303804/me/ovqjhhs79u3g2fwbl2dd.jpg",
+    "sent_time": "1/18/2023",
+    "message": "Ut tellus.",
+    "sender": true
+  },
+  {
+    "id": "ee4ddaa4-9bab-4f7f-9e06-5e8b2ea10959",
+    "first_name": "Fernande",
+    "last_name": "Trynor",
+    "avatar": "https://res.cloudinary.com/ddh7hfzso/image/upload/v1700303804/me/ovqjhhs79u3g2fwbl2dd.jpg",
+    "sent_time": "4/16/2023",
+    "message": "In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum.",
+    "sender": true
+  },
+  {
+    "id": "8baba176-f66c-4021-934c-9047dbb14707",
+    "first_name": "Ilario",
+    "last_name": "Baldocci",
+    "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+    "sent_time": "9/3/2022",
+    "message": "Nullam porttitor lacus at turpis.",
+    "sender": false
+  },
+  {
+    "id": "2959a1ad-d66c-4259-9c90-dea3e28c7c3f",
+    "first_name": "Fernande",
+    "last_name": "Trynor",
+    "avatar": "https://res.cloudinary.com/ddh7hfzso/image/upload/v1700303804/me/ovqjhhs79u3g2fwbl2dd.jpg",
+    "sent_time": "5/9/2023",
+    "message": "Nam ultrices, libero non mattis pulvinar, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus.",
+    "sender": true
+  },
+  {
+    "id": "3777925e-935e-4017-8ccc-10b8bab97f7e",
+    "first_name": "Ilario",
+    "last_name": "Baldocci",
+    "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+    "sent_time": "8/25/2022",
+    "message": "Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus.",
+    "sender": false
+  },
+  {
+    "id": "4317ad3f-da5e-4010-bf0b-4bf5771adaa5",
+    "first_name": "Ilario",
+    "last_name": "Baldocci",
+    "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+    "sent_time": "4/24/2023",
+    "message": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.",
+    "sender": false
+  }
+]

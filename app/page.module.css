@@ -1,0 +1,70 @@
+.hero {
+  background-color: var(--mantine-color-black);
+  color: var(--mantine-color-white);
+  padding: calc(var(--mantine-spacing-xl) * 4);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding-top: var(--mantine-spacing-xl);
+  }
+}
+
+.title {
+  font-weight: 800;
+  font-size: rem(40);
+  letter-spacing: rem(-1);
+  margin-bottom: var(--mantine-spacing-xs);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    font-size: rem(28);
+    text-align: left;
+  }
+}
+
+.highlight {
+  color: var(--mantine-primary-color-filled);
+}
+
+.stackControl {
+  text-transform: capitalize;
+  background-color: var(--mantine-color-dark-6);
+  color: var(--mantine-color-white);
+  padding: rem(6) rem(10);
+  border-radius: var(--mantine-radius-md);
+}
+
+.variantImg {
+  max-height: rem(280);
+  width: 100%;
+  object-fit: contain;
+}
+
+.variantTitle {
+  text-align: center;
+  margin-top: var(--mantine-spacing-md);
+  font-weight: 600;
+}
+
+.paper {
+  height: 100%;
+  background-color: transparent;
+}
+
+.image {
+  height: 100%;
+  background-color: transparent;
+
+  @mixin hover {
+    box-shadow: var(--mantine-shadow-lg);
+    transition: all ease 150ms;
+    transform: scale(1.03);
+  }
+}
+
+.statsTitle {
+  color: var(--mantine-primary-color-filled);
+}
+
+.contactPaper {
+  background-color: transparent;
+  text-align: center;
+}

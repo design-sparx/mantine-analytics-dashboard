@@ -1,0 +1,30 @@
+.control {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: rem(4px);
+  border-radius: var(--mantine-radius-sm);
+  transition: background-color 150ms ease;
+  color: var(--mantine-color-black);
+
+  @mixin hover {
+    background-color: light-dark(
+      var(--mantine-color-gray-1),
+      var(--mantine-color-dark-5)
+    );
+  }
+}
+
+.label {
+  font-weight: 600;
+  font-size: var(--mantine-font-size-sm);
+}
+
+.icon {
+  transition: transform 150ms ease;
+  transform: rotate(0deg);
+
+  [data-expanded] & {
+    transform: rotate(180deg);
+  }
+}

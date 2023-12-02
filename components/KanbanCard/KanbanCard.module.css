@@ -1,0 +1,35 @@
+.card {
+  border: 1px solid transparent;
+
+  @mixin dark {
+    background-color: var(--mantine-color-dark-6);
+  }
+
+  @mixin light {
+    background-color: var(--mantine-color-white);
+  }
+
+  @mixin hover {
+    border-color: var(--mantine-color-blue-6);
+  }
+}
+
+.dragBox {
+  position: relative;
+  min-height: rem(100);
+  display: flex;
+  align-items: center;
+  text-align: left;
+  cursor: grab;
+  border-radius: var(--mantine-radius-md);
+
+  @mixin dark {
+    background-color: var(--mantine-color-gray-0);
+    opacity: 0.7;
+  }
+
+  @mixin light {
+    background-color: var(--mantine-color-dark-0);
+    opacity: 0.3;
+  }
+}
