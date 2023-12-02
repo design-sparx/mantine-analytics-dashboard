@@ -1,3 +1,5 @@
+![showcase](public/thumbnail-img-b.jpg)
+
 <p align="center">
 <img src="public/logo-no-background.png" alt="logo" height="100"/>
 </p>

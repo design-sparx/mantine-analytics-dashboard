@@ -23,11 +23,8 @@ jobs:
         with:
           node-version: 18
 
-      - name: enable corepack
-        run: corepack enable
-
       - name: install dependencies
-        run: yarn install --immutable
+        run: yarn
 
         #👇 Adds Chromatic as a step in the workflow
       - name: deployment

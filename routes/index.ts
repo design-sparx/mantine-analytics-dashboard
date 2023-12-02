@@ -86,6 +86,7 @@ export const PATH_CHANGELOG = {
 
 export const PATH_GITHUB = {
   org: 'https://github.com/design-sparx',
+  repo: 'https://github.com/design-sparx/mantine-analytics-dashboard'
 };
 
 export const PATH_AUTH_PROVIDERS = {

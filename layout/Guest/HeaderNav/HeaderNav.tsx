@@ -10,19 +10,31 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
-import { PATH_DASHBOARD, PATH_DOCS } from '@/routes';
+import {PATH_DASHBOARD, PATH_DOCS, PATH_GITHUB} from '@/routes';
 import { Logo } from '@/components';
 import Link from 'next/link';
 import classes from './HeaderNav.module.css';
 
 const MOCK_DATA = [
   {
+    link: 'https://652579e5b7998a00083d022b--mantine-analytics-dashboard.netlify.app/',
+    label: 'Version 1',
+  },
+  {
     link: PATH_DOCS.root,
-    label: 'documentation',
+    label: 'components',
   },
   {
     link: 'mailto:kelvin.kiprop96@gmail.com',
     label: 'support',
+  },
+  {
+    link: PATH_DOCS.root,
+    label: 'documentation',
+  },
+  {
+    link: PATH_GITHUB.repo,
+    label: 'github',
   },
 ];
 
