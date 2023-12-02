@@ -1,5 +1,6 @@
 {
-  "name": "analytics-dashboard",
+  "name": "mantine-analytics-dashboard",
+  "packageManager": "yarn@4.0.2",
   "version": "2.0.0",
   "scripts": {
     "dev": "next dev",
@@ -104,6 +105,5 @@
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
-  },
-  "packageManager": "yarn@4.0.2"
+  }
 }
