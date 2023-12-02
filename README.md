@@ -44,6 +44,12 @@ and [Storybook](https://storybook.js.org/).
 
 ![preview image](public/dashboard.png)
 
+# Previous release
+
+The previous release of the dashboard template, supports Next 13 with Pages router and Mantine 6. To view the live demo
+use this link - [preview](https://652579e5b7998a00083d022b--mantine-analytics-dashboard.netlify.app/), and to checkout
+fork the project use this link - [version 1](https://github.com/design-sparx/mantine-analytics-dashboard/tree/v1)
+
 # Features
 
 - **Customizable:** You don't need to be an expert to customize the template. Our code is very readable and

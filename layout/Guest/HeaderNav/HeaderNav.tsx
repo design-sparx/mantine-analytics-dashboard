@@ -21,7 +21,7 @@ const MOCK_DATA = [
     label: 'Version 1',
   },
   {
-    link: PATH_DOCS.root,
+    link: "https://6564d1b09deea091e3ec0769-jsxuvbmjcr.chromatic.com/?path=/docs/welcome--docs",
     label: 'components',
   },
   {
