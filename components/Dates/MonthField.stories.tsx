@@ -64,10 +64,3 @@ export const Clearable: Story = {
     w: 200,
   },
 };
-
-export const Disabled: Story = {
-  args: {
-    disabled: true,
-    w: 200,
-  },
-};
