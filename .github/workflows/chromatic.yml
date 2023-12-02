@@ -15,7 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     # Job steps
     steps:
-      - name: 'Create deployment'
       - uses: actions/checkout@v3
       - run: yarn install --immutable
         #👇 Adds Chromatic as a step in the workflow
