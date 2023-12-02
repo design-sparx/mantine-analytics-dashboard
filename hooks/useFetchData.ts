@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from 'react';
 
 const useFetchData = (url: string) => {
   const [data, setData] = useState<any>([]);

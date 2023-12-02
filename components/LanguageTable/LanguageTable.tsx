@@ -1,8 +1,8 @@
-import { ActionIcon, Group, Paper, PaperProps, Text } from "@mantine/core";
-import { DataTable } from "mantine-datatable";
-import { IconDotsVertical } from "@tabler/icons-react";
-import { ErrorAlert, Surface } from "@/components";
-import React, { ReactNode } from "react";
+import { ActionIcon, Group, Paper, PaperProps, Text } from '@mantine/core';
+import { DataTable } from 'mantine-datatable';
+import { IconDotsVertical } from '@tabler/icons-react';
+import { ErrorAlert, Surface } from '@/components';
+import React, { ReactNode } from 'react';
 
 type LanguageTableProps = {
   data?: {
@@ -41,9 +41,9 @@ const LanguageTable = ({
           verticalSpacing="sm"
           highlightOnHover
           columns={[
-            { accessor: "language" },
-            { accessor: "users" },
-            { accessor: "users_percentage", title: "Users %" },
+            { accessor: 'language' },
+            { accessor: 'users' },
+            { accessor: 'users_percentage', title: 'Users %' },
           ]}
           records={data}
           fetching={loading}

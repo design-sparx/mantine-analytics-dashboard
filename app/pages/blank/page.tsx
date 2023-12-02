@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Anchor,
@@ -7,15 +7,15 @@ import {
   PaperProps,
   Stack,
   Text,
-} from "@mantine/core";
-import { PATH_DASHBOARD } from "@/routes";
-import { PageHeader, Surface } from "@/components";
-import { Metadata } from "next";
+} from '@mantine/core';
+import { PATH_DASHBOARD } from '@/routes';
+import { PageHeader, Surface } from '@/components';
+import { Metadata } from 'next';
 
 const items = [
-  { title: "Dashboard", href: PATH_DASHBOARD.default },
-  { title: "Pages", href: "#" },
-  { title: "Blank", href: "#" },
+  { title: 'Dashboard', href: PATH_DASHBOARD.default },
+  { title: 'Pages', href: '#' },
+  { title: 'Blank', href: '#' },
 ].map((item, index) => (
   <Anchor href={item.href} key={index}>
     {item.title}
@@ -23,9 +23,9 @@ const items = [
 ));
 
 const PAPER_PROPS: PaperProps = {
-  p: "md",
-  shadow: "md",
-  radius: "md",
+  p: 'md',
+  shadow: 'md',
+  radius: 'md',
 };
 
 function Pricing() {

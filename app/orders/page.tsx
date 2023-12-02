@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   ActionIcon,
@@ -9,15 +9,15 @@ import {
   PaperProps,
   Stack,
   Text,
-} from "@mantine/core";
-import { PATH_DASHBOARD } from "@/routes";
-import { OrdersTable, PageHeader } from "@/components";
-import { IconDotsVertical } from "@tabler/icons-react";
-import { useFetchData } from "@/hooks";
+} from '@mantine/core';
+import { PATH_DASHBOARD } from '@/routes';
+import { OrdersTable, PageHeader } from '@/components';
+import { IconDotsVertical } from '@tabler/icons-react';
+import { useFetchData } from '@/hooks';
 
 const items = [
-  { title: "Dashboard", href: PATH_DASHBOARD.default },
-  { title: "Orders", href: "#" },
+  { title: 'Dashboard', href: PATH_DASHBOARD.default },
+  { title: 'Orders', href: '#' },
 ].map((item, index) => (
   <Anchor href={item.href} key={index}>
     {item.title}
@@ -25,9 +25,9 @@ const items = [
 ));
 
 const PAPER_PROPS: PaperProps = {
-  p: "md",
-  shadow: "md",
-  radius: "md",
+  p: 'md',
+  shadow: 'md',
+  radius: 'md',
 };
 
 function Page() {
@@ -35,7 +35,7 @@ function Page() {
     data: ordersData,
     loading: ordersLoading,
     error: ordersError,
-  } = useFetchData("/mocks/Orders.json");
+  } = useFetchData('/mocks/Orders.json');
 
   return (
     <>

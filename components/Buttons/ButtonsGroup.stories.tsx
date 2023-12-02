@@ -1,5 +1,5 @@
-import type {StoryObj} from '@storybook/react';
-import {IconNotebook} from "@tabler/icons-react";
+import type { StoryObj } from '@storybook/react';
+import { IconNotebook } from '@tabler/icons-react';
 
 import ButtonsGroup from './ButtonsGroup';
 
@@ -15,31 +15,51 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      options: ["default",'filled', 'outline', 'subtle', 'transparent', 'white', 'light', 'gradient'],
-      control: {type: 'select'},
+      options: [
+        'default',
+        'filled',
+        'outline',
+        'subtle',
+        'transparent',
+        'white',
+        'light',
+        'gradient',
+      ],
+      control: { type: 'select' },
     },
     size: {
-      options: ['xl', 'lg', 'md', 'sm', 'xs', 'compact-xl', "compact-lg", "compact-md", "compact-sm", 'compact-xs'],
-      control: {type: 'select'},
+      options: [
+        'xl',
+        'lg',
+        'md',
+        'sm',
+        'xs',
+        'compact-xl',
+        'compact-lg',
+        'compact-md',
+        'compact-sm',
+        'compact-xs',
+      ],
+      control: { type: 'select' },
     },
     radius: {
       options: ['xl', 'lg', 'md', 'sm', 'xs'],
-      control: {type: 'inline-radio'},
+      control: { type: 'inline-radio' },
     },
     disabled: {
       options: [true, false],
-      control: {type: 'inline-radio'},
+      control: { type: 'inline-radio' },
     },
     loading: {
       options: [true, false],
-      control: {type: 'inline-radio'},
+      control: { type: 'inline-radio' },
     },
     orientation: {
-      options: ["horizontal", "vertical"],
-      control: {type: 'inline-radio'},
+      options: ['horizontal', 'vertical'],
+      control: { type: 'inline-radio' },
     },
-  }
-}
+  },
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -47,18 +67,18 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default: Story = {
   args: {
-    variant: "default",
+    variant: 'default',
   },
 };
 
 export const VerticalOrientation: Story = {
   args: {
-    orientation: "vertical"
+    orientation: 'vertical',
   },
 };
 
 export const CustomIconSize: Story = {
   args: {
-    size: "xl"
-  }
+    size: 'xl',
+  },
 };

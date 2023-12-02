@@ -1,3 +1,3 @@
-import useFetchData from "@/hooks/useFetchData";
+import useFetchData from '@/hooks/useFetchData';
 
 export { useFetchData };

@@ -8,21 +8,21 @@ import {
   rem,
   ScrollArea,
   useMantineTheme,
-} from "@mantine/core";
-import { useDisclosure, useMediaQuery } from "@mantine/hooks";
-import { PATH_DASHBOARD, PATH_DOCS } from "@/routes";
-import { Logo } from "@/components";
-import Link from "next/link";
-import classes from "./HeaderNav.module.css";
+} from '@mantine/core';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import { PATH_DASHBOARD, PATH_DOCS } from '@/routes';
+import { Logo } from '@/components';
+import Link from 'next/link';
+import classes from './HeaderNav.module.css';
 
 const MOCK_DATA = [
   {
     link: PATH_DOCS.root,
-    label: "documentation",
+    label: 'documentation',
   },
   {
-    link: "mailto:kelvin.kiprop96@gmail.com",
-    label: "support",
+    link: 'mailto:kelvin.kiprop96@gmail.com',
+    label: 'support',
   },
 ];
 
@@ -32,7 +32,7 @@ const HeaderNav = () => {
   const theme = useMantineTheme();
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
-  const tablet_match = useMediaQuery("(max-width: 768px)");
+  const tablet_match = useMediaQuery('(max-width: 768px)');
 
   const items = MOCK_DATA.map((link) => {
     return (
@@ -75,7 +75,7 @@ const HeaderNav = () => {
         className={classes.hiddenDesktop}
         zIndex={1000000}
         transitionProps={{
-          transition: tablet_match ? "slide-up" : "slide-left",
+          transition: tablet_match ? 'slide-up' : 'slide-left',
         }}
       >
         <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">

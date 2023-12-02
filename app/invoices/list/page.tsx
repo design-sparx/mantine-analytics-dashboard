@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   ActionIcon,
@@ -9,17 +9,17 @@ import {
   PaperProps,
   Stack,
   Text,
-} from "@mantine/core";
-import { PATH_DASHBOARD } from "@/routes";
-import { InvoicesTable, PageHeader } from "@/components";
-import InvoicesData from "@/public/mocks/Invoices.json";
-import { IconDotsVertical } from "@tabler/icons-react";
-import { Metadata } from "next";
-import { useFetchData } from "@/hooks";
+} from '@mantine/core';
+import { PATH_DASHBOARD } from '@/routes';
+import { InvoicesTable, PageHeader } from '@/components';
+import InvoicesData from '@/public/mocks/Invoices.json';
+import { IconDotsVertical } from '@tabler/icons-react';
+import { Metadata } from 'next';
+import { useFetchData } from '@/hooks';
 
 const items = [
-  { title: "Dashboard", href: PATH_DASHBOARD.default },
-  { title: "Invoices", href: "#" },
+  { title: 'Dashboard', href: PATH_DASHBOARD.default },
+  { title: 'Invoices', href: '#' },
 ].map((item, index) => (
   <Anchor href={item.href} key={index}>
     {item.title}
@@ -27,9 +27,9 @@ const items = [
 ));
 
 const PAPER_PROPS: PaperProps = {
-  p: "md",
-  shadow: "md",
-  radius: "md",
+  p: 'md',
+  shadow: 'md',
+  radius: 'md',
 };
 
 function Page() {
@@ -37,7 +37,7 @@ function Page() {
     data: invoicesData,
     loading: invoicesLoading,
     error: invoicesError,
-  } = useFetchData("/mocks/Invoices.json");
+  } = useFetchData('/mocks/Invoices.json');
 
   return (
     <>

@@ -1,5 +1,5 @@
-import { Button, Menu } from "@mantine/core";
-import { IconChevronDown } from "@tabler/icons-react";
+import { Button, Menu } from '@mantine/core';
+import { IconChevronDown } from '@tabler/icons-react';
 
 const FilterDateMenu = () => {
   return (

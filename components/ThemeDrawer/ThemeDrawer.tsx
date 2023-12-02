@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Button,
   ColorSwatch,
@@ -13,15 +13,15 @@ import {
   UnstyledButton,
   useMantineColorScheme,
   useMantineTheme,
-} from "@mantine/core";
-import { IconCheck, IconMoonStars, IconSunHigh } from "@tabler/icons-react";
-import { showNotification } from "@mantine/notifications";
-import { upperFirst, useColorScheme, useMediaQuery } from "@mantine/hooks";
+} from '@mantine/core';
+import { IconCheck, IconMoonStars, IconSunHigh } from '@tabler/icons-react';
+import { showNotification } from '@mantine/notifications';
+import { upperFirst, useColorScheme, useMediaQuery } from '@mantine/hooks';
 
 type ThemeDrawerProps = {
   primaryColor?: string;
   setPrimaryColor?: (color: string) => void;
-} & Pick<DrawerProps, "opened" | "onClose">;
+} & Pick<DrawerProps, 'opened' | 'onClose'>;
 
 const ThemeDrawer = ({
   primaryColor,
@@ -34,7 +34,7 @@ const ThemeDrawer = ({
     swatch: theme.colors[color][6],
     color,
   }));
-  const tablet_match = useMediaQuery("(max-width: 768px)");
+  const tablet_match = useMediaQuery('(max-width: 768px)');
 
   /**
    * swatches items
@@ -49,16 +49,16 @@ const ThemeDrawer = ({
             setPrimaryColor(color);
           }
           showNotification({
-            title: "Color theme update",
-            message: "Your theme is awesome! 🤥",
+            title: 'Color theme update',
+            message: 'Your theme is awesome! 🤥',
           });
         }}
-        style={{ textAlign: "center" }}
+        style={{ textAlign: 'center' }}
       >
         <ColorSwatch
           component="button"
           color={swatch}
-          style={{ color: "#fff", cursor: "pointer" }}
+          style={{ color: '#fff', cursor: 'pointer' }}
           size={48}
         >
           {color === primaryColor && <IconCheck width={rem(32)} />}
@@ -78,14 +78,14 @@ const ThemeDrawer = ({
       padding="lg"
       size="xs"
       transitionProps={{
-        transition: tablet_match ? "slide-up" : "slide-left",
+        transition: tablet_match ? 'slide-up' : 'slide-left',
       }}
     >
       <Stack gap="lg">
         <Tooltip label="switch to light/dark mode">
           <Button
             leftSection={
-              colorScheme === "light" ? (
+              colorScheme === 'light' ? (
                 <IconMoonStars size={18} />
               ) : (
                 <IconSunHigh size={18} />
@@ -95,25 +95,25 @@ const ThemeDrawer = ({
               toggleColorScheme();
               showNotification({
                 title: `${upperFirst(
-                  colorScheme === "dark" ? "light" : "dark",
+                  colorScheme === 'dark' ? 'light' : 'dark',
                 )} is on`,
                 message: `You just switched to ${
-                  colorScheme === "dark" ? "light" : "dark"
+                  colorScheme === 'dark' ? 'light' : 'dark'
                 } mode. Hope you like it`,
                 styles: (theme: MantineTheme) => ({
                   root: {
                     backgroundColor:
-                      colorScheme === "dark"
+                      colorScheme === 'dark'
                         ? theme.colors.gray[7]
                         : theme.colors.gray[2],
                     borderColor:
-                      colorScheme === "dark"
+                      colorScheme === 'dark'
                         ? theme.colors.gray[7]
                         : theme.colors.gray[2],
 
-                    "&::before": {
+                    '&::before': {
                       backgroundColor:
-                        colorScheme === "dark"
+                        colorScheme === 'dark'
                           ? theme.colors.gray[2]
                           : theme.colors.gray[7],
                     },
@@ -121,22 +121,22 @@ const ThemeDrawer = ({
 
                   title: {
                     color:
-                      colorScheme === "dark"
+                      colorScheme === 'dark'
                         ? theme.colors.gray[2]
                         : theme.colors.gray[7],
                   },
                   description: {
                     color:
-                      colorScheme === "dark"
+                      colorScheme === 'dark'
                         ? theme.colors.gray[2]
                         : theme.colors.gray[7],
                   },
                   closeButton: {
                     color:
-                      colorScheme === "dark"
+                      colorScheme === 'dark'
                         ? theme.colors.gray[2]
                         : theme.colors.gray[7],
-                    "&:hover": {
+                    '&:hover': {
                       backgroundColor: theme.colors.red[5],
                       color: theme.white,
                     },
@@ -145,10 +145,10 @@ const ThemeDrawer = ({
               });
             }}
           >
-            Switch to {colorScheme === "light" ? "dark" : "light"} mode
+            Switch to {colorScheme === 'light' ? 'dark' : 'light'} mode
           </Button>
         </Tooltip>
-        <SimpleGrid cols={4} spacing={{ base: 10, sm: "sm" }}>
+        <SimpleGrid cols={4} spacing={{ base: 10, sm: 'sm' }}>
           {swatches}
         </SimpleGrid>
       </Stack>

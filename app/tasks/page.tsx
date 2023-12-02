@@ -1,10 +1,10 @@
-import { Anchor, Container, Stack } from "@mantine/core";
-import { KanbanBoard, PageHeader } from "@/components";
-import { PATH_DASHBOARD } from "@/routes";
+import { Anchor, Container, Stack } from '@mantine/core';
+import { KanbanBoard, PageHeader } from '@/components';
+import { PATH_DASHBOARD } from '@/routes';
 
 const items = [
-  { title: "Dashboard", href: PATH_DASHBOARD.default },
-  { title: "Tasks", href: "#" },
+  { title: 'Dashboard', href: PATH_DASHBOARD.default },
+  { title: 'Tasks', href: '#' },
 ].map((item, index) => (
   <Anchor href={item.href} key={index}>
     {item.title}

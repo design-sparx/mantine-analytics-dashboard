@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { Center, Stack, useMantineTheme } from "@mantine/core";
-import Image from "next/image";
-import React, { ReactNode } from "react";
-import { useColorScheme } from "@mantine/hooks";
+import { Center, Stack, useMantineTheme } from '@mantine/core';
+import Image from 'next/image';
+import React, { ReactNode } from 'react';
+import { useColorScheme } from '@mantine/hooks';
 
 type AuthProps = {
   children: ReactNode;
@@ -16,8 +16,8 @@ function AuthLayout({ children }: AuthProps) {
   return (
     <Center
       style={{
-        height: "100vh",
-        width: "100vw",
+        height: '100vh',
+        width: '100vw',
       }}
     >
       <Stack>
@@ -27,7 +27,7 @@ function AuthLayout({ children }: AuthProps) {
             alt="DesignSparx logo"
             width={96}
             height={96}
-            style={{ objectFit: "contain" }}
+            style={{ objectFit: 'contain' }}
           />
         </Center>
         {children}

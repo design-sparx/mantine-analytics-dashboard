@@ -1,9 +1,9 @@
-import { ActionIcon, Group, Paper, PaperProps, Text } from "@mantine/core";
-import { DataTable } from "mantine-datatable";
-import { IconDotsVertical } from "@tabler/icons-react";
-import dayjs from "dayjs";
-import { ErrorAlert, Surface } from "@/components";
-import React, { ReactNode } from "react";
+import { ActionIcon, Group, Paper, PaperProps, Text } from '@mantine/core';
+import { DataTable } from 'mantine-datatable';
+import { IconDotsVertical } from '@tabler/icons-react';
+import dayjs from 'dayjs';
+import { ErrorAlert, Surface } from '@/components';
+import React, { ReactNode } from 'react';
 
 type LanguageTableProps = {
   data?: {
@@ -43,15 +43,15 @@ const TrafficTable = ({
           verticalSpacing="sm"
           highlightOnHover
           columns={[
-            { accessor: "source" },
-            { accessor: "users" },
-            { accessor: "sessions" },
+            { accessor: 'source' },
+            { accessor: 'users' },
+            { accessor: 'sessions' },
             {
-              accessor: "bounce_rate",
+              accessor: 'bounce_rate',
               render: ({ bounce_rate }) => <Text>{bounce_rate}%</Text>,
             },
             {
-              accessor: "avg_session_period",
+              accessor: 'avg_session_period',
               render: ({ avg_session_period }) => {
                 const seconds = avg_session_period;
 
@@ -60,9 +60,9 @@ const TrafficTable = ({
                   .toISOString()
                   .slice(11, 19);
                 console.log(result); // 👉️ "00:10:00" (hh:mm:ss)
-                const hh = result.split(":")[0],
-                  mm = result.split(":")[1],
-                  ss = result.split(":")[3];
+                const hh = result.split(':')[0],
+                  mm = result.split(':')[1],
+                  ss = result.split(':')[3];
 
                 return (
                   <Text>

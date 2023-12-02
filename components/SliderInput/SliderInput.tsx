@@ -1,15 +1,15 @@
-"use client"
+'use client';
 
-import {Slider, SliderProps} from "@mantine/core";
+import { Slider, SliderProps } from '@mantine/core';
 
-type SliderInputProps = SliderProps
+type SliderInputProps = SliderProps;
 
 /**
  * For more docs see - https://mantine.dev/core/slider/
  * @param others
  * @constructor
  */
-const SliderInput = ({...others}) => {
+const SliderInput = ({ ...others }) => {
   return (
     <Slider
       color="blue"

@@ -8,10 +8,10 @@ import {
   Text,
   ThemeIcon,
   Title,
-} from "@mantine/core";
-import { IconArrowRight, IconCheck } from "@tabler/icons-react";
-import CountUp from "react-countup";
-import { Surface } from "@/components";
+} from '@mantine/core';
+import { IconArrowRight, IconCheck } from '@tabler/icons-react';
+import CountUp from 'react-countup';
+import { Surface } from '@/components';
 
 type PricingCardProps = {
   tier: string;
@@ -73,12 +73,12 @@ const PricingCard = (props: PricingCardProps) => {
         ))}
       </List>
       <Button
-        variant={preferred ? "filled" : "outline"}
+        variant={preferred ? 'filled' : 'outline'}
         rightSection={<IconArrowRight size={18} />}
         fullWidth
         size="md"
         mb="sm"
-        style={{ textTransform: "capitalize" }}
+        style={{ textTransform: 'capitalize' }}
       >
         {actionText}
       </Button>

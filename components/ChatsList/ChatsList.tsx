@@ -6,9 +6,9 @@ import {
   Text,
   UnstyledButton,
   UnstyledButtonProps,
-} from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
-import classes from "./ChatsList.module.css";
+} from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
+import classes from './ChatsList.module.css';
 
 type ChatsListProps = {
   avatar: string;
@@ -23,7 +23,7 @@ const ChatsList = ({
   lastMessage,
   firstName,
 }: ChatsListProps) => {
-  const tablet_match = useMediaQuery("(max-width: 768px)");
+  const tablet_match = useMediaQuery('(max-width: 768px)');
 
   return tablet_match ? (
     <UnstyledButton className={classes.itemRounded}>

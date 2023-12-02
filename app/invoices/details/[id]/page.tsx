@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { Anchor, Container, PaperProps, Stack } from "@mantine/core";
-import { InvoiceDetailsCard, PageHeader } from "@/components";
-import { PATH_DASHBOARD, PATH_INVOICES } from "@/routes";
-import { Invoices } from "@/types";
-import { useFetchData } from "@/hooks";
+import { useEffect, useState } from 'react';
+import { Anchor, Container, PaperProps, Stack } from '@mantine/core';
+import { InvoiceDetailsCard, PageHeader } from '@/components';
+import { PATH_DASHBOARD, PATH_INVOICES } from '@/routes';
+import { Invoices } from '@/types';
+import { useFetchData } from '@/hooks';
 
 const items = [
-  { title: "Dashboard", href: PATH_DASHBOARD.default },
-  { title: "Invoices", href: PATH_INVOICES.invoices.all },
-  { title: "Details", href: "#" },
+  { title: 'Dashboard', href: PATH_DASHBOARD.default },
+  { title: 'Invoices', href: PATH_INVOICES.invoices.all },
+  { title: 'Details', href: '#' },
 ].map((item, index) => (
   <Anchor href={item.href} key={index}>
     {item.title}
@@ -18,9 +18,9 @@ const items = [
 ));
 
 const PAPER_PROPS: PaperProps = {
-  p: "md",
-  shadow: "md",
-  radius: "md",
+  p: 'md',
+  shadow: 'md',
+  radius: 'md',
 };
 
 function InvoiceDetails({ params }: { params: { id: string } }) {
@@ -29,7 +29,7 @@ function InvoiceDetails({ params }: { params: { id: string } }) {
     data: invoicesData,
     loading: invoicesLoading,
     error: invoicesError,
-  } = useFetchData("mocks/Invoices.json");
+  } = useFetchData('mocks/Invoices.json');
 
   useEffect(() => {
     setSelectedData(invoicesData.find((_: Invoices) => _.id === params.id));
@@ -39,7 +39,7 @@ function InvoiceDetails({ params }: { params: { id: string } }) {
     <>
       <>
         <title>
-          Invoice - {selectedData ? selectedData?.id : "No invoice found"} |
+          Invoice - {selectedData ? selectedData?.id : 'No invoice found'} |
           DesignSparx
         </title>
         <meta

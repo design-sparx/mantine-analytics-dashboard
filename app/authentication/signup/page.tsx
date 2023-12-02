@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Button,
@@ -11,18 +11,18 @@ import {
   TextProps,
   Title,
   useMantineTheme,
-} from "@mantine/core";
-import Link from "next/link";
-import { PATH_AUTH, PATH_DASHBOARD } from "@/routes";
-import { useColorScheme, useMediaQuery } from "@mantine/hooks";
-import { Metadata } from "next";
-import { Surface } from "@/components";
-import classes from "./page.module.css";
+} from '@mantine/core';
+import Link from 'next/link';
+import { PATH_AUTH, PATH_DASHBOARD } from '@/routes';
+import { useColorScheme, useMediaQuery } from '@mantine/hooks';
+import { Metadata } from 'next';
+import { Surface } from '@/components';
+import classes from './page.module.css';
 
 function Page() {
   const theme = useMantineTheme();
   const colorScheme = useColorScheme();
-  const mobile_match = useMediaQuery("(max-width: 425px)");
+  const mobile_match = useMediaQuery('(max-width: 425px)');
 
   const LINK_PROPS: TextProps = {
     className: classes.link,
@@ -41,7 +41,7 @@ function Page() {
       <Text ta="center">Create your account to continue</Text>
 
       <Surface component={Paper} className={classes.card}>
-        <Flex direction={{ base: "column", sm: "row" }} gap={{ base: "md" }}>
+        <Flex direction={{ base: 'column', sm: 'row' }} gap={{ base: 'md' }}>
           <TextInput
             label="First name"
             placeholder="John"

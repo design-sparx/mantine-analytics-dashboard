@@ -1,15 +1,15 @@
-"use client"
+'use client';
 
-import {RangeSlider, RangeSliderProps} from "@mantine/core";
+import { RangeSlider, RangeSliderProps } from '@mantine/core';
 
-type RangeSliderInputProps = RangeSliderProps
+type RangeSliderInputProps = RangeSliderProps;
 
 /**
  * For more docs see - https://mantine.dev/core/slider/
  * @param others
  * @constructor
  */
-const RangeSliderInput = ({...others}) => {
+const RangeSliderInput = ({ ...others }) => {
   return (
     <RangeSlider
       color="blue"

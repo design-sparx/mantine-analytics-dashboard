@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Id, KanbanTask as ITask } from "../../types";
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
+import { useState } from 'react';
+import { Id, KanbanTask as ITask } from '../../types';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import {
   IconDots,
   IconEdit,
   IconMessageCircle,
   IconTrash,
-} from "@tabler/icons-react";
+} from '@tabler/icons-react';
 import {
   ActionIcon,
   Avatar,
@@ -25,21 +25,21 @@ import {
   Textarea,
   Tooltip,
   useMantineTheme,
-} from "@mantine/core";
-import { useHover } from "@mantine/hooks";
-import { modals } from "@mantine/modals";
-import classes from "./KanbanCard.module.css";
+} from '@mantine/core';
+import { useHover } from '@mantine/hooks';
+import { modals } from '@mantine/modals';
+import classes from './KanbanCard.module.css';
 
 const AVATARS = [
-  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
-  "https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
-  "https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
+  'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
+  'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
+  'https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
 ];
 
 const PAPER_PROPS: PaperProps = {
-  p: "md",
-  shadow: "md",
-  radius: "md",
+  p: 'md',
+  shadow: 'md',
+  radius: 'md',
 };
 
 const ICON_SIZE = 18;
@@ -65,7 +65,7 @@ const KanbanCard = (props: Props) => {
   } = useSortable({
     id: task.id,
     data: {
-      type: "Task",
+      type: 'Task',
       task,
     },
     disabled: editMode,
@@ -86,8 +86,8 @@ const KanbanCard = (props: Props) => {
       title: `Delete Task?`,
       centered: true,
       children: <Text size="sm">This task will be deleted</Text>,
-      labels: { confirm: "Delete bucket", cancel: "No don't delete it" },
-      onCancel: () => console.log("Cancel"),
+      labels: { confirm: 'Delete bucket', cancel: "No don't delete it" },
+      onCancel: () => console.log('Cancel'),
       onConfirm: () => {
         deleteTask(task.id);
       },
@@ -111,21 +111,21 @@ const KanbanCard = (props: Props) => {
         {...listeners}
         style={{
           ...style,
-          minHeight: "100px",
-          display: "flex",
-          textAlign: "left",
-          cursor: "grab",
-          position: "relative",
-          alignItems: "center",
+          minHeight: '100px',
+          display: 'flex',
+          textAlign: 'left',
+          cursor: 'grab',
+          position: 'relative',
+          alignItems: 'center',
           borderRadius: theme.radius.md,
           backgroundColor: theme.colors[theme.primaryColor][8],
         }}
       >
         <Textarea
           style={{
-            border: "none",
-            outline: "none",
-            width: "100%",
+            border: 'none',
+            outline: 'none',
+            width: '100%',
             borderRadius: theme.radius.md,
           }}
           mx="auto"
@@ -134,7 +134,7 @@ const KanbanCard = (props: Props) => {
           placeholder="Task content here"
           onBlur={toggleEditMode}
           onKeyDown={(e) => {
-            if (e.key === "Enter" && e.shiftKey) {
+            if (e.key === 'Enter' && e.shiftKey) {
               toggleEditMode();
             }
           }}
@@ -152,7 +152,7 @@ const KanbanCard = (props: Props) => {
       radius="md"
       style={{
         ...style,
-        cursor: "grab",
+        cursor: 'grab',
       }}
       {...attributes}
       {...listeners}
@@ -163,10 +163,10 @@ const KanbanCard = (props: Props) => {
             my="auto"
             size="sm"
             style={{
-              height: "90%",
-              width: "100%",
-              overflowY: "hidden",
-              overflowX: "hidden",
+              height: '90%',
+              width: '100%',
+              overflowY: 'hidden',
+              overflowX: 'hidden',
             }}
           >
             {task.content}

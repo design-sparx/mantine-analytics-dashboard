@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   Box,
   Collapse,
@@ -8,12 +8,12 @@ import {
   Text,
   UnstyledButton,
   useMantineTheme,
-} from "@mantine/core";
-import { IconCalendarStats, IconChevronRight } from "@tabler/icons-react";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import * as _ from "lodash";
-import classes from "./Links.module.css";
+} from '@mantine/core';
+import { IconCalendarStats, IconChevronRight } from '@tabler/icons-react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import * as _ from 'lodash';
+import classes from './Links.module.css';
 
 interface LinksGroupProps {
   icon: React.FC<any>;
@@ -53,7 +53,7 @@ export function LinksGroup({
   ));
 
   useEffect(() => {
-    const paths = pathname.split("/");
+    const paths = pathname.split('/');
     setOpened(paths[1].toLowerCase() === label.toLowerCase());
     setCurrentPath(_.last(paths)?.toLowerCase() || undefined);
   }, [pathname, label]);
@@ -63,13 +63,13 @@ export function LinksGroup({
       <UnstyledButton
         onClick={() => {
           setOpened((o) => !o);
-          link && router.push(link || "#");
+          link && router.push(link || '#');
         }}
         className={classes.control}
         data-active={opened || undefined}
       >
         <Group justify="space-between" gap={0}>
-          <Box style={{ display: "flex", alignItems: "center" }}>
+          <Box style={{ display: 'flex', alignItems: 'center' }}>
             <Icon size={18} />
             <Box ml="md">{label}</Box>
           </Box>
@@ -79,7 +79,7 @@ export function LinksGroup({
               size="1rem"
               stroke={1.5}
               style={{
-                transform: opened ? `rotate(90deg)` : "none",
+                transform: opened ? `rotate(90deg)` : 'none',
               }}
             />
           )}

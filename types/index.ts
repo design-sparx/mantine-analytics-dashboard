@@ -10,12 +10,12 @@ export type KanbanTask = {
   columnId: Id;
   content: string;
   title?: string;
-  status?: "to do" | "in progress" | "done" | "unassigned" | string;
+  status?: 'to do' | 'in progress' | 'done' | 'unassigned' | string;
   comments?: number;
   users?: number;
 };
 
-export type OrderStatus = "shipped" | "processing" | "cancelled" | string;
+export type OrderStatus = 'shipped' | 'processing' | 'cancelled' | string;
 
 export type Orders = {
   id: string;
@@ -27,11 +27,11 @@ export type Orders = {
 };
 
 export type InvoiceStatus =
-  | "pending"
-  | "sent"
-  | "cancelled"
-  | "approved"
-  | "suspended"
+  | 'pending'
+  | 'sent'
+  | 'cancelled'
+  | 'approved'
+  | 'suspended'
   | string;
 
 export type Invoices = {

@@ -47,7 +47,7 @@ function Error({
         }}
       >
         <Stack>
-          <div className={classes.label}>500</div>
+          <div className={classes.label}>400</div>
           <Title className={classes.title}>Sorry, unexpected error..</Title>
           <Text fz="md" ta="center" className={classes.description}>
             {error.toString()}

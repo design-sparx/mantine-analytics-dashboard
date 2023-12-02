@@ -1,4 +1,4 @@
-import type {StoryObj} from '@storybook/react';
+import type { StoryObj } from '@storybook/react';
 
 import ActionButtonGroup from './ActionButtonGroup';
 
@@ -14,27 +14,36 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      options: ["default", 'filled', 'outline', 'subtle', 'transparent', 'white', 'light', 'gradient'],
-      control: {type: 'select'},
+      options: [
+        'default',
+        'filled',
+        'outline',
+        'subtle',
+        'transparent',
+        'white',
+        'light',
+        'gradient',
+      ],
+      control: { type: 'select' },
     },
     size: {
       options: ['xl', 'lg', 'md', 'sm', 'xs'],
-      control: {type: 'inline-radio'},
+      control: { type: 'inline-radio' },
     },
     radius: {
       options: ['xl', 'lg', 'md', 'sm', 'xs'],
-      control: {type: 'inline-radio'},
+      control: { type: 'inline-radio' },
     },
     disabled: {
       options: [true, false],
-      control: {type: 'inline-radio'},
+      control: { type: 'inline-radio' },
     },
     loading: {
       options: [true, false],
-      control: {type: 'inline-radio'},
+      control: { type: 'inline-radio' },
     },
-  }
-}
+  },
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -42,19 +51,19 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default: Story = {
   args: {
-    variant: "default",
+    variant: 'default',
   },
 };
 
 export const VerticalOrientation: Story = {
   args: {
-    orientation: "vertical"
+    orientation: 'vertical',
   },
 };
 
 export const CustomIconSize: Story = {
   args: {
     iconSize: 24,
-    size: "xl"
-  }
+    size: 'xl',
+  },
 };

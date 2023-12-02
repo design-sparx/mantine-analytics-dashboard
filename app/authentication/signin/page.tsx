@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Button,
@@ -11,12 +11,12 @@ import {
   TextInput,
   TextProps,
   Title,
-} from "@mantine/core";
-import Link from "next/link";
-import { PATH_AUTH, PATH_DASHBOARD } from "@/routes";
-import { Metadata } from "next";
-import { Surface } from "@/components";
-import classes from "./page.module.css";
+} from '@mantine/core';
+import Link from 'next/link';
+import { PATH_AUTH, PATH_DASHBOARD } from '@/routes';
+import { Metadata } from 'next';
+import { Surface } from '@/components';
+import classes from './page.module.css';
 
 function Page() {
   const LINK_PROPS: TextProps = {

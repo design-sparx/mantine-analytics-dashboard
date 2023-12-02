@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Anchor,
   Button,
@@ -13,16 +13,16 @@ import {
   Switch,
   Text,
   Title,
-} from "@mantine/core";
-import { PATH_DASHBOARD } from "@/routes";
-import { Faqs, PageHeader, PricingCard, Surface } from "@/components";
-import { IconChevronRight } from "@tabler/icons-react";
-import { Metadata } from "next";
+} from '@mantine/core';
+import { PATH_DASHBOARD } from '@/routes';
+import { Faqs, PageHeader, PricingCard, Surface } from '@/components';
+import { IconChevronRight } from '@tabler/icons-react';
+import { Metadata } from 'next';
 
 const items = [
-  { title: "Dashboard", href: PATH_DASHBOARD.default },
-  { title: "Pages", href: "#" },
-  { title: "Pricing", href: "#" },
+  { title: 'Dashboard', href: PATH_DASHBOARD.default },
+  { title: 'Pages', href: '#' },
+  { title: 'Pricing', href: '#' },
 ].map((item, index) => (
   <Anchor href={item.href} key={index}>
     {item.title}
@@ -32,60 +32,60 @@ const items = [
 const ICON_SIZE = 16;
 
 const PAPER_PROPS: PaperProps = {
-  p: "md",
-  shadow: "md",
-  radius: "md",
-  style: { height: "100%" },
+  p: 'md',
+  shadow: 'md',
+  radius: 'md',
+  style: { height: '100%' },
 };
 
 const PRICING = [
   {
-    tier: "basic",
+    tier: 'basic',
     price: {
       month: 0,
       year: 0,
     },
-    features: ["Rich landing pages", "100+ components"],
+    features: ['Rich landing pages', '100+ components'],
     preferred: false,
-    actionText: "start for free",
-    description: "All the basics for starting a new business",
+    actionText: 'start for free',
+    description: 'All the basics for starting a new business',
   },
   {
-    tier: "standard",
+    tier: 'standard',
     price: {
       month: 25,
       year: 45,
     },
     features: [
-      "Rich landing pages",
-      "100+ components",
-      "Flexible licensing",
-      "Speedy build tooling",
-      "6 months free support",
+      'Rich landing pages',
+      '100+ components',
+      'Flexible licensing',
+      'Speedy build tooling',
+      '6 months free support',
     ],
     preferred: true,
-    actionText: "start with standard",
-    description: "Everything you need for a growing business",
+    actionText: 'start with standard',
+    description: 'Everything you need for a growing business',
   },
   {
-    tier: "premium",
+    tier: 'premium',
     price: {
       month: 40,
       year: 70,
     },
     features: [
-      "Rich landing pages",
-      "100+ components",
-      "Flexible licensing",
-      "Speedy build tooling",
-      "6 months free support",
-      "256-bit encryption",
-      "Guaranteed 100% uptime",
-      "Unlimited users",
+      'Rich landing pages',
+      '100+ components',
+      'Flexible licensing',
+      'Speedy build tooling',
+      '6 months free support',
+      '256-bit encryption',
+      'Guaranteed 100% uptime',
+      'Unlimited users',
     ],
     preferred: false,
-    actionText: "start with premium",
-    description: "Advanced features for scaling your business",
+    actionText: 'start with premium',
+    description: 'Advanced features for scaling your business',
   },
 ];
 
@@ -107,7 +107,7 @@ function Pricing() {
       <Container fluid>
         <Stack gap="lg">
           <PageHeader title="Pricing" breadcrumbItems={items} />
-          <Paper style={{ backgroundColor: "transparent" }}>
+          <Paper style={{ backgroundColor: 'transparent' }}>
             <Stack>
               <Title order={2} ta="center">
                 Simple, fair pricing.
@@ -129,8 +129,8 @@ function Pricing() {
           </Paper>
           <SimpleGrid
             cols={{ base: 1, sm: 2, lg: 3 }}
-            spacing={{ base: 10, sm: "xl" }}
-            verticalSpacing={{ base: "md", sm: "xl" }}
+            spacing={{ base: 10, sm: 'xl' }}
+            verticalSpacing={{ base: 'md', sm: 'xl' }}
           >
             {pricingItems}
           </SimpleGrid>
@@ -139,7 +139,7 @@ function Pricing() {
           </Surface>
           <Surface
             component={Paper}
-            style={{ backgroundColor: "transparent" }}
+            style={{ backgroundColor: 'transparent' }}
             p="md"
           >
             <Stack align="center" gap="xs">

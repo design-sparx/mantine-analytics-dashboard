@@ -1,28 +1,30 @@
-import {Meta} from "@storybook/blocks";
-import Image from "next/image";
+import { Meta } from '@storybook/blocks';
+import Image from 'next/image';
 
-import Github from "./assets/github.svg";
-import Landing from "./assets/thumbnail-img.png";
-import Logo from "./assets/logo-no-background.png";
-import Nextjs from "./assets/nextjs.png";
-import Mantine from "./assets/mantine.png";
-import {IconBrandMantine, IconBrandNextjs} from "@tabler/icons-react";
+import Github from './assets/github.svg';
+import Landing from './assets/thumbnail-img.png';
+import Logo from './assets/logo-no-background.png';
+import Nextjs from './assets/nextjs.png';
+import Mantine from './assets/mantine.png';
+import { IconBrandMantine, IconBrandNextjs } from '@tabler/icons-react';
 
-export const RightArrow = () => <svg
-  viewBox="0 0 14 14"
-  width="8px"
-  height="14px"
-  style={{
-    marginLeft: '4px',
-    display: 'inline-block',
-    shapeRendering: 'inherit',
-    verticalAlign: 'middle',
-    fill: 'currentColor',
-    'path fill': 'currentColor'
-  }}
->
-  <path d="m11.1 7.35-5.5 5.5a.5.5 0 0 1-.7-.7L10.04 7 4.9 1.85a.5.5 0 1 1 .7-.7l5.5 5.5c.2.2.2.5 0 .7Z"/>
-</svg>
+export const RightArrow = () => (
+  <svg
+    viewBox="0 0 14 14"
+    width="8px"
+    height="14px"
+    style={{
+      marginLeft: '4px',
+      display: 'inline-block',
+      shapeRendering: 'inherit',
+      verticalAlign: 'middle',
+      fill: 'currentColor',
+      'path fill': 'currentColor',
+    }}
+  >
+    <path d="m11.1 7.35-5.5 5.5a.5.5 0 0 1-.7-.7L10.04 7 4.9 1.85a.5.5 0 1 1 .7-.7l5.5 5.5c.2.2.2.5 0 .7Z" />
+  </svg>
+);
 
 <Meta title="Welcome"/>
 <div className="sb-container">
@@ -87,6 +89,7 @@ export const RightArrow = () => <svg
       href="https://github.com/design-sparx/antd-multipurpose-dashboard"
       target="_blank"
     >Star on GitHub<RightArrow/></a>
+
   </div>
   <div className="sb-section-item">
     <Image src={Logo} alt="Discord logo" height={32} className="sb-explore-image"/>
@@ -98,6 +101,7 @@ export const RightArrow = () => <svg
         target="_blank"
       >GitHub<RightArrow/></a>
     </div>
+
   </div>
   <div className="sb-section-item">
     <Image src={Nextjs} alt="Github logo" height={32} className="sb-explore-image"/>
@@ -109,6 +113,7 @@ export const RightArrow = () => <svg
         target="_blank"
       >Nextjs<RightArrow/></a>
     </div>
+
   </div>
   <div className="sb-section-item">
     <Image src={Mantine} alt="Github logo" height={32} className="sb-explore-image"/>
@@ -120,6 +125,7 @@ export const RightArrow = () => <svg
         target="_blank"
       >Mantine<RightArrow/></a>
     </div>
+
   </div>
 </div>
 

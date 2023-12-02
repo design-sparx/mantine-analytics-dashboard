@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { Anchor, Container, Paper, Stack } from "@mantine/core";
-import { formatDate } from "@fullcalendar/core";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
-import { PATH_DASHBOARD } from "@/routes";
-import { createEventId, INITIAL_EVENTS } from "@/utils";
-import { PageHeader, Surface } from "@/components";
-import { Metadata } from "next";
-import "./page.css";
+import React, { useState } from 'react';
+import { Anchor, Container, Paper, Stack } from '@mantine/core';
+import { formatDate } from '@fullcalendar/core';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import { PATH_DASHBOARD } from '@/routes';
+import { createEventId, INITIAL_EVENTS } from '@/utils';
+import { PageHeader, Surface } from '@/components';
+import { Metadata } from 'next';
+import './page.css';
 
 const items = [
-  { title: "Dashboard", href: PATH_DASHBOARD.default },
-  { title: "Calendar", href: "#" },
+  { title: 'Dashboard', href: PATH_DASHBOARD.default },
+  { title: 'Calendar', href: '#' },
 ].map((item, index) => (
   <Anchor href={item.href} key={index}>
     {item.title}
@@ -36,9 +36,9 @@ function renderSidebarEvent(event: any) {
     <li key={event.id}>
       <b>
         {formatDate(event.start, {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
         })}
       </b>
       <i>{event.title}</i>
@@ -46,7 +46,7 @@ function renderSidebarEvent(event: any) {
   );
 }
 
-function CalendarView() {
+function Calendar() {
   const [weekendsVisible, setWeekendsVisible] = useState(true);
   const [currentEvents, setCurrentEvents] = useState([]);
 
@@ -55,7 +55,7 @@ function CalendarView() {
   };
 
   const handleDateSelect = (selectInfo: any) => {
-    let title = prompt("Please enter a new title for your event");
+    let title = prompt('Please enter a new title for your event');
     let calendarApi = selectInfo.view.calendar;
 
     calendarApi.unselect(); // clear date selection
@@ -130,9 +130,9 @@ function CalendarView() {
             <FullCalendar
               plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
               headerToolbar={{
-                left: "prev,next today",
-                center: "title",
-                right: "dayGridMonth,timeGridWeek,timeGridDay",
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay',
               }}
               initialView="dayGridMonth"
               editable={true}

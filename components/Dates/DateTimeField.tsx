@@ -1,13 +1,13 @@
-import {DateTimePicker, DateTimePickerProps} from '@mantine/dates';
+import { DateTimePicker, DateTimePickerProps } from '@mantine/dates';
 
-type DateTimeFieldProps = DateTimePickerProps
+type DateTimeFieldProps = DateTimePickerProps;
 
 /**
  * For more docs see - https://mantine.dev/dates/date-time-picker/
  * @param others
  * @constructor
  */
-const DateTimeField = ({...others}: DateTimeFieldProps) => {
+const DateTimeField = ({ ...others }: DateTimeFieldProps) => {
   return (
     <DateTimePicker
       label="Pick date and time"

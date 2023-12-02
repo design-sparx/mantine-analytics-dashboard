@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { SortableContext, useSortable } from "@dnd-kit/sortable";
-import { Id, KanbanColumn as IColumn, KanbanTask as ITask } from "../../types";
-import { CSS } from "@dnd-kit/utilities";
-import { useMemo, useState } from "react";
-import { IconDots, IconEdit, IconPlus, IconTrash } from "@tabler/icons-react";
-import { KanbanCard } from "@/components";
+import { SortableContext, useSortable } from '@dnd-kit/sortable';
+import { Id, KanbanColumn as IColumn, KanbanTask as ITask } from '../../types';
+import { CSS } from '@dnd-kit/utilities';
+import { useMemo, useState } from 'react';
+import { IconDots, IconEdit, IconPlus, IconTrash } from '@tabler/icons-react';
+import { KanbanCard } from '@/components';
 import {
   ActionIcon,
   Badge,
@@ -20,9 +20,9 @@ import {
   Text,
   TextInput,
   useMantineTheme,
-} from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
-import { modals } from "@mantine/modals";
+} from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
+import { modals } from '@mantine/modals';
 
 const ICON_SIZE = 18;
 
@@ -48,20 +48,20 @@ const KanbanColumn = (props: Props) => {
     updateTask,
   } = props;
   const [editMode, setEditMode] = useState(false);
-  const tablet_match = useMediaQuery("(max-width: 768px)");
+  const tablet_match = useMediaQuery('(max-width: 768px)');
 
   const PAPER_PROPS: PaperProps = {
-    radius: "md",
-    shadow: tablet_match ? "xl" : "",
+    radius: 'md',
+    shadow: tablet_match ? 'xl' : '',
     withBorder: tablet_match,
-    pb: tablet_match ? "md" : "xs",
+    pb: tablet_match ? 'md' : 'xs',
     style: {
-      width: tablet_match ? "100%" : "350px",
+      width: tablet_match ? '100%' : '350px',
       // height: rem(600),
       // maxHeight: rem(600),
-      display: "flex",
-      flexDirection: "column",
-      backgroundColor: tablet_match ? theme.white : "transparent",
+      display: 'flex',
+      flexDirection: 'column',
+      backgroundColor: tablet_match ? theme.white : 'transparent',
     },
   };
 
@@ -79,7 +79,7 @@ const KanbanColumn = (props: Props) => {
   } = useSortable({
     id: column.id,
     data: {
-      type: "Column",
+      type: 'Column',
       column,
     },
     disabled: editMode,
@@ -97,8 +97,8 @@ const KanbanColumn = (props: Props) => {
       children: (
         <Text size="sm">All tasks in this bucket will also be deleted.</Text>
       ),
-      labels: { confirm: "Delete bucket", cancel: "No don't delete it" },
-      onCancel: () => console.log("Cancel"),
+      labels: { confirm: 'Delete bucket', cancel: "No don't delete it" },
+      onCancel: () => console.log('Cancel'),
       onConfirm: () => {
         deleteColumn(column.id);
       },
@@ -116,8 +116,8 @@ const KanbanColumn = (props: Props) => {
           width: rem(350),
           height: rem(500),
           maxHeight: rem(500),
-          display: "flex",
-          flexDirection: "column",
+          display: 'flex',
+          flexDirection: 'column',
         }}
       ></Paper>
     );
@@ -131,7 +131,7 @@ const KanbanColumn = (props: Props) => {
         align="center"
         justify="space-between"
         style={{
-          cursor: "grab",
+          cursor: 'grab',
           borderBottom: `1px solid ${theme.colors.dark[1]}`,
         }}
         {...attributes}
@@ -158,7 +158,7 @@ const KanbanColumn = (props: Props) => {
                 setEditMode(false);
               }}
               onKeyDown={(e) => {
-                if (e.key !== "Enter") return;
+                if (e.key !== 'Enter') return;
                 setEditMode(false);
               }}
             />
@@ -194,7 +194,7 @@ const KanbanColumn = (props: Props) => {
 
       {/* Column task container */}
       <ScrollArea
-        style={{ overflowX: "hidden", overflowY: "auto", maxHeight: rem(500) }}
+        style={{ overflowX: 'hidden', overflowY: 'auto', maxHeight: rem(500) }}
       >
         <Stack gap="sm" px="sm" py="md">
           <SortableContext items={tasksIds}>

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Anchor,
   Box,
@@ -15,17 +15,17 @@ import {
   Stack,
   Text,
   TextInput,
-} from "@mantine/core";
-import { PATH_DASHBOARD } from "@/routes";
-import { useForm } from "@mantine/form";
-import { IconCloudUpload, IconDeviceFloppy } from "@tabler/icons-react";
-import { PageHeader, Surface, TextEditor } from "@/components";
-import { Metadata } from "next";
+} from '@mantine/core';
+import { PATH_DASHBOARD } from '@/routes';
+import { useForm } from '@mantine/form';
+import { IconCloudUpload, IconDeviceFloppy } from '@tabler/icons-react';
+import { PageHeader, Surface, TextEditor } from '@/components';
+import { Metadata } from 'next';
 
 const items = [
-  { title: "Dashboard", href: PATH_DASHBOARD.default },
-  { title: "Pages", href: "#" },
-  { title: "Settings", href: "#" },
+  { title: 'Dashboard', href: PATH_DASHBOARD.default },
+  { title: 'Pages', href: '#' },
+  { title: 'Settings', href: '#' },
 ].map((item, index) => (
   <Anchor href={item.href} key={index}>
     {item.title}
@@ -35,40 +35,40 @@ const items = [
 const ICON_SIZE = 16;
 
 const PAPER_PROPS: PaperProps = {
-  p: "md",
-  shadow: "md",
-  radius: "md",
-  style: { height: "100%" },
+  p: 'md',
+  shadow: 'md',
+  radius: 'md',
+  style: { height: '100%' },
 };
 
 const BIO =
-  "A dynamic software engineering graduate from Nairobi, Kenya with 5+ years of experience. Passionate about turning creative sparks into seamless applications through technological experimentation. Experienced in crafting intuitive solutions and translating innovative concepts into user-friendly applications. Thrives on transforming the way we experience technology, one line of code at a time.\n" +
-  "\n" +
-  "Enthusiastic pioneer, constantly seeking the next big thing in tech. Eager to apply my passion and skills at Alternate Limited to bring ideas to life.";
+  'A dynamic software engineering graduate from Nairobi, Kenya with 5+ years of experience. Passionate about turning creative sparks into seamless applications through technological experimentation. Experienced in crafting intuitive solutions and translating innovative concepts into user-friendly applications. Thrives on transforming the way we experience technology, one line of code at a time.\n' +
+  '\n' +
+  'Enthusiastic pioneer, constantly seeking the next big thing in tech. Eager to apply my passion and skills at Alternate Limited to bring ideas to life.';
 
 function Settings() {
   const [file, setFile] = useState<File | null>(null);
 
   const accountForm = useForm({
     initialValues: {
-      username: "kelvinkiprop",
+      username: 'kelvinkiprop',
       biograghy:
-        "A dynamic software engineering graduate from Nairobi, Kenya with 5+ years of experience. Passionate about turning creative sparks into seamless applications through technological experimentation. Experienced in crafting intuitive solutions and translating innovative concepts into user-friendly applications. Thrives on transforming the way we experience technology, one line of code at a time.\n" +
-        "\n" +
-        "Enthusiastic pioneer, constantly seeking the next big thing in tech. Eager to apply my passion and skills at Alternate Limited to bring ideas to life.",
+        'A dynamic software engineering graduate from Nairobi, Kenya with 5+ years of experience. Passionate about turning creative sparks into seamless applications through technological experimentation. Experienced in crafting intuitive solutions and translating innovative concepts into user-friendly applications. Thrives on transforming the way we experience technology, one line of code at a time.\n' +
+        '\n' +
+        'Enthusiastic pioneer, constantly seeking the next big thing in tech. Eager to apply my passion and skills at Alternate Limited to bring ideas to life.',
     },
   });
 
   const accountInfoForm = useForm({
     initialValues: {
-      firstname: "kelvin",
-      lastname: "kiprop",
-      email: "kelvin.kiprop96@gmail.com",
-      address: "",
-      apartment: "",
-      city: "",
-      state: "",
-      zip: "",
+      firstname: 'kelvin',
+      lastname: 'kiprop',
+      email: 'kelvin.kiprop96@gmail.com',
+      address: '',
+      apartment: '',
+      city: '',
+      state: '',
+      zip: '',
     },
   });
 
@@ -88,17 +88,17 @@ function Settings() {
             <Text size="lg" fw={600} mb="md">
               User information
             </Text>
-            <Grid gutter={{ base: 5, xs: "md", md: "xl", xl: 50 }}>
+            <Grid gutter={{ base: 5, xs: 'md', md: 'xl', xl: 50 }}>
               <Grid.Col span={{ base: 12, md: 6, lg: 9 }}>
                 <Stack>
                   <TextInput
                     label="User Name"
                     placeholder="user name"
-                    {...accountForm.getInputProps("username")}
+                    {...accountForm.getInputProps('username')}
                   />
                   <TextEditor content={BIO} label="Biography" />
                   <Button
-                    style={{ width: "fit-content" }}
+                    style={{ width: 'fit-content' }}
                     leftSection={<IconDeviceFloppy size={ICON_SIZE} />}
                   >
                     Save Changes
@@ -141,47 +141,47 @@ function Settings() {
                 <TextInput
                   label="First name"
                   placeholder="first name"
-                  {...accountInfoForm.getInputProps("firstname")}
+                  {...accountInfoForm.getInputProps('firstname')}
                 />
                 <TextInput
                   label="Last name"
                   placeholder="last name"
-                  {...accountInfoForm.getInputProps("lastname")}
+                  {...accountInfoForm.getInputProps('lastname')}
                 />
               </Group>
               <TextInput
                 label="Email"
                 placeholder="email"
-                {...accountInfoForm.getInputProps("email")}
+                {...accountInfoForm.getInputProps('email')}
               />
               <TextInput
                 label="Address"
                 placeholder="address"
-                {...accountInfoForm.getInputProps("address")}
+                {...accountInfoForm.getInputProps('address')}
               />
               <TextInput
                 label="Apartment/Studio/Floor"
                 placeholder="apartment, studio, or floor"
-                {...accountInfoForm.getInputProps("apartment")}
+                {...accountInfoForm.getInputProps('apartment')}
               />
               <Group grow>
                 <TextInput
                   label="City"
                   placeholder="city"
-                  {...accountInfoForm.getInputProps("city")}
+                  {...accountInfoForm.getInputProps('city')}
                 />
                 <TextInput
                   label="State"
                   placeholder="state"
-                  {...accountInfoForm.getInputProps("state")}
+                  {...accountInfoForm.getInputProps('state')}
                 />
                 <TextInput
                   label="Zip"
                   placeholder="zip"
-                  {...accountInfoForm.getInputProps("zip")}
+                  {...accountInfoForm.getInputProps('zip')}
                 />
               </Group>
-              <Box style={{ width: "auto" }}>
+              <Box style={{ width: 'auto' }}>
                 <Button leftSection={<IconDeviceFloppy size={16} />}>
                   Save changes
                 </Button>

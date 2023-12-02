@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Button,
@@ -9,8 +9,8 @@ import {
   PaperProps,
   Stack,
   Text,
-} from "@mantine/core";
-import { IconChevronRight } from "@tabler/icons-react";
+} from '@mantine/core';
+import { IconChevronRight } from '@tabler/icons-react';
 import {
   MapChart,
   PageHeader,
@@ -18,14 +18,14 @@ import {
   RevenueChart,
   SalesChart,
   StatsGrid,
-} from "@/components";
-import { useFetchData } from "@/hooks";
+} from '@/components';
+import { useFetchData } from '@/hooks';
 
 const PAPER_PROPS: PaperProps = {
-  p: "md",
-  shadow: "md",
-  radius: "md",
-  style: { height: "100%" },
+  p: 'md',
+  shadow: 'md',
+  radius: 'md',
+  style: { height: '100%' },
 };
 
 function Page() {
@@ -33,12 +33,12 @@ function Page() {
     data: statsData,
     error: statsError,
     loading: statsLoading,
-  } = useFetchData("/mocks/StatsGrid.json");
+  } = useFetchData('/mocks/StatsGrid.json');
   const {
     data: projectsData,
     error: projectsError,
     loading: projectsLoading,
-  } = useFetchData("/mocks/Projects.json");
+  } = useFetchData('/mocks/Projects.json');
 
   return (
     <>

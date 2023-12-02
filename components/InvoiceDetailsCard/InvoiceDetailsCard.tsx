@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Invoices } from "@/types";
+import { Invoices } from '@/types';
 import {
   Button,
   Divider,
@@ -13,16 +13,16 @@ import {
   Text,
   TextProps,
   useMantineTheme,
-} from "@mantine/core";
+} from '@mantine/core';
 import {
   IconCloudDownload,
   IconMail,
   IconPrinter,
   IconSend,
   IconShare,
-} from "@tabler/icons-react";
-import { useColorScheme, useMediaQuery } from "@mantine/hooks";
-import { Surface } from "@/components";
+} from '@tabler/icons-react';
+import { useColorScheme, useMediaQuery } from '@mantine/hooks';
+import { Surface } from '@/components';
 
 const ICON_SIZE = 16;
 
@@ -31,13 +31,13 @@ type InvoiceDetailsProps = {
 } & PaperProps;
 
 const elements = [
-  { description: "Front and rear brake cables", unitPrice: 100, amount: 100 },
-  { description: "New set of pedal arms", unitPrice: 25, amount: 25 },
-  { description: "Labor - 3hrs", unitPrice: 15, amount: 15 },
+  { description: 'Front and rear brake cables', unitPrice: 100, amount: 100 },
+  { description: 'New set of pedal arms', unitPrice: 25, amount: 25 },
+  { description: 'Labor - 3hrs', unitPrice: 15, amount: 15 },
 ];
 
 const TEXT_PROPS: TextProps = {
-  fz: "sm",
+  fz: 'sm',
 };
 
 const InvoiceDetails = ({ data, ...others }: InvoiceDetailsProps) => {
@@ -45,12 +45,12 @@ const InvoiceDetails = ({ data, ...others }: InvoiceDetailsProps) => {
   const colorScheme = useColorScheme();
   const LINK_PROPS: TextProps = {
     c:
-      colorScheme === "dark"
+      colorScheme === 'dark'
         ? theme.colors[theme.primaryColor][4]
         : theme.colors[theme.primaryColor][6],
-    td: "underline",
+    td: 'underline',
   };
-  const tablet_match = useMediaQuery("(max-width: 768px)");
+  const tablet_match = useMediaQuery('(max-width: 768px)');
 
   const rows = elements.map((element) => (
     <Table.Tr key={element.description}>
@@ -99,13 +99,13 @@ const InvoiceDetails = ({ data, ...others }: InvoiceDetailsProps) => {
           </Flex>
           <Text {...TEXT_PROPS}>Hello {data.full_name},</Text>
           <Text {...TEXT_PROPS}>
-            This is the invoice for a payment of ${data.amount} you made to{" "}
+            This is the invoice for a payment of ${data.amount} you made to{' '}
             {data.client_company}
           </Text>
           <Flex
             justify="space-between"
-            direction={{ base: "column", sm: "row" }}
-            gap={{ base: "sm", sm: 4 }}
+            direction={{ base: 'column', sm: 'row' }}
+            gap={{ base: 'sm', sm: 4 }}
           >
             <Stack gap={4}>
               <Text {...TEXT_PROPS} fw={600}>
@@ -115,7 +115,7 @@ const InvoiceDetails = ({ data, ...others }: InvoiceDetailsProps) => {
             </Stack>
             <Stack
               gap={4}
-              style={{ textAlign: tablet_match ? "start" : "end" }}
+              style={{ textAlign: tablet_match ? 'start' : 'end' }}
             >
               <Text {...TEXT_PROPS} fw={600}>
                 Payment Date
@@ -126,8 +126,8 @@ const InvoiceDetails = ({ data, ...others }: InvoiceDetailsProps) => {
           <Divider />
           <Flex
             justify="space-between"
-            direction={{ base: "column", sm: "row" }}
-            gap={{ base: "sm", sm: 4 }}
+            direction={{ base: 'column', sm: 'row' }}
+            gap={{ base: 'sm', sm: 4 }}
           >
             <Stack gap={4}>
               <Text {...TEXT_PROPS} fw={600}>
@@ -147,7 +147,7 @@ const InvoiceDetails = ({ data, ...others }: InvoiceDetailsProps) => {
             </Stack>
             <Stack
               gap={4}
-              style={{ textAlign: tablet_match ? "start" : "end" }}
+              style={{ textAlign: tablet_match ? 'start' : 'end' }}
             >
               <Text {...TEXT_PROPS} fw={600}>
                 Paid to

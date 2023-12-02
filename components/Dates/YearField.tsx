@@ -1,16 +1,16 @@
-"use client"
+'use client';
 
-import {YearPickerInput, YearPickerInputProps} from '@mantine/dates';
-import {useState} from "react";
+import { YearPickerInput, YearPickerInputProps } from '@mantine/dates';
+import { useState } from 'react';
 
-type YearFieldProps = YearPickerInputProps
+type YearFieldProps = YearPickerInputProps;
 
 /**
  * For more docs see - https://mantine.dev/dates/year-picker-input/
  * @param others
  * @constructor
  */
-const YearField = ({...others}: YearFieldProps) => {
+const YearField = ({ ...others }: YearFieldProps) => {
   const [value, setValue] = useState<Date | null>(null);
 
   return (

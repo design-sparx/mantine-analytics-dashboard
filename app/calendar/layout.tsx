@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { AppShell, Container, rem, useMantineTheme } from "@mantine/core";
-import { ReactNode, useState } from "react";
-import { useDisclosure, useMediaQuery } from "@mantine/hooks";
-import AppMain from "@/components/AppMain";
-import Navigation from "@/components/Navigation";
-import HeaderNav from "@/components/HeaderNav";
-import FooterNav from "@/components/FooterNav";
+import { AppShell, Container, rem, useMantineTheme } from '@mantine/core';
+import { ReactNode, useState } from 'react';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import AppMain from '@/components/AppMain';
+import Navigation from '@/components/Navigation';
+import HeaderNav from '@/components/HeaderNav';
+import FooterNav from '@/components/FooterNav';
 
 type Props = {
   children: ReactNode;
@@ -17,7 +17,7 @@ function CalendarLayout({ children }: Props) {
   const [opened, setOpened] = useState(false);
   const [themeOpened, { open: themeOpen, close: themeClose }] =
     useDisclosure(false);
-  const tablet_match = useMediaQuery("(max-width: 768px)");
+  const tablet_match = useMediaQuery('(max-width: 768px)');
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
 
@@ -28,7 +28,7 @@ function CalendarLayout({ children }: Props) {
       footer={{ height: 60 }}
       navbar={{
         width: 300,
-        breakpoint: "md",
+        breakpoint: 'md',
         collapsed: { mobile: !mobileOpened, desktop: !desktopOpened },
       }}
       padding={0}
@@ -36,7 +36,7 @@ function CalendarLayout({ children }: Props) {
       <AppShell.Header
         style={{
           height: rem(60),
-          border: "none",
+          border: 'none',
           boxShadow: tablet_match ? theme.shadows.md : theme.shadows.sm,
         }}
       >

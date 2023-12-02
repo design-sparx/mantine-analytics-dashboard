@@ -11,7 +11,8 @@
     "prepack": "pinst --disable",
     "postpack": "pinst --enable",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "prettier": "prettier . --write"
   },
   "dependencies": {
     "@changesets/cli": "^2.26.2",

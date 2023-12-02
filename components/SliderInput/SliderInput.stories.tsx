@@ -1,4 +1,4 @@
-import type {StoryObj} from '@storybook/react';
+import type { StoryObj } from '@storybook/react';
 
 import SliderInput from './SliderInput';
 
@@ -15,17 +15,17 @@ const meta = {
   argTypes: {
     size: {
       options: ['xl', 'lg', 'md', 'sm', 'xs'],
-      control: {type: 'inline-radio'},
+      control: { type: 'inline-radio' },
     },
     radius: {
       options: ['xl', 'lg', 'md', 'sm', 'xs'],
-      control: {type: 'inline-radio'},
+      control: { type: 'inline-radio' },
     },
     disabled: {
       options: [true, false],
-      control: {type: 'inline-radio'},
+      control: { type: 'inline-radio' },
     },
-  }
+  },
 };
 
 export default meta;
@@ -34,7 +34,7 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default: Story = {
   args: {
-    w: 400
+    w: 400,
   },
 };
 

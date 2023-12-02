@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { Flex, Text, Input, Button } from "@mantine/core";
+import React, { useState } from 'react';
+import { Flex, Text, Input, Button } from '@mantine/core';
 
 type AddCardProps = {
   addCard: (title: string) => void;
 };
 
 const AddTaskCard = ({ addCard }: AddCardProps) => {
-  const [title, setTitle] = useState<string>("");
+  const [title, setTitle] = useState<string>('');
 
   return (
     <Flex align="center">
@@ -20,7 +20,7 @@ const AddTaskCard = ({ addCard }: AddCardProps) => {
       />
       <Button
         onClick={() => {
-          setTitle("");
+          setTitle('');
           addCard(title);
         }}
       >

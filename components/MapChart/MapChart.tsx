@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   ComposableMap,
   Geographies,
   Geography,
   Marker,
-} from "react-simple-maps";
-import { csv } from "d3-fetch";
-import { scaleLinear } from "d3-scale";
-import sortBy from "lodash/sortBy";
+} from 'react-simple-maps';
+import { csv } from 'd3-fetch';
+import { scaleLinear } from 'd3-scale';
+import sortBy from 'lodash/sortBy';
 import {
   ActionIcon,
   Group,
@@ -17,10 +17,10 @@ import {
   PaperProps,
   Text,
   useMantineTheme,
-} from "@mantine/core";
-import { IconDotsVertical } from "@tabler/icons-react";
-import WorldCountriesMap from "@/public/mocks/WorldAtlasCountries.json";
-import { Surface } from "@/components";
+} from '@mantine/core';
+import { IconDotsVertical } from '@tabler/icons-react';
+import WorldCountriesMap from '@/public/mocks/WorldAtlasCountries.json';
+import { Surface } from '@/components';
 
 const geoUrl = WorldCountriesMap;
 
@@ -32,7 +32,7 @@ const MapChart = ({ ...others }: MapChartProps) => {
   const [maxValue, setMaxValue] = useState(0);
 
   useEffect(() => {
-    csv("/data.csv").then((cities: any) => {
+    csv('/data.csv').then((cities: any) => {
       const sortedCities = sortBy(cities, (o) => -o.population);
       setMaxValue(sortedCities[0].population);
       setData(sortedCities);

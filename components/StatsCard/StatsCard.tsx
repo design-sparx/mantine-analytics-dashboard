@@ -1,7 +1,7 @@
-import { Badge, Group, Paper, PaperProps, Text } from "@mantine/core";
-import classes from "./Stats.module.css";
-import { IconArrowDownRight, IconArrowUpRight } from "@tabler/icons-react";
-import { Surface } from "@/components";
+import { Badge, Group, Paper, PaperProps, Text } from '@mantine/core';
+import classes from './Stats.module.css';
+import { IconArrowDownRight, IconArrowUpRight } from '@tabler/icons-react';
+import { Surface } from '@/components';
 
 type StatsCardProps = {
   data: { title: string; value: string; diff: number; period?: string };
@@ -27,7 +27,7 @@ const StatsCard = ({ data, ...others }: StatsCardProps) => {
       <Group align="flex-end" gap="xs" mt={25}>
         <Text className={classes.value}>{value}</Text>
         <Text
-          c={diff > 0 ? "teal" : "red"}
+          c={diff > 0 ? 'teal' : 'red'}
           fz="sm"
           fw={500}
           className={classes.diff}

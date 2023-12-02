@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Button,
@@ -9,8 +9,8 @@ import {
   PaperProps,
   Stack,
   Text,
-} from "@mantine/core";
-import { IconChevronRight } from "@tabler/icons-react";
+} from '@mantine/core';
+import { IconChevronRight } from '@tabler/icons-react';
 import {
   MobileDesktopChart,
   PageHeader,
@@ -18,16 +18,16 @@ import {
   RevenueChart,
   SalesChart,
   StatsGrid,
-} from "@/components";
-import Link from "next/link";
-import { PATH_TASKS } from "@/routes";
-import { useFetchData } from "@/hooks";
+} from '@/components';
+import Link from 'next/link';
+import { PATH_TASKS } from '@/routes';
+import { useFetchData } from '@/hooks';
 
 const PAPER_PROPS: PaperProps = {
-  p: "md",
-  shadow: "md",
-  radius: "md",
-  style: { height: "100%" },
+  p: 'md',
+  shadow: 'md',
+  radius: 'md',
+  style: { height: '100%' },
 };
 
 function Page() {
@@ -35,12 +35,12 @@ function Page() {
     data: projectsData,
     error: projectsError,
     loading: projectsLoading,
-  } = useFetchData("/mocks/Projects.json");
+  } = useFetchData('/mocks/Projects.json');
   const {
     data: statsData,
     error: statsError,
     loading: statsLoading,
-  } = useFetchData("/mocks/StatsGrid.json");
+  } = useFetchData('/mocks/StatsGrid.json');
 
   return (
     <>
@@ -60,7 +60,7 @@ function Page() {
             error={statsError}
             paperProps={PAPER_PROPS}
           />
-          <Grid gutter={{ base: 5, xs: "md", md: "xl", xl: 50 }}>
+          <Grid gutter={{ base: 5, xs: 'md', md: 'xl', xl: 50 }}>
             <Grid.Col span={8}>
               <RevenueChart {...PAPER_PROPS} />
             </Grid.Col>

@@ -1,40 +1,40 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Group, Image, Menu, UnstyledButton } from "@mantine/core";
-import { IconChevronDown } from "@tabler/icons-react";
-import classes from "./LanguagePicker.module.css";
+import { useState } from 'react';
+import { Group, Image, Menu, UnstyledButton } from '@mantine/core';
+import { IconChevronDown } from '@tabler/icons-react';
+import classes from './LanguagePicker.module.css';
 
 const data = [
   {
-    label: "English",
+    label: 'English',
     image:
-      "https://res.cloudinary.com/ddh7hfzso/image/upload/v1677783783/meal%20mart/english_njrlxm.png",
+      'https://res.cloudinary.com/ddh7hfzso/image/upload/v1677783783/meal%20mart/english_njrlxm.png',
   },
   {
-    label: "German",
+    label: 'German',
     image:
-      "https://res.cloudinary.com/ddh7hfzso/image/upload/v1677783783/meal%20mart/german_a90o3b.png",
+      'https://res.cloudinary.com/ddh7hfzso/image/upload/v1677783783/meal%20mart/german_a90o3b.png',
   },
   {
-    label: "Italian",
+    label: 'Italian',
     image:
-      "https://res.cloudinary.com/ddh7hfzso/image/upload/v1677783783/meal%20mart/italian_ruxfnn.png",
+      'https://res.cloudinary.com/ddh7hfzso/image/upload/v1677783783/meal%20mart/italian_ruxfnn.png',
   },
   {
-    label: "French",
+    label: 'French',
     image:
-      "https://res.cloudinary.com/ddh7hfzso/image/upload/v1677783783/meal%20mart/french_yek0eo.png",
+      'https://res.cloudinary.com/ddh7hfzso/image/upload/v1677783783/meal%20mart/french_yek0eo.png',
   },
   {
-    label: "Polish",
+    label: 'Polish',
     image:
-      "https://res.cloudinary.com/ddh7hfzso/image/upload/v1677783783/meal%20mart/polish_wjp2xh.png",
+      'https://res.cloudinary.com/ddh7hfzso/image/upload/v1677783783/meal%20mart/polish_wjp2xh.png',
   },
 ];
 
 type LanguagePickerProps = {
-  type: "collapsed" | "expanded";
+  type: 'collapsed' | 'expanded';
 };
 
 const LanguagePicker = ({ type }: LanguagePickerProps) => {
@@ -62,11 +62,11 @@ const LanguagePicker = ({ type }: LanguagePickerProps) => {
         <UnstyledButton className={classes.control}>
           <Group gap="xs">
             <Image src={selected.image} width={22} height={22} alt="flag" />
-            {type === "expanded" && (
+            {type === 'expanded' && (
               <span className={classes.label}>{selected.label}</span>
             )}
           </Group>
-          {type === "expanded" && (
+          {type === 'expanded' && (
             <IconChevronDown
               size="1rem"
               className={classes.icon}
