@@ -1,22 +1,13 @@
-import { useEffect, useState } from 'react';
-import {
-  Box,
-  Collapse,
-  Group,
-  MantineTheme,
-  rem,
-  Text,
-  UnstyledButton,
-  useMantineTheme,
-} from '@mantine/core';
-import { IconCalendarStats, IconChevronRight } from '@tabler/icons-react';
+import {useEffect, useState} from 'react';
+import {Box, Collapse, Group, Text, UnstyledButton,} from '@mantine/core';
+import {IconChevronRight} from '@tabler/icons-react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import {usePathname, useRouter} from 'next/navigation';
 import * as _ from 'lodash';
 import classes from './Links.module.css';
 
 interface LinksGroupProps {
-  icon: React.FC<any>;
+  icon?: any;
   label: string;
   initiallyOpened?: boolean;
   link?: string;
@@ -26,13 +17,14 @@ interface LinksGroupProps {
   }[];
 }
 
-export function LinksGroup({
-  icon: Icon,
-  label,
-  initiallyOpened,
-  link,
-  links,
-}: LinksGroupProps) {
+export function LinksGroup(props: LinksGroupProps) {
+  const {
+    icon: Icon,
+    label,
+    initiallyOpened,
+    link,
+    links,
+  } = props;
   const router = useRouter();
   const pathname = usePathname();
   const hasLinks = Array.isArray(links);
@@ -46,7 +38,7 @@ export function LinksGroup({
       className={classes.link}
       href={link.link}
       key={link.label}
-      data-active={link.label.toLowerCase() === currentPath || undefined}
+      data-active={link.link.toLowerCase() === pathname || undefined}
     >
       {link.label}
     </Text>
@@ -54,7 +46,7 @@ export function LinksGroup({
 
   useEffect(() => {
     const paths = pathname.split('/');
-    setOpened(paths[1].toLowerCase() === label.toLowerCase());
+    setOpened(paths.includes(label.toLowerCase()));
     setCurrentPath(_.last(paths)?.toLowerCase() || undefined);
   }, [pathname, label]);
 
@@ -69,8 +61,8 @@ export function LinksGroup({
         data-active={opened || undefined}
       >
         <Group justify="space-between" gap={0}>
-          <Box style={{ display: 'flex', alignItems: 'center' }}>
-            <Icon size={18} />
+          <Box style={{display: 'flex', alignItems: 'center'}}>
+            <Icon size={18}/>
             <Box ml="md">{label}</Box>
           </Box>
           {hasLinks && (

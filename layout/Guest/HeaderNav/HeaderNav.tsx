@@ -10,7 +10,7 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
-import {PATH_DASHBOARD, PATH_DOCS, PATH_GITHUB} from '@/routes';
+import { PATH_DASHBOARD, PATH_DOCS, PATH_GITHUB } from '@/routes';
 import { Logo } from '@/components';
 import Link from 'next/link';
 import classes from './HeaderNav.module.css';
@@ -21,7 +21,7 @@ const MOCK_DATA = [
     label: 'Version 1',
   },
   {
-    link: "https://6564d1b09deea091e3ec0769-jsxuvbmjcr.chromatic.com/?path=/docs/welcome--docs",
+    link: 'https://6564d1b09deea091e3ec0769-jsxuvbmjcr.chromatic.com/?path=/docs/welcome--docs',
     label: 'components',
   },
   {

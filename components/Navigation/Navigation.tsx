@@ -1,100 +1,92 @@
+import {ActionIcon, Box, Flex, Group, ScrollArea, Text, useMantineTheme,} from '@mantine/core';
 import {
-  ActionIcon,
-  Box,
-  Code,
-  Flex,
-  Group,
-  ScrollArea,
-  Text,
-  useMantineTheme,
-} from '@mantine/core';
-import {
-  IconAdjustmentsFilled,
-  IconAlertOctagon,
-  IconAppWindow,
   IconBook2,
+  IconBrandAuth0,
   IconBriefcase,
   IconCalendar,
+  IconChartArcs3,
+  IconChartBar,
+  IconChartInfographic,
   IconFileInvoice,
+  IconLayersSubtract,
   IconLifebuoy,
   IconList,
   IconListDetails,
-  IconShieldCog,
+  IconLogin2,
+  IconMessages,
+  IconReceipt2,
+  IconRotateRectangle,
+  IconUserCircle,
+  IconUserCode,
+  IconUserPlus,
   IconUserShield,
-  IconX,
+  IconX
 } from '@tabler/icons-react';
-import { Logo, UserProfileButton } from '@/components';
-import {
-  PATH_AUTH,
-  PATH_AUTH_PROVIDERS,
-  PATH_CALENDAR,
-  PATH_DASHBOARD,
-  PATH_DOCS,
-  PATH_ERROR,
-  PATH_INVOICES,
-  PATH_ORDERS,
-  PATH_PAGES,
-  PATH_PROJECTS,
-  PATH_TASKS,
-} from '@/routes';
+import {Logo, UserProfileButton} from '@/components';
+import {PATH_APPS, PATH_AUTH, PATH_DASHBOARD, PATH_DOCS, PATH_PAGES,} from '@/routes';
 import UserProfileData from '@/public/mocks/UserProfile.json';
-import { useMediaQuery } from '@mantine/hooks';
+import {useMediaQuery} from '@mantine/hooks';
 import classes from './Navigation.module.css';
-import { LinksGroup } from '@/components/Navigation/Links/Links';
+import {LinksGroup} from '@/components/Navigation/Links/Links';
 
 const mockdata = [
   {
-    title: 'Pages',
+    title: 'Dashboard',
     links: [
+      {label: 'Default', icon: IconChartBar, link: PATH_DASHBOARD.default},
       {
-        label: 'Dashboard',
-        icon: IconAdjustmentsFilled,
-        links: [
-          { label: 'Default', link: PATH_DASHBOARD.default },
-          { label: 'Analytics', link: PATH_DASHBOARD.analytics },
-          { label: 'SaaS', link: PATH_DASHBOARD.saas },
-        ],
+        label: 'Analytics',
+        icon: IconChartInfographic,
+        link: PATH_DASHBOARD.analytics,
       },
-      {
-        label: 'Pages',
-        icon: IconAppWindow,
-        links: [
-          { label: 'Profile', link: PATH_PAGES.profile },
-          { label: 'Settings', link: PATH_PAGES.settings },
-          { label: 'Pricing', link: PATH_PAGES.pricing },
-          { label: 'Chat', link: PATH_PAGES.chat },
-          { label: 'Blank Page', link: PATH_PAGES.blank },
-        ],
-      },
-      { label: 'Projects', icon: IconBriefcase, link: PATH_PROJECTS.root },
-      { label: 'Orders', icon: IconListDetails, link: PATH_ORDERS.root },
+      {label: 'SaaS', icon: IconChartArcs3, link: PATH_DASHBOARD.saas},
+    ],
+  },
+  {
+    title: 'Apps',
+    links: [
+      {label: 'Profile', icon: IconUserCircle, link: PATH_APPS.profile},
+      {label: 'Settings', icon: IconUserCode, link: PATH_APPS.settings},
+      {label: 'Chat', icon: IconMessages, link: PATH_APPS.chat},
+      {label: 'Projects', icon: IconBriefcase, link: PATH_APPS.root},
+      {label: 'Orders', icon: IconListDetails, link: PATH_APPS.root},
       {
         label: 'Invoices',
         icon: IconFileInvoice,
         links: [
-          { label: 'List', link: PATH_INVOICES.invoices.all },
-          { label: 'Details', link: PATH_INVOICES.invoices.sample },
+          {
+            label: 'List',
+            link: PATH_APPS.invoices.all,
+          },
+          {
+            label: 'Details',
+            link: PATH_APPS.invoices.sample,
+          },
         ],
       },
-      { label: 'Tasks', icon: IconListDetails, link: PATH_TASKS.root },
-      { label: 'Calendar', icon: IconCalendar, link: PATH_CALENDAR.root },
+      {label: 'Tasks', icon: IconListDetails, link: PATH_APPS.root},
+      {label: 'Calendar', icon: IconCalendar, link: PATH_APPS.root},
+    ],
+  },
+  {
+    title: 'Auth',
+    links: [
+      {label: 'Sign In', icon: IconLogin2, link: PATH_AUTH.signin},
+      {label: 'Sign Up', icon: IconUserPlus, link: PATH_AUTH.signup},
       {
-        label: 'Auth',
-        icon: IconUserShield,
-        links: [
-          { label: 'Sign In', link: PATH_AUTH.signin },
-          { label: 'Sign Up', link: PATH_AUTH.signup },
-          { label: 'Reset Password', link: PATH_AUTH.passwordReset },
-        ],
+        label: 'Reset Password',
+        icon: IconRotateRectangle,
+        link: PATH_AUTH.passwordReset,
       },
-      {
-        label: 'Auth Providers',
-        icon: IconShieldCog,
-        links: [
-          { label: 'Clerk', link: PATH_AUTH_PROVIDERS.clerk },
-          { label: 'Auth0', link: PATH_AUTH_PROVIDERS.auth0 },
-        ],
-      },
+      {label: 'Clerk', icon: IconUserShield, link: PATH_AUTH.clerk},
+      {label: 'Auth0', icon: IconBrandAuth0, link: PATH_AUTH.auth0},
+    ],
+  },
+  {
+    title: 'Pages',
+    links: [
+      {label: 'Pricing', icon: IconReceipt2, link: PATH_PAGES.pricing},
+      {label: 'Blank Page', icon: IconLayersSubtract, link: PATH_PAGES.blank},
     ],
   },
   {
@@ -110,7 +102,7 @@ const mockdata = [
         icon: IconBook2,
         link: PATH_DOCS.root,
       },
-      { label: 'Changelog', icon: IconList },
+      {label: 'Changelog', icon: IconList},
     ],
   },
 ];
@@ -119,7 +111,7 @@ type NavigationProps = {
   onClose: () => void;
 };
 
-const Navigation = ({ onClose, ...others }: NavigationProps) => {
+const Navigation = ({onClose, ...others}: NavigationProps) => {
   const theme = useMantineTheme();
   const tablet_match = useMediaQuery('(max-width: 768px)');
 
@@ -136,7 +128,7 @@ const Navigation = ({ onClose, ...others }: NavigationProps) => {
         {m.title}
       </Text>
       {m.links.map((item) => (
-        <LinksGroup {...item} key={item.label} />
+        <LinksGroup {...item} key={item.label}/>
       ))}
     </Box>
   ));
@@ -147,13 +139,13 @@ const Navigation = ({ onClose, ...others }: NavigationProps) => {
         <Flex justify="space-between" align="center" gap="sm">
           <Group
             justify="space-between"
-            style={{ flex: tablet_match ? 'auto' : 1 }}
+            style={{flex: tablet_match ? 'auto' : 1}}
           >
-            <Logo c="white" />
+            <Logo className={classes.logo}/>
           </Group>
           {tablet_match && (
             <ActionIcon onClick={onClose} variant="transparent">
-              <IconX color="white" />
+              <IconX color="white"/>
             </ActionIcon>
           )}
         </Flex>

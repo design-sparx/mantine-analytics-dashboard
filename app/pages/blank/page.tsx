@@ -42,7 +42,7 @@ function Pricing() {
         <Stack gap="lg">
           <PageHeader title="Blank page" breadcrumbItems={items} />
           <Surface component={Paper} {...PAPER_PROPS}>
-            <Text size="lg" fw={600}>
+            <Text size="lg" fw={600} mb="xl">
               Empty card header
             </Text>
             <Text>Empty card text</Text>

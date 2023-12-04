@@ -4,6 +4,7 @@
 
 .inner {
   background-color: var(--mantine-color-black);
+  padding: 0 calc(var(--mantine-spacing-xl) * 4);
   color: var(--mantine-color-white);
   height: rem(60px);
   display: flex;
