@@ -1,5 +1,17 @@
 # analytics-dashboard
 
+## 2.1.0
+
+### Minor Changes
+
+- 1a6b808: updated navigation groups verbiage, updated navigation styles
+
+### Patch Changes
+
+- e541e80: feat: updated hero section and header nav content and styles
+- 57e711a: refactored all breadcrumb menu in apps pages
+- 8701c24: feat: updated landing page design
+
 ## 2.0.1
 
 ### Patch Changes
