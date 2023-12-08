@@ -92,7 +92,7 @@ function Chat() {
       </>
       <Container fluid>
         <Stack>
-          <PageHeader title="Settings" breadcrumbItems={items} />
+          <PageHeader title="Chat" breadcrumbItems={items} />
           <Surface
             component={Paper}
             {...PAPER_PROPS}

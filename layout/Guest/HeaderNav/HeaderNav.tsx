@@ -14,6 +14,7 @@ import { PATH_DASHBOARD, PATH_DOCS, PATH_GITHUB } from '@/routes';
 import { Logo } from '@/components';
 import Link from 'next/link';
 import classes from './HeaderNav.module.css';
+import { IconBrandGithub, IconPlayerPlay } from '@tabler/icons-react';
 
 const MOCK_DATA = [
   {
@@ -31,10 +32,6 @@ const MOCK_DATA = [
   {
     link: PATH_DOCS.root,
     label: 'documentation',
-  },
-  {
-    link: PATH_GITHUB.repo,
-    label: 'github',
   },
 ];
 
@@ -66,7 +63,20 @@ const HeaderNav = () => {
           <Logo style={{ color: theme.white }} />
           <Group gap="xs" className={classes.links}>
             {items}
-            <Button component={Link} href={PATH_DASHBOARD.default}>
+            <Button
+              component="a"
+              target="_blank"
+              href={PATH_GITHUB.repo}
+              variant="default"
+              leftSection={<IconBrandGithub size={16} />}
+            >
+              Star this project
+            </Button>
+            <Button
+              component={Link}
+              href={PATH_DASHBOARD.default}
+              leftSection={<IconPlayerPlay size={16} />}
+            >
               Live Preview
             </Button>
           </Group>
@@ -92,6 +102,14 @@ const HeaderNav = () => {
       >
         <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
           {items}
+          <iframe
+            src="https://ghbtns.com/github-btn.html?user=design-sparx&repo=mantine-analytics-dashboard&type=star&count=true&size=large"
+            frameBorder="0"
+            scrolling="0"
+            width="140"
+            height="30"
+            title="GitHub"
+          />
           <Button component={Link} href={PATH_DASHBOARD.default}>
             Live Previews
           </Button>

@@ -49,14 +49,33 @@
   background-color: transparent;
 }
 
-.image {
+.paperImage {
   height: 100%;
   background-color: transparent;
 
+  @mixin light {
+    color: var(--mantine-color-black);
+  }
+
+  @mixin dark {
+    color: var(--mantine-color-white);
+  }
+
   @mixin hover {
-    box-shadow: var(--mantine-shadow-lg);
-    transition: all ease 150ms;
-    transform: scale(1.03);
+    transition: all ease 200ms;
+
+    * {
+      font-weight: 700;
+    }
+  }
+}
+
+.image {
+  transition: all ease 200ms;
+  border-radius: var(--mantine-radius-default);
+
+  @mixin hover {
+    transform: scale(1.05);
   }
 }
 
@@ -67,4 +86,20 @@
 .contactPaper {
   background-color: transparent;
   text-align: center;
+}
+
+.featureCard {
+  background-color: transparent;
+}
+
+.section {
+  @mixin light {
+    color: var(--mantine-color-black);
+    background-color: var(--mantine-color-white);
+  }
+
+  @mixin dark {
+    color: var(--mantine-color-white);
+    background-color: var(--mantine-color-dark-8);
+  }
 }
