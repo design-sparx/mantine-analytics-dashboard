@@ -7,6 +7,7 @@ import { Metadata } from 'next';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },
+  { title: 'Apps', href: '#' },
   { title: 'Invoices', href: PATH_INVOICES.invoices.all },
   { title: 'Details', href: '#' },
 ].map((item, index) => (

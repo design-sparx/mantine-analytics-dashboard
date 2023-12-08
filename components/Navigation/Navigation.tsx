@@ -1,4 +1,12 @@
-import {ActionIcon, Box, Flex, Group, ScrollArea, Text, useMantineTheme,} from '@mantine/core';
+import {
+  ActionIcon,
+  Box,
+  Flex,
+  Group,
+  ScrollArea,
+  Text,
+  useMantineTheme,
+} from '@mantine/core';
 import {
   IconBook2,
   IconBrandAuth0,
@@ -20,36 +28,42 @@ import {
   IconUserCode,
   IconUserPlus,
   IconUserShield,
-  IconX
+  IconX,
 } from '@tabler/icons-react';
-import {Logo, UserProfileButton} from '@/components';
-import {PATH_APPS, PATH_AUTH, PATH_DASHBOARD, PATH_DOCS, PATH_PAGES,} from '@/routes';
+import { Logo, UserProfileButton } from '@/components';
+import {
+  PATH_APPS,
+  PATH_AUTH,
+  PATH_DASHBOARD,
+  PATH_DOCS,
+  PATH_PAGES,
+} from '@/routes';
 import UserProfileData from '@/public/mocks/UserProfile.json';
-import {useMediaQuery} from '@mantine/hooks';
+import { useMediaQuery } from '@mantine/hooks';
 import classes from './Navigation.module.css';
-import {LinksGroup} from '@/components/Navigation/Links/Links';
+import { LinksGroup } from '@/components/Navigation/Links/Links';
 
 const mockdata = [
   {
     title: 'Dashboard',
     links: [
-      {label: 'Default', icon: IconChartBar, link: PATH_DASHBOARD.default},
+      { label: 'Default', icon: IconChartBar, link: PATH_DASHBOARD.default },
       {
         label: 'Analytics',
         icon: IconChartInfographic,
         link: PATH_DASHBOARD.analytics,
       },
-      {label: 'SaaS', icon: IconChartArcs3, link: PATH_DASHBOARD.saas},
+      { label: 'SaaS', icon: IconChartArcs3, link: PATH_DASHBOARD.saas },
     ],
   },
   {
     title: 'Apps',
     links: [
-      {label: 'Profile', icon: IconUserCircle, link: PATH_APPS.profile},
-      {label: 'Settings', icon: IconUserCode, link: PATH_APPS.settings},
-      {label: 'Chat', icon: IconMessages, link: PATH_APPS.chat},
-      {label: 'Projects', icon: IconBriefcase, link: PATH_APPS.root},
-      {label: 'Orders', icon: IconListDetails, link: PATH_APPS.root},
+      { label: 'Profile', icon: IconUserCircle, link: PATH_APPS.profile },
+      { label: 'Settings', icon: IconUserCode, link: PATH_APPS.settings },
+      { label: 'Chat', icon: IconMessages, link: PATH_APPS.chat },
+      { label: 'Projects', icon: IconBriefcase, link: PATH_APPS.projects },
+      { label: 'Orders', icon: IconListDetails, link: PATH_APPS.orders },
       {
         label: 'Invoices',
         icon: IconFileInvoice,
@@ -64,29 +78,29 @@ const mockdata = [
           },
         ],
       },
-      {label: 'Tasks', icon: IconListDetails, link: PATH_APPS.root},
-      {label: 'Calendar', icon: IconCalendar, link: PATH_APPS.root},
+      { label: 'Tasks', icon: IconListDetails, link: PATH_APPS.tasks },
+      { label: 'Calendar', icon: IconCalendar, link: PATH_APPS.calendar },
     ],
   },
   {
     title: 'Auth',
     links: [
-      {label: 'Sign In', icon: IconLogin2, link: PATH_AUTH.signin},
-      {label: 'Sign Up', icon: IconUserPlus, link: PATH_AUTH.signup},
+      { label: 'Sign In', icon: IconLogin2, link: PATH_AUTH.signin },
+      { label: 'Sign Up', icon: IconUserPlus, link: PATH_AUTH.signup },
       {
         label: 'Reset Password',
         icon: IconRotateRectangle,
         link: PATH_AUTH.passwordReset,
       },
-      {label: 'Clerk', icon: IconUserShield, link: PATH_AUTH.clerk},
-      {label: 'Auth0', icon: IconBrandAuth0, link: PATH_AUTH.auth0},
+      { label: 'Clerk', icon: IconUserShield, link: PATH_AUTH.clerk },
+      { label: 'Auth0', icon: IconBrandAuth0, link: PATH_AUTH.auth0 },
     ],
   },
   {
     title: 'Pages',
     links: [
-      {label: 'Pricing', icon: IconReceipt2, link: PATH_PAGES.pricing},
-      {label: 'Blank Page', icon: IconLayersSubtract, link: PATH_PAGES.blank},
+      { label: 'Pricing', icon: IconReceipt2, link: PATH_PAGES.pricing },
+      { label: 'Blank Page', icon: IconLayersSubtract, link: PATH_PAGES.blank },
     ],
   },
   {
@@ -102,7 +116,7 @@ const mockdata = [
         icon: IconBook2,
         link: PATH_DOCS.root,
       },
-      {label: 'Changelog', icon: IconList},
+      { label: 'Changelog', icon: IconList },
     ],
   },
 ];
@@ -111,7 +125,7 @@ type NavigationProps = {
   onClose: () => void;
 };
 
-const Navigation = ({onClose, ...others}: NavigationProps) => {
+const Navigation = ({ onClose, ...others }: NavigationProps) => {
   const theme = useMantineTheme();
   const tablet_match = useMediaQuery('(max-width: 768px)');
 
@@ -128,7 +142,7 @@ const Navigation = ({onClose, ...others}: NavigationProps) => {
         {m.title}
       </Text>
       {m.links.map((item) => (
-        <LinksGroup {...item} key={item.label}/>
+        <LinksGroup {...item} key={item.label} />
       ))}
     </Box>
   ));
@@ -139,13 +153,13 @@ const Navigation = ({onClose, ...others}: NavigationProps) => {
         <Flex justify="space-between" align="center" gap="sm">
           <Group
             justify="space-between"
-            style={{flex: tablet_match ? 'auto' : 1}}
+            style={{ flex: tablet_match ? 'auto' : 1 }}
           >
-            <Logo className={classes.logo}/>
+            <Logo className={classes.logo} />
           </Group>
           {tablet_match && (
             <ActionIcon onClick={onClose} variant="transparent">
-              <IconX color="white"/>
+              <IconX color="white" />
             </ActionIcon>
           )}
         </Flex>

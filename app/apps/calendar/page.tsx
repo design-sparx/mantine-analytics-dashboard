@@ -15,6 +15,7 @@ import './page.css';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },
+  { title: 'Apps', href: '#' },
   { title: 'Calendar', href: '#' },
 ].map((item, index) => (
   <Anchor href={item.href} key={index}>

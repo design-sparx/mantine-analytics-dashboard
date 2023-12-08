@@ -17,6 +17,7 @@ import { useFetchData } from '@/hooks';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },
+  { title: 'Apps', href: '#' },
   { title: 'Orders', href: '#' },
 ].map((item, index) => (
   <Anchor href={item.href} key={index}>

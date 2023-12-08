@@ -4,6 +4,7 @@ import { PATH_DASHBOARD } from '@/routes';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },
+  { title: 'Apps', href: '#' },
   { title: 'Tasks', href: '#' },
 ].map((item, index) => (
   <Anchor href={item.href} key={index}>
