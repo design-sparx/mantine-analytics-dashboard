@@ -1,5 +1,11 @@
 # analytics-dashboard
 
+## 2.1.2
+
+### Patch Changes
+
+- 150d301: chore: removed @mantine/prism package
+
 ## 2.1.1
 
 ### Patch Changes
