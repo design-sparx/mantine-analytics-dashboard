@@ -28,12 +28,13 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import Link from 'next/link';
-import { PATH_APPS, PATH_DASHBOARD, PATH_DOCS } from '@/routes';
+import { PATH_APPS, PATH_DASHBOARD, PATH_DOCS, PATH_GITHUB } from '@/routes';
 import {
   IconAdjustmentsHorizontal,
   IconApps,
   IconArrowRight,
   IconBook,
+  IconBrandGithub,
   IconBrandMantine,
   IconBrandTabler,
   IconColorSwatch,
@@ -46,6 +47,7 @@ import {
   IconLayoutBoard,
   IconLayoutGrid,
   IconPaint,
+  IconPlayerPlay,
   IconScaleOutline,
   IconSettingsCog,
 } from '@tabler/icons-react';
@@ -297,19 +299,19 @@ export default function Home() {
                     component={Link}
                     href={PATH_DASHBOARD.default}
                     size="md"
-                    rightSection={<IconArrowRight />}
+                    leftSection={<IconPlayerPlay size={18} />}
                   >
                     Live Preview
                   </Button>
                   <Button
                     size="md"
                     component="a"
-                    href={PATH_DOCS.root}
+                    href={PATH_GITHUB.repo}
                     target="_blank"
-                    variant="outline"
-                    color="white"
+                    variant="white"
+                    leftSection={<IconBrandGithub size={18} />}
                   >
-                    Read Documentation
+                    Give us a star
                   </Button>
                 </Group>
                 <Stack>

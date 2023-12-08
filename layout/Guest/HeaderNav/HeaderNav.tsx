@@ -67,10 +67,12 @@ const HeaderNav = () => {
               component="a"
               target="_blank"
               href={PATH_GITHUB.repo}
-              variant="default"
+              variant="transparent"
+              c="white"
               leftSection={<IconBrandGithub size={16} />}
+              className={classes.link}
             >
-              Star this project
+              Give us a star
             </Button>
             <Button
               component={Link}
@@ -102,14 +104,17 @@ const HeaderNav = () => {
       >
         <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
           {items}
-          <iframe
-            src="https://ghbtns.com/github-btn.html?user=design-sparx&repo=mantine-analytics-dashboard&type=star&count=true&size=large"
-            frameBorder="0"
-            scrolling="0"
-            width="140"
-            height="30"
-            title="GitHub"
-          />
+          <Button
+            component="a"
+            target="_blank"
+            href={PATH_GITHUB.repo}
+            variant="transparent"
+            c="white"
+            leftSection={<IconBrandGithub size={16} />}
+            className={classes.link}
+          >
+            Give us a star
+          </Button>
           <Button component={Link} href={PATH_DASHBOARD.default}>
             Live Previews
           </Button>
