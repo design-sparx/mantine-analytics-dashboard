@@ -3,6 +3,7 @@ function path(root: string, sublink: string) {
 }
 
 const ROOTS_DASHBOARD = '/dashboard';
+const ROOT_APPS = '/apps';
 const ROOTS_PAGES = '/pages';
 const ROOTS_PROJECTS = '/projects';
 const ROOTS_ORDERS = '/orders';
@@ -11,8 +12,6 @@ const ROOTS_TASKS = '/tasks';
 const ROOTS_CALENDAR = '/calendar';
 const ROOTS_AUTH = '/authentication';
 const ROOTS_ERRORS = '/error';
-const ROOTS_START = '/start';
-const ROOTS_DOCS = '/docs';
 const ROOTS_CHANGELOG = '/changelog';
 const ROOTS_AUTH_PROVIDERS = '/authProviders';
 
@@ -23,12 +22,26 @@ export const PATH_DASHBOARD = {
   saas: path(ROOTS_DASHBOARD, '/saas'),
 };
 
+export const PATH_APPS = {
+  root: ROOT_APPS,
+  calendar: path(ROOT_APPS, '/calendar'),
+  chat: path(ROOT_APPS, '/chat'),
+  invoices: {
+    all: path(ROOT_APPS, ROOTS_INVOICES + '/list'),
+    sample: path(ROOT_APPS, ROOTS_INVOICES + `/details/`),
+    invoice_details: (id: string): string =>
+      path(ROOT_APPS, ROOTS_INVOICES + `/details/${id}`),
+  },
+  orders: path(ROOT_APPS, '/orders'),
+  profile: path(ROOT_APPS, '/profile'),
+  projects: path(ROOT_APPS, '/projects'),
+  settings: path(ROOT_APPS, '/settings'),
+  tasks: path(ROOT_APPS, '/tasks'),
+};
+
 export const PATH_PAGES = {
   root: ROOTS_PAGES,
-  profile: path(ROOTS_PAGES, '/profile'),
-  settings: path(ROOTS_PAGES, '/settings'),
   pricing: path(ROOTS_PAGES, '/pricing'),
-  chat: path(ROOTS_PAGES, '/chat'),
   blank: path(ROOTS_PAGES, '/blank'),
 };
 
@@ -63,13 +76,8 @@ export const PATH_AUTH = {
   signin: path(ROOTS_AUTH, '/signin'),
   signup: path(ROOTS_AUTH, '/signup'),
   passwordReset: path(ROOTS_AUTH, '/password-reset'),
-};
-
-export const PATH_ERROR = {
-  root: ROOTS_ERRORS,
-  error403: path(ROOTS_ERRORS, '/403'),
-  error404: path(ROOTS_ERRORS, '/404'),
-  error500: path(ROOTS_ERRORS, '/500'),
+  clerk: path(ROOTS_AUTH, '/clerk'),
+  auth0: path(ROOTS_AUTH, '/auth0'),
 };
 
 export const PATH_START = {
@@ -86,7 +94,7 @@ export const PATH_CHANGELOG = {
 
 export const PATH_GITHUB = {
   org: 'https://github.com/design-sparx',
-  repo: 'https://github.com/design-sparx/mantine-analytics-dashboard'
+  repo: 'https://github.com/design-sparx/mantine-analytics-dashboard',
 };
 
 export const PATH_AUTH_PROVIDERS = {

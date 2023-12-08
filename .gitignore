@@ -59,4 +59,6 @@ storybook-static/
 # and uncomment the following lines
 # .pnp.*
 
+yarn.lock
+
 # End of https://www.toptal.com/developers/gitignore/api/yarn

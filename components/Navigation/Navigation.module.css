@@ -1,50 +1,88 @@
 .navbar {
-  background-color: var(--mantine-primary-color-filled);
-  min-height: rem(100vh);
-  width: rem(300px);
-  padding: var(--mantine-spacing-md);
-  padding-bottom: 0;
-  display: flex;
-  flex-direction: column;
-  border-right: rem(1px) solid
-    light-dark(
-      var(--mantine-primary-color-filled-hover),
-      var(--mantine-color-dark-4)
+    background-color: var(--mantine-primary-color-filled);
+    min-height: rem(100vh);
+    width: rem(300px);
+    padding: var(--mantine-spacing-md);
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    border-right: rem(1px) solid light-dark(
+            var(--mantine-primary-color-filled-hover),
+            var(--mantine-color-dark-4)
     );
 
-  @media (max-width: $mantine-breakpoint-md) {
-    width: 100%;
-  }
+    @mixin light {
+        background-color: var(--mantine-primary-color-filled);
+    }
+
+    @mixin dark {
+        background-color: var(--mantine-primary-color-light-color);
+    }
+
+    @media (max-width: $mantine-breakpoint-md) {
+        width: 100%;
+    }
 }
 
 .header {
-  padding: var(--mantine-spacing-md);
-  padding-top: 0;
-  margin-left: calc(var(--mantine-spacing-md) * -1);
-  margin-right: calc(var(--mantine-spacing-md) * -1);
-  color: var(--mantine-color-white);
-  border-bottom: rem(1px) solid var(--mantine-primary-color-filled-hover);
+    padding: var(--mantine-spacing-md);
+    padding-top: 0;
+    margin-left: calc(var(--mantine-spacing-md) * -1);
+    margin-right: calc(var(--mantine-spacing-md) * -1);
+    border-bottom: rem(1px) solid var(--mantine-primary-color-filled-hover);
+
+    @mixin light {
+        color: var(--mantine-color-white);
+    }
+
+    @mixin dark {
+        color: var(--mantine-color-black);
+    }
+}
+
+.logo {
+    @mixin light {
+        color: var(--mantine-color-white);
+    }
+
+    @mixin dark {
+        color: var(--mantine-color-black);
+    }
 }
 
 .links {
-  flex: 1;
-  margin-left: calc(var(--mantine-spacing-md) * -1);
-  margin-right: calc(var(--mantine-spacing-md) * -1);
+    flex: 1;
+    margin-left: calc(var(--mantine-spacing-md) * -1);
+    margin-right: calc(var(--mantine-spacing-md) * -1);
 }
 
 .linksInner {
-  padding-top: var(--mantine-spacing-xl);
-  padding-bottom: var(--mantine-spacing-xl);
+    padding-top: var(--mantine-spacing-xl);
+    padding-bottom: var(--mantine-spacing-xl);
 }
 
 .linkHeader {
-  color: var(--mantine-color-gray-3);
-  font-weight: 500;
+    font-weight: 500;
+
+    @mixin light {
+        color: var(--mantine-color-gray-3);
+    }
+
+    @mixin dark {
+        color: var(--mantine-color-dark-8);
+    }
 }
 
 .footer {
-  margin-left: calc(var(--mantine-spacing-md) * -1);
-  margin-right: calc(var(--mantine-spacing-md) * -1);
-  border-top: rem(1px) solid var(--mantine-primary-color-filled-hover);
-  color: var(--mantine-color-white);
+    margin-left: calc(var(--mantine-spacing-md) * -1);
+    margin-right: calc(var(--mantine-spacing-md) * -1);
+    border-top: rem(1px) solid var(--mantine-primary-color-filled-hover);
+
+    @mixin light {
+        color: var(--mantine-color-white);
+    }
+
+    @mixin dark {
+        color: var(--mantine-color-black);
+    }
 }

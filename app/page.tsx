@@ -7,12 +7,14 @@ import {
   Button,
   Center,
   Container,
+  ContainerProps,
   Flex,
   Grid,
   Group,
   Image,
   Paper,
   PaperProps,
+  rem,
   SimpleGrid,
   Spoiler,
   Stack,
@@ -22,16 +24,30 @@ import {
   Title,
   Tooltip,
   UnstyledButton,
+  useMantineColorScheme,
+  useMantineTheme,
 } from '@mantine/core';
 import Link from 'next/link';
-import { PATH_DASHBOARD, PATH_DOCS } from '@/routes';
+import { PATH_APPS, PATH_DASHBOARD, PATH_DOCS, PATH_GITHUB } from '@/routes';
 import {
   IconAdjustmentsHorizontal,
+  IconApps,
   IconArrowRight,
   IconBook,
+  IconBrandGithub,
+  IconBrandMantine,
+  IconBrandTabler,
   IconColorSwatch,
+  IconComponents,
   IconDevices,
+  IconFileCode,
+  IconFileCode2,
+  IconFileInfo,
   IconFolderCode,
+  IconLayoutBoard,
+  IconLayoutGrid,
+  IconPaint,
+  IconPlayerPlay,
   IconScaleOutline,
   IconSettingsCog,
 } from '@tabler/icons-react';
@@ -39,6 +55,7 @@ import CountUp from 'react-countup';
 import { useMediaQuery } from '@mantine/hooks';
 import GuestLayout from '@/layout/Guest';
 import classes from './page.module.css';
+import { createElement } from 'react';
 
 const TECH_STACK = [
   { title: 'nextjs', version: '14.0.2', href: 'https://nextjs.org/' },
@@ -82,6 +99,139 @@ const TECH_STACK = [
   },
 ];
 
+const APPS = [
+  {
+    img: '/showcase/apps-calendar.png',
+    title: 'calendar',
+    link: PATH_APPS.calendar,
+  },
+  {
+    img: '/showcase/apps-chat.png',
+    title: 'chat',
+    link: PATH_APPS.chat,
+  },
+  {
+    img: '/showcase/apps-invoices.png',
+    title: 'invoices',
+    link: PATH_APPS.invoices.all,
+  },
+  {
+    img: '/showcase/apps-orders.png',
+    title: 'orders',
+    link: PATH_APPS.orders,
+  },
+  {
+    img: '/showcase/apps-profile.png',
+    title: 'profile',
+    link: PATH_APPS.profile,
+  },
+  {
+    img: '/showcase/apps-projects.png',
+    title: 'projects',
+    link: PATH_APPS.projects,
+  },
+  {
+    img: '/showcase/apps-settings.png',
+    title: 'settings',
+    link: PATH_APPS.settings,
+  },
+  {
+    img: '/showcase/apps-tasks.png',
+    title: 'tasks',
+    link: PATH_APPS.tasks,
+  },
+];
+
+const DASHBOARDS = [
+  {
+    img: '/showcase/dashboard-default.png',
+    title: 'default',
+    link: PATH_DASHBOARD.default,
+  },
+  {
+    img: '/showcase/dashboard-analytics.png',
+    title: 'analytics',
+    link: PATH_DASHBOARD.analytics,
+  },
+  {
+    img: '/showcase/dashboard-saas.png',
+    title: 'saas',
+    link: PATH_DASHBOARD.saas,
+  },
+  {
+    img: '/showcase/dashboard-default-dark.png',
+    title: 'dark mode',
+    link: PATH_DASHBOARD.default,
+  },
+];
+
+const FEATURES = [
+  {
+    title: '10+ Theme Colors',
+    description:
+      'We have included 6 pre-defined Theme Colors with Mantine Admin.',
+    icons: IconPaint,
+  },
+  {
+    title: '20+ Page Templates',
+    description: 'Yes, we have 20+ in page demos.',
+    icons: IconFileInfo,
+  },
+  {
+    title: '45+ UI Components',
+    description:
+      'Almost 45+ UI Components being given with Mantine Admin Pack.',
+    icons: IconComponents,
+  },
+  {
+    title: '2+ Dashboards',
+    description: 'Yes, we have designed 2 Stunning Dashboards.',
+    icons: IconLayoutBoard,
+  },
+  {
+    title: '11+ Applications',
+    description:
+      'Yes, we have designed 11 Applications which are ready to use.',
+    icons: IconApps,
+  },
+  {
+    title: 'Mantine UI',
+    description: 'Its been made with Mantine UI and full responsive layout.',
+    icons: IconBrandMantine,
+  },
+  {
+    title: '4800+ Font Icons',
+    description:
+      'Lots of Icon Fonts are included here in the package of Mantine Admin.',
+    icons: IconBrandTabler,
+  },
+  {
+    title: 'Documentation',
+    description: 'We have made detailed documentation, so it will easy to use.',
+    icons: IconBook,
+  },
+  {
+    title: 'Modular',
+    description: 'All components are built to be used in any combination.',
+    icons: IconFileCode,
+  },
+  {
+    title: 'Responsive',
+    description: 'Quick is optimized to work for most devices.',
+    icons: IconDevices,
+  },
+  {
+    title: 'Scalable',
+    description: 'Remain consistent while developing new features.',
+    icons: IconPaint,
+  },
+  {
+    title: 'Customizable',
+    description: 'Change a few variables and the whole theme adapts.',
+    icons: IconAdjustmentsHorizontal,
+  },
+];
+
 const PAPER_PROPS: PaperProps = {
   p: 'md',
   shadow: 'md',
@@ -95,17 +245,20 @@ const THEME_ICON_PROPS: Omit<ThemeIconProps, 'children'> = {
 };
 
 const IMAGE_PAPER_PROPS: PaperProps = {
-  p: 'md',
-  className: classes.image,
+  py: 'md',
+  className: classes.paperImage,
 };
 
 export default function Home() {
   const tablet_match = useMediaQuery('(max-width: 768px)');
+  const { colorScheme } = useMantineColorScheme();
+  const theme = useMantineTheme();
 
-  const BOX_PROPS: BoxProps = {
-    mt: 120,
-    pb: 80,
-    px: tablet_match ? 20 : 48,
+  const BOX_PROPS: ContainerProps = {
+    pt: rem(120),
+    pb: rem(80),
+    px: tablet_match ? rem(36) : rem(40 * 3),
+    className: classes.section,
   };
 
   return (
@@ -137,28 +290,28 @@ export default function Home() {
                   dashboard or app.
                 </Title>
                 <Text>
-                  This template comes with hundreds of UI elements, forms,
-                  tables, charts, pages and icons that helps you to create your
-                  web apps or applications faster.
+                  Mantine admin template comes with hundreds of UI elements,
+                  forms, tables, charts, pages and icons that helps you to
+                  create your web apps or applications faster.
                 </Text>
                 <Group my="lg">
                   <Button
                     component={Link}
                     href={PATH_DASHBOARD.default}
                     size="md"
-                    rightSection={<IconArrowRight />}
+                    leftSection={<IconPlayerPlay size={18} />}
                   >
                     Live Preview
                   </Button>
                   <Button
                     size="md"
                     component="a"
-                    href={PATH_DOCS.root}
+                    href={PATH_GITHUB.repo}
                     target="_blank"
-                    variant="outline"
-                    color="white"
+                    variant="white"
+                    leftSection={<IconBrandGithub size={18} />}
                   >
-                    Read Documentation
+                    Give us a star
                   </Button>
                 </Group>
                 <Stack>
@@ -191,177 +344,123 @@ export default function Home() {
               </Stack>
             </Grid.Col>
             <Grid.Col span={{ base: 12, md: 6 }} order={{ base: 1, md: 2 }}>
-              <Image src="/thumbnail-img-b.jpg" alt="/" />
+              <Image
+                src={
+                  colorScheme === 'dark'
+                    ? '/thumbnail-img.jpg'
+                    : '/thumbnail-img-b.jpg'
+                }
+                alt="/"
+                radius="md"
+              />
             </Grid.Col>
           </Grid>
         </Box>
-        <Box {...BOX_PROPS}>
-          <Container size="lg">
-            <Title ta="center" order={2}>
-              Carefully crafted components ready to use in your project
-            </Title>
-            <SimpleGrid
-              my="xl"
-              cols={{ base: 1, sm: 1, md: 2, lg: 4 }}
-              spacing={{ base: 'sm', sm: 'sm', md: 'sm' }}
-              verticalSpacing={{ base: 'sm', sm: 'sm', md: 'sm' }}
-            >
-              <Paper {...PAPER_PROPS}>
-                <Flex
-                  align="center"
-                  direction={{ base: 'column', sm: 'row' }}
-                  gap={{ base: 'sm', sm: 'lg' }}
-                  justify={{ sm: 'center' }}
-                >
-                  <Title className={classes.statsTitle}>
-                    <CountUp end={50} />+
-                  </Title>
-                  <Text>Beautifully coded page examples</Text>
-                </Flex>
-              </Paper>
-              <Paper {...PAPER_PROPS}>
-                <Flex
-                  align="center"
-                  direction={{ base: 'column', sm: 'row' }}
-                  gap={{ base: 'sm', sm: 'lg' }}
-                  justify={{ sm: 'center' }}
-                >
-                  <Title className={classes.statsTitle}>
-                    <CountUp end={100} />+
-                  </Title>
-                  <Text>Components and widgets</Text>
-                </Flex>
-              </Paper>
-              <Paper {...PAPER_PROPS}>
-                <Flex
-                  align="center"
-                  direction={{ base: 'column', sm: 'row' }}
-                  gap={{ base: 'sm', sm: 'lg' }}
-                  justify={{ sm: 'center' }}
-                >
-                  <IconDevices size={50} className={classes.statsTitle} />
-                  <Text>Optimized to work for most devices</Text>
-                </Flex>
-              </Paper>
-              <Paper {...PAPER_PROPS}>
-                <Flex
-                  align="center"
-                  direction={{ base: 'column', sm: 'row' }}
-                  gap={{ base: 'sm', sm: 'lg' }}
-                  justify={{ sm: 'center' }}
-                >
-                  <IconColorSwatch size={50} className={classes.statsTitle} />
-                  <Text>Customize it to meet your brand's identity</Text>
-                </Flex>
-              </Paper>
-            </SimpleGrid>
-          </Container>
+        <Flex
+          direction={{ base: 'column', sm: 'row' }}
+          justify={{ sm: 'space-evenly' }}
+          align="center"
+          px="lg"
+          pt="xl"
+          className={classes.section}
+        >
+          <Text>Created: July, 24 2023</Text>
+          <Text>Updated: December, 8 2023</Text>
+          <Text>v 2.0</Text>
+          <Text
+            component="a"
+            target="_blank"
+            href="https://github.com/design-sparx/mantine-analytics-dashboard/releases"
+          >
+            View changelog
+          </Text>
+        </Flex>
+        <Container fluid {...BOX_PROPS}>
+          <Title order={2} ta="center" mb="xl">
+            Carefully crafted pages ready to use in your project
+          </Title>
           <SimpleGrid
             cols={{ base: 1, sm: 1, md: 2, lg: 3 }}
             spacing={{ base: 'sm', sm: 'sm', md: 'sm', lg: 'lg' }}
             verticalSpacing={{ base: 'sm', sm: 'sm', md: 'sm', lg: 'lg' }}
           >
-            <Paper {...IMAGE_PAPER_PROPS}>
-              <Image src="/a-dashboard.png" className={classes.variantImg} />
-              <Text className={classes.variantTitle}>Default variant</Text>
-            </Paper>
-            <Paper {...IMAGE_PAPER_PROPS}>
-              <Image src="/orders-pink.png" className={classes.variantImg} />
-              <Text className={classes.variantTitle}>Pink variant</Text>
-            </Paper>
-            <Paper {...IMAGE_PAPER_PROPS}>
-              <Image src="/tasks-orange.png" className={classes.variantImg} />
-              <Text className={classes.variantTitle}>Orange variant</Text>
-            </Paper>
-            <Paper {...IMAGE_PAPER_PROPS}>
-              <Image src="/profile-green.png" className={classes.variantImg} />
-              <Text className={classes.variantTitle}>Green variant</Text>
-            </Paper>
-            <Paper {...IMAGE_PAPER_PROPS}>
-              <Image src="/chat-grape.png" className={classes.variantImg} />
-              <Text className={classes.variantTitle}>Purple variant</Text>
-            </Paper>
-            <Paper {...IMAGE_PAPER_PROPS}>
-              <Image
-                src="/s-dashboard-dark.png"
-                className={classes.variantImg}
-              />
-              <Text className={classes.variantTitle}>Dark variant</Text>
-            </Paper>
-          </SimpleGrid>
-        </Box>
-        <Box {...BOX_PROPS}>
-          <Container size="lg">
-            <Badge size="lg" variant="filled" mb="md">
-              Key features
-            </Badge>
-            <Text mb="lg">
-              Quick helps you build beautiful websites that stand out and
-              automatically adapt to your style.
-            </Text>
-            <SimpleGrid
-              cols={{ base: 1, sm: 1, md: 2, lg: 4 }}
-              spacing={{ base: 'sm', sm: 'sm', md: 'sm', lg: 'lg' }}
-              verticalSpacing={{ base: 'sm', sm: 'sm', md: 'sm', lg: 'lg' }}
-            >
-              <Paper {...PAPER_PROPS}>
-                <ThemeIcon {...THEME_ICON_PROPS}>
-                  <IconFolderCode size={24} />
-                </ThemeIcon>
-                <Title order={4} mt="sm" mb={4}>
-                  Modular
-                </Title>
-                <Text fz="sm">
-                  All components are built to be used in any combination.
-                </Text>
-              </Paper>
-              <Paper {...PAPER_PROPS}>
-                <ThemeIcon {...THEME_ICON_PROPS}>
-                  <IconSettingsCog size={24} />
-                </ThemeIcon>
-                <Title order={4} mt="sm" mb={4}>
-                  Responsive
-                </Title>
-                <Text fz="sm">
-                  Quick is optimized to work for most devices.
-                </Text>
-              </Paper>
-              <Paper {...PAPER_PROPS}>
-                <ThemeIcon {...THEME_ICON_PROPS}>
-                  <IconScaleOutline size={24} />
-                </ThemeIcon>
-                <Title order={4} mt="sm" mb={4}>
-                  Scalable
-                </Title>
-                <Text fz="sm">
-                  Remain consistent while developing new features.
-                </Text>
-              </Paper>
-              <Paper {...PAPER_PROPS}>
-                <ThemeIcon {...THEME_ICON_PROPS}>
-                  <IconAdjustmentsHorizontal size={24} />
-                </ThemeIcon>
-                <Title order={4} mt="sm" mb={4}>
-                  Customizable
-                </Title>
-                <Text fz="sm">
-                  Change a few variables and the whole theme adapts.
-                </Text>
-              </Paper>
-            </SimpleGrid>
-            <Center mt="lg">
-              <Button
-                size="md"
-                component="a"
-                href={PATH_DOCS.root}
-                target="_blank"
-                leftSection={<IconBook size={16} />}
+            {DASHBOARDS.map((dashboard) => (
+              <Paper
+                key={dashboard.title}
+                component={Link}
+                href={dashboard.link}
+                {...IMAGE_PAPER_PROPS}
               >
-                Read Documentation
-              </Button>
-            </Center>
-          </Container>
-        </Box>
+                <Image
+                  src={dashboard.img}
+                  alt={dashboard.title}
+                  className={classes.image}
+                />
+                <Text mt="md" ta="center" tt="capitalize" fz="lg">
+                  {dashboard.title}
+                </Text>
+              </Paper>
+            ))}
+          </SimpleGrid>
+        </Container>
+        <Container fluid {...BOX_PROPS}>
+          <Title order={2} ta="center" mb="xl">
+            {APPS.length - 2}+ apps included
+          </Title>
+          <SimpleGrid
+            cols={{ base: 1, sm: 1, md: 2, lg: 3 }}
+            spacing={{ base: 'sm', sm: 'sm', md: 'sm', lg: 'lg' }}
+            verticalSpacing={{ base: 'sm', sm: 'sm', md: 'sm', lg: 'lg' }}
+          >
+            {APPS.map((app) => (
+              <Paper
+                key={app.title}
+                component={Link}
+                href={app.link}
+                {...IMAGE_PAPER_PROPS}
+              >
+                <Image
+                  src={app.img}
+                  alt={app.title}
+                  className={classes.image}
+                />
+                <Text mt="md" ta="center" tt="capitalize" fz="lg">
+                  {app.title}
+                </Text>
+              </Paper>
+            ))}
+          </SimpleGrid>
+        </Container>
+        <Container fluid {...BOX_PROPS}>
+          <Title order={2} ta="center" mb="xl">
+            Mantine admin helps you build beautiful websites that stand out and
+            automatically adapt to your style.
+          </Title>
+          <SimpleGrid
+            cols={{ base: 1, sm: 1, md: 2, lg: 3, xl: 4 }}
+            spacing={{ base: 'sm', sm: 'sm', md: 'sm', lg: 'lg' }}
+            verticalSpacing={{ base: 'sm', sm: 'sm', md: 'sm', lg: 'lg' }}
+          >
+            {FEATURES.map((feature) => (
+              <Paper
+                key={feature.title}
+                p="md"
+                withBorder
+                className={classes.featureCard}
+              >
+                <Flex gap="md">
+                  <ThemeIcon size="xl" radius="xl" variant="light">
+                    {createElement(feature.icons, { style: { fontSize: 20 } })}
+                  </ThemeIcon>
+                  <Stack gap={4}>
+                    <Title order={4}>{feature.title}</Title>
+                    <Text fz="md">{feature.description}</Text>
+                  </Stack>
+                </Flex>
+              </Paper>
+            ))}
+          </SimpleGrid>
+        </Container>
         <Box {...BOX_PROPS}>
           <Paper className={classes.contactPaper}>
             <Title order={3} mb="md">

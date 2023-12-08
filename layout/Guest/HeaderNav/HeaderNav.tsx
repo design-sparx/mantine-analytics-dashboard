@@ -10,10 +10,11 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
-import {PATH_DASHBOARD, PATH_DOCS, PATH_GITHUB} from '@/routes';
+import { PATH_DASHBOARD, PATH_DOCS, PATH_GITHUB } from '@/routes';
 import { Logo } from '@/components';
 import Link from 'next/link';
 import classes from './HeaderNav.module.css';
+import { IconBrandGithub, IconPlayerPlay } from '@tabler/icons-react';
 
 const MOCK_DATA = [
   {
@@ -21,7 +22,7 @@ const MOCK_DATA = [
     label: 'Version 1',
   },
   {
-    link: "https://6564d1b09deea091e3ec0769-jsxuvbmjcr.chromatic.com/?path=/docs/welcome--docs",
+    link: 'https://6564d1b09deea091e3ec0769-jsxuvbmjcr.chromatic.com/?path=/docs/welcome--docs',
     label: 'components',
   },
   {
@@ -31,10 +32,6 @@ const MOCK_DATA = [
   {
     link: PATH_DOCS.root,
     label: 'documentation',
-  },
-  {
-    link: PATH_GITHUB.repo,
-    label: 'github',
   },
 ];
 
@@ -66,7 +63,22 @@ const HeaderNav = () => {
           <Logo style={{ color: theme.white }} />
           <Group gap="xs" className={classes.links}>
             {items}
-            <Button component={Link} href={PATH_DASHBOARD.default}>
+            <Button
+              component="a"
+              target="_blank"
+              href={PATH_GITHUB.repo}
+              variant="transparent"
+              c="white"
+              leftSection={<IconBrandGithub size={16} />}
+              className={classes.link}
+            >
+              Give us a star
+            </Button>
+            <Button
+              component={Link}
+              href={PATH_DASHBOARD.default}
+              leftSection={<IconPlayerPlay size={16} />}
+            >
               Live Preview
             </Button>
           </Group>
@@ -92,6 +104,17 @@ const HeaderNav = () => {
       >
         <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
           {items}
+          <Button
+            component="a"
+            target="_blank"
+            href={PATH_GITHUB.repo}
+            variant="transparent"
+            c="white"
+            leftSection={<IconBrandGithub size={16} />}
+            className={classes.link}
+          >
+            Give us a star
+          </Button>
           <Button component={Link} href={PATH_DASHBOARD.default}>
             Live Previews
           </Button>
