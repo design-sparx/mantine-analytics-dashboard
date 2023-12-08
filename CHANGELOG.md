@@ -1,5 +1,24 @@
 # analytics-dashboard
 
+## 2.1.1
+
+### Patch Changes
+
+- 354818b: feat: updated landing page
+
+  ### Added
+
+  - added link to version 1
+
+  ### Updated
+
+  - updated landing page
+  - refined light and dark mixins on home page
+  - refactored breadcrumbs on apps pages
+  - updated side navigation links verbiage and grouping
+
+- 6738e41: fix: bumped mantine prism package from v6 to v7
+
 ## 2.1.0
 
 ### Minor Changes
