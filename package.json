@@ -12,7 +12,8 @@
     "postpack": "pinst --enable",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "prettier": "prettier . --write"
+    "prettier": "prettier . --write",
+    "commitlint": "commitlint --edit"
   },
   "dependencies": {
     "@changesets/cli": "2.26.2",
@@ -76,6 +77,8 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
     "@storybook/addon-essentials": "7.5.3",
     "@storybook/addon-interactions": "7.5.3",
     "@storybook/addon-links": "7.5.3",
