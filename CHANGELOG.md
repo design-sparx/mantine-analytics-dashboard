@@ -1,5 +1,11 @@
 # analytics-dashboard
 
+## 2.1.3
+
+### Patch Changes
+
+- 4c4968b: Bump @clerk/nextjs from 4.27.5 to 4.29.3
+
 ## 2.1.2
 
 ### Patch Changes
