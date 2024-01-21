@@ -1,5 +1,11 @@
 # analytics-dashboard
 
+## 2.1.4
+
+### Patch Changes
+
+- eab6d90: docs: added product roadmap to README.md
+
 ## 2.1.3
 
 ### Patch Changes
