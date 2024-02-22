@@ -1,5 +1,11 @@
 # analytics-dashboard
 
+## 2.1.5
+
+### Patch Changes
+
+- 3c28484: Bump ip from 2.0.0 to 2.0.1
+
 ## 2.1.4
 
 ### Patch Changes
