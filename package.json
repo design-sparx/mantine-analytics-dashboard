@@ -1,6 +1,6 @@
 {
   "name": "mantine-analytics-dashboard",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
