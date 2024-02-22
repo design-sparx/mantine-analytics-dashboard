@@ -2,31 +2,25 @@
 
 import {
   ClerkProvider,
-  SignInButton,
-  SignUpButton,
   SignIn,
-  SignUp,
+  SignInButton,
   SignOutButton,
-  UserButton,
-  UserProfile,
-  ClerkLoading,
-  ClerkLoaded,
+  SignUp,
+  SignUpButton,
 } from '@clerk/nextjs';
 import {
-  Container,
-  Image,
-  Stack,
-  Divider,
-  Group,
-  Title,
-  Text,
-  Paper,
   Button,
-  useMantineColorScheme,
-  useMantineTheme,
+  Container,
+  Divider,
+  Flex,
+  Group,
+  Image,
   parseThemeColor,
   Select,
-  Flex,
+  Stack,
+  Text,
+  Title,
+  useMantineTheme,
 } from '@mantine/core';
 import { dark, neobrutalism, shadesOfPurple } from '@clerk/themes';
 import { useEffect, useState } from 'react';
@@ -35,7 +29,6 @@ import { IconLogin, IconLogin2, IconUserCircle } from '@tabler/icons-react';
 const ICON_SIZE = 18;
 
 function Home() {
-  const { colorScheme } = useMantineColorScheme();
   const theme = useMantineTheme();
   const parsedThemeColor = parseThemeColor({
     color: theme.primaryColor,
@@ -67,7 +60,7 @@ function Home() {
         />
       </>
       <ClerkProvider appearance={...clerkAppearanceOptions}>
-        <Container fluid>
+        <Container>
           <Stack gap="lg">
             <Image src="/brands/clerk.svg" h={48} w={120} fit="contain" />
             <Divider />
