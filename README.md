@@ -34,7 +34,7 @@
 - [Live preview](https://mantine-analytics-dashboard.netlify.app/)
 - [Components preview](https://6546507b657a74164abf2db6-oniqlpqtfs.chromatic.com/)
 - [Medium](https://medium.com/stackademic/how-i-built-an-open-source-admin-dashboard-template-with-mantine-and-next-js-4f00a21ce04f)
-- [Product roadmap](https://kelvink96.notion.site/a41deb84ce1143d986e8efe45a195a25?v=86ea99dec0c94fd4bbee00edacfb29f1) * **New** *
+- [Product roadmap](https://kelvink96.notion.site/Mantine-analytics-dashboard-Product-roadmap-822fe0c757e647c9b2fd62a50807500a?pvs=74) * **New** *
 
 # About
 

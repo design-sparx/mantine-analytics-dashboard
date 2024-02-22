@@ -2,7 +2,7 @@ let eventGuid = 0;
 const d = new Date();
 let todayStr = d.toISOString().replace(/T.*$/, ''); // YYYY-MM-DD of today
 
-export const INITIAL_EVENTS = [
+const INITIAL_EVENTS = [
   {
     id: createEventId(),
     title: 'All-day event',
@@ -46,11 +46,13 @@ export const INITIAL_EVENTS = [
   },
 ];
 
-export function dateOps(value: number) {
+function dateOps(value: number) {
   const x = new Date(d.setDate(d.getDate() + value));
   return x.toISOString().replace(/T.*$/, '');
 }
 
-export function createEventId() {
+function createEventId() {
   return String(eventGuid++);
 }
+
+export { INITIAL_EVENTS, dateOps, createEventId };

@@ -1,5 +1,7 @@
 {
   "name": "mantine-analytics-dashboard",
+  "description": "A free, open source, Next 14, React 18 admin dashboard template created using Mantine 7",
+  "bugs": "https://github.com/design-sparx/mantine-analytics-dashboard/issues",
   "version": "2.1.5",
   "scripts": {
     "dev": "next dev",
@@ -21,9 +23,7 @@
     "@clerk/themes": "^1.7.9",
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/sortable": "^7.0.2",
-    "@emotion/react": "^11.11.1",
-    "@emotion/server": "^11.11.0",
-    "@emotion/styled": "^11.11.0",
+    "@dnd-kit/utilities": "^3.2.2",
     "@fullcalendar/core": "^6.1.8",
     "@fullcalendar/daygrid": "^6.1.8",
     "@fullcalendar/interaction": "^6.1.8",
