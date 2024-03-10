@@ -2,7 +2,7 @@
   "name": "mantine-analytics-dashboard",
   "description": "A free, open source, Next 14, React 18 admin dashboard template created using Mantine 7",
   "bugs": "https://github.com/design-sparx/mantine-analytics-dashboard/issues",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
