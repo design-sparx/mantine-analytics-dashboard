@@ -1,5 +1,11 @@
 # analytics-dashboard
 
+## 2.1.7
+
+### Patch Changes
+
+- 201cea9: Bump jose from 4.15.4 to 4.15.5
+
 ## 2.1.6
 
 ### Patch Changes
