@@ -1,5 +1,16 @@
 # analytics-dashboard
 
+## 2.2.0
+
+### Minor Changes
+
+- 9daa7a1: fix(ui): navbar not closing on mobile devices
+
+### Patch Changes
+
+- 1a49be8: fix(ui): navbar not closing on mobile devices
+- 9daa7a1: changed onboarding flow to landing -> signin -> dashboard, removed "auto" theme support now is light & dark only
+
 ## 2.1.7
 
 ### Patch Changes
