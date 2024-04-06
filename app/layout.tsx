@@ -61,7 +61,7 @@ export default function RootLayout({
         <ColorSchemeScript defaultColorScheme="auto" />
       </head>
       <body>
-        <MantineProvider theme={myTheme} defaultColorScheme="auto">
+        <MantineProvider theme={myTheme} defaultColorScheme="light">
           <Notifications position="bottom-right" zIndex={1000} />
           <ModalsProvider>{children}</ModalsProvider>
         </MantineProvider>

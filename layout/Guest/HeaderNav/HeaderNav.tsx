@@ -10,7 +10,7 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
-import { PATH_DASHBOARD, PATH_DOCS, PATH_GITHUB } from '@/routes';
+import { PATH_AUTH, PATH_DASHBOARD, PATH_DOCS, PATH_GITHUB } from '@/routes';
 import { Logo } from '@/components';
 import Link from 'next/link';
 import classes from './HeaderNav.module.css';
@@ -76,7 +76,7 @@ const HeaderNav = () => {
             </Button>
             <Button
               component={Link}
-              href={PATH_DASHBOARD.default}
+              href={PATH_AUTH.signin}
               leftSection={<IconPlayerPlay size={16} />}
             >
               Live Preview
