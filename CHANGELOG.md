@@ -1,5 +1,11 @@
 # analytics-dashboard
 
+## 2.2.1
+
+### Patch Changes
+
+- a5cd1ea: feat(ui): added project about page
+
 ## 2.2.0
 
 ### Minor Changes
