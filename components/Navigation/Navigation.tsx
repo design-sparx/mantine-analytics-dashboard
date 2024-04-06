@@ -7,6 +7,7 @@ import {
   IconChartArcs3,
   IconChartBar,
   IconChartInfographic,
+  IconExclamationCircle,
   IconFileInvoice,
   IconLayersSubtract,
   IconLifebuoy,
@@ -24,6 +25,7 @@ import {
 } from '@tabler/icons-react';
 import { Logo, UserProfileButton } from '@/components';
 import {
+  PATH_ABOUT,
   PATH_APPS,
   PATH_AUTH,
   PATH_DASHBOARD,
@@ -98,6 +100,11 @@ const mockdata = [
   {
     title: 'Documentation',
     links: [
+      {
+        label: 'About',
+        icon: IconExclamationCircle,
+        link: PATH_ABOUT.root,
+      },
       {
         label: 'Getting started',
         icon: IconLifebuoy,
