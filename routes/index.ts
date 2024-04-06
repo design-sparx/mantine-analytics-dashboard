@@ -14,6 +14,7 @@ const ROOTS_AUTH = '/authentication';
 const ROOTS_ERRORS = '/error';
 const ROOTS_CHANGELOG = '/changelog';
 const ROOTS_AUTH_PROVIDERS = '/authProviders';
+const ROOTS_ABOUT = '/pages/about';
 
 export const PATH_DASHBOARD = {
   root: ROOTS_DASHBOARD,
@@ -101,4 +102,8 @@ export const PATH_AUTH_PROVIDERS = {
   root: ROOTS_AUTH_PROVIDERS,
   clerk: path(ROOTS_AUTH_PROVIDERS, '/clerk'),
   auth0: path(ROOTS_AUTH_PROVIDERS, '/auth0'),
+};
+
+export const PATH_ABOUT = {
+  root: ROOTS_ABOUT,
 };
