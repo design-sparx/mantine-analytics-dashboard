@@ -28,7 +28,13 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import Link from 'next/link';
-import { PATH_APPS, PATH_DASHBOARD, PATH_DOCS, PATH_GITHUB } from '@/routes';
+import {
+  PATH_APPS,
+  PATH_AUTH,
+  PATH_DASHBOARD,
+  PATH_DOCS,
+  PATH_GITHUB,
+} from '@/routes';
 import {
   IconAdjustmentsHorizontal,
   IconApps,
@@ -297,7 +303,7 @@ export default function Home() {
                 <Group my="lg">
                   <Button
                     component={Link}
-                    href={PATH_DASHBOARD.default}
+                    href={PATH_AUTH.signin}
                     size="md"
                     leftSection={<IconPlayerPlay size={18} />}
                   >

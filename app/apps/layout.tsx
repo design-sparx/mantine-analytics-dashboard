@@ -1,7 +1,7 @@
 'use client';
 
 import { AppShell, Container, rem, useMantineTheme } from '@mantine/core';
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import AppMain from '@/components/AppMain';
 import Navigation from '@/components/Navigation';
@@ -12,11 +12,8 @@ type Props = {
   children: ReactNode;
 };
 
-function CalendarLayout({ children }: Props) {
+function AppsLayout({ children }: Props) {
   const theme = useMantineTheme();
-  const [opened, setOpened] = useState(false);
-  const [themeOpened, { open: themeOpen, close: themeClose }] =
-    useDisclosure(false);
   const tablet_match = useMediaQuery('(max-width: 768px)');
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
@@ -42,8 +39,6 @@ function CalendarLayout({ children }: Props) {
       >
         <Container fluid py="sm" px="lg">
           <HeaderNav
-            opened={opened}
-            handleOpen={() => setOpened((o) => !o)}
             desktopOpened={desktopOpened}
             mobileOpened={mobileOpened}
             toggleDesktop={toggleDesktop}
@@ -52,7 +47,7 @@ function CalendarLayout({ children }: Props) {
         </Container>
       </AppShell.Header>
       <AppShell.Navbar>
-        <Navigation onClose={() => setOpened(false)} />
+        <Navigation onClose={toggleMobile} />
       </AppShell.Navbar>
       <AppShell.Main>
         <AppMain>{children}</AppMain>
@@ -66,4 +61,4 @@ function CalendarLayout({ children }: Props) {
   );
 }
 
-export default CalendarLayout;
+export default AppsLayout;
