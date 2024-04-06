@@ -1,23 +1,20 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
-import { Providers } from '@/providers/session';
 import { AppShell, Container, rem, useMantineTheme } from '@mantine/core';
-import HeaderNav from '@/components/HeaderNav';
-import Navigation from '@/components/Navigation';
-import AppMain from '@/components/AppMain';
-import FooterNav from '@/components/FooterNav';
+import { ReactNode, useState } from 'react';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import AppMain from '@/components/AppMain';
+import Navigation from '@/components/Navigation';
+import HeaderNav from '@/components/HeaderNav';
+import FooterNav from '@/components/FooterNav';
+import { Providers } from '@/providers/session';
 
-type Auth0LayoutProps = {
+type Props = {
   children: ReactNode;
 };
 
-export default function Auth0Layout({ children }: Auth0LayoutProps) {
+function Auth0Layout({ children }: Props) {
   const theme = useMantineTheme();
-  const [opened, setOpened] = useState(false);
-  const [themeOpened, { open: themeOpen, close: themeClose }] =
-    useDisclosure(false);
   const tablet_match = useMediaQuery('(max-width: 768px)');
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
@@ -43,8 +40,6 @@ export default function Auth0Layout({ children }: Auth0LayoutProps) {
       >
         <Container fluid py="sm" px="lg">
           <HeaderNav
-            opened={opened}
-            handleOpen={() => setOpened((o) => !o)}
             desktopOpened={desktopOpened}
             mobileOpened={mobileOpened}
             toggleDesktop={toggleDesktop}
@@ -53,7 +48,7 @@ export default function Auth0Layout({ children }: Auth0LayoutProps) {
         </Container>
       </AppShell.Header>
       <AppShell.Navbar>
-        <Navigation onClose={() => setOpened(false)} />
+        <Navigation onClose={toggleMobile} />
       </AppShell.Navbar>
       <AppShell.Main>
         <AppMain>
@@ -68,3 +63,5 @@ export default function Auth0Layout({ children }: Auth0LayoutProps) {
     </AppShell>
   );
 }
+
+export default Auth0Layout;

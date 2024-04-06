@@ -129,8 +129,6 @@ const NOTIFICATIONS = [
 ];
 
 type HeaderNavProps = {
-  opened?: boolean;
-  handleOpen?: () => void;
   mobileOpened?: boolean;
   toggleMobile?: () => void;
   desktopOpened?: boolean;
@@ -138,14 +136,7 @@ type HeaderNavProps = {
 };
 
 const HeaderNav = (props: HeaderNavProps) => {
-  const {
-    handleOpen,
-    opened,
-    desktopOpened,
-    toggleDesktop,
-    toggleMobile,
-    mobileOpened,
-  } = props;
+  const { desktopOpened, toggleDesktop, toggleMobile, mobileOpened } = props;
   const theme = useMantineTheme();
   const { setColorScheme, colorScheme } = useMantineColorScheme();
   const laptop_match = useMediaQuery('(max-width: 992px)');

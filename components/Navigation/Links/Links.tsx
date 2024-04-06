@@ -1,8 +1,7 @@
-import {useEffect, useState} from 'react';
-import {Box, Collapse, Group, Text, UnstyledButton,} from '@mantine/core';
-import {IconChevronRight} from '@tabler/icons-react';
-import Link from 'next/link';
-import {usePathname, useRouter} from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { Box, Collapse, Group, Text, UnstyledButton } from '@mantine/core';
+import { IconChevronRight } from '@tabler/icons-react';
+import { usePathname, useRouter } from 'next/navigation';
 import * as _ from 'lodash';
 import classes from './Links.module.css';
 
@@ -15,6 +14,7 @@ interface LinksGroupProps {
     label: string;
     link: string;
   }[];
+  closeSidebar: () => void;
 }
 
 export function LinksGroup(props: LinksGroupProps) {
@@ -24,6 +24,7 @@ export function LinksGroup(props: LinksGroupProps) {
     initiallyOpened,
     link,
     links,
+    closeSidebar,
   } = props;
   const router = useRouter();
   const pathname = usePathname();
@@ -34,9 +35,12 @@ export function LinksGroup(props: LinksGroupProps) {
 
   const items = (hasLinks ? links : []).map((link) => (
     <Text
-      component={Link}
+      component="button"
       className={classes.link}
-      href={link.link}
+      onClick={() => {
+        router.push(link.link);
+        closeSidebar();
+      }}
       key={link.label}
       data-active={link.link.toLowerCase() === pathname || undefined}
     >
@@ -56,13 +60,14 @@ export function LinksGroup(props: LinksGroupProps) {
         onClick={() => {
           setOpened((o) => !o);
           link && router.push(link || '#');
+          closeSidebar();
         }}
         className={classes.control}
         data-active={opened || undefined}
       >
         <Group justify="space-between" gap={0}>
-          <Box style={{display: 'flex', alignItems: 'center'}}>
-            <Icon size={18}/>
+          <Box style={{ display: 'flex', alignItems: 'center' }}>
+            <Icon size={18} />
             <Box ml="md">{label}</Box>
           </Box>
           {hasLinks && (

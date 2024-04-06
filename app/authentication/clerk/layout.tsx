@@ -7,6 +7,7 @@ import AppMain from '@/components/AppMain';
 import Navigation from '@/components/Navigation';
 import HeaderNav from '@/components/HeaderNav';
 import FooterNav from '@/components/FooterNav';
+import { Providers } from '@/providers/session';
 
 type Props = {
   children: ReactNode;
@@ -14,9 +15,6 @@ type Props = {
 
 function ClerkLayout({ children }: Props) {
   const theme = useMantineTheme();
-  const [opened, setOpened] = useState(false);
-  const [themeOpened, { open: themeOpen, close: themeClose }] =
-    useDisclosure(false);
   const tablet_match = useMediaQuery('(max-width: 768px)');
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
@@ -42,8 +40,6 @@ function ClerkLayout({ children }: Props) {
       >
         <Container fluid py="sm" px="lg">
           <HeaderNav
-            opened={opened}
-            handleOpen={() => setOpened((o) => !o)}
             desktopOpened={desktopOpened}
             mobileOpened={mobileOpened}
             toggleDesktop={toggleDesktop}
@@ -52,10 +48,12 @@ function ClerkLayout({ children }: Props) {
         </Container>
       </AppShell.Header>
       <AppShell.Navbar>
-        <Navigation onClose={() => setOpened(false)} />
+        <Navigation onClose={toggleMobile} />
       </AppShell.Navbar>
       <AppShell.Main>
-        <AppMain>{children}</AppMain>
+        <AppMain>
+          <Providers>{children}</Providers>
+        </AppMain>
       </AppShell.Main>
       <AppShell.Footer p="md">
         <Container fluid px="lg">

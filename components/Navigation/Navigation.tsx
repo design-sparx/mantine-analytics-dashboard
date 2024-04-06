@@ -1,12 +1,4 @@
-import {
-  ActionIcon,
-  Box,
-  Flex,
-  Group,
-  ScrollArea,
-  Text,
-  useMantineTheme,
-} from '@mantine/core';
+import { ActionIcon, Box, Flex, Group, ScrollArea, Text } from '@mantine/core';
 import {
   IconBook2,
   IconBrandAuth0,
@@ -125,8 +117,7 @@ type NavigationProps = {
   onClose: () => void;
 };
 
-const Navigation = ({ onClose, ...others }: NavigationProps) => {
-  const theme = useMantineTheme();
+const Navigation = ({ onClose }: NavigationProps) => {
   const tablet_match = useMediaQuery('(max-width: 768px)');
 
   const links = mockdata.map((m) => (
@@ -142,7 +133,15 @@ const Navigation = ({ onClose, ...others }: NavigationProps) => {
         {m.title}
       </Text>
       {m.links.map((item) => (
-        <LinksGroup {...item} key={item.label} />
+        <LinksGroup
+          key={item.label}
+          {...item}
+          closeSidebar={() => {
+            setTimeout(() => {
+              onClose();
+            }, 250);
+          }}
+        />
       ))}
     </Box>
   ));
