@@ -369,12 +369,6 @@ const HeaderNav = (props: HeaderNavProps) => {
             >
               Dark
             </Menu.Item>
-            <Menu.Item
-              leftSection={<IconCircleHalf2 size={16} />}
-              onClick={() => setColorScheme('auto')}
-            >
-              Use System Colors
-            </Menu.Item>
           </Menu.Dropdown>
         </Menu>
       </Group>
