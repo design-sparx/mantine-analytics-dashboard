@@ -1,5 +1,11 @@
 # analytics-dashboard
 
+## 2.2.2
+
+### Patch Changes
+
+- 4ec6220: Bump ejs from 3.1.9 to 3.1.10
+
 ## 2.2.1
 
 ### Patch Changes
