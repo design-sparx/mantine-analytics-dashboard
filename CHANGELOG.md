@@ -1,5 +1,11 @@
 # analytics-dashboard
 
+## 2.2.3
+
+### Patch Changes
+
+- 9b665f2: Bump next from 14.0.4 to 14.1.1
+
 ## 2.2.2
 
 ### Patch Changes
