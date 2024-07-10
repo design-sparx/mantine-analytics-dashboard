@@ -1,5 +1,13 @@
 # analytics-dashboard
 
+## 2.2.4
+
+### Patch Changes
+
+- 7cc5783: ### Dependency update
+  Bump ws from 6.2.2 to 6.2.3
+- b32a78e: Bump braces from 3.0.2 to 3.0.3
+
 ## 2.2.3
 
 ### Patch Changes
