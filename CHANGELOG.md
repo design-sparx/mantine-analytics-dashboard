@@ -1,5 +1,18 @@
 # analytics-dashboard
 
+## 2.2.5
+
+### Patch Changes
+
+- 52866a2: Bump webpack from 5.89.0 to 5.94.0
+- 00a21fc: Bump send and express
+- 23930b9: Bump micromatch and lint-staged
+- 561a664: Bump body-parser and express
+- dc92975: Bump elliptic from 6.5.4 to 6.6.0
+- b07d0ba: Bump next from 14.1.1 to 14.2.12
+- ab7e73c: Bump serve-static and express
+- 2c03d73: build(deps): bump path-to-regexp and @clerk/nextjs
+
 ## 2.2.4
 
 ### Patch Changes
