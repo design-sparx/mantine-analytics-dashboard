@@ -40,6 +40,14 @@
         color: var(--mantine-primary-color-light-color);
       }
     }
+
+    &[data-mini="true"] {
+      width: rem(67px);
+    }
+  }
+
+  &[data-mini="true"] {
+    text-align: center;
   }
 }
 

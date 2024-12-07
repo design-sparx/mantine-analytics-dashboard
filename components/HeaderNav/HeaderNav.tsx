@@ -7,30 +7,29 @@ import {
   Flex,
   Group,
   Indicator,
-  MantineTheme,
   Menu,
-  rem,
   Stack,
   Text,
   TextInput,
   Tooltip,
+  rem,
   useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import {
   IconBell,
   IconCircleHalf2,
-  IconLayoutSidebarLeftCollapse,
-  IconLayoutSidebarLeftExpand,
+  IconMenu2,
   IconMessageCircle,
   IconMoonStars,
   IconPower,
   IconSearch,
   IconSunHigh,
 } from '@tabler/icons-react';
+
+import { SidebarState } from '@/app/apps/layout';
 import { LanguagePicker } from '@/components';
-import { upperFirst, useMediaQuery } from '@mantine/hooks';
-import { showNotification } from '@mantine/notifications';
 
 const ICON_SIZE = 20;
 
@@ -133,13 +132,21 @@ type HeaderNavProps = {
   toggleMobile?: () => void;
   desktopOpened?: boolean;
   toggleDesktop?: () => void;
+  sidebarState: SidebarState;
+  onSidebarStateChange: () => void;
 };
 
 const HeaderNav = (props: HeaderNavProps) => {
-  const { desktopOpened, toggleDesktop, toggleMobile, mobileOpened } = props;
+  const {
+    desktopOpened,
+    toggleDesktop,
+    toggleMobile,
+    mobileOpened,
+    sidebarState,
+    onSidebarStateChange,
+  } = props;
   const theme = useMantineTheme();
   const { setColorScheme, colorScheme } = useMantineColorScheme();
-  const laptop_match = useMediaQuery('(max-width: 992px)');
   const tablet_match = useMediaQuery('(max-width: 768px)');
   const mobile_match = useMediaQuery('(max-width: 425px)');
 
@@ -198,68 +205,16 @@ const HeaderNav = (props: HeaderNavProps) => {
     </Menu.Item>
   ));
 
-  const handleColorSwitch = (mode: 'light' | 'dark' | 'auto') => {
-    setColorScheme(mode);
-    showNotification({
-      title: `${upperFirst(mode)} is on`,
-      message: `You just switched to ${
-        colorScheme === 'dark' ? 'light' : 'dark'
-      } mode. Hope you like it`,
-      styles: (theme: MantineTheme) => ({
-        root: {
-          backgroundColor:
-            colorScheme === 'dark'
-              ? theme.colors.gray[7]
-              : theme.colors.gray[2],
-          borderColor:
-            colorScheme === 'dark'
-              ? theme.colors.gray[7]
-              : theme.colors.gray[2],
-
-          '&::before': {
-            backgroundColor:
-              colorScheme === 'dark'
-                ? theme.colors.gray[2]
-                : theme.colors.gray[7],
-          },
-        },
-
-        title: {
-          color:
-            colorScheme === 'dark'
-              ? theme.colors.gray[2]
-              : theme.colors.gray[7],
-        },
-        description: {
-          color:
-            colorScheme === 'dark'
-              ? theme.colors.gray[2]
-              : theme.colors.gray[7],
-        },
-        closeButton: {
-          color:
-            colorScheme === 'dark'
-              ? theme.colors.gray[2]
-              : theme.colors.gray[7],
-          '&:hover': {
-            backgroundColor: theme.colors.red[5],
-            color: theme.white,
-          },
-        },
-      }),
-    });
-  };
-
   return (
     <Group justify="space-between">
       <Group gap={0}>
         <Tooltip label="Toggle side navigation">
-          <ActionIcon visibleFrom="md" onClick={toggleDesktop}>
-            {desktopOpened ? (
-              <IconLayoutSidebarLeftCollapse />
-            ) : (
-              <IconLayoutSidebarLeftExpand />
-            )}
+          <ActionIcon
+            variant="default"
+            visibleFrom="md"
+            onClick={onSidebarStateChange}
+          >
+            <IconMenu2 size={16} />
           </ActionIcon>
         </Tooltip>
         <Burger
