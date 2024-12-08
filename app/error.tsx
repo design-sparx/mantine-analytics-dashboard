@@ -1,17 +1,20 @@
 'use client';
 
 import { useEffect } from 'react';
+
 import {
   Button,
   Center,
+  Code,
   Group,
   Stack,
   Text,
   Title,
   useMantineTheme,
 } from '@mantine/core';
-import { useRouter } from 'next/navigation';
 import { IconHome2, IconRefresh } from '@tabler/icons-react';
+import { useRouter } from 'next/navigation';
+
 import classes from './error.module.css';
 
 function Error({
@@ -49,9 +52,16 @@ function Error({
         <Stack>
           <div className={classes.label}>400</div>
           <Title className={classes.title}>Sorry, unexpected error..</Title>
-          <Text fz="md" ta="center" className={classes.description}>
+          <Code
+            block
+            color="red.1"
+            c="red.7"
+            fz="md"
+            ta="center"
+            className={classes.description}
+          >
             {error.toString()}
-          </Text>
+          </Code>
           <Group justify="center" mt="md">
             <Button
               size="md"

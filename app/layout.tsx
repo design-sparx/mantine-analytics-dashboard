@@ -12,6 +12,8 @@ import '@mantine/tiptap/styles.css';
 import '@mantine/carousel/styles.css';
 import '@mantine/notifications/styles.css';
 import 'mantine-datatable/styles.layer.css';
+import '@mantine/dropzone/styles.css';
+import '@mantine/charts/styles.css';
 import './globals.css';
 
 // If loading a variable font, you don't need to specify the font weight
