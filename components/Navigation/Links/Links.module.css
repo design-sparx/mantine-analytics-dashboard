@@ -10,7 +10,7 @@
   }
 
   @mixin dark {
-    color: var(--mantine-color-black);
+    color: var(--mantine-color-white);
   }
 
   @mixin hover {
@@ -65,7 +65,7 @@
   }
 
   @mixin dark {
-    color: var(--mantine-color-black);
+    color: var(--mantine-color-white);
   }
 
   @mixin hover {

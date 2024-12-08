@@ -20,7 +20,6 @@ import { useMediaQuery } from '@mantine/hooks';
 import {
   IconBell,
   IconCircleHalf2,
-  IconMenu2,
   IconMessageCircle,
   IconMoonStars,
   IconPower,
@@ -130,21 +129,12 @@ const NOTIFICATIONS = [
 type HeaderNavProps = {
   mobileOpened?: boolean;
   toggleMobile?: () => void;
-  desktopOpened?: boolean;
-  toggleDesktop?: () => void;
   sidebarState: SidebarState;
   onSidebarStateChange: () => void;
 };
 
 const HeaderNav = (props: HeaderNavProps) => {
-  const {
-    desktopOpened,
-    toggleDesktop,
-    toggleMobile,
-    mobileOpened,
-    sidebarState,
-    onSidebarStateChange,
-  } = props;
+  const { toggleMobile, mobileOpened, onSidebarStateChange } = props;
   const theme = useMantineTheme();
   const { setColorScheme, colorScheme } = useMantineColorScheme();
   const tablet_match = useMediaQuery('(max-width: 768px)');
@@ -209,13 +199,7 @@ const HeaderNav = (props: HeaderNavProps) => {
     <Group justify="space-between">
       <Group gap={0}>
         <Tooltip label="Toggle side navigation">
-          <ActionIcon
-            variant="default"
-            visibleFrom="md"
-            onClick={onSidebarStateChange}
-          >
-            <IconMenu2 size={16} />
-          </ActionIcon>
+          <Burger visibleFrom="md" size="sm" onClick={onSidebarStateChange} />
         </Tooltip>
         <Burger
           opened={mobileOpened}

@@ -1,7 +1,6 @@
 .navbar {
   background-color: var(--mantine-primary-color-filled);
   min-height: rem(100vh);
-  width: rem(300px);
   padding: var(--mantine-spacing-md);
   padding-bottom: 0;
   display: flex;
@@ -16,11 +15,19 @@
   }
 
   @mixin dark {
-    background-color: var(--mantine-primary-color-light-color);
+    background-color: var(--mantine-color-dark-7);
   }
 
   &[data-sidebar-state="full"] {
     width: rem(300px);
+
+    @media (max-width: $mantine-breakpoint-md) {
+      width: 100%;
+    }
+
+    @media (max-width: $mantine-breakpoint-sm) {
+      width: 100%;
+    }
   }
 
   &[data-sidebar-state="mini"] {
@@ -48,36 +55,27 @@
     overflow: hidden;
   }
 
-
   @media (max-width: $mantine-breakpoint-md) {
     width: 100%;
   }
 }
 
 .header {
-  padding: var(--mantine-spacing-md);
-  padding-top: 0;
+  padding: 0 var(--mantine-spacing-md) var(--mantine-spacing-sm) var(--mantine-spacing-md);
   margin-left: calc(var(--mantine-spacing-md) * -1);
   margin-right: calc(var(--mantine-spacing-md) * -1);
-  border-bottom: rem(1px) solid var(--mantine-primary-color-filled-hover);
-
-  @mixin light {
-    color: var(--mantine-color-white);
-  }
-
-  @mixin dark {
-    color: var(--mantine-color-black);
-  }
+  border-bottom: rem(1px) solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-4));
+  color: var(--mantine-color-white);
 }
 
 .logo {
-  @mixin light {
-    color: var(--mantine-color-white);
-  }
+  /*@mixin light {*/
+  /*  color: var(--mantine-color-white);*/
+  /*}*/
 
-  @mixin dark {
-    color: var(--mantine-color-black);
-  }
+  /*@mixin dark {*/
+  /*  color: var(--mantine-color-black);*/
+  /*}*/
 }
 
 .links {
@@ -89,30 +87,20 @@
 .linksInner {
   padding-top: var(--mantine-spacing-xl);
   padding-bottom: var(--mantine-spacing-xl);
+
+  &[data-sidebar-state="mini"] {
+    padding-top: 0;
+  }
 }
 
 .linkHeader {
   font-weight: 500;
-
-  @mixin light {
-    color: var(--mantine-color-gray-3);
-  }
-
-  @mixin dark {
-    color: var(--mantine-color-dark-8);
-  }
+  color: light-dark(var(--mantine-color-white), var(--mantine-color-gray-3));
 }
 
 .footer {
   margin-left: calc(var(--mantine-spacing-md) * -1);
   margin-right: calc(var(--mantine-spacing-md) * -1);
-  border-top: rem(1px) solid var(--mantine-primary-color-filled-hover);
-
-  @mixin light {
-    color: var(--mantine-color-white);
-  }
-
-  @mixin dark {
-    color: var(--mantine-color-black);
-  }
+  border-top: rem(1px) solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-4));
+  color: var(--mantine-color-white);
 }

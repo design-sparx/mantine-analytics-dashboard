@@ -3,7 +3,7 @@
 import { ReactNode, useState } from 'react';
 
 import { AppShell, Container, rem, useMantineTheme } from '@mantine/core';
-import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import { useDisclosure, useLocalStorage, useMediaQuery } from '@mantine/hooks';
 
 import AppMain from '@/components/AppMain';
 import FooterNav from '@/components/FooterNav';
@@ -20,8 +20,11 @@ export function MainLayout({ children }: Props) {
   const theme = useMantineTheme();
   const tablet_match = useMediaQuery('(max-width: 768px)');
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
-  const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
-  const [sidebarState, setSidebarState] = useState<SidebarState>('full');
+  const [desktopOpened] = useDisclosure(true);
+  const [sidebarState, setSidebarState] = useLocalStorage<SidebarState>({
+    key: 'mantine-nav-state',
+    defaultValue: 'full',
+  });
 
   const toggleSidebarState = () => {
     setSidebarState((current) => {
@@ -46,15 +49,12 @@ export function MainLayout({ children }: Props) {
       <AppShell.Header
         style={{
           height: rem(60),
-          border: 'none',
           boxShadow: tablet_match ? theme.shadows.md : theme.shadows.sm,
         }}
       >
         <Container fluid py="sm" px="lg">
           <HeaderNav
-            desktopOpened={desktopOpened}
             mobileOpened={mobileOpened}
-            toggleDesktop={toggleDesktop}
             toggleMobile={toggleMobile}
             sidebarState={sidebarState}
             onSidebarStateChange={toggleSidebarState}

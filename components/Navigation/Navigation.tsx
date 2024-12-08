@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { ActionIcon, Box, Flex, Group, ScrollArea, Text } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
@@ -167,12 +167,18 @@ const Navigation = ({
     </Box>
   ));
 
+  useEffect(() => {
+    if (tablet_match) {
+      onSidebarStateChange('full');
+    }
+  }, [onSidebarStateChange, tablet_match]);
+
   return (
-    <nav className={classes.navbar} data-sidebar-state={sidebarState}>
+    <div className={classes.navbar} data-sidebar-state={sidebarState}>
       <div className={classes.header}>
         <Flex justify="space-between" align="center" gap="sm">
           <Group
-            justify="space-between"
+            justify={sidebarState === 'mini' ? 'center' : 'space-between'}
             style={{ flex: tablet_match ? 'auto' : 1 }}
           >
             <Logo className={classes.logo} showText={sidebarState !== 'mini'} />
@@ -186,7 +192,9 @@ const Navigation = ({
       </div>
 
       <ScrollArea className={classes.links}>
-        <div className={classes.linksInner}>{links}</div>
+        <div className={classes.linksInner} data-sidebar-state={sidebarState}>
+          {links}
+        </div>
       </ScrollArea>
 
       <div className={classes.footer}>
@@ -197,7 +205,7 @@ const Navigation = ({
           showText={sidebarState !== 'mini'}
         />
       </div>
-    </nav>
+    </div>
   );
 };
 
