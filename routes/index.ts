@@ -38,6 +38,9 @@ export const PATH_APPS = {
   projects: path(ROOT_APPS, '/projects'),
   settings: path(ROOT_APPS, '/settings'),
   tasks: path(ROOT_APPS, '/tasks'),
+  fileManager: {
+    root: path(ROOT_APPS, '/file-manager'),
+  },
 };
 
 export const PATH_PAGES = {

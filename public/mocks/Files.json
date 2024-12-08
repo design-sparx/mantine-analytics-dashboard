@@ -1,0 +1,211 @@
+[
+  {
+    "id": "e7329d87-9c4b-4c9e-89fc-11c21a6d82c9",
+    "name": "Project Proposal.pdf",
+    "type": "Documents",
+    "size": "1.2 MB",
+    "created_at": "2024-11-01T14:30:00Z",
+    "modified_at": "2024-11-05T10:20:00Z",
+    "owner": "Kelvin Kiprop",
+    "path": "/Documentss/Projects",
+    "permissions": "Read-Write"
+  },
+  {
+    "id": "40ab573f-4f87-4c8d-a1b3-8ed7c9b74d8f",
+    "name": "logo.png",
+    "type": "Images",
+    "size": "512 KB",
+    "created_at": "2024-10-20T09:15:00Z",
+    "modified_at": "2024-10-22T08:50:00Z",
+    "owner": "Design Team",
+    "path": "/Media/Logos",
+    "permissions": "Read-Only"
+  },
+  {
+    "id": "a829c5c3-3e62-47e6-9295-47e725c5cc77",
+    "name": "server.ts",
+    "type": "Code",
+    "size": "32 KB",
+    "created_at": "2024-11-10T11:45:00Z",
+    "modified_at": "2024-11-15T12:30:00Z",
+    "owner": "Kelvin Kiprop",
+    "path": "/Projects/Backend",
+    "permissions": "Read-Write"
+  },
+  {
+    "id": "c2e68c6a-5a94-4ea4-9d59-6a8c2e37f29c",
+    "name": "meeting-notes.docx",
+    "type": "Documents",
+    "size": "640 KB",
+    "created_at": "2024-11-12T15:00:00Z",
+    "modified_at": "2024-11-13T18:00:00Z",
+    "owner": "Kelvin Kiprop",
+    "path": "/Documentss/Meetings",
+    "permissions": "Read-Write"
+  },
+  {
+    "id": "d1247c6c-d589-4f63-9c98-5872e2d9c492",
+    "name": "background.jpg",
+    "type": "Images",
+    "size": "3.5 MB",
+    "created_at": "2024-09-10T08:10:00Z",
+    "modified_at": "2024-10-01T07:30:00Z",
+    "owner": "Design Team",
+    "path": "/Media/Backgrounds",
+    "permissions": "Read-Only"
+  },
+  {
+    "id": "fc6c8d59-a9e3-4b7b-8cc6-7e8e7a29f71d",
+    "name": "database_backup.sql",
+    "type": "Code",
+    "size": "1.8 MB",
+    "created_at": "2024-11-01T00:00:00Z",
+    "modified_at": "2024-11-20T14:15:00Z",
+    "owner": "Admin",
+    "path": "/Backups",
+    "permissions": "Admin-Only"
+  },
+  {
+    "id": "4e9a70d8-6226-41c6-b9d7-94c6d5f4b5b6",
+    "name": "expense-report.xlsx",
+    "type": "Spreadsheet",
+    "size": "256 KB",
+    "created_at": "2024-10-05T09:25:00Z",
+    "modified_at": "2024-11-01T11:00:00Z",
+    "owner": "Finance",
+    "path": "/Documents/Finance",
+    "permissions": "Read-Write"
+  },
+  {
+    "id": "ae02d359-8a64-41b4-944e-e7b9c67b56b7",
+    "name": "team-photo.jpg",
+    "type": "Images",
+    "size": "2.1 MB",
+    "created_at": "2024-07-10T12:30:00Z",
+    "modified_at": "2024-08-01T15:40:00Z",
+    "owner": "HR",
+    "path": "/Media/Photos",
+    "permissions": "Read-Write"
+  },
+  {
+    "id": "6b3e1a6c-6a3b-4a4e-97cd-b86a5c874ae9",
+    "name": "project_plan.xlsx",
+    "type": "Spreadsheet",
+    "size": "740 KB",
+    "created_at": "2024-08-10T16:15:00Z",
+    "modified_at": "2024-08-20T18:45:00Z",
+    "owner": "Project Management",
+    "path": "/Documents/Projects",
+    "permissions": "Read-Write"
+  },
+  {
+    "id": "5d7b64b9-939e-4a6a-b6e4-e5b4a8d6d63f",
+    "name": "release-notes.md",
+    "type": "Documentss",
+    "size": "8 KB",
+    "created_at": "2024-10-01T14:10:00Z",
+    "modified_at": "2024-10-15T09:25:00Z",
+    "owner": "DevOps",
+    "path": "/Documents/ReleaseNotes",
+    "permissions": "Read-Write"
+  },
+  {
+    "id": "38d4f48b-7d53-4c96-bcc8-a5e37b93a5c1",
+    "name": "user-manual.pdf",
+    "type": "Documents",
+    "size": "5 MB",
+    "created_at": "2024-05-10T13:30:00Z",
+    "modified_at": "2024-07-01T15:00:00Z",
+    "owner": "Support",
+    "path": "/Documents/Manuals",
+    "permissions": "Read-Only"
+  },
+  {
+    "id": "b5c3a4a7-88d5-4b6d-bc67-97c7e8b56a9e",
+    "name": "presentation.pptx",
+    "type": "Presentation",
+    "size": "4.2 MB",
+    "created_at": "2024-09-25T11:45:00Z",
+    "modified_at": "2024-10-10T13:20:00Z",
+    "owner": "Marketing",
+    "path": "/Documents/Presentations",
+    "permissions": "Read-Write"
+  },
+  {
+    "id": "94f84d2c-47d3-4c78-a86c-3e62b9e3c72d",
+    "name": "app-icon.svg",
+    "type": "Images",
+    "size": "48 KB",
+    "created_at": "2024-06-15T14:00:00Z",
+    "modified_at": "2024-07-01T16:30:00Z",
+    "owner": "UI Team",
+    "path": "/Media/Icons",
+    "permissions": "Read-Only"
+  },
+  {
+    "id": "837dc5f9-4c7d-4e5b-a849-3c57d8b69d25",
+    "name": "style-guide.pdf",
+    "type": "Documents",
+    "size": "1.5 MB",
+    "created_at": "2024-08-01T10:20:00Z",
+    "modified_at": "2024-08-15T12:00:00Z",
+    "owner": "Design Team",
+    "path": "/Documents/Guides",
+    "permissions": "Read-Only"
+  },
+  {
+    "id": "5b74d3f9-a8b4-47e3-b5c6-78e4c56a9c7b",
+    "name": "debug-log.txt",
+    "type": "Documents",
+    "size": "128 KB",
+    "created_at": "2024-09-10T20:15:00Z",
+    "modified_at": "2024-09-15T22:10:00Z",
+    "owner": "DevOps",
+    "path": "/Logs",
+    "permissions": "Read-Write"
+  },
+  {
+    "id": "6a4e93b7-8e5c-40a3-a94b-e7c5d6b3a7c8",
+    "name": "annual-report.pdf",
+    "type": "Documents",
+    "size": "12 MB",
+    "created_at": "2024-11-01T10:00:00Z",
+    "modified_at": "2024-11-20T15:30:00Z",
+    "owner": "Finance",
+    "path": "/Documents/Reports",
+    "permissions": "Read-Write"
+  },
+  {
+    "id": "c3d6b7a5-49d2-4c56-86e7-4e9a72f93b74",
+    "name": "client-feedback.csv",
+    "type": "Spreadsheet",
+    "size": "3 KB",
+    "created_at": "2024-07-15T13:10:00Z",
+    "modified_at": "2024-08-01T14:50:00Z",
+    "owner": "Sales",
+    "path": "/Documents/Feedback",
+    "permissions": "Read-Write"
+  },
+  {
+    "id": "6d4f5b8c-3a9d-47c6-b8e9-d7c8a2f5c6b9",
+    "name": "index.html",
+    "type": "Code",
+    "size": "16 KB",
+    "created_at": "2024-09-01T12:45:00Z",
+    "modified_at": "2024-09-10T13:30:00Z",
+    "owner": "Web Team",
+    "path": "/Projects/WebApp",
+    "permissions": "Read-Write"
+  },
+  {
+    "id": "4d7c8f6b-93a5-43c6-b9e4-f85d6a7b4c9e",
+    "name": "terms-and-conditions.pdf",
+    "type": "Documents",
+    "size": "2 MB",
+    "created_at": "2024-01-01T00:00:00Z",
+    "modified_at": "2024-06-01T10:00:00Z",
+    "owner": "Legal",
+    "path": "/Documents/Legal",
+    "permissions": "Read-Only"
+  }
+]

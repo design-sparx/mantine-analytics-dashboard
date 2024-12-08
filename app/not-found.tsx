@@ -9,10 +9,12 @@ import {
   Title,
   useMantineTheme,
 } from '@mantine/core';
-import Link from 'next/link';
-import { PATH_DASHBOARD } from '@/routes';
 import { IconChevronLeft, IconHome2 } from '@tabler/icons-react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+
+import { PATH_DASHBOARD } from '@/routes';
+
 import classes from './error.module.css';
 
 function Error404() {
@@ -48,7 +50,7 @@ function Error404() {
           <Group justify="center" mt="md">
             <Button
               size="md"
-              variant="subtle"
+              variant="outline"
               leftSection={<IconChevronLeft size={18} />}
               onClick={() => {
                 router.back();
@@ -58,7 +60,7 @@ function Error404() {
             </Button>
             <Button
               size="md"
-              variant="subtle"
+              variant="outline"
               component={Link}
               leftSection={<IconHome2 size={18} />}
               href={PATH_DASHBOARD.default}

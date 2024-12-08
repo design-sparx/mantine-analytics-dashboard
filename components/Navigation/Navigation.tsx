@@ -12,6 +12,7 @@ import {
   IconChartInfographic,
   IconExclamationCircle,
   IconFileInvoice,
+  IconFiles,
   IconLayersSubtract,
   IconLifebuoy,
   IconList,
@@ -79,6 +80,11 @@ const mockdata = [
       },
       { label: 'Tasks', icon: IconListDetails, link: PATH_APPS.tasks },
       { label: 'Calendar', icon: IconCalendar, link: PATH_APPS.calendar },
+      {
+        label: 'File Manager',
+        icon: IconFiles,
+        link: PATH_APPS.fileManager.root,
+      },
     ],
   },
   {
