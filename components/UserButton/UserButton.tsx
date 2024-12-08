@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+
 import {
   Avatar,
   Group,
@@ -7,6 +8,7 @@ import {
   UnstyledButtonProps,
 } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
+
 import classes from './UserButton.module.css';
 
 type UserProfileButtonProps = {
@@ -15,6 +17,7 @@ type UserProfileButtonProps = {
   email: string;
   icon?: ReactNode;
   asAction?: boolean;
+  showText?: boolean;
 } & UnstyledButtonProps;
 
 const UserProfileButton = ({
@@ -23,6 +26,7 @@ const UserProfileButton = ({
   email,
   icon,
   asAction,
+  showText = true,
   ...others
 }: UserProfileButtonProps) => {
   return (
@@ -30,13 +34,15 @@ const UserProfileButton = ({
       <Group>
         <Avatar src={image} radius="xl" />
 
-        <div style={{ flex: 1 }}>
-          <Text size="sm" fw={500}>
-            {name}
-          </Text>
+        {showText && (
+          <div style={{ flex: 1 }}>
+            <Text size="sm" fw={500}>
+              {name}
+            </Text>
 
-          <Text size="xs">{email}</Text>
-        </div>
+            <Text size="xs">{email}</Text>
+          </div>
+        )}
 
         {icon && asAction && <IconChevronRight size="0.9rem" stroke={1.5} />}
       </Group>

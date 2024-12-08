@@ -10,7 +10,7 @@
   }
 
   @mixin dark {
-    color: var(--mantine-color-black);
+    color: var(--mantine-color-white);
   }
 
   @mixin hover {
@@ -40,6 +40,14 @@
         color: var(--mantine-primary-color-light-color);
       }
     }
+
+    &[data-mini="true"] {
+      width: rem(67px);
+    }
+  }
+
+  &[data-mini="true"] {
+    text-align: center;
   }
 }
 
@@ -57,7 +65,7 @@
   }
 
   @mixin dark {
-    color: var(--mantine-color-black);
+    color: var(--mantine-color-white);
   }
 
   @mixin hover {
