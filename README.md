@@ -2,6 +2,8 @@
 - Added file manager page UI
 - Updated mantine version to latest 7.14.3
 
+---
+
 ![showcase](public/thumbnail-img-b.jpg)
 
 <p align="center">
