@@ -1,6 +1,8 @@
 ## 🔉 Announcements
 - Added file manager page UI
 - Updated mantine version to latest 7.14.3
+- New dark mode variant
+- New sidebar variant, now we have full, mini and full collapsed modes
 
 ---
 
