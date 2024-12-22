@@ -9,9 +9,10 @@ import {
   useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core';
-import dynamic from 'next/dynamic';
-import { DataTable } from 'mantine-datatable';
 import { IconDotsVertical } from '@tabler/icons-react';
+import { DataTable } from 'mantine-datatable';
+import dynamic from 'next/dynamic';
+
 import { ErrorAlert, Surface } from '@/components';
 import { useFetchData } from '@/hooks';
 

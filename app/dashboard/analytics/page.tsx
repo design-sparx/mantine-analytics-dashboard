@@ -4,12 +4,13 @@ import {
   Container,
   Grid,
   PaperProps,
-  rem,
   SimpleGrid,
   Skeleton,
   Stack,
+  rem,
   useMantineTheme,
 } from '@mantine/core';
+
 import {
   ErrorAlert,
   LanguageTable,

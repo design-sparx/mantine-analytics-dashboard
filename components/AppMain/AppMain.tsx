@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
+
 import { Box } from '@mantine/core';
+
 import classes from './App.module.css';
 
 type AppMainProps = {

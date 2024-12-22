@@ -11,6 +11,8 @@ import {
   Text,
 } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
+import Link from 'next/link';
+
 import {
   MobileDesktopChart,
   PageHeader,
@@ -19,9 +21,8 @@ import {
   SalesChart,
   StatsGrid,
 } from '@/components';
-import Link from 'next/link';
-import { PATH_TASKS } from '@/routes';
 import { useFetchData } from '@/hooks';
+import { PATH_TASKS } from '@/routes';
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',

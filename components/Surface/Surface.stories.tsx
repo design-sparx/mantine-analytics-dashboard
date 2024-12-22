@@ -1,6 +1,7 @@
+import Surface from './Surface';
+
 import type { StoryObj } from '@storybook/react';
 
-import Surface from './Surface';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {

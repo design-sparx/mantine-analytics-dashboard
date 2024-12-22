@@ -1,6 +1,5 @@
 'use client';
 
-import { signIn, signOut, useSession } from 'next-auth/react';
 import {
   Button,
   Center,
@@ -15,6 +14,7 @@ import {
   Title,
 } from '@mantine/core';
 import { IconBrandAuth0, IconLogin, IconLogin2 } from '@tabler/icons-react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 const ICON_SIZE = 18;
 

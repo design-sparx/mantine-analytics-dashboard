@@ -1,7 +1,8 @@
-import type { StoryObj } from '@storybook/react';
 import MOCKS from '@/public/mocks/Orders.json';
 
 import OrdersTable from './OrdersTable';
+
+import type { StoryObj } from '@storybook/react';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {

@@ -1,22 +1,21 @@
-import React from 'react';
 import {
   Button,
   ColorSwatch,
   Drawer,
   DrawerProps,
   MantineTheme,
-  rem,
   SimpleGrid,
   Stack,
   Text,
   Tooltip,
   UnstyledButton,
+  rem,
   useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core';
-import { IconCheck, IconMoonStars, IconSunHigh } from '@tabler/icons-react';
+import { upperFirst, useMediaQuery } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
-import { upperFirst, useColorScheme, useMediaQuery } from '@mantine/hooks';
+import { IconCheck, IconMoonStars, IconSunHigh } from '@tabler/icons-react';
 
 type ThemeDrawerProps = {
   primaryColor?: string;

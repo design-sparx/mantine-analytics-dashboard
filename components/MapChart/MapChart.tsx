@@ -1,15 +1,7 @@
 'use client';
 
 import React, { useEffect, useMemo, useState } from 'react';
-import {
-  ComposableMap,
-  Geographies,
-  Geography,
-  Marker,
-} from 'react-simple-maps';
-import { csv } from 'd3-fetch';
-import { scaleLinear } from 'd3-scale';
-import sortBy from 'lodash/sortBy';
+
 import {
   ActionIcon,
   Group,
@@ -19,8 +11,18 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { IconDotsVertical } from '@tabler/icons-react';
-import WorldCountriesMap from '@/public/mocks/WorldAtlasCountries.json';
+import { csv } from 'd3-fetch';
+import { scaleLinear } from 'd3-scale';
+import sortBy from 'lodash/sortBy';
+import {
+  ComposableMap,
+  Geographies,
+  Geography,
+  Marker,
+} from 'react-simple-maps';
+
 import { Surface } from '@/components';
+import WorldCountriesMap from '@/public/mocks/WorldAtlasCountries.json';
 
 const geoUrl = WorldCountriesMap;
 

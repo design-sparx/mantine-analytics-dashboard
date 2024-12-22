@@ -4,13 +4,14 @@ import {
   ButtonProps,
   Group,
   Menu,
-  rem,
   Text,
+  rem,
   useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconDots } from '@tabler/icons-react';
+
 import { PATH_GITHUB } from '@/routes';
 
 const FooterNav = () => {

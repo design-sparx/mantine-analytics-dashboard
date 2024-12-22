@@ -1,15 +1,16 @@
 'use client';
 
-import { Link, RichTextEditor, RichTextEditorProps } from '@mantine/tiptap';
-import { useEditor } from '@tiptap/react';
-import Highlight from '@tiptap/extension-highlight';
-import StarterKit from '@tiptap/starter-kit';
-import Underline from '@tiptap/extension-underline';
-import TextAlign from '@tiptap/extension-text-align';
-import Superscript from '@tiptap/extension-superscript';
-import SubScript from '@tiptap/extension-subscript';
-import { Stack, StackProps, Text } from '@mantine/core';
 import { CSSProperties } from 'react';
+
+import { Stack, StackProps, Text } from '@mantine/core';
+import { Link, RichTextEditor, RichTextEditorProps } from '@mantine/tiptap';
+import Highlight from '@tiptap/extension-highlight';
+import SubScript from '@tiptap/extension-subscript';
+import Superscript from '@tiptap/extension-superscript';
+import TextAlign from '@tiptap/extension-text-align';
+import Underline from '@tiptap/extension-underline';
+import { useEditor } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
 
 type TextEditorProps = {
   label: string;

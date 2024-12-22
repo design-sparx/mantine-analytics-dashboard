@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+
 import {
   DndContext,
   DragEndEvent,
@@ -11,12 +12,13 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
-import { arrayMove, SortableContext } from '@dnd-kit/sortable';
-import { KanbanCard, KanbanColumn } from '@/components';
-import { Id, KanbanColumn as IColumn, KanbanTask as ITask } from '@/types';
-import { IconNewSection, IconPlus } from '@tabler/icons-react';
+import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import { Box, Button, Portal, ScrollArea } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+import { IconNewSection, IconPlus } from '@tabler/icons-react';
+
+import { KanbanCard, KanbanColumn } from '@/components';
+import { KanbanColumn as IColumn, KanbanTask as ITask, Id } from '@/types';
 
 const defaultCols: IColumn[] = [
   {

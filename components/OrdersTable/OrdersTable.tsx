@@ -1,23 +1,19 @@
 'use client';
 
-import React, { ReactNode, useEffect, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
+
+import { Badge, MantineColor, MultiSelect, TextInput } from '@mantine/core';
+import { useDebouncedValue } from '@mantine/hooks';
+import { IconSearch } from '@tabler/icons-react';
+import sortBy from 'lodash/sortBy';
 import {
   DataTable,
   DataTableProps,
   DataTableSortStatus,
 } from 'mantine-datatable';
-import {
-  Badge,
-  MantineColor,
-  MultiSelect,
-  Text,
-  TextInput,
-} from '@mantine/core';
-import sortBy from 'lodash/sortBy';
-import { Orders, OrderStatus } from '@/types';
-import { useDebouncedValue } from '@mantine/hooks';
-import { IconSearch } from '@tabler/icons-react';
+
 import { ErrorAlert } from '@/components';
+import { OrderStatus, Orders } from '@/types';
 
 type StatusBadgeProps = {
   status: OrderStatus;

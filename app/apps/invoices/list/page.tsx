@@ -10,12 +10,11 @@ import {
   Stack,
   Text,
 } from '@mantine/core';
-import { PATH_DASHBOARD } from '@/routes';
-import { InvoicesTable, PageHeader } from '@/components';
-import InvoicesData from '@/public/mocks/Invoices.json';
 import { IconDotsVertical } from '@tabler/icons-react';
-import { Metadata } from 'next';
+
+import { InvoicesTable, PageHeader } from '@/components';
 import { useFetchData } from '@/hooks';
+import { PATH_DASHBOARD } from '@/routes';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },

@@ -1,5 +1,6 @@
 'use client';
 
+import { Carousel } from '@mantine/carousel';
 import {
   ActionIcon,
   Anchor,
@@ -10,19 +11,21 @@ import {
   Grid,
   Paper,
   PaperProps,
-  rem,
   ScrollArea,
   Skeleton,
   Stack,
   TextInput,
   Tooltip,
+  rem,
   useMantineTheme,
 } from '@mantine/core';
+import { useColorScheme, useMediaQuery } from '@mantine/hooks';
 import { Link, RichTextEditor } from '@mantine/tiptap';
+import { IconDotsVertical, IconSearch, IconSend } from '@tabler/icons-react';
+import Placeholder from '@tiptap/extension-placeholder';
 import { BubbleMenu, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import Placeholder from '@tiptap/extension-placeholder';
-import { PATH_DASHBOARD } from '@/routes';
+
 import {
   ChatItem,
   ChatsList,
@@ -31,13 +34,9 @@ import {
   Surface,
   UserButton,
 } from '@/components';
-import { IconDotsVertical, IconSearch, IconSend } from '@tabler/icons-react';
-import { useColorScheme, useMediaQuery } from '@mantine/hooks';
-import { Carousel } from '@mantine/carousel';
-import ChatsListData from '@/public/mocks/ChatsList.json';
-import ChatItemsData from '@/public/mocks/ChatItems.json';
-import UserProfileData from '@/public/mocks/UserProfile.json';
 import { useFetchData } from '@/hooks';
+import UserProfileData from '@/public/mocks/UserProfile.json';
+import { PATH_DASHBOARD } from '@/routes';
 
 import classes from './page.module.css';
 

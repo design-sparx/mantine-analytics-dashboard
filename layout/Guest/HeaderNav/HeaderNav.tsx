@@ -5,16 +5,19 @@ import {
   Container,
   Drawer,
   Group,
-  rem,
   ScrollArea,
+  rem,
   useMantineTheme,
 } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
-import { PATH_AUTH, PATH_DASHBOARD, PATH_DOCS, PATH_GITHUB } from '@/routes';
-import { Logo } from '@/components';
-import Link from 'next/link';
-import classes from './HeaderNav.module.css';
 import { IconBrandGithub, IconPlayerPlay } from '@tabler/icons-react';
+import Link from 'next/link';
+
+import { Logo } from '@/components';
+import { PATH_AUTH, PATH_DASHBOARD, PATH_DOCS, PATH_GITHUB } from '@/routes';
+
+import classes from './HeaderNav.module.css';
+
 
 const MOCK_DATA = [
   {

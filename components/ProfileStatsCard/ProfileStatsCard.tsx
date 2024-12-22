@@ -1,3 +1,5 @@
+import { createElement } from 'react';
+
 import {
   Flex,
   MantineColor,
@@ -8,9 +10,9 @@ import {
   Text,
   ThemeIcon,
 } from '@mantine/core';
-import { Surface } from '@/components';
 import CountUp from 'react-countup';
-import { createElement } from 'react';
+
+import { Surface } from '@/components';
 
 type ProfileStatsCardProps = {
   amount: number;

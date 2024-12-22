@@ -1,8 +1,8 @@
 'use client';
-// components/RouterTransition.tsx
 import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+
 import { NavigationProgress, nprogress } from '@mantine/nprogress';
+import { useRouter } from 'next/router';
 
 const RouterTransition = () => {
   const router = useRouter();
@@ -21,7 +21,7 @@ const RouterTransition = () => {
       router.events.off('routeChangeComplete', handleComplete);
       router.events.off('routeChangeError', handleComplete);
     };
-  }, [router.asPath]);
+  }, [router.asPath, router.events]);
 
   return <NavigationProgress color="dark.8" />;
 };

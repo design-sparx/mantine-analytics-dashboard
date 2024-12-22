@@ -1,7 +1,6 @@
 import {
   ActionIcon,
   ActionIconProps,
-  Button,
   Container,
   Divider,
   Flex,
@@ -10,7 +9,7 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { Logo } from '@/components';
+import { useMediaQuery } from '@mantine/hooks';
 import {
   IconBrandFacebook,
   IconBrandGithub,
@@ -19,8 +18,10 @@ import {
   IconBrandTwitter,
   IconWorld,
 } from '@tabler/icons-react';
-import { useMediaQuery } from '@mantine/hooks';
-import { PATH_DOCS } from '@/routes';
+
+import { Logo } from '@/components';
+
+
 import classes from './FooterNav.module.css';
 
 const ICON_SIZE = 18;

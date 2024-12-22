@@ -12,12 +12,14 @@ import {
   TextProps,
   Title,
 } from '@mantine/core';
-import Link from 'next/link';
-import { PATH_AUTH, PATH_DASHBOARD } from '@/routes';
-import { Surface } from '@/components';
-import classes from './page.module.css';
 import { useForm } from '@mantine/form';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+
+import { Surface } from '@/components';
+import { PATH_AUTH, PATH_DASHBOARD } from '@/routes';
+
+import classes from './page.module.css';
 
 const LINK_PROPS: TextProps = {
   className: classes.link,

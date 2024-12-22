@@ -1,4 +1,5 @@
 import { Accordion, Box, BoxProps, Title } from '@mantine/core';
+
 import classes from './Faqs.module.css';
 
 const placeholder =

@@ -1,7 +1,9 @@
 import { Badge, Group, Paper, PaperProps, Text } from '@mantine/core';
-import classes from './Stats.module.css';
 import { IconArrowDownRight, IconArrowUpRight } from '@tabler/icons-react';
+
 import { Surface } from '@/components';
+
+import classes from './Stats.module.css';
 
 type StatsCardProps = {
   data: { title: string; value: string; diff: number; period?: string };

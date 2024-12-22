@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import {
   ClerkProvider,
   SignIn,
@@ -8,6 +10,7 @@ import {
   SignUp,
   SignUpButton,
 } from '@clerk/nextjs';
+import { dark, neobrutalism, shadesOfPurple } from '@clerk/themes';
 import {
   Button,
   Container,
@@ -15,15 +18,13 @@ import {
   Flex,
   Group,
   Image,
-  parseThemeColor,
   Select,
   Stack,
   Text,
   Title,
+  parseThemeColor,
   useMantineTheme,
 } from '@mantine/core';
-import { dark, neobrutalism, shadesOfPurple } from '@clerk/themes';
-import { useEffect, useState } from 'react';
 import { IconLogin, IconLogin2, IconUserCircle } from '@tabler/icons-react';
 
 const ICON_SIZE = 18;
@@ -62,7 +63,13 @@ function Home() {
       <ClerkProvider appearance={...clerkAppearanceOptions}>
         <Container>
           <Stack gap="lg">
-            <Image src="/brands/clerk.svg" h={48} w={120} fit="contain" />
+            <Image
+              src="/brands/clerk.svg"
+              h={48}
+              w={120}
+              fit="contain"
+              alt=""
+            />
             <Divider />
             <Select
               label="Select theme"

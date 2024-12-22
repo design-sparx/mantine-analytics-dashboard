@@ -7,6 +7,7 @@ import {
   Skeleton,
   Text,
 } from '@mantine/core';
+
 import classes from './ChatItem.module.css';
 
 type ChatItemProps = {

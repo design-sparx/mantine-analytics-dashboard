@@ -1,11 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+
 import { Anchor, Container, PaperProps, Stack } from '@mantine/core';
+
 import { InvoiceDetailsCard, PageHeader } from '@/components';
+import { useFetchData } from '@/hooks';
 import { PATH_DASHBOARD, PATH_INVOICES } from '@/routes';
 import { Invoices } from '@/types';
-import { useFetchData } from '@/hooks';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },

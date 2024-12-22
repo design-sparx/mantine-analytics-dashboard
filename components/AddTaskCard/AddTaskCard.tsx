@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Flex, Text, Input, Button } from '@mantine/core';
+import { useState } from 'react';
+
+import { Button, Flex, Input, Text } from '@mantine/core';
 
 type AddCardProps = {
   addCard: (title: string) => void;
