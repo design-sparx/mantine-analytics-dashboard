@@ -9,8 +9,9 @@ import {
   useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core';
-import dynamic from 'next/dynamic';
 import { IconDotsVertical } from '@tabler/icons-react';
+import dynamic from 'next/dynamic';
+
 import { Surface } from '@/components';
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });

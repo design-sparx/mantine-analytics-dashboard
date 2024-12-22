@@ -1,5 +1,7 @@
 'use client';
 
+import { createElement } from 'react';
+
 import {
   Anchor,
   Button,
@@ -15,8 +17,6 @@ import {
   useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core';
-import { PATH_DASHBOARD, PATH_GITHUB } from '@/routes';
-import { PageHeader, Surface } from '@/components';
 import {
   IconBrandGithub,
   IconBug,
@@ -24,8 +24,10 @@ import {
   IconCode,
   IconExternalLink,
 } from '@tabler/icons-react';
-import { createElement } from 'react';
+
+import { PageHeader, Surface } from '@/components';
 import classes from '@/layout/Guest/HeaderNav/HeaderNav.module.css';
+import { PATH_DASHBOARD, PATH_GITHUB } from '@/routes';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },

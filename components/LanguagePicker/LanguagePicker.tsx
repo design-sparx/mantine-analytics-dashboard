@@ -1,8 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+
 import { Group, Image, Menu, UnstyledButton } from '@mantine/core';
 import { IconChevronDown } from '@tabler/icons-react';
+
 import classes from './LanguagePicker.module.css';
 
 const data = [

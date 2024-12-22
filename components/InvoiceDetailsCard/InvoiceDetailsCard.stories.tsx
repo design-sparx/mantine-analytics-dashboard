@@ -1,6 +1,7 @@
+import InvoiceDetailsCard from './InvoiceDetailsCard';
+
 import type { StoryObj } from '@storybook/react';
 
-import InvoiceDetailsCard from './InvoiceDetailsCard';
 
 const MOCKS = {
   id: '8677a3e2-dde3-4d04-8edd-9d0bcf178f89',

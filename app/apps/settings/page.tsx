@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
+
 import {
   Anchor,
   Box,
   Button,
   Container,
   FileButton,
-  Flex,
   Grid,
   Group,
   Image,
@@ -17,10 +17,11 @@ import {
   Text,
   TextInput,
 } from '@mantine/core';
-import { PATH_DASHBOARD } from '@/routes';
 import { useForm } from '@mantine/form';
 import { IconCloudUpload, IconDeviceFloppy } from '@tabler/icons-react';
+
 import { PageHeader, Surface, TextEditor } from '@/components';
+import { PATH_DASHBOARD } from '@/routes';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },
@@ -114,6 +115,7 @@ function Settings() {
                         h={128}
                         w={128}
                         radius="50%"
+                        alt=""
                       />
                       <FileButton
                         onChange={setFile}

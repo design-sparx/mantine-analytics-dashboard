@@ -8,9 +8,10 @@ import {
   Skeleton,
   Stack,
 } from '@mantine/core';
-import { PATH_DASHBOARD } from '@/routes';
+
 import { ErrorAlert, PageHeader, ProjectsCard } from '@/components';
 import { useFetchData } from '@/hooks';
+import { PATH_DASHBOARD } from '@/routes';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },

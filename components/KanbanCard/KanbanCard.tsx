@@ -1,15 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Id, KanbanTask as ITask } from '../../types';
+
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import {
-  IconDots,
-  IconEdit,
-  IconMessageCircle,
-  IconTrash,
-} from '@tabler/icons-react';
 import {
   ActionIcon,
   Avatar,
@@ -28,7 +22,15 @@ import {
 } from '@mantine/core';
 import { useHover } from '@mantine/hooks';
 import { modals } from '@mantine/modals';
+import {
+  IconDots,
+  IconEdit,
+  IconMessageCircle,
+  IconTrash,
+} from '@tabler/icons-react';
+
 import classes from './KanbanCard.module.css';
+import { KanbanTask as ITask, Id } from '../../types';
 
 const AVATARS = [
   'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',

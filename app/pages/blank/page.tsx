@@ -8,9 +8,9 @@ import {
   Stack,
   Text,
 } from '@mantine/core';
-import { PATH_DASHBOARD } from '@/routes';
+
 import { PageHeader, Surface } from '@/components';
-import { Metadata } from 'next';
+import { PATH_DASHBOARD } from '@/routes';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },

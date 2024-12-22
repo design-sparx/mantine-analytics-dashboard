@@ -1,11 +1,7 @@
 'use client';
 
 import { ReactNode, useEffect, useMemo, useState } from 'react';
-import {
-  DataTable,
-  DataTableProps,
-  DataTableSortStatus,
-} from 'mantine-datatable';
+
 import {
   ActionIcon,
   Avatar,
@@ -22,13 +18,19 @@ import {
   UnstyledButton,
   useMantineTheme,
 } from '@mantine/core';
-import sortBy from 'lodash/sortBy';
-import { Invoices, InvoiceStatus } from '@/types';
 import { useDebouncedValue } from '@mantine/hooks';
 import { IconCloudDownload, IconEye, IconSearch } from '@tabler/icons-react';
+import sortBy from 'lodash/sortBy';
+import {
+  DataTable,
+  DataTableProps,
+  DataTableSortStatus,
+} from 'mantine-datatable';
 import { useRouter } from 'next/navigation';
-import { PATH_INVOICES } from '@/routes';
+
 import { ErrorAlert } from '@/components';
+import { PATH_INVOICES } from '@/routes';
+import { InvoiceStatus, Invoices } from '@/types';
 
 const PAGE_SIZES = [5, 10, 20];
 

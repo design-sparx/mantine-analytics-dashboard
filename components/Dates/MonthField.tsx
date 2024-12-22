@@ -1,7 +1,8 @@
 'use client';
 
-import { MonthPickerInput, MonthPickerInputProps } from '@mantine/dates';
 import { useState } from 'react';
+
+import { MonthPickerInput, MonthPickerInputProps } from '@mantine/dates';
 
 type MonthFieldProps = MonthPickerInputProps;
 

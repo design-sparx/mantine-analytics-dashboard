@@ -1,11 +1,10 @@
 'use client';
 
+import { createElement } from 'react';
+
 import {
-  Badge,
   Box,
-  BoxProps,
   Button,
-  Center,
   Container,
   ContainerProps,
   Flex,
@@ -14,7 +13,6 @@ import {
   Image,
   Paper,
   PaperProps,
-  rem,
   SimpleGrid,
   Spoiler,
   Stack,
@@ -24,17 +22,11 @@ import {
   Title,
   Tooltip,
   UnstyledButton,
+  rem,
   useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core';
-import Link from 'next/link';
-import {
-  PATH_APPS,
-  PATH_AUTH,
-  PATH_DASHBOARD,
-  PATH_DOCS,
-  PATH_GITHUB,
-} from '@/routes';
+import { useMediaQuery } from '@mantine/hooks';
 import {
   IconAdjustmentsHorizontal,
   IconApps,
@@ -43,25 +35,20 @@ import {
   IconBrandGithub,
   IconBrandMantine,
   IconBrandTabler,
-  IconColorSwatch,
   IconComponents,
   IconDevices,
   IconFileCode,
-  IconFileCode2,
   IconFileInfo,
-  IconFolderCode,
   IconLayoutBoard,
-  IconLayoutGrid,
   IconPaint,
   IconPlayerPlay,
-  IconScaleOutline,
-  IconSettingsCog,
 } from '@tabler/icons-react';
-import CountUp from 'react-countup';
-import { useMediaQuery } from '@mantine/hooks';
+import Link from 'next/link';
+
 import GuestLayout from '@/layout/Guest';
+import { PATH_APPS, PATH_AUTH, PATH_DASHBOARD, PATH_GITHUB } from '@/routes';
+
 import classes from './page.module.css';
-import { createElement } from 'react';
 
 const TECH_STACK = [
   { title: 'nextjs', version: '14.0.2', href: 'https://nextjs.org/' },
@@ -71,7 +58,7 @@ const TECH_STACK = [
     version: '5.1.6',
     href: 'https://www.typescriptlang.org/',
   },
-  { title: 'mantine', version: '7.2.2', href: 'https://mantine.dev/' },
+  { title: 'mantine', version: '7.14.2', href: 'https://mantine.dev/' },
   {
     title: 'tabler icons',
     version: '2.40.0',
@@ -81,11 +68,6 @@ const TECH_STACK = [
   { title: 'apexcharts', version: '3.44.0', href: 'https://apexcharts.com/' },
   { title: 'dayjs', version: '1.11.10', href: 'https://day.js.org/' },
   { title: 'fullcalendar', version: '6.1.8', href: 'https://fullcalendar.io/' },
-  {
-    title: 'emotion',
-    version: '11.11.1',
-    href: 'https://emotion.sh/docs/introduction',
-  },
   { title: 'dnd-kit', version: '6.0.8', href: 'https://dndkit.com/' },
   {
     title: 'embla-carousel',

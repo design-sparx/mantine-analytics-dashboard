@@ -8,7 +8,6 @@ import {
   Code,
   Group,
   Stack,
-  Text,
   Title,
   useMantineTheme,
 } from '@mantine/core';

@@ -1,6 +1,7 @@
+import MapChart from './MapChart';
+
 import type { StoryObj } from '@storybook/react';
 
-import MapChart from './MapChart';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {

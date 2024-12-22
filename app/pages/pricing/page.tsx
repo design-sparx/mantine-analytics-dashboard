@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
+
 import {
   Anchor,
   Button,
@@ -14,10 +15,11 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { PATH_DASHBOARD } from '@/routes';
-import { Faqs, PageHeader, PricingCard, Surface } from '@/components';
 import { IconChevronRight } from '@tabler/icons-react';
 import { Metadata } from 'next';
+
+import { Faqs, PageHeader, PricingCard, Surface } from '@/components';
+import { PATH_DASHBOARD } from '@/routes';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },

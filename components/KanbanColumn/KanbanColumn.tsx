@@ -1,11 +1,9 @@
 'use client';
 
-import { SortableContext, useSortable } from '@dnd-kit/sortable';
-import { Id, KanbanColumn as IColumn, KanbanTask as ITask } from '../../types';
-import { CSS } from '@dnd-kit/utilities';
 import { useMemo, useState } from 'react';
-import { IconDots, IconEdit, IconPlus, IconTrash } from '@tabler/icons-react';
-import { KanbanCard } from '@/components';
+
+import { SortableContext, useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import {
   ActionIcon,
   Badge,
@@ -14,15 +12,20 @@ import {
   Menu,
   Paper,
   PaperProps,
-  rem,
   ScrollArea,
   Stack,
   Text,
   TextInput,
+  rem,
   useMantineTheme,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { modals } from '@mantine/modals';
+import { IconDots, IconEdit, IconPlus, IconTrash } from '@tabler/icons-react';
+
+import { KanbanCard } from '@/components';
+
+import { KanbanColumn as IColumn, KanbanTask as ITask, Id } from '../../types';
 
 const ICON_SIZE = 18;
 

@@ -1,16 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Anchor, Container, Paper, Stack } from '@mantine/core';
+import { useState } from 'react';
+
 import { formatDate } from '@fullcalendar/core';
-import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { PATH_DASHBOARD } from '@/routes';
-import { createEventId, INITIAL_EVENTS } from '@/utils';
+import FullCalendar from '@fullcalendar/react';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import { Anchor, Container, Paper, Stack } from '@mantine/core';
+
 import { PageHeader, Surface } from '@/components';
-import { Metadata } from 'next';
+import { PATH_DASHBOARD } from '@/routes';
+import { INITIAL_EVENTS, createEventId } from '@/utils';
 import './page.css';
 
 const items = [

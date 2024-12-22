@@ -15,10 +15,11 @@ import {
   Stack,
   Text,
   Tooltip,
-  useMantineColorScheme,
 } from '@mantine/core';
-import { Surface } from '@/components';
 import { IconNotebook, IconShare } from '@tabler/icons-react';
+
+import { Surface } from '@/components';
+
 import classes from './ProjectsCard.module.css';
 
 const avatars = [
@@ -99,7 +100,6 @@ type ProjectsCardProps = {
 } & Omit<PaperProps, 'children'>;
 
 const ProjectsCard = (props: ProjectsCardProps) => {
-  const { colorScheme } = useMantineColorScheme();
   const { id, status, completion, description, title, image, ...others } =
     props;
 
@@ -108,7 +108,9 @@ const ProjectsCard = (props: ProjectsCardProps) => {
       <Stack gap="sm">
         <Flex justify="space-between" align="center">
           <Flex align="center" gap="xs">
-            {image && <Image src={image} width={20} height={20} radius="50%" />}
+            {image && (
+              <Image src={image} width={20} height={20} radius="50%" alt="" />
+            )}
             <Text fz="md" fw={600}>
               {title}
             </Text>

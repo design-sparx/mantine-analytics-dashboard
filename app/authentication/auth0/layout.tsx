@@ -1,67 +1,20 @@
 'use client';
 
-import { AppShell, Container, rem, useMantineTheme } from '@mantine/core';
-import { ReactNode, useState } from 'react';
-import { useDisclosure, useMediaQuery } from '@mantine/hooks';
-import AppMain from '@/components/AppMain';
-import Navigation from '@/components/Navigation';
-import HeaderNav from '@/components/HeaderNav';
-import FooterNav from '@/components/FooterNav';
+import { ReactNode } from 'react';
+
+import { MainLayout } from '@/layout/Main';
 import { Providers } from '@/providers/session';
 
-type Props = {
+type AuthProps = {
   children: ReactNode;
 };
 
-function Auth0Layout({ children }: Props) {
-  const theme = useMantineTheme();
-  const tablet_match = useMediaQuery('(max-width: 768px)');
-  const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
-  const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
-
+function AuthLayout({ children }: AuthProps) {
   return (
-    <AppShell
-      layout="alt"
-      header={{ height: 60 }}
-      footer={{ height: 60 }}
-      navbar={{
-        width: 300,
-        breakpoint: 'md',
-        collapsed: { mobile: !mobileOpened, desktop: !desktopOpened },
-      }}
-      padding={0}
-    >
-      <AppShell.Header
-        style={{
-          height: rem(60),
-          border: 'none',
-          boxShadow: tablet_match ? theme.shadows.md : theme.shadows.sm,
-        }}
-      >
-        <Container fluid py="sm" px="lg">
-          <HeaderNav
-            desktopOpened={desktopOpened}
-            mobileOpened={mobileOpened}
-            toggleDesktop={toggleDesktop}
-            toggleMobile={toggleMobile}
-          />
-        </Container>
-      </AppShell.Header>
-      <AppShell.Navbar>
-        <Navigation onClose={toggleMobile} />
-      </AppShell.Navbar>
-      <AppShell.Main>
-        <AppMain>
-          <Providers>{children}</Providers>
-        </AppMain>
-      </AppShell.Main>
-      <AppShell.Footer p="md">
-        <Container fluid px="lg">
-          <FooterNav />
-        </Container>
-      </AppShell.Footer>
-    </AppShell>
+    <MainLayout>
+      <Providers>{children}</Providers>
+    </MainLayout>
   );
 }
 
-export default Auth0Layout;
+export default AuthLayout;

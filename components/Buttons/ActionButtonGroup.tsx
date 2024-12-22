@@ -3,7 +3,6 @@ import {
   IconMessage,
   IconNotification,
   IconSettingsCog,
-  IconUser,
 } from '@tabler/icons-react';
 
 type ActionButtonProps = {

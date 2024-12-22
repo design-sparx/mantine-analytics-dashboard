@@ -16,15 +16,6 @@ import {
   UnstyledButton,
   useMantineTheme,
 } from '@mantine/core';
-import { PATH_DASHBOARD } from '@/routes';
-import {
-  PageHeader,
-  ProfileStatsCard,
-  ProjectsTable,
-  RevenueChart,
-  Surface,
-  UserProfileCard,
-} from '@/components';
 import {
   IconBrandFacebook,
   IconBrandGithub,
@@ -37,9 +28,20 @@ import {
   IconListCheck,
   IconMapPinFilled,
 } from '@tabler/icons-react';
-import UserData from '@/public/mocks/UserProfile.json';
-import classes from './page.module.css';
+
+import {
+  PageHeader,
+  ProfileStatsCard,
+  ProjectsTable,
+  RevenueChart,
+  Surface,
+  UserProfileCard,
+} from '@/components';
 import { useFetchData } from '@/hooks';
+import UserData from '@/public/mocks/UserProfile.json';
+import { PATH_DASHBOARD } from '@/routes';
+
+import classes from './page.module.css';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },

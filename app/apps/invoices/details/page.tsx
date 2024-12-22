@@ -1,9 +1,10 @@
 'use client';
 
 import { Anchor, Container, PaperProps, Stack } from '@mantine/core';
+import { Metadata } from 'next';
+
 import { InvoiceDetailsCard, PageHeader } from '@/components';
 import { PATH_DASHBOARD, PATH_INVOICES } from '@/routes';
-import { Metadata } from 'next';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },

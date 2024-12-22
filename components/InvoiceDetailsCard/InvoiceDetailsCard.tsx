@@ -1,6 +1,5 @@
 'use client';
 
-import { Invoices } from '@/types';
 import {
   Button,
   Divider,
@@ -14,6 +13,7 @@ import {
   TextProps,
   useMantineTheme,
 } from '@mantine/core';
+import { useColorScheme, useMediaQuery } from '@mantine/hooks';
 import {
   IconCloudDownload,
   IconMail,
@@ -21,8 +21,9 @@ import {
   IconSend,
   IconShare,
 } from '@tabler/icons-react';
-import { useColorScheme, useMediaQuery } from '@mantine/hooks';
+
 import { Surface } from '@/components';
+import { Invoices } from '@/types';
 
 const ICON_SIZE = 16;
 

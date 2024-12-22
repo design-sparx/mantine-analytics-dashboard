@@ -12,11 +12,12 @@ import {
   Title,
   useMantineTheme,
 } from '@mantine/core';
-import Link from 'next/link';
-import { PATH_AUTH, PATH_DASHBOARD } from '@/routes';
 import { useColorScheme, useMediaQuery } from '@mantine/hooks';
-import { Metadata } from 'next';
+import Link from 'next/link';
+
 import { Surface } from '@/components';
+import { PATH_AUTH, PATH_DASHBOARD } from '@/routes';
+
 import classes from './page.module.css';
 
 function Page() {

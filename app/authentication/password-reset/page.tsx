@@ -1,29 +1,25 @@
 'use client';
 
+import React from 'react';
+
 import {
   Button,
   Group,
   Paper,
-  rem,
   Text,
   TextInput,
   Title,
   UnstyledButton,
+  rem,
 } from '@mantine/core';
-import { IconChevronLeft } from '@tabler/icons-react';
-import React from 'react';
-import Link from 'next/link';
-import { PATH_AUTH, PATH_DASHBOARD } from '@/routes';
 import { useMediaQuery } from '@mantine/hooks';
-import classes from './page.module.css';
-import { Surface } from '@/components';
-import { Metadata } from 'next';
+import { IconChevronLeft } from '@tabler/icons-react';
+import Link from 'next/link';
 
-const metadata: Metadata = {
-  title: 'Password Reset | DesignSparx',
-  description:
-    'Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!',
-};
+import { Surface } from '@/components';
+import { PATH_AUTH, PATH_DASHBOARD } from '@/routes';
+
+import classes from './page.module.css';
 
 function Page() {
   const mobile_match = useMediaQuery('(max-width: 425px)');
