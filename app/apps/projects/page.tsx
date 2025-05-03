@@ -8,9 +8,10 @@ import {
   Skeleton,
   Stack,
 } from '@mantine/core';
+import { useFetch } from '@mantine/hooks';
 
 import { ErrorAlert, PageHeader, ProjectsCard } from '@/components';
-import { useFetchData } from '@/hooks';
+import { PROJECTS_API_URL } from '@/constants/api';
 import { PATH_DASHBOARD } from '@/routes';
 
 const items = [
@@ -36,8 +37,14 @@ function Projects() {
     data: projectsData,
     loading: projectsLoading,
     error: projectsError,
-  } = useFetchData('/mocks/Projects2.json');
-  const projectItems = projectsData.map((p: any) => (
+  } = useFetch<{
+    succeeded: boolean;
+    message: string;
+    data: [];
+    errors: [];
+  }>('/api/projects');
+
+  const projectItems = projectsData?.data.map((p: any) => (
     <ProjectsCard key={p.id} {...p} {...CARD_PROPS} />
   ));
 

@@ -86,7 +86,7 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    async signOut({ token, session }) {
+    async signOut({ token }: any) {
       try {
         // You could add server-side logout logic here if needed
         // For example, invalidating the token on your backend
@@ -108,8 +108,7 @@ export const authOptions: NextAuthOptions = {
       return true;
     },
   },
-  secret:
-    process.env.NEXTAUTH_SECRET || 'your-secret-key-change-this-in-production',
+  secret: process.env.NEXTAUTH_SECRET!,
 };
 
 const handler = NextAuth(authOptions);
