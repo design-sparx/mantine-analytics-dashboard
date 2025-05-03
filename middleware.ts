@@ -1,13 +1,16 @@
 import { NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
+import { PATH_DASHBOARD } from '@/routes';
+
 import type { NextRequest } from 'next/server';
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Check if the path starts with these prefixes
-  const isPublicPath = pathname.startsWith('/auth') ||
+  const isPublicPath =
+    pathname.startsWith('/auth') ||
     pathname === '/' ||
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api/auth') ||
@@ -23,7 +26,7 @@ export async function middleware(request: NextRequest) {
 
   // Redirect authenticated users away from auth pages
   if (isAuthenticated && pathname.startsWith('/auth')) {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+    return NextResponse.redirect(new URL(PATH_DASHBOARD.default, request.url));
   }
 
   // Redirect unauthenticated users to login page for protected routes

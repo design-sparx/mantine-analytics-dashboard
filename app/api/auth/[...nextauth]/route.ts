@@ -86,6 +86,27 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
+    async signOut({ token, session }) {
+      try {
+        // You could add server-side logout logic here if needed
+        // For example, invalidating the token on your backend
+        if (token?.accessToken) {
+          await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token.accessToken}`,
+            },
+            body: JSON.stringify({
+              email: token.email,
+            }),
+          });
+        }
+      } catch (error) {
+        console.error('Error during server-side logout:', error);
+      }
+      return true;
+    },
   },
   secret:
     process.env.NEXTAUTH_SECRET || 'your-secret-key-change-this-in-production',
