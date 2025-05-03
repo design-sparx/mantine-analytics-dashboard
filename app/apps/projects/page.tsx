@@ -2,6 +2,7 @@
 
 import {
   Anchor,
+  Button,
   CardProps,
   Container,
   SimpleGrid,
@@ -9,6 +10,7 @@ import {
   Stack,
 } from '@mantine/core';
 import { useFetch } from '@mantine/hooks';
+import { IconPlus } from '@tabler/icons-react';
 
 import { ErrorAlert, PageHeader, ProjectsCard } from '@/components';
 import { PROJECTS_API_URL } from '@/constants/api';
@@ -59,7 +61,13 @@ function Projects() {
       </>
       <Container fluid>
         <Stack gap="lg">
-          <PageHeader title="Projects" breadcrumbItems={items} />
+          <PageHeader
+            title="Projects"
+            breadcrumbItems={items}
+            actionButton={
+              <Button leftSection={<IconPlus size={18} />}>New Project</Button>
+            }
+          />
           {projectsError ? (
             <ErrorAlert
               title="Error loading projects"
