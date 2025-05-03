@@ -29,6 +29,7 @@ import {
 
 import { SidebarState } from '@/app/apps/layout';
 import { LanguagePicker } from '@/components';
+import { useAuth } from '@/hooks/useAuth';
 
 const ICON_SIZE = 20;
 
@@ -139,6 +140,7 @@ const HeaderNav = (props: HeaderNavProps) => {
   const { setColorScheme, colorScheme } = useMantineColorScheme();
   const tablet_match = useMediaQuery('(max-width: 768px)');
   const mobile_match = useMediaQuery('(max-width: 425px)');
+  const { user, logout } = useAuth();
 
   const messages = MESSAGES.map((m) => (
     <Menu.Item
@@ -265,7 +267,7 @@ const HeaderNav = (props: HeaderNavProps) => {
           </Menu.Dropdown>
         </Menu>
         <Tooltip label="Logout">
-          <ActionIcon>
+          <ActionIcon onClick={logout}>
             <IconPower size={ICON_SIZE} />
           </ActionIcon>
         </Tooltip>

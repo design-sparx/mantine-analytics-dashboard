@@ -5,6 +5,7 @@ import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 import { Open_Sans } from 'next/font/google';
 
+import { AuthProvider } from '@/components/auth/AuthProvider';
 import { myTheme } from '@/theme';
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
@@ -64,10 +65,12 @@ export default function RootLayout({
         <ColorSchemeScript defaultColorScheme="auto" />
       </head>
       <body>
-        <MantineProvider theme={myTheme} defaultColorScheme="light">
-          <Notifications position="bottom-right" zIndex={1000} />
-          <ModalsProvider>{children}</ModalsProvider>
-        </MantineProvider>
+        <AuthProvider>
+          <MantineProvider theme={myTheme} defaultColorScheme="light">
+            <Notifications position="bottom-right" zIndex={1000} />
+            <ModalsProvider>{children}</ModalsProvider>
+          </MantineProvider>
+        </AuthProvider>
       </body>
     </html>
   );
