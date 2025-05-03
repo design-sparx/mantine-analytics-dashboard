@@ -14,7 +14,7 @@ import {
 import { useDisclosure, useFetch } from '@mantine/hooks';
 import { IconPlus } from '@tabler/icons-react';
 
-import NewProjectDrawer from '@/app/apps/projects/components/NewProjectDrawer';
+import NewProjectDrawer from '@/app/apps/invoices/list/components/NewProjectDrawer';
 import { ErrorAlert, PageHeader, ProjectsCard } from '@/components';
 import { PATH_DASHBOARD } from '@/routes';
 
