@@ -38,7 +38,7 @@ function Page() {
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm({
-    initialValues: { email: 'demo@example.com', password: 'Demo@Pass1' },
+    initialValues: { email: 'demo@adminhub.com', password: 'Demo@Pass1' },
     validate: {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
       password: (value) =>

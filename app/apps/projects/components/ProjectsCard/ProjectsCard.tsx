@@ -1,118 +1,179 @@
 'use client';
 
-import { useCallback } from 'react';
-
 import {
-  Anchor,
+  Avatar,
+  Badge,
   Button,
-  CardProps,
-  Container,
-  SimpleGrid,
-  Skeleton,
+  Divider,
+  Flex,
+  Group,
+  Image,
+  MantineColor,
+  Paper,
+  PaperProps,
+  Progress,
   Stack,
+  Text,
+  Tooltip,
 } from '@mantine/core';
-import { useDisclosure, useFetch } from '@mantine/hooks';
-import { IconPlus } from '@tabler/icons-react';
+import { IconNotebook, IconShare } from '@tabler/icons-react';
 
-import NewProjectDrawer from '@/app/apps/invoices/list/components/NewProjectDrawer';
-import { ErrorAlert, PageHeader, ProjectsCard } from '@/components';
-import { PATH_DASHBOARD } from '@/routes';
+import { Surface } from '@/components';
+import { IProject } from '@/types/projects';
 
-const items = [
-  { title: 'Dashboard', href: PATH_DASHBOARD.default },
-  { title: 'Apps', href: '#' },
-  { title: 'Projects', href: '#' },
-].map((item, index) => (
-  <Anchor href={item.href} key={index}>
-    {item.title}
-  </Anchor>
-));
+import classes from './ProjectsCard.module.css';
 
-const CARD_PROPS: Omit<CardProps, 'children'> = {
-  p: 'md',
-  shadow: 'md',
-  radius: 'md',
+const avatars = [
+  'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
+  'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
+  'https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
+];
+
+type Status =
+  | 'active'
+  | 'inactive'
+  | 'pending'
+  | 'completed'
+  | 'cancelled'
+  | 'on hold'
+  | 'in progress'
+  | 'archived'
+  | 'suspended'
+  | 'expired'
+  | string;
+
+type StatusProps = {
+  status: Status;
 };
 
-function Projects() {
-  const {
-    data: projectsData,
-    loading: projectsLoading,
-    error: projectsError,
-    refetch: refetchProjects,
-  } = useFetch<{
-    succeeded: boolean;
-    message: string;
-    data: [];
-    errors: [];
-  }>('/api/projects');
+const StatusBadge = ({ status }: StatusProps) => {
+  let color: MantineColor;
 
-  const [newProjectOpened, { open: newProjectOpen, close: newProjectClose }] =
-    useDisclosure(false);
-
-  const handleProjectCreated = useCallback(() => {
-    refetchProjects();
-  }, [refetchProjects]);
-
-  const projectItems = projectsData?.data.map((p: any) => (
-    <ProjectsCard key={p.id} {...p} {...CARD_PROPS} />
-  ));
+  switch (status) {
+    case 'expired':
+      color = 'dark';
+      break;
+    case 'active':
+      color = 'green';
+      break;
+    case 'cancelled':
+      color = 'gray';
+      break;
+    case 'archived':
+      color = 'gray';
+      break;
+    case 'inactive':
+      color = 'dark';
+      break;
+    case 'completed':
+      color = 'green';
+      break;
+    case 'in progress':
+      color = 'indigo';
+      break;
+    case 'pending':
+      color = 'yellow.8';
+      break;
+    case 'suspended':
+      color = 'red';
+      break;
+    case 'on hold':
+      color = 'pink';
+      break;
+    default:
+      color = 'gray';
+  }
 
   return (
-    <>
-      <>
-        <title>Projects | DesignSparx</title>
-        <meta
-          name="description"
-          content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"
-        />
-      </>
-      <Container fluid>
-        <Stack gap="lg">
-          <PageHeader
-            title="Projects"
-            breadcrumbItems={items}
-            actionButton={
-              <Button
-                leftSection={<IconPlus size={18} />}
-                onClick={newProjectOpen}
-              >
-                New Project
-              </Button>
-            }
-          />
-          {projectsError ? (
-            <ErrorAlert
-              title="Error loading projects"
-              message={projectsError.toString()}
-            />
-          ) : (
-            <SimpleGrid
-              cols={{ base: 1, sm: 2, lg: 3, xl: 4 }}
-              spacing={{ base: 10, sm: 'xl' }}
-              verticalSpacing={{ base: 'md', sm: 'xl' }}
-            >
-              {projectsLoading
-                ? Array.from({ length: 8 }).map((o, i) => (
-                    <Skeleton
-                      key={`project-loading-${i}`}
-                      visible={true}
-                      height={300}
-                    />
-                  ))
-                : projectItems}
-            </SimpleGrid>
-          )}
-        </Stack>
-      </Container>
-      <NewProjectDrawer
-        opened={newProjectOpened}
-        onClose={newProjectClose}
-        position="right"
-        onProjectCreated={handleProjectCreated}
-      />
-    </>
+    <Badge color={color} variant="filled" radius="sm">
+      {status}
+    </Badge>
   );
-}
+};
 
-export default Projects;
+type ProjectsCardProps = {
+  data: IProject;
+} & Omit<PaperProps, 'children'>;
+
+const ProjectsCard = (props: ProjectsCardProps) => {
+  const { data, ...others } = props;
+
+  if (!data) {
+    return null;
+  }
+
+  const {
+    statusText = 'pending',
+    title = 'Untitled Project',
+    description = 'No description provided',
+    owner = {},
+    completionPercentage = 0,
+  } = data;
+
+  return (
+    <Surface component={Paper} {...others}>
+      <Stack gap="sm">
+        <Flex justify="space-between" align="center">
+          <Flex align="center" gap="xs">
+            <Text fz="md" fw={600}>
+              {title}
+            </Text>
+          </Flex>
+          <StatusBadge status={statusText.toLowerCase()} />
+        </Flex>
+        <Text fz="sm" lineClamp={3}>
+          {description}
+        </Text>
+
+        <Text fz="sm">
+          Tasks completed:{' '}
+          <Text span fz="sm" fw={500} className={classes.tasksCompleted}>
+            {completionPercentage}
+          </Text>
+        </Text>
+
+        <Progress
+          value={completionPercentage}
+          mt={5}
+          size="sm"
+          color={
+            completionPercentage < 21
+              ? 'red'
+              : completionPercentage < 51
+                ? 'yellow'
+                : completionPercentage < 86
+                  ? 'blue'
+                  : 'green'
+          }
+        />
+
+        <Flex align="center" gap="xs">
+          <Tooltip label={data.owner.userName}>
+            <Avatar size="md" radius="xl" />
+          </Tooltip>
+          <Text>{data.owner.userName}</Text>
+        </Flex>
+        <Divider />
+
+        <Group gap="sm">
+          <Button
+            size="compact-md"
+            variant="subtle"
+            leftSection={<IconShare size={14} />}
+          >
+            Share
+          </Button>
+          <Button
+            size="compact-md"
+            variant="subtle"
+            leftSection={<IconNotebook size={14} />}
+          >
+            Learn More
+          </Button>
+        </Group>
+      </Stack>
+    </Surface>
+  );
+};
+
+export default ProjectsCard;

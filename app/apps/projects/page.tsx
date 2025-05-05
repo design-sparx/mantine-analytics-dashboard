@@ -7,6 +7,7 @@ import {
   Button,
   CardProps,
   Container,
+  PaperProps,
   SimpleGrid,
   Skeleton,
   Stack,
@@ -15,8 +16,11 @@ import { useDisclosure, useFetch } from '@mantine/hooks';
 import { IconPlus } from '@tabler/icons-react';
 
 import NewProjectDrawer from '@/app/apps/projects/components/NewProjectDrawer';
-import { ErrorAlert, PageHeader, ProjectsCard } from '@/components';
+import ProjectsCard from '@/app/apps/projects/components/ProjectsCard/ProjectsCard';
+import { ErrorAlert, PageHeader } from '@/components';
 import { PATH_DASHBOARD } from '@/routes';
+import { IApiResponse } from '@/types/api-response';
+import { IProject } from '@/types/projects';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },
@@ -28,7 +32,7 @@ const items = [
   </Anchor>
 ));
 
-const CARD_PROPS: Omit<CardProps, 'children'> = {
+const CARD_PROPS: Omit<PaperProps, 'children'> = {
   p: 'md',
   shadow: 'md',
   radius: 'md',
@@ -40,12 +44,7 @@ function Projects() {
     loading: projectsLoading,
     error: projectsError,
     refetch: refetchProjects,
-  } = useFetch<{
-    succeeded: boolean;
-    message: string;
-    data: [];
-    errors: [];
-  }>('/api/projects');
+  } = useFetch<IApiResponse<IProject[]>>('/api/projects');
 
   const [newProjectOpened, { open: newProjectOpen, close: newProjectClose }] =
     useDisclosure(false);
@@ -54,9 +53,68 @@ function Projects() {
     refetchProjects();
   }, [refetchProjects]);
 
-  const projectItems = projectsData?.data.map((p: any) => (
-    <ProjectsCard key={p.id} {...p} {...CARD_PROPS} />
+  const projectItems = projectsData?.data?.map((p: any) => (
+    <ProjectsCard key={p.id} data={p} {...CARD_PROPS} />
   ));
+
+  if (projectsLoading) {
+    return (
+      <Container fluid>
+        <Stack gap="lg">
+          <PageHeader
+            title="Projects"
+            breadcrumbItems={items}
+            actionButton={
+              <Button
+                leftSection={<IconPlus size={18} />}
+                onClick={newProjectOpen}
+              >
+                New Project
+              </Button>
+            }
+          />
+          <SimpleGrid
+            cols={{ base: 1, sm: 2, lg: 3, xl: 4 }}
+            spacing={{ base: 10, sm: 'xl' }}
+            verticalSpacing={{ base: 'md', sm: 'xl' }}
+          >
+            {Array.from({ length: 8 }).map((o, i) => (
+              <Skeleton
+                key={`project-loading-${i}`}
+                visible={true}
+                height={300}
+              />
+            ))}
+          </SimpleGrid>
+        </Stack>
+      </Container>
+    );
+  }
+
+  if (projectsError) {
+    return (
+      <Container fluid>
+        <Stack gap="lg">
+          <PageHeader
+            title="Projects"
+            breadcrumbItems={items}
+            actionButton={
+              <Button
+                leftSection={<IconPlus size={18} />}
+                onClick={newProjectOpen}
+              >
+                New Project
+              </Button>
+            }
+          />
+          <ErrorAlert
+            title="Error loading projects"
+            message={projectsError.toString()}
+          />
+        </Stack>
+      </Container>
+    );
+  }
 
   return (
     <>
@@ -81,28 +139,14 @@ function Projects() {
               </Button>
             }
           />
-          {projectsError ? (
-            <ErrorAlert
-              title="Error loading projects"
-              message={projectsError.toString()}
-            />
-          ) : (
-            <SimpleGrid
-              cols={{ base: 1, sm: 2, lg: 3, xl: 4 }}
-              spacing={{ base: 10, sm: 'xl' }}
-              verticalSpacing={{ base: 'md', sm: 'xl' }}
-            >
-              {projectsLoading
-                ? Array.from({ length: 8 }).map((o, i) => (
-                    <Skeleton
-                      key={`project-loading-${i}`}
-                      visible={true}
-                      height={300}
-                    />
-                  ))
-                : projectItems}
-            </SimpleGrid>
-          )}
+
+          <SimpleGrid
+            cols={{ base: 1, sm: 2, lg: 3, xl: 4 }}
+            spacing={{ base: 10, sm: 'xl' }}
+            verticalSpacing={{ base: 'md', sm: 'xl' }}
+          >
+            {projectItems}
+          </SimpleGrid>
         </Stack>
       </Container>
       <NewProjectDrawer

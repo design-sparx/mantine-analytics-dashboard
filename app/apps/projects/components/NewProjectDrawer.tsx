@@ -13,6 +13,8 @@ import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
+import { useAuth } from '@/hooks/useAuth';
+
 type NewProjectDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
   onProjectCreated?: () => void;
 };
@@ -21,6 +23,7 @@ export const NewProjectDrawer = ({
   onProjectCreated,
   ...drawerProps
 }: NewProjectDrawerProps) => {
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
 
   const form = useForm({
@@ -49,6 +52,7 @@ export const NewProjectDrawer = ({
           ? new Date(values.startDate).toISOString()
           : null,
         dueDate: values.dueDate ? new Date(values.dueDate).toISOString() : null,
+        ownerId: user?.id,
       };
 
       const response = await fetch('/api/projects', {
