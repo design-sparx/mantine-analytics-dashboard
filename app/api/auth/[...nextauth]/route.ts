@@ -30,6 +30,24 @@ export const authOptions: NextAuthOptions = {
 
           const response = await res.json();
 
+          // If your JWT already contains the permissions
+          // You can extract the payload portion without validating the signature
+          // (NextAuth will handle token validation)
+          const token = response.token;
+          let permissions = [];
+
+          if (token) {
+            try {
+              // Split the token and decode the payload portion
+              const payload = JSON.parse(
+                Buffer.from(token.split('.')[1], 'base64').toString(),
+              );
+              permissions = payload.permission || [];
+            } catch (e) {
+              console.error('Error decoding JWT:', e);
+            }
+          }
+
           // Map the backend response to the NextAuth user object
           const user = {
             id: response.user.userId,
@@ -37,6 +55,7 @@ export const authOptions: NextAuthOptions = {
             email: response.user.email,
             token: response.token,
             roles: response.roles,
+            permissions: permissions,
             expiration: response.expiration,
           };
 
@@ -67,6 +86,7 @@ export const authOptions: NextAuthOptions = {
         token.id = user.id;
         token.accessToken = user.token;
         token.roles = user.roles;
+        token.permissions = user.permissions;
         token.expiration = user.expiration;
       }
       return token;
@@ -82,11 +102,13 @@ export const authOptions: NextAuthOptions = {
         // @ts-ignore
         session.roles = token.roles;
         // @ts-ignore
+        session.permissions = token.permissions; // Add this line
+        // @ts-ignore
         session.expiration = token.expiration;
       }
       return session;
     },
-    async signOut({ token, session }) {
+    async signOut({ token }: any) {
       try {
         // You could add server-side logout logic here if needed
         // For example, invalidating the token on your backend
@@ -108,8 +130,7 @@ export const authOptions: NextAuthOptions = {
       return true;
     },
   },
-  secret:
-    process.env.NEXTAUTH_SECRET || 'your-secret-key-change-this-in-production',
+  secret: process.env.NEXTAUTH_SECRET!,
 };
 
 const handler = NextAuth(authOptions);

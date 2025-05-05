@@ -3,6 +3,7 @@
 import {
   ActionIcon,
   Anchor,
+  Button,
   Container,
   Group,
   Paper,
@@ -10,7 +11,7 @@ import {
   Stack,
   Text,
 } from '@mantine/core';
-import { IconDotsVertical } from '@tabler/icons-react';
+import { IconDotsVertical, IconPlus } from '@tabler/icons-react';
 
 import { InvoicesTable, PageHeader } from '@/components';
 import { useFetchData } from '@/hooks';
@@ -53,7 +54,9 @@ function Page() {
           <PageHeader
             title="Invoices"
             breadcrumbItems={items}
-            invoiceAction={true}
+            actionContent={
+              <Button leftSection={<IconPlus size={18} />}>New Invoice</Button>
+            }
           />
           <Paper {...PAPER_PROPS}>
             <Group justify="space-between" mb="md">

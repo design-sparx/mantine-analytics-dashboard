@@ -1,6 +1,7 @@
 'use client';
 
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
+import { DatesProvider } from '@mantine/dates';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 import { Open_Sans } from 'next/font/google';
@@ -67,8 +68,16 @@ export default function RootLayout({
       <body>
         <AuthProvider>
           <MantineProvider theme={myTheme} defaultColorScheme="light">
-            <Notifications position="bottom-right" zIndex={1000} />
-            <ModalsProvider>{children}</ModalsProvider>
+            <DatesProvider
+              settings={{
+                firstDayOfWeek: 0,
+                weekendDays: [0],
+                timezone: 'UTC',
+              }}
+            >
+              <Notifications position="bottom-right" zIndex={1000} />
+              <ModalsProvider>{children}</ModalsProvider>
+            </DatesProvider>
           </MantineProvider>
         </AuthProvider>
       </body>

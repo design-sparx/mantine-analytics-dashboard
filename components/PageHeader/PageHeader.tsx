@@ -24,12 +24,20 @@ type PageHeaderProps = {
   title: string;
   withActions?: boolean;
   breadcrumbItems?: any;
-  invoiceAction?: boolean;
+  actionButton?: React.ReactNode;
+  actionContent?: React.ReactNode;
 } & PaperProps;
 
 const PageHeader = (props: PageHeaderProps) => {
-  const { withActions, breadcrumbItems, title, invoiceAction, ...others } =
-    props;
+  const {
+    withActions,
+    breadcrumbItems,
+    title,
+    actionButton,
+    actionContent,
+    ...others
+  } = props;
+
   const theme = useMantineTheme();
   const colorScheme = useColorScheme();
 
@@ -53,6 +61,32 @@ const PageHeader = (props: PageHeaderProps) => {
     },
   };
 
+  const renderActions = () => {
+    // Custom action content takes precedence
+    if (actionContent) {
+      return actionContent;
+    }
+
+    // Custom action button
+    if (actionButton) {
+      return actionButton;
+    }
+
+    // Default actions for the dashboard view
+    if (withActions) {
+      return (
+        <Flex align="center" gap="sm">
+          <ActionIcon variant="subtle">
+            <IconRefresh size={16} />
+          </ActionIcon>
+          <FilterDateMenu />
+        </Flex>
+      );
+    }
+
+    return null;
+  };
+
   return (
     <>
       <Surface
@@ -70,14 +104,9 @@ const PageHeader = (props: PageHeaderProps) => {
               <Title order={3}>{title}</Title>
               <Text>Welcome back, Kelvin!</Text>
             </Stack>
-            <Flex align="center" gap="sm">
-              <ActionIcon variant="subtle">
-                <IconRefresh size={16} />
-              </ActionIcon>
-              <FilterDateMenu />
-            </Flex>
+            {renderActions()}
           </Flex>
-        ) : invoiceAction ? (
+        ) : (
           <Flex
             align="center"
             justify="space-between"
@@ -86,17 +115,14 @@ const PageHeader = (props: PageHeaderProps) => {
           >
             <Stack>
               <Title order={3}>{title}</Title>
-              <Breadcrumbs {...BREADCRUMBS_PROPS}>
-                {breadcrumbItems}
-              </Breadcrumbs>
+              {breadcrumbItems && (
+                <Breadcrumbs {...BREADCRUMBS_PROPS}>
+                  {breadcrumbItems}
+                </Breadcrumbs>
+              )}
             </Stack>
-            <Button leftSection={<IconPlus size={18} />}>New Invoice</Button>
+            {renderActions()}
           </Flex>
-        ) : (
-          <Stack gap="sm">
-            <Title order={3}>{title}</Title>
-            <Breadcrumbs {...BREADCRUMBS_PROPS}>{breadcrumbItems}</Breadcrumbs>
-          </Stack>
         )}
       </Surface>
       <Divider />
