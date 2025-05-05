@@ -5,7 +5,6 @@ import { useCallback } from 'react';
 import {
   Anchor,
   Button,
-  CardProps,
   Container,
   PaperProps,
   SimpleGrid,
@@ -18,6 +17,7 @@ import { IconPlus } from '@tabler/icons-react';
 import NewProjectDrawer from '@/app/apps/projects/components/NewProjectDrawer';
 import ProjectsCard from '@/app/apps/projects/components/ProjectsCard/ProjectsCard';
 import { ErrorAlert, PageHeader } from '@/components';
+import { useAuth } from '@/hooks/useAuth';
 import { PATH_DASHBOARD } from '@/routes';
 import { IApiResponse } from '@/types/api-response';
 import { IProject } from '@/types/projects';
@@ -39,12 +39,16 @@ const CARD_PROPS: Omit<PaperProps, 'children'> = {
 };
 
 function Projects() {
+  const { user, isAuthenticated, permissions } = useAuth();
   const {
     data: projectsData,
     loading: projectsLoading,
     error: projectsError,
     refetch: refetchProjects,
   } = useFetch<IApiResponse<IProject[]>>('/api/projects');
+
+  // Check if the user has a can add project
+  const canAddProject = permissions?.includes('Permissions.Projects.Create');
 
   const [newProjectOpened, { open: newProjectOpen, close: newProjectClose }] =
     useDisclosure(false);
@@ -61,18 +65,7 @@ function Projects() {
     return (
       <Container fluid>
         <Stack gap="lg">
-          <PageHeader
-            title="Projects"
-            breadcrumbItems={items}
-            actionButton={
-              <Button
-                leftSection={<IconPlus size={18} />}
-                onClick={newProjectOpen}
-              >
-                New Project
-              </Button>
-            }
-          />
+          <PageHeader title="Projects" breadcrumbItems={items} />
           <SimpleGrid
             cols={{ base: 1, sm: 2, lg: 3, xl: 4 }}
             spacing={{ base: 10, sm: 'xl' }}
@@ -95,18 +88,7 @@ function Projects() {
     return (
       <Container fluid>
         <Stack gap="lg">
-          <PageHeader
-            title="Projects"
-            breadcrumbItems={items}
-            actionButton={
-              <Button
-                leftSection={<IconPlus size={18} />}
-                onClick={newProjectOpen}
-              >
-                New Project
-              </Button>
-            }
-          />
+          <PageHeader title="Projects" breadcrumbItems={items} />
           <ErrorAlert
             title="Error loading projects"
             message={projectsError.toString()}
@@ -131,12 +113,14 @@ function Projects() {
             title="Projects"
             breadcrumbItems={items}
             actionButton={
-              <Button
-                leftSection={<IconPlus size={18} />}
-                onClick={newProjectOpen}
-              >
-                New Project
-              </Button>
+              canAddProject && (
+                <Button
+                  leftSection={<IconPlus size={18} />}
+                  onClick={newProjectOpen}
+                >
+                  New Project
+                </Button>
+              )
             }
           />
 

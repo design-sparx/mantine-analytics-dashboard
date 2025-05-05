@@ -34,6 +34,8 @@ export const useAuth = () => {
 
   return {
     user: session?.user,
+    permissions: session?.permissions || [],
+    roles: session?.roles || [],
     isAuthenticated,
     isLoading,
     login,
