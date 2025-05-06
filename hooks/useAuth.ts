@@ -40,5 +40,6 @@ export const useAuth = () => {
     isLoading,
     login,
     logout,
+    accessToken: session?.accessToken,
   };
 };

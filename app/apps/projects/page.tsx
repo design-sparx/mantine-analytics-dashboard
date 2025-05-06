@@ -5,18 +5,20 @@ import { useCallback } from 'react';
 import {
   Anchor,
   Button,
-  Container,
+  Paper,
   PaperProps,
   SimpleGrid,
   Skeleton,
   Stack,
+  Text,
+  Title,
 } from '@mantine/core';
 import { useDisclosure, useFetch } from '@mantine/hooks';
-import { IconPlus } from '@tabler/icons-react';
+import { IconMoodEmpty, IconPlus } from '@tabler/icons-react';
 
 import NewProjectDrawer from '@/app/apps/projects/components/NewProjectDrawer';
 import ProjectsCard from '@/app/apps/projects/components/ProjectsCard/ProjectsCard';
-import { ErrorAlert, PageHeader } from '@/components';
+import { ErrorAlert, PageHeader, Surface } from '@/components';
 import { useAuth } from '@/hooks/useAuth';
 import { PATH_DASHBOARD } from '@/routes';
 import { IApiResponse } from '@/types/api-response';
@@ -39,13 +41,18 @@ const CARD_PROPS: Omit<PaperProps, 'children'> = {
 };
 
 function Projects() {
-  const { user, isAuthenticated, permissions } = useAuth();
+  const { permissions, accessToken } = useAuth();
   const {
     data: projectsData,
     loading: projectsLoading,
     error: projectsError,
     refetch: refetchProjects,
-  } = useFetch<IApiResponse<IProject[]>>('/api/projects');
+  } = useFetch<IApiResponse<IProject[]>>('/api/projects', {
+    headers: {
+      Authorization: 'Bearer ' + accessToken,
+      'Content-Type': 'application/json',
+    },
+  });
 
   // Check if the user has a can add project
   const canAddProject = permissions?.includes('Permissions.Projects.Create');
@@ -61,42 +68,66 @@ function Projects() {
     <ProjectsCard key={p.id} data={p} {...CARD_PROPS} />
   ));
 
-  if (projectsLoading) {
-    return (
-      <Container fluid>
-        <Stack gap="lg">
-          <PageHeader title="Projects" breadcrumbItems={items} />
-          <SimpleGrid
-            cols={{ base: 1, sm: 2, lg: 3, xl: 4 }}
-            spacing={{ base: 10, sm: 'xl' }}
-            verticalSpacing={{ base: 'md', sm: 'xl' }}
-          >
-            {Array.from({ length: 8 }).map((o, i) => (
-              <Skeleton
-                key={`project-loading-${i}`}
-                visible={true}
-                height={300}
-              />
-            ))}
-          </SimpleGrid>
-        </Stack>
-      </Container>
-    );
-  }
+  const renderContent = () => {
+    if (projectsLoading) {
+      return (
+        <SimpleGrid
+          cols={{ base: 1, sm: 2, lg: 3, xl: 4 }}
+          spacing={{ base: 10, sm: 'xl' }}
+          verticalSpacing={{ base: 'md', sm: 'xl' }}
+        >
+          {Array.from({ length: 8 }).map((o, i) => (
+            <Skeleton
+              key={`project-loading-${i}`}
+              visible={true}
+              height={300}
+            />
+          ))}
+        </SimpleGrid>
+      );
+    }
 
-  if (projectsError) {
+    if (projectsError || !projectsData?.succeeded) {
+      return (
+        <ErrorAlert
+          title="Error loading projects"
+          message={projectsData?.errors?.join(',')}
+        />
+      );
+    }
+
+    if (!projectsData?.data?.length) {
+      return (
+        <Surface component={Paper} p="md">
+          <Stack align="center">
+            <IconMoodEmpty size={24} />
+            <Title order={4}>No projects found</Title>
+            <Text>
+              You don&apos;t have any projects yet. Create one to get started.
+            </Text>
+            {canAddProject && (
+              <Button
+                leftSection={<IconPlus size={18} />}
+                onClick={newProjectOpen}
+              >
+                New Project
+              </Button>
+            )}
+          </Stack>
+        </Surface>
+      );
+    }
+
     return (
-      <Container fluid>
-        <Stack gap="lg">
-          <PageHeader title="Projects" breadcrumbItems={items} />
-          <ErrorAlert
-            title="Error loading projects"
-            message={projectsError.toString()}
-          />
-        </Stack>
-      </Container>
+      <SimpleGrid
+        cols={{ base: 1, sm: 2, lg: 3, xl: 4 }}
+        spacing={{ base: 10, sm: 'xl' }}
+        verticalSpacing={{ base: 'md', sm: 'xl' }}
+      >
+        {projectItems}
+      </SimpleGrid>
     );
-  }
+  };
 
   return (
     <>
@@ -107,32 +138,24 @@ function Projects() {
           content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"
         />
       </>
-      <Container fluid>
-        <Stack gap="lg">
-          <PageHeader
-            title="Projects"
-            breadcrumbItems={items}
-            actionButton={
-              canAddProject && (
-                <Button
-                  leftSection={<IconPlus size={18} />}
-                  onClick={newProjectOpen}
-                >
-                  New Project
-                </Button>
-              )
-            }
-          />
+      <PageHeader
+        title="Projects"
+        breadcrumbItems={items}
+        actionButton={
+          canAddProject &&
+          projectsData?.data?.length && (
+            <Button
+              leftSection={<IconPlus size={18} />}
+              onClick={newProjectOpen}
+            >
+              New Project
+            </Button>
+          )
+        }
+      />
 
-          <SimpleGrid
-            cols={{ base: 1, sm: 2, lg: 3, xl: 4 }}
-            spacing={{ base: 10, sm: 'xl' }}
-            verticalSpacing={{ base: 'md', sm: 'xl' }}
-          >
-            {projectItems}
-          </SimpleGrid>
-        </Stack>
-      </Container>
+      {renderContent()}
+
       <NewProjectDrawer
         opened={newProjectOpened}
         onClose={newProjectClose}

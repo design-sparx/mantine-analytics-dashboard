@@ -5,8 +5,9 @@ export interface IApiError {
 }
 
 export interface IApiResponse<T> {
-  success: boolean;
+  succeeded: boolean;
+  message: string;
   timestamp: string;
   data?: T;
-  error?: IApiError[];
+  errors?: IApiError[];
 }

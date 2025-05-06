@@ -1,14 +1,24 @@
 import { NextResponse } from 'next/server';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    // Get the authorization header from the incoming request
+    const authHeader = request.headers.get('authorization');
+
+    const headers: HeadersInit = {
+      'Content-Type': 'application/json',
+    };
+
+    // Add the authorization header if it exists
+    if (authHeader) {
+      headers['Authorization'] = authHeader;
+    }
+
     const response = await fetch(
       process.env.NEXT_PUBLIC_API_URL + '/api/projects',
       {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        // Add any needed credentials or headers here
+        method: 'GET',
+        headers,
       },
     );
 
@@ -26,13 +36,23 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
+    // Get the authorization header from the incoming request
+    const authHeader = request.headers.get('authorization');
+
+    const headers: HeadersInit = {
+      'Content-Type': 'application/json',
+    };
+
+    // Add the authorization header if it exists
+    if (authHeader) {
+      headers['Authorization'] = authHeader;
+    }
+
     const response = await fetch(
       process.env.NEXT_PUBLIC_API_URL + '/api/projects',
       {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers,
         body: JSON.stringify(body),
       },
     );

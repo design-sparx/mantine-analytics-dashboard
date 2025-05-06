@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 
 import {
@@ -23,7 +25,7 @@ export const NewProjectDrawer = ({
   onProjectCreated,
   ...drawerProps
 }: NewProjectDrawerProps) => {
-  const { user } = useAuth();
+  const { user, accessToken } = useAuth();
   const [loading, setLoading] = useState(false);
 
   const form = useForm({
@@ -58,6 +60,7 @@ export const NewProjectDrawer = ({
       const response = await fetch('/api/projects', {
         method: 'POST',
         headers: {
+          Authorization: 'Bearer ' + accessToken,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),

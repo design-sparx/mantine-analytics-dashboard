@@ -59,8 +59,6 @@ export const authOptions: NextAuthOptions = {
             expiration: response.expiration,
           };
 
-          console.log({ user });
-
           return user;
         } catch (error) {
           console.error('Authentication error:', error);
@@ -89,6 +87,7 @@ export const authOptions: NextAuthOptions = {
         token.permissions = user.permissions;
         token.expiration = user.expiration;
       }
+
       return token;
     },
     async session({ session, token }) {
@@ -106,6 +105,7 @@ export const authOptions: NextAuthOptions = {
         // @ts-ignore
         session.expiration = token.expiration;
       }
+
       return session;
     },
     async signOut({ token }: any) {
