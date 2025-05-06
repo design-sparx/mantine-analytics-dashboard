@@ -1,8 +1,5 @@
 ## 🔉 Announcements
-- Added file manager page UI
-- Updated mantine version to latest 7.14.3
-- New dark mode variant
-- New sidebar variant, now we have full, mini and full collapsed modes
+- Working on integrating our mock data with actual apis for a more real-world experience. This is the roadmap for implementing our APIs - [Admin Hub Apis roadmap](https://github.com/orgs/design-sparx/projects/6/views/1?filterQuery=&layout=roadmap)
 
 ---
 
