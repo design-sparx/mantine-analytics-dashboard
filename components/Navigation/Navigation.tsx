@@ -19,6 +19,7 @@ import {
   IconListDetails,
   IconLogin2,
   IconMessages,
+  IconPackages,
   IconReceipt2,
   IconRotateRectangle,
   IconUserCircle,
@@ -85,6 +86,7 @@ const mockdata = [
         icon: IconFiles,
         link: PATH_APPS.fileManager.root,
       },
+      { label: 'Products', icon: IconPackages, link: PATH_APPS.orders },
     ],
   },
   {

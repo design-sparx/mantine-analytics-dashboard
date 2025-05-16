@@ -41,6 +41,9 @@ export const PATH_APPS = {
   fileManager: {
     root: path(ROOT_APPS, '/file-manager'),
   },
+  products: {
+    root: path(ROOT_APPS, '/products'),
+  },
 };
 
 export const PATH_PAGES = {
