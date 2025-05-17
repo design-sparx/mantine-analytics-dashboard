@@ -86,7 +86,14 @@ const mockdata = [
         icon: IconFiles,
         link: PATH_APPS.fileManager.root,
       },
-      { label: 'Products', icon: IconPackages, link: PATH_APPS.products.root },
+      {
+        label: 'Products',
+        icon: IconPackages,
+        links: [
+          { label: 'List', link: PATH_APPS.products.root },
+          { label: 'Categories', link: PATH_APPS.products.categories },
+        ],
+      },
     ],
   },
   {

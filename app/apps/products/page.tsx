@@ -22,7 +22,7 @@ import { ErrorAlert, PageHeader, Surface } from '@/components';
 import { useAuth } from '@/hooks/useAuth';
 import { PATH_DASHBOARD } from '@/routes';
 import { IApiResponse } from '@/types/api-response';
-import { IProduct } from '@/types/products';
+import { IProduct, IProductCategory } from '@/types/products';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },
@@ -110,7 +110,7 @@ function Products() {
                 leftSection={<IconPlus size={18} />}
                 onClick={newProjectOpen}
               >
-                New Project
+                New Product
               </Button>
             )}
           </Stack>
@@ -160,7 +160,7 @@ function Products() {
         opened={newDrawerOpened}
         onClose={newProductClose}
         position="right"
-        onProjectCreated={handleProductCreated}
+        onProductCreated={handleProductCreated}
       />
     </>
   );

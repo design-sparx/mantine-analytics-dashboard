@@ -1,12 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   Button,
   Drawer,
   DrawerProps,
   LoadingOverlay,
+  NumberInput,
+  Select,
   Stack,
   TextInput,
   Textarea,
@@ -16,48 +18,88 @@ import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
 import { useAuth } from '@/hooks/useAuth';
+import { IProductCategory } from '@/types/products';
 
 type NewProjectDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
-  onProjectCreated?: () => void;
+  onProductCreated?: () => void;
 };
 
 export const NewProductDrawer = ({
-  onProjectCreated,
+  onProductCreated,
   ...drawerProps
 }: NewProjectDrawerProps) => {
   const { user, accessToken } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState<
+    { value: string; label: string }[]
+  >([]);
+  const [categoriesLoading, setCategoriesLoading] = useState(false);
+
+  // Fetch categories when drawer opens
+  useEffect(() => {
+    if (drawerProps.opened) {
+      fetchCategories();
+    }
+  }, [drawerProps.opened]);
+
+  const fetchCategories = async () => {
+    setCategoriesLoading(true);
+    try {
+      const response = await fetch('/api/product-categories', {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + accessToken,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const result = await response.json();
+
+      if (result.succeeded && result.data) {
+        const categoryOptions = result.data.map(
+          (category: IProductCategory) => ({
+            value: category.id,
+            label: category.title,
+          }),
+        );
+        setCategories(categoryOptions);
+      }
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    } finally {
+      setCategoriesLoading(false);
+    }
+  };
 
   const form = useForm({
     mode: 'controlled',
     initialValues: {
       title: '',
       description: '',
+      price: 0,
+      quantityInStock: 0,
+      sku: '',
       status: 1,
-      startDate: null,
-      dueDate: null,
+      categoryId: '',
     },
     validate: {
-      title: isNotEmpty('Project title cannot be empty'),
-      description: isNotEmpty('Project description cannot be empty'),
-      startDate: isNotEmpty('Start date cannot be empty'),
+      title: isNotEmpty('Product title cannot be empty'),
+      description: isNotEmpty('Product description cannot be empty'),
+      price: isNotEmpty('Price cannot be empty'),
+      quantityInStock: isNotEmpty('Quantity in stock cannot be empty'),
+      categoryId: isNotEmpty('Category cannot be empty'),
     },
   });
 
   const handleSubmit = async (values: typeof form.values) => {
     setLoading(true);
     try {
-      // Format dates for API
       const payload = {
         ...values,
-        startDate: values.startDate
-          ? new Date(values.startDate).toISOString()
-          : null,
-        dueDate: values.dueDate ? new Date(values.dueDate).toISOString() : null,
-        ownerId: user?.id,
+        createdById: user?.id,
       };
 
-      const response = await fetch('/api/projects', {
+      const response = await fetch('/api/products', {
         method: 'POST',
         headers: {
           Authorization: 'Bearer ' + accessToken,
@@ -69,13 +111,13 @@ export const NewProductDrawer = ({
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to create project');
+        throw new Error(data.error || 'Failed to create product');
       }
 
       // Show success notification
       notifications.show({
         title: 'Success',
-        message: 'Project created successfully',
+        message: 'Product created successfully',
         color: 'green',
       });
 
@@ -87,16 +129,16 @@ export const NewProductDrawer = ({
         drawerProps.onClose();
       }
 
-      // Trigger refresh of projects list
-      if (onProjectCreated) {
-        onProjectCreated();
+      // Trigger refresh of products list
+      if (onProductCreated) {
+        onProductCreated();
       }
     } catch (error) {
       // Show error notification
       notifications.show({
         title: 'Error',
         message:
-          error instanceof Error ? error.message : 'Failed to create project',
+          error instanceof Error ? error.message : 'Failed to create product',
         color: 'red',
       });
     } finally {
@@ -105,40 +147,51 @@ export const NewProductDrawer = ({
   };
 
   return (
-    <Drawer {...drawerProps} title="Create a new project">
+    <Drawer {...drawerProps} title="Create a new product">
       <LoadingOverlay visible={loading} />
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack>
           <TextInput
-            label="Project title"
-            placeholder="Project title"
+            label="Title"
+            placeholder="title"
             key={form.key('title')}
             {...form.getInputProps('title')}
             required
           />
           <Textarea
-            label="Project description"
-            placeholder="Project description"
+            label="Description"
+            placeholder="description"
             key={form.key('description')}
             {...form.getInputProps('description')}
             required
           />
-          <DateInput
-            label="Start date"
-            placeholder="Start date"
-            key={form.key('startDate')}
-            {...form.getInputProps('startDate')}
-            clearable
+          <NumberInput
+            label="Price"
+            placeholder="price"
+            {...form.getInputProps('price')}
+            required
           />
-          <DateInput
-            label="Due date"
-            placeholder="Due date"
-            key={form.key('dueDate')}
-            {...form.getInputProps('dueDate')}
-            clearable
+          <NumberInput
+            label="Quantity in stock"
+            placeholder="quantity in stock"
+            {...form.getInputProps('quantityInStock')}
+            required
+          />
+          <TextInput
+            label="SKU"
+            placeholder="Stock Keeping Unit"
+            {...form.getInputProps('sku')}
+          />
+          <Select
+            label="Category"
+            placeholder="Select category"
+            data={categories}
+            disabled={categoriesLoading}
+            {...form.getInputProps('categoryId')}
+            required
           />
           <Button type="submit" mt="md" loading={loading}>
-            Create Project
+            Create Product
           </Button>
         </Stack>
       </form>

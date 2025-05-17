@@ -15,6 +15,7 @@ const ROOTS_ERRORS = '/error';
 const ROOTS_CHANGELOG = '/changelog';
 const ROOTS_AUTH_PROVIDERS = '/authProviders';
 const ROOTS_ABOUT = '/pages/about';
+const ROOTS_PRODUCTS = '/products';
 
 export const PATH_DASHBOARD = {
   root: ROOTS_DASHBOARD,
@@ -42,7 +43,8 @@ export const PATH_APPS = {
     root: path(ROOT_APPS, '/file-manager'),
   },
   products: {
-    root: path(ROOT_APPS, '/products'),
+    root: path(ROOT_APPS, ROOTS_PRODUCTS),
+    categories: path(ROOT_APPS, ROOTS_PRODUCTS + '/categories'),
   },
 };
 
