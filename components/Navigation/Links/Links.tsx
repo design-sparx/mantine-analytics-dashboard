@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import {
   Box,
+  Button,
   Collapse,
   Group,
   Menu,
@@ -48,7 +49,6 @@ export function LinksGroup(props: LinksGroupProps) {
   const LinkItem = ({ link }: { link: { label: string; link: string } }) => {
     return (
       <Text
-        component="button"
         className={classes.link}
         onClick={() => {
           router.push(link.link);
