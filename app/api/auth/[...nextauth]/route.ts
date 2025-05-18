@@ -1,6 +1,58 @@
 import NextAuth from 'next-auth';
 import { NextAuthOptions } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
+
+// Helper function to refresh the token
+async function refreshAccessToken(token: JWT) {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/refresh-token`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          token: token.accessToken,
+        }),
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error('Failed to refresh token');
+    }
+
+    const refreshedTokens = await response.json();
+
+    // Update permissions from new token if needed
+    let permissions = [];
+    if (refreshedTokens.token) {
+      try {
+        const payload = JSON.parse(
+          Buffer.from(refreshedTokens.token.split('.')[1], 'base64').toString(),
+        );
+        permissions = payload.permission || [];
+      } catch (e) {
+        console.error('Error decoding refreshed JWT:', e);
+      }
+    }
+
+    return {
+      ...token,
+      accessToken: refreshedTokens.token,
+      expiration: refreshedTokens.expiration,
+      permissions: permissions,
+      roles: refreshedTokens.roles || token.roles, // Keep existing roles if not in response
+    };
+  } catch (error) {
+    console.error('Error refreshing token:', error);
+
+    // Return the original token with an expired flag
+    return {
+      ...token,
+      error: 'RefreshAccessTokenError',
+    };
+  }
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -86,9 +138,17 @@ export const authOptions: NextAuthOptions = {
         token.roles = user.roles;
         token.permissions = user.permissions;
         token.expiration = user.expiration;
+
+        return token;
       }
 
-      return token;
+      // Return the previous token if the access token has not expired yet
+      if (token.expiration && new Date(token.expiration) > new Date()) {
+        return token;
+      }
+
+      // Access token has expired, try to refresh it
+      return refreshAccessToken(token);
     },
     async session({ session, token }) {
       if (token) {
@@ -104,6 +164,12 @@ export const authOptions: NextAuthOptions = {
         session.permissions = token.permissions; // Add this line
         // @ts-ignore
         session.expiration = token.expiration;
+
+        // Add refresh token error to session if it exists
+        if (token.error) {
+          // @ts-ignore
+          session.error = token.error;
+        }
       }
 
       return session;
