@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 import {
   Anchor,
@@ -16,13 +16,14 @@ import {
 import { useDisclosure, useFetch } from '@mantine/hooks';
 import { IconMoodEmpty, IconPlus } from '@tabler/icons-react';
 
+import EditProductDrawer from '@/app/apps/products/components/EditProductDrawer';
 import NewProductDrawer from '@/app/apps/products/components/NewProductDrawer';
 import ProductsCard from '@/app/apps/products/components/ProductCard/ProductsCard';
 import { ErrorAlert, PageHeader, Surface } from '@/components';
 import { useAuth } from '@/hooks/useAuth';
 import { PATH_DASHBOARD } from '@/routes';
 import { IApiResponse } from '@/types/api-response';
-import { IProduct, IProductCategory } from '@/types/products';
+import { IProduct } from '@/types/products';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },
@@ -42,6 +43,8 @@ const CARD_PROPS: Omit<PaperProps, 'children'> = {
 
 function Products() {
   const { permissions, accessToken } = useAuth();
+  const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null);
+
   const {
     data: productsData,
     loading: productsLoading,
@@ -54,18 +57,35 @@ function Products() {
     },
   });
 
-  // Check if the user has a can add project
-  const canAddProject = permissions?.includes('Permissions.Projects.Create');
+  // Check if the user has permission to add products
+  const canAddProduct = permissions?.includes('Permissions.Products.Create');
 
-  const [newDrawerOpened, { open: newProjectOpen, close: newProductClose }] =
+  const [newDrawerOpened, { open: newProductOpen, close: newProductClose }] =
+    useDisclosure(false);
+
+  const [editDrawerOpened, { open: editProductOpen, close: editProductClose }] =
     useDisclosure(false);
 
   const handleProductCreated = useCallback(() => {
     refetchProducts();
   }, [refetchProducts]);
 
-  const projectItems = productsData?.data?.map((p: any) => (
-    <ProductsCard key={p.id} data={p} {...CARD_PROPS} />
+  const handleProductUpdated = useCallback(() => {
+    refetchProducts();
+  }, [refetchProducts]);
+
+  const handleEditProduct = (product: IProduct) => {
+    setSelectedProduct(product);
+    editProductOpen();
+  };
+
+  const projectItems = productsData?.data?.map((p: IProduct) => (
+    <ProductsCard
+      key={p.id}
+      data={p}
+      onEdit={handleEditProduct}
+      {...CARD_PROPS}
+    />
   ));
 
   const renderContent = () => {
@@ -76,9 +96,9 @@ function Products() {
           spacing={{ base: 10, sm: 'xl' }}
           verticalSpacing={{ base: 'md', sm: 'xl' }}
         >
-          {Array.from({ length: 8 }).map((o, i) => (
+          {Array.from({ length: 8 }).map((_, i) => (
             <Skeleton
-              key={`project-loading-${i}`}
+              key={`product-loading-${i}`}
               visible={true}
               height={300}
             />
@@ -105,10 +125,10 @@ function Products() {
             <Text>
               You don&apos;t have any products yet. Create one to get started.
             </Text>
-            {canAddProject && (
+            {canAddProduct && (
               <Button
                 leftSection={<IconPlus size={18} />}
-                onClick={newProjectOpen}
+                onClick={newProductOpen}
               >
                 New Product
               </Button>
@@ -135,18 +155,18 @@ function Products() {
         <title>Products | DesignSparx</title>
         <meta
           name="description"
-          content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"
+          content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components."
         />
       </>
       <PageHeader
         title="Products"
         breadcrumbItems={items}
         actionButton={
-          canAddProject &&
+          canAddProduct &&
           productsData?.data?.length && (
             <Button
               leftSection={<IconPlus size={18} />}
-              onClick={newProjectOpen}
+              onClick={newProductOpen}
             >
               New Product
             </Button>
@@ -161,6 +181,14 @@ function Products() {
         onClose={newProductClose}
         position="right"
         onProductCreated={handleProductCreated}
+      />
+
+      <EditProductDrawer
+        opened={editDrawerOpened}
+        onClose={editProductClose}
+        position="right"
+        product={selectedProduct}
+        onProductUpdated={handleProductUpdated}
       />
     </>
   );
