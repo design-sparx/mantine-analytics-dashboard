@@ -6,24 +6,46 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 // Helper function to refresh the token
 async function refreshAccessToken(token: JWT) {
   try {
+    console.log('Token before refresh attempt:', token);
+
+    // Check if accessToken exists
+    if (!token.accessToken) {
+      console.error('No access token available for refresh');
+      return {
+        ...token,
+        error: 'RefreshAccessTokenError',
+      };
+    }
+
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/auth/refresh-token`,
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token.accessToken}`,
+        },
         body: JSON.stringify({
           token: token.accessToken,
         }),
       },
     );
 
+    // Handle error response properly
     if (!response.ok) {
-      throw new Error('Failed to refresh token');
+      const errorData = await response.json();
+      console.error('Refresh token error:', errorData);
+      return {
+        ...token,
+        error: 'RefreshAccessTokenError',
+      };
     }
 
+    // Only try to read the body if we haven't read it yet
     const refreshedTokens = await response.json();
+    console.log('Refreshed tokens response:', refreshedTokens);
 
-    // Update permissions from new token if needed
+    // Update permissions from a new token if needed
     let permissions = [];
     if (refreshedTokens.token) {
       try {
@@ -41,12 +63,11 @@ async function refreshAccessToken(token: JWT) {
       accessToken: refreshedTokens.token,
       expiration: refreshedTokens.expiration,
       permissions: permissions,
-      roles: refreshedTokens.roles || token.roles, // Keep existing roles if not in response
+      roles: refreshedTokens.roles || token.roles,
     };
   } catch (error) {
     console.error('Error refreshing token:', error);
 
-    // Return the original token with an expired flag
     return {
       ...token,
       error: 'RefreshAccessTokenError',
@@ -138,14 +159,24 @@ export const authOptions: NextAuthOptions = {
         token.roles = user.roles;
         token.permissions = user.permissions;
         token.expiration = user.expiration;
-
         return token;
       }
 
       // Return the previous token if the access token has not expired yet
       if (token.expiration && new Date(token.expiration) > new Date()) {
+        console.log('Token not expired, returning existing token');
         return token;
       }
+
+      if (!token.accessToken) {
+        console.error('No access token available for refresh');
+        return {
+          ...token,
+          error: 'RefreshAccessTokenError',
+        };
+      }
+
+      console.log('Token expired, attempting refresh');
 
       // Access token has expired, try to refresh it
       return refreshAccessToken(token);
@@ -161,7 +192,7 @@ export const authOptions: NextAuthOptions = {
         // @ts-ignore
         session.roles = token.roles;
         // @ts-ignore
-        session.permissions = token.permissions; // Add this line
+        session.permissions = token.permissions;
         // @ts-ignore
         session.expiration = token.expiration;
 
@@ -176,8 +207,6 @@ export const authOptions: NextAuthOptions = {
     },
     async signOut({ token }: any) {
       try {
-        // You could add server-side logout logic here if needed
-        // For example, invalidating the token on your backend
         if (token?.accessToken) {
           await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`, {
             method: 'POST',
