@@ -44,7 +44,7 @@
     "@mantine/nprogress": "^7.14.3",
     "@mantine/spotlight": "^7.14.3",
     "@mantine/tiptap": "^7.14.3",
-    "@tabler/icons-react": "^2.40.0",
+    "@tabler/icons-react": "^3.33.0",
     "@tiptap/extension-highlight": "^2.1.12",
     "@tiptap/extension-link": "^2.10.3",
     "@tiptap/extension-placeholder": "^2.0.4",
