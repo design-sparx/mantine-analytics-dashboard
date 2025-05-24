@@ -1,20 +1,29 @@
 'use client';
 
+import { useCallback, useState } from 'react';
+
 import {
-  ActionIcon,
   Anchor,
-  Container,
-  Group,
+  Button,
   Paper,
-  PaperProps,
+  SimpleGrid,
+  Skeleton,
   Stack,
   Text,
+  Title,
 } from '@mantine/core';
-import { IconDotsVertical } from '@tabler/icons-react';
+import { useDisclosure, useFetch } from '@mantine/hooks';
+import { IconMoodEmpty, IconPlus } from '@tabler/icons-react';
 
-import { OrdersTable, PageHeader } from '@/components';
-import { useFetchData } from '@/hooks';
+import { ErrorAlert, PageHeader, Surface } from '@/components';
+import { useAuth } from '@/hooks/useAuth';
 import { PATH_DASHBOARD } from '@/routes';
+import { IApiResponse } from '@/types/api-response';
+import { IOrder } from '@/types/order';
+
+import { EditOrderDrawer } from './components/EditOrderDrawer';
+import { NewOrderDrawer } from './components/NewOrderDrawer';
+import { OrderCard } from './components/OrderCard';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },
@@ -26,50 +35,151 @@ const items = [
   </Anchor>
 ));
 
-const PAPER_PROPS: PaperProps = {
-  p: 'md',
-  shadow: 'md',
-  radius: 'md',
-};
+function Orders() {
+  const { permissions, accessToken } = useAuth();
+  const [selectedOrder, setSelectedOrder] = useState<IOrder | null>(null);
 
-function Page() {
   const {
     data: ordersData,
     loading: ordersLoading,
     error: ordersError,
-  } = useFetchData('/mocks/Orders.json');
+    refetch: refetchOrders,
+  } = useFetch<IApiResponse<IOrder[]>>('/api/orders', {
+    headers: {
+      Authorization: 'Bearer ' + accessToken,
+    },
+  });
+
+  // Check if the user has permission to add orders
+  const canAddOrder = permissions?.includes('Permissions.Orders.Create');
+
+  const [newDrawerOpened, { open: newOrderOpen, close: newOrderClose }] =
+    useDisclosure(false);
+
+  const [editDrawerOpened, { open: editOrderOpen, close: editOrderClose }] =
+    useDisclosure(false);
+
+  const handleOrderCreated = useCallback(() => {
+    refetchOrders();
+  }, [refetchOrders]);
+
+  const handleOrderUpdated = useCallback(() => {
+    refetchOrders();
+  }, [refetchOrders]);
+
+  const handleEditOrder = (order: IOrder) => {
+    setSelectedOrder(order);
+    editOrderOpen();
+  };
+
+  const handleViewOrder = (order: IOrder) => {
+    setSelectedOrder(order);
+    editOrderOpen();
+  };
+
+  const orderItems = ordersData?.data?.map((order: IOrder) => (
+    <OrderCard
+      key={order.id}
+      data={order}
+      onEdit={handleEditOrder}
+      onView={handleViewOrder}
+    />
+  ));
+
+  const renderContent = () => {
+    if (ordersLoading) {
+      return (
+        <SimpleGrid
+          cols={{ base: 1, sm: 2, lg: 3, xl: 4 }}
+          spacing={{ base: 10, sm: 'xl' }}
+          verticalSpacing={{ base: 'md', sm: 'xl' }}
+        >
+          {Array.from({ length: 8 }).map((_, i) => (
+            <Skeleton key={`order-loading-${i}`} visible={true} height={200} />
+          ))}
+        </SimpleGrid>
+      );
+    }
+
+    if (ordersError || !ordersData?.succeeded) {
+      return (
+        <ErrorAlert
+          title="Error loading orders"
+          message={ordersData?.errors?.join(',')}
+        />
+      );
+    }
+
+    if (!ordersData?.data?.length) {
+      return (
+        <Surface component={Paper} p="md">
+          <Stack align="center">
+            <IconMoodEmpty size={24} />
+            <Title order={4}>No orders found</Title>
+            <Text>
+              You don&apos;t have any orders yet. Create one to get started.
+            </Text>
+            {canAddOrder && (
+              <Button
+                leftSection={<IconPlus size={18} />}
+                onClick={newOrderOpen}
+              >
+                New Order
+              </Button>
+            )}
+          </Stack>
+        </Surface>
+      );
+    }
+
+    return (
+      <SimpleGrid
+        cols={{ base: 1, sm: 2, lg: 3, xl: 4 }}
+        spacing={{ base: 10, sm: 'xl' }}
+        verticalSpacing={{ base: 'md', sm: 'xl' }}
+      >
+        {orderItems}
+      </SimpleGrid>
+    );
+  };
 
   return (
     <>
       <>
         <title>Orders | DesignSparx</title>
-        <meta
-          name="description"
-          content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"
-        />
+        <meta name="description" content="Manage orders in your dashboard" />
       </>
-      <Container fluid>
-        <Stack gap="lg">
-          <PageHeader title="Orders" breadcrumbItems={items} />
-          <Paper {...PAPER_PROPS}>
-            <Group justify="space-between" mb="md">
-              <Text fz="lg" fw={600}>
-                Orders
-              </Text>
-              <ActionIcon>
-                <IconDotsVertical size={18} />
-              </ActionIcon>
-            </Group>
-            <OrdersTable
-              data={ordersData}
-              error={ordersError}
-              loading={ordersLoading}
-            />
-          </Paper>
-        </Stack>
-      </Container>
+      <PageHeader
+        title="Orders"
+        breadcrumbItems={items}
+        actionButton={
+          canAddOrder &&
+          ordersData?.data?.length && (
+            <Button leftSection={<IconPlus size={18} />} onClick={newOrderOpen}>
+              New Order
+            </Button>
+          )
+        }
+      />
+
+      {renderContent()}
+
+      <NewOrderDrawer
+        opened={newDrawerOpened}
+        onClose={newOrderClose}
+        position="right"
+        onOrderCreated={handleOrderCreated}
+      />
+
+      <EditOrderDrawer
+        opened={editDrawerOpened}
+        onClose={editOrderClose}
+        position="right"
+        order={selectedOrder}
+        onOrderUpdated={handleOrderUpdated}
+      />
     </>
   );
 }
 
-export default Page;
+export default Orders;
