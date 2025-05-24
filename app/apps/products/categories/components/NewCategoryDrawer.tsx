@@ -16,14 +16,14 @@ import { notifications } from '@mantine/notifications';
 
 import { useAuth } from '@/hooks/useAuth';
 
-type NewCategoryDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
+type NewCategoryDrawer = Omit<DrawerProps, 'title' | 'children'> & {
   onCategoryCreated?: () => void;
 };
 
 export const NewCategoryDrawer = ({
   onCategoryCreated,
   ...drawerProps
-}: NewCategoryDrawerProps) => {
+}: NewCategoryDrawer) => {
   const { user, accessToken } = useAuth();
   const [loading, setLoading] = useState(false);
 
