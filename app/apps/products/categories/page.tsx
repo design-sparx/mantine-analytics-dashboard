@@ -1,11 +1,10 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 import {
   Anchor,
   Button,
-  Group,
   Paper,
   SimpleGrid,
   Skeleton,
@@ -16,12 +15,15 @@ import {
 import { useDisclosure, useFetch } from '@mantine/hooks';
 import { IconMoodEmpty, IconPlus } from '@tabler/icons-react';
 
-import NewCategoryDrawer from '@/app/apps/products/categories/components/NewCategoryDrawerProps';
+import NewCategoryDrawer from '@/app/apps/products/categories/components/NewCategoryDrawer';
 import { ErrorAlert, PageHeader, Surface } from '@/components';
 import { useAuth } from '@/hooks/useAuth';
 import { PATH_DASHBOARD } from '@/routes';
 import { IApiResponse } from '@/types/api-response';
 import { IProductCategory } from '@/types/products';
+
+import { CategoryCard } from './components/CategoryCard';
+import EditCategoryDrawer from './components/EditCategoryDrawer';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },
@@ -34,20 +36,11 @@ const items = [
   </Anchor>
 ));
 
-const CategoryCard = ({ data }: { data: IProductCategory }) => (
-  <Paper p="md" shadow="md" radius="md">
-    <Title order={4} mb="xs">{data.title}</Title>
-    <Text size="sm" c="dimmed" mb="md" lineClamp={2}>
-      {data.description || 'No description'}
-    </Text>
-    <Group>
-      <Text size="sm">Products: {data.productCount}</Text>
-    </Group>
-  </Paper>
-);
-
 function Categories() {
   const { permissions, accessToken } = useAuth();
+  const [selectedCategory, setSelectedCategory] =
+    useState<IProductCategory | null>(null);
+
   const {
     data: categoriesData,
     loading: categoriesLoading,
@@ -60,17 +53,37 @@ function Categories() {
     },
   });
 
-  const canAddCategory = permissions?.includes('Permissions.Products.Create');
+  const canAddCategory = permissions?.includes(
+    'Permissions.ProductCategories.Create',
+  );
 
   const [newDrawerOpened, { open: newCategoryOpen, close: newCategoryClose }] =
     useDisclosure(false);
+
+  const [
+    editDrawerOpened,
+    { open: editCategoryOpen, close: editCategoryClose },
+  ] = useDisclosure(false);
 
   const handleCategoryCreated = useCallback(() => {
     refetchCategories();
   }, [refetchCategories]);
 
+  const handleEditCategory = (category: IProductCategory) => {
+    setSelectedCategory(category);
+    editCategoryOpen();
+  };
+
+  const handleCategoryUpdated = useCallback(() => {
+    refetchCategories();
+  }, [refetchCategories]);
+
   const categoryItems = categoriesData?.data?.map((category) => (
-    <CategoryCard key={category.id} data={category} />
+    <CategoryCard
+      key={category.id}
+      data={category}
+      onEdit={handleEditCategory}
+    />
   ));
 
   const renderContent = () => {
@@ -108,7 +121,8 @@ function Categories() {
             <IconMoodEmpty size={24} />
             <Title order={4}>No categories found</Title>
             <Text>
-              You don&apos;t have any product categories yet. Create one to get started.
+              You don&apos;t have any product categories yet. Create one to get
+              started.
             </Text>
             {canAddCategory && (
               <Button
@@ -166,6 +180,14 @@ function Categories() {
         onClose={newCategoryClose}
         position="right"
         onCategoryCreated={handleCategoryCreated}
+      />
+
+      <EditCategoryDrawer
+        opened={editDrawerOpened}
+        onClose={editCategoryClose}
+        position="right"
+        productCategory={selectedCategory}
+        onCategoryUpdated={handleCategoryUpdated}
       />
     </>
   );
