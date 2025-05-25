@@ -29,7 +29,7 @@ export const PATH_APPS = {
   calendar: path(ROOT_APPS, '/calendar'),
   chat: path(ROOT_APPS, '/chat'),
   invoices: {
-    all: path(ROOT_APPS, ROOTS_INVOICES + '/list'),
+    root: path(ROOT_APPS, ROOTS_INVOICES),
     sample: path(ROOT_APPS, ROOTS_INVOICES + `/details/`),
     invoice_details: (id: string): string =>
       path(ROOT_APPS, ROOTS_INVOICES + `/details/${id}`),

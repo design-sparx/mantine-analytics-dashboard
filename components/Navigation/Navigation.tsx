@@ -71,7 +71,7 @@ const mockdata = [
         links: [
           {
             label: 'List',
-            link: PATH_APPS.invoices.all,
+            link: PATH_APPS.invoices.root,
           },
           {
             label: 'Details',
