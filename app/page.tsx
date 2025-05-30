@@ -101,7 +101,7 @@ const APPS = [
   {
     img: '/showcase/apps-invoices.png',
     title: 'invoices',
-    link: PATH_APPS.invoices.all,
+    link: PATH_APPS.invoices.root,
   },
   {
     img: '/showcase/apps-orders.png',

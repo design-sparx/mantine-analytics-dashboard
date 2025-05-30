@@ -31,7 +31,6 @@ import {
 
 import { SidebarState } from '@/app/apps/layout';
 import { Logo, UserProfileButton } from '@/components';
-import { LinksGroup } from '@/components/Navigation/Links/Links';
 import UserProfileData from '@/public/mocks/UserProfile.json';
 import {
   PATH_ABOUT,
@@ -42,6 +41,7 @@ import {
   PATH_PAGES,
 } from '@/routes';
 
+import { LinksGroup } from './Links/Links';
 import classes from './Navigation.module.css';
 
 const mockdata = [

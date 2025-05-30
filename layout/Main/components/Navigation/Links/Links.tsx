@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 
 import {
   Box,
-  Button,
   Collapse,
   Group,
   Menu,

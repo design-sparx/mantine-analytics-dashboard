@@ -5,10 +5,10 @@ import { ReactNode } from 'react';
 import { AppShell, Container, rem, useMantineTheme } from '@mantine/core';
 import { useDisclosure, useLocalStorage, useMediaQuery } from '@mantine/hooks';
 
-import AppMain from '@/components/AppMain';
-import FooterNav from '@/components/FooterNav';
-import HeaderNav from '@/components/HeaderNav';
-import Navigation from '@/components/Navigation';
+import AppMain from '@/layout/Main/components/AppMain';
+import FooterNav from '@/layout/Main/components/FooterNav';
+import HeaderNav from '@/layout/Main/components/HeaderNav';
+import Navigation from '@/layout/Main/components/Navigation';
 
 export type SidebarState = 'hidden' | 'mini' | 'full';
 
