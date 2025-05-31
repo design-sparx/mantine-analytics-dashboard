@@ -1,3 +1,5 @@
+'use client';
+
 import React, {
   ReactNode,
   createContext,
@@ -14,8 +16,12 @@ export type SidebarVariant =
   | 'gradient'
   | 'floating';
 export type SidebarPosition = 'left' | 'right';
-export type HeaderVariant = 'default' | 'transparent' | 'compact' | 'expanded';
-// | 'floating'; // disable floating for now
+export type HeaderVariant =
+  | 'default'
+  | 'transparent'
+  | 'compact'
+  | 'expanded'
+  | 'floating';
 export type HeaderPosition = 'fixed' | 'sticky' | 'static';
 export type ContentLayout = 'boxed' | 'full-width' | 'centered' | 'fluid';
 export type SpacingSize = 'compact' | 'comfortable' | 'spacious';
