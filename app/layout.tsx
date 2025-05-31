@@ -7,6 +7,7 @@ import { Notifications } from '@mantine/notifications';
 import { Open_Sans } from 'next/font/google';
 
 import { AuthProvider } from '@/components/auth/AuthProvider';
+import { ThemeCustomizerProvider } from '@/contexts/ThemeCustomizerContext';
 import { myTheme } from '@/theme';
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
@@ -23,6 +24,7 @@ const openSans = Open_Sans({
   subsets: ['latin'],
   display: 'swap',
 });
+
 export default function RootLayout({
   children,
 }: {
@@ -67,18 +69,20 @@ export default function RootLayout({
       </head>
       <body>
         <AuthProvider>
-          <MantineProvider theme={myTheme} defaultColorScheme="light">
-            <DatesProvider
-              settings={{
-                firstDayOfWeek: 0,
-                weekendDays: [0],
-                timezone: 'UTC',
-              }}
-            >
-              <Notifications position="bottom-right" zIndex={1000} />
-              <ModalsProvider>{children}</ModalsProvider>
-            </DatesProvider>
-          </MantineProvider>
+          <ThemeCustomizerProvider>
+            <MantineProvider theme={myTheme} defaultColorScheme="light">
+              <DatesProvider
+                settings={{
+                  firstDayOfWeek: 0,
+                  weekendDays: [0],
+                  timezone: 'UTC',
+                }}
+              >
+                <Notifications position="bottom-right" zIndex={1000} />
+                <ModalsProvider>{children}</ModalsProvider>
+              </DatesProvider>
+            </MantineProvider>
+          </ThemeCustomizerProvider>
         </AuthProvider>
       </body>
     </html>

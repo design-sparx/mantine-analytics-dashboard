@@ -256,10 +256,7 @@ function InvoiceDetails({ params }: InvoiceDetailsProps) {
                   {invoice.createdBy && (
                     <Group justify="space-between">
                       <Text>Created By:</Text>
-                      <Text fw={500}>
-                        {invoice.createdBy.firstName}{' '}
-                        {invoice.createdBy.lastName}
-                      </Text>
+                      <Text fw={500}>{invoice.createdBy.userName}</Text>
                     </Group>
                   )}
                 </Stack>

@@ -2,7 +2,6 @@ import PageHeader from './PageHeader';
 
 import type { StoryObj } from '@storybook/react';
 
-
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
   title: 'Page Header',
@@ -30,7 +29,7 @@ export const Default: Story = {
 export const InvoiceActions: Story = {
   args: {
     title: 'Dashboard',
-    invoiceAction: true,
+    withActions: true,
     style: { width: 800 },
   },
 };

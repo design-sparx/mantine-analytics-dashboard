@@ -200,9 +200,6 @@ const HeaderNav = (props: HeaderNavProps) => {
   return (
     <Group justify="space-between">
       <Group gap={0}>
-        <Tooltip label="Toggle side navigation">
-          <Burger visibleFrom="md" size="sm" onClick={onSidebarStateChange} />
-        </Tooltip>
         <Burger
           opened={mobileOpened}
           onClick={toggleMobile}

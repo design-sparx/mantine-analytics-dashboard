@@ -9,6 +9,7 @@ import {
   Group,
   Stack,
   Title,
+  useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core';
 import { IconHome2, IconRefresh } from '@tabler/icons-react';
@@ -25,6 +26,7 @@ function Error({
 }) {
   const router = useRouter();
   const theme = useMantineTheme();
+  const { colorScheme } = useMantineColorScheme();
 
   useEffect(() => {
     // Log the error to an error reporting service
@@ -44,8 +46,14 @@ function Error({
         style={{
           height: '100vh',
           width: '100vw',
-          backgroundColor: theme.colors.gray[0],
-          color: theme.colors.dark[8],
+          backgroundColor:
+            colorScheme === 'light'
+              ? theme.colors.gray[0]
+              : theme.colors.dark[8],
+          color:
+            colorScheme === 'light'
+              ? theme.colors.dark[8]
+              : theme.colors.gray[0],
         }}
       >
         <Stack>
@@ -53,8 +61,8 @@ function Error({
           <Title className={classes.title}>Sorry, unexpected error..</Title>
           <Code
             block
-            color="red.1"
-            c="red.7"
+            color={`${colorScheme === 'light' ? 'red.1' : 'red.8'}`}
+            c={`${colorScheme === 'light' ? 'red.7' : 'red.0'}`}
             fz="md"
             ta="center"
             className={classes.description}
@@ -65,14 +73,14 @@ function Error({
             <Button
               size="md"
               leftSection={<IconRefresh size={18} />}
-              variant="subtle"
+              variant="default"
               onClick={() => window.location.reload}
             >
               Refresh Page
             </Button>
             <Button
               size="md"
-              variant="subtle"
+              variant="default"
               leftSection={<IconHome2 size={18} />}
               onClick={() => router.push('/')}
             >

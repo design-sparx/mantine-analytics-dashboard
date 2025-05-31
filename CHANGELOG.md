@@ -1,5 +1,23 @@
 # analytics-dashboard
 
+## 2.2.6
+
+### Patch Changes
+
+- 0c08221: feat: added invoices apis
+- 359be3a: Add project creation feature and enhance header actions
+- 51f7f09: feat: multiple sidebar variations
+- 2821176: feat: added file manager route and update dependencies
+- 419297d: build(deps): bump nanoid from 3.3.7 to 3.3.8
+- e340d29: build(deps): bump next from 14.2.17 to 14.2.21
+- 194418f: feat: upgraded mantine and core packages
+- e4bc477: refactor: change file imports project wide
+- 33e3f29: feat: added edit and delete product components
+- 699ed94: chore: remove package lock json
+- 7a99267: build(deps): bump next from 14.2.21 to 14.2.26
+- 077073f: feat: added edit and delete product category components
+- 0a14258: feat/integrate-with-orders-api
+
 ## 2.2.5
 
 ### Patch Changes
