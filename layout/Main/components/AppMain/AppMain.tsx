@@ -2,18 +2,14 @@ import { ReactNode } from 'react';
 
 import { Box } from '@mantine/core';
 
-import classes from './App.module.css';
+import layoutClasses from './AppMain.module.css';
 
 type AppMainProps = {
   children: ReactNode;
 };
 
 const AppMain = ({ children }: AppMainProps) => {
-  return (
-    <Box py="lg" px="md" className={classes.main}>
-      {children}
-    </Box>
-  );
+  return <Box className={layoutClasses.appMain}>{children}</Box>;
 };
 
 export default AppMain;

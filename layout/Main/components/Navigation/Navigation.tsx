@@ -31,6 +31,8 @@ import {
 
 import { SidebarState } from '@/app/apps/layout';
 import { Logo, UserProfileButton } from '@/components';
+import { useSidebarConfig } from '@/contexts/ThemeCustomizerContext';
+import { useAuth } from '@/hooks/useAuth';
 import UserProfileData from '@/public/mocks/UserProfile.json';
 import {
   PATH_ABOUT,
@@ -152,6 +154,8 @@ const Navigation = ({
   sidebarState,
 }: NavigationProps) => {
   const tablet_match = useMediaQuery('(max-width: 768px)');
+  const sidebarConfig = useSidebarConfig();
+  const { user } = useAuth();
 
   const links = mockdata.map((m) => (
     <Box key={m.title} pl={0} mb={sidebarState === 'mini' ? 0 : 'md'}>
@@ -189,7 +193,12 @@ const Navigation = ({
   }, [onSidebarStateChange, tablet_match]);
 
   return (
-    <div className={classes.navbar} data-sidebar-state={sidebarState}>
+    <div
+      className={classes.navbar}
+      data-sidebar-state={sidebarState}
+      data-variant={sidebarConfig.variant}
+      data-position={sidebarConfig.position}
+    >
       <div className={classes.header}>
         <Flex justify="space-between" align="center" gap="sm">
           <Group
@@ -214,10 +223,11 @@ const Navigation = ({
 
       <div className={classes.footer}>
         <UserProfileButton
-          email={UserProfileData.email}
-          image={UserProfileData.avatar}
-          name={UserProfileData.name}
+          email={user?.email ?? UserProfileData.email}
+          image={user?.image ?? UserProfileData.avatar}
+          name={user?.userName ?? UserProfileData.name}
           showText={sidebarState !== 'mini'}
+          p={0}
         />
       </div>
     </div>

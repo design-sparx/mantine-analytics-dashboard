@@ -124,7 +124,7 @@ export const authOptions: NextAuthOptions = {
           // Map the backend response to the NextAuth user object
           const user = {
             id: response.user.userId,
-            name: response.user.username,
+            userName: response.user.username,
             email: response.user.email,
             token: response.token,
             roles: response.roles,

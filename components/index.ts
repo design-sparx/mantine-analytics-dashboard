@@ -33,6 +33,7 @@ import UserProfileButton from '@/components/UserButton/UserButton';
 import UserProfileCard from '@/components/UserProfileCard/UserProfileCard';
 
 import Logo from './Logo/Logo';
+import ThemeCustomizer from './theme/ThemeCustomizer';
 import ToggleTheme from './ToggleTheme/ToggleTheme';
 
 export {
@@ -71,4 +72,5 @@ export {
   TextEditor,
   UserButton,
   ErrorAlert,
+  ThemeCustomizer,
 };
