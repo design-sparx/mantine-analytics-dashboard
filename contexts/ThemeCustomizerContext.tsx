@@ -1,9 +1,21 @@
-import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import React, {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 // Types
-export type SidebarVariant = 'default' | 'transparent' | 'colored' | 'gradient' | 'floating';
+export type SidebarVariant =
+  | 'default'
+  | 'transparent'
+  | 'colored'
+  | 'gradient'
+  | 'floating';
 export type SidebarPosition = 'left' | 'right';
-export type HeaderVariant = 'default' | 'transparent' | 'compact' | 'expanded' | 'floating';
+export type HeaderVariant = 'default' | 'transparent' | 'compact' | 'expanded';
+// | 'floating'; // disable floating for now
 export type HeaderPosition = 'fixed' | 'sticky' | 'static';
 export type ContentLayout = 'boxed' | 'full-width' | 'centered' | 'fluid';
 export type SpacingSize = 'compact' | 'comfortable' | 'spacious';
@@ -75,7 +87,9 @@ interface ThemeCustomizerContextType {
   toggleCustomizer: () => void;
 }
 
-const ThemeCustomizerContext = createContext<ThemeCustomizerContextType | undefined>(undefined);
+const ThemeCustomizerContext = createContext<
+  ThemeCustomizerContextType | undefined
+>(undefined);
 
 interface ThemeCustomizerProviderProps {
   children: ReactNode;
@@ -84,10 +98,10 @@ interface ThemeCustomizerProviderProps {
 }
 
 export function ThemeCustomizerProvider({
-                                          children,
-                                          defaultConfig = defaultThemeConfig,
-                                          storageKey = 'theme-config',
-                                        }: ThemeCustomizerProviderProps) {
+  children,
+  defaultConfig = defaultThemeConfig,
+  storageKey = 'theme-config',
+}: ThemeCustomizerProviderProps) {
   const [config, setConfig] = useState<ThemeConfig>(() => {
     // Load from localStorage on initial mount
     if (typeof window !== 'undefined') {
@@ -147,7 +161,9 @@ export function ThemeCustomizerProvider({
 export function useThemeCustomizer() {
   const context = useContext(ThemeCustomizerContext);
   if (!context) {
-    throw new Error('useThemeCustomizer must be used within a ThemeCustomizerProvider');
+    throw new Error(
+      'useThemeCustomizer must be used within a ThemeCustomizerProvider',
+    );
   }
   return context;
 }
@@ -174,7 +190,9 @@ export function useContentConfig() {
 }
 
 // Helper functions to generate CSS classes/styles based on config
-export function generateSidebarStyles(config: ThemeConfig['layout']['sidebar']) {
+export function generateSidebarStyles(
+  config: ThemeConfig['layout']['sidebar'],
+) {
   const styles: React.CSSProperties = {
     width: config.width,
     transition: 'all 0.3s ease',
@@ -189,7 +207,8 @@ export function generateSidebarStyles(config: ThemeConfig['layout']['sidebar']) 
       styles.backgroundColor = 'var(--mantine-primary-color-filled)';
       break;
     case 'gradient':
-      styles.background = 'linear-gradient(180deg, var(--mantine-primary-color-filled) 0%, var(--mantine-primary-color-light) 100%)';
+      styles.background =
+        'linear-gradient(180deg, var(--mantine-primary-color-filled) 0%, var(--mantine-primary-color-light) 100%)';
       break;
     case 'floating':
       styles.margin = '1rem';
@@ -243,7 +262,9 @@ export function generateHeaderStyles(config: ThemeConfig['layout']['header']) {
   return styles;
 }
 
-export function generateContentStyles(config: ThemeConfig['layout']['content']) {
+export function generateContentStyles(
+  config: ThemeConfig['layout']['content'],
+) {
   const styles: React.CSSProperties = {
     transition: 'all 0.3s ease',
   };
