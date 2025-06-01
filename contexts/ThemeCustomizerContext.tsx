@@ -22,8 +22,8 @@ export interface ThemeConfig {
       variant: SidebarVariant;
       position: SidebarPosition;
       width: number;
-      collapsible: boolean;
       overlay: boolean;
+      visible: boolean; // New: replaces hidden/mini/full states
     };
     header: {
       variant: HeaderVariant;
@@ -47,8 +47,8 @@ export const defaultThemeConfig: ThemeConfig = {
       variant: 'default',
       position: 'left',
       width: 300,
-      collapsible: true,
       overlay: false,
+      visible: true,
     },
     header: {
       variant: 'default',
@@ -79,6 +79,9 @@ interface ThemeCustomizerContextType {
   closeCustomizer: () => void;
   toggleCustomizer: () => void;
   hasUnsavedChanges: boolean;
+  toggleSidebarVisibility: () => void;
+  showSidebar: () => void;
+  hideSidebar: () => void;
 }
 
 const ThemeCustomizerContext = createContext<
@@ -110,6 +113,12 @@ export function ThemeCustomizerProvider({
             layout: {
               ...defaultConfig.layout,
               ...parsedConfig.layout,
+              sidebar: {
+                ...defaultConfig.layout.sidebar,
+                ...parsedConfig.layout.sidebar,
+                // Ensure new properties exist
+                visible: parsedConfig.layout.sidebar?.visible ?? true,
+              },
             },
             appearance: {
               ...defaultConfig.appearance,
@@ -172,6 +181,67 @@ export function ThemeCustomizerProvider({
   };
   const toggleCustomizer = () => setIsCustomizerOpen((prev) => !prev);
 
+  // Sidebar visibility controls
+  const toggleSidebarVisibility = () => {
+    const currentConfig = isCustomizerOpen ? previewConfig : config;
+    const newConfig = {
+      ...currentConfig,
+      layout: {
+        ...currentConfig.layout,
+        sidebar: {
+          ...currentConfig.layout.sidebar,
+          visible: !currentConfig.layout.sidebar.visible,
+        },
+      },
+    };
+
+    if (isCustomizerOpen) {
+      updatePreviewConfig(newConfig);
+    } else {
+      updateConfig(newConfig);
+    }
+  };
+
+  const showSidebar = () => {
+    const currentConfig = isCustomizerOpen ? previewConfig : config;
+    const newConfig = {
+      ...currentConfig,
+      layout: {
+        ...currentConfig.layout,
+        sidebar: {
+          ...currentConfig.layout.sidebar,
+          visible: true,
+        },
+      },
+    };
+
+    if (isCustomizerOpen) {
+      updatePreviewConfig(newConfig);
+    } else {
+      updateConfig(newConfig);
+    }
+  };
+
+  const hideSidebar = () => {
+    const currentConfig = isCustomizerOpen ? previewConfig : config;
+    const newConfig = {
+      ...currentConfig,
+      layout: {
+        ...currentConfig.layout,
+        sidebar: {
+          ...currentConfig.layout.sidebar,
+          visible: false,
+        },
+      },
+    };
+
+    if (isCustomizerOpen) {
+      updatePreviewConfig(newConfig);
+    } else {
+      updateConfig(newConfig);
+    }
+  };
+
   const hasUnsavedChanges =
     JSON.stringify(config) !== JSON.stringify(previewConfig);
 
@@ -190,6 +260,9 @@ export function ThemeCustomizerProvider({
         closeCustomizer,
         toggleCustomizer,
         hasUnsavedChanges,
+        toggleSidebarVisibility,
+        showSidebar,
+        hideSidebar,
       }}
     >
       {children}

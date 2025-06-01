@@ -9,6 +9,7 @@ import {
   Divider,
   Drawer,
   Group,
+  Paper,
   ScrollArea,
   SegmentedControl,
   Select,
@@ -166,7 +167,7 @@ export default function ThemeCustomizer({
             <Tabs.Panel value="layout" pt="md">
               <Stack gap="lg">
                 {/* Sidebar Configuration */}
-                <div>
+                <Paper p="sm" withBorder>
                   <Group mb="sm">
                     <IconLayoutSidebar size={20} />
                     <Text fw={600}>Sidebar</Text>
@@ -219,18 +220,20 @@ export default function ThemeCustomizer({
                     </Box>
 
                     <Switch
-                      label="Collapsible"
-                      checked={previewConfig.layout.sidebar.collapsible}
+                      label="Visible"
+                      description="Show or hide the sidebar"
+                      checked={previewConfig.layout.sidebar.visible}
                       onChange={(e) =>
                         updateConfig(
-                          ['layout', 'sidebar', 'collapsible'],
+                          ['layout', 'sidebar', 'visible'],
                           e.currentTarget.checked,
                         )
                       }
                     />
 
                     <Switch
-                      label="Overlay on mobile"
+                      label="Overlay mode"
+                      description="Sidebar overlays content instead of pushing it aside"
                       checked={previewConfig.layout.sidebar.overlay}
                       onChange={(e) =>
                         updateConfig(
@@ -240,12 +243,10 @@ export default function ThemeCustomizer({
                       }
                     />
                   </Stack>
-                </div>
-
-                <Divider />
+                </Paper>
 
                 {/* Header Configuration */}
-                <div>
+                <Paper p="sm" withBorder>
                   <Group mb="sm">
                     <IconLayoutNavbar size={20} />
                     <Text fw={600}>Header</Text>
@@ -305,12 +306,10 @@ export default function ThemeCustomizer({
                       }
                     />
                   </Stack>
-                </div>
-
-                <Divider />
+                </Paper>
 
                 {/* Content Layout Configuration */}
-                <div>
+                <Paper p="sm" withBorder>
                   <Group mb="sm">
                     <IconLayoutDistributeVertical size={20} />
                     <Text fw={600}>Content Layout</Text>
@@ -376,14 +375,14 @@ export default function ThemeCustomizer({
                       />
                     </Box>
                   </Stack>
-                </div>
+                </Paper>
               </Stack>
             </Tabs.Panel>
 
             <Tabs.Panel value="appearance" pt="md">
               <Stack gap="lg">
                 {/* Color Scheme */}
-                <div>
+                <Paper p="sm" withBorder>
                   <Group mb="sm">
                     <IconPalette size={20} />
                     <Text fw={600}>Color Scheme</Text>
@@ -432,7 +431,7 @@ export default function ThemeCustomizer({
                       />
                     </Box>
                   </Stack>
-                </div>
+                </Paper>
 
                 <Divider />
 
@@ -462,10 +461,7 @@ export default function ThemeCustomizer({
           </Tabs>
         </ScrollArea>
 
-        <Box
-          pt="md"
-          style={{ borderTop: '1px solid var(--mantine-color-gray-3)' }}
-        >
+        <Box pt="md">
           <Group justify="space-between">
             <Button
               variant="subtle"

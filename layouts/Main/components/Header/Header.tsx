@@ -19,16 +19,19 @@ import {
 import { useMediaQuery } from '@mantine/hooks';
 import {
   IconBell,
+  IconMenu2,
   IconMessageCircle,
   IconPower,
   IconSearch,
 } from '@tabler/icons-react';
 
-import { SidebarState } from '@/app/apps/layout';
 import { LanguagePicker } from '@/components';
 import { MESSAGES } from '@/constants/messages';
 import { NOTIFICATIONS } from '@/constants/notifications';
-import { HeaderVariant } from '@/contexts/ThemeCustomizerContext';
+import {
+  HeaderVariant,
+  useSidebarConfig,
+} from '@/contexts/ThemeCustomizerContext';
 import { useAuth } from '@/hooks/useAuth';
 
 const ICON_SIZE = 20;
@@ -36,17 +39,26 @@ const ICON_SIZE = 20;
 type HeaderNavProps = {
   mobileOpened?: boolean;
   toggleMobile?: () => void;
-  sidebarState: SidebarState;
-  onSidebarStateChange: () => void;
+  sidebarVisible: boolean;
+  onSidebarToggle: () => void;
+  onSidebarShow?: () => void;
   headerVariant: HeaderVariant;
 };
 
 const HeaderNav = (props: HeaderNavProps) => {
-  const { toggleMobile, mobileOpened, headerVariant } = props;
+  const {
+    toggleMobile,
+    mobileOpened,
+    headerVariant,
+    sidebarVisible,
+    onSidebarToggle,
+    onSidebarShow,
+  } = props;
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const tablet_match = useMediaQuery('(max-width: 768px)');
   const mobile_match = useMediaQuery('(max-width: 425px)');
+  const sidebarConfig = useSidebarConfig();
   const { user, logout } = useAuth();
 
   // Determine text color based on header variant
@@ -58,6 +70,39 @@ const HeaderNav = (props: HeaderNavProps) => {
   };
 
   const textColor = getTextColor();
+
+  const handleSidebarToggle = () => {
+    if (mobile_match) {
+      // Mobile: toggle mobile menu
+      toggleMobile?.();
+    } else if (sidebarConfig.overlay && !sidebarVisible) {
+      // Desktop overlay mode: show sidebar if hidden
+      onSidebarShow?.();
+    } else {
+      // Normal mode or overlay mode with visible sidebar: toggle
+      onSidebarToggle();
+    }
+  };
+
+  const getSidebarToggleIcon = () => {
+    if (mobile_match) {
+      return <Burger opened={mobileOpened} size="sm" color={textColor} />;
+    }
+
+    // Desktop: use menu icon for overlay mode or when sidebar is hidden
+    if (sidebarConfig.overlay || !sidebarVisible) {
+      return <IconMenu2 size={ICON_SIZE} color={textColor} />;
+    }
+
+    // Use burger for normal mode when sidebar is visible
+    return <Burger opened={sidebarVisible} size="sm" color={textColor} />;
+  };
+
+  const getSidebarToggleTooltip = () => {
+    if (mobile_match) return 'Toggle menu';
+    if (!sidebarVisible) return 'Show sidebar';
+    return 'Hide sidebar';
+  };
 
   const messages = MESSAGES.map((m) => (
     <Menu.Item
@@ -117,13 +162,16 @@ const HeaderNav = (props: HeaderNavProps) => {
   return (
     <Group justify="space-between">
       <Group gap={0}>
-        <Burger
-          opened={mobileOpened}
-          onClick={toggleMobile}
-          hiddenFrom="md"
-          size="sm"
-          color={textColor}
-        />
+        <Tooltip label={getSidebarToggleTooltip()}>
+          <ActionIcon
+            onClick={handleSidebarToggle}
+            variant={headerVariant === 'colored' ? 'transparent' : 'default'}
+            size="lg"
+          >
+            {getSidebarToggleIcon()}
+          </ActionIcon>
+        </Tooltip>
+
         {!mobile_match && (
           <TextInput
             placeholder="search"
