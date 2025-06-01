@@ -1,5 +1,197 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 
+:root {
+  /* Default theme variables */
+  --theme-primary-color: #339af0;
+  --theme-border-radius: 0.25rem;
+  --theme-spacing-scale: 1;
+  --theme-compact: 0;
+  --sidebar-width: 300px;
+  --header-height: 60px;
+
+  /* Animation variables */
+  --transition-duration: 0.3s;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Custom shadows */
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --shadow-dropdown: 0 4px 16px rgba(0, 0, 0, 0.15);
+  --shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Compact mode adjustments */
+:root[style*="--theme-compact: 1"] {
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
 html,
 body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Custom utility classes that respond to theme variables */
+.theme-card {
+  border-radius: var(--theme-border-radius);
+  box-shadow: var(--shadow-card);
+  transition: all var(--transition-duration) var(--transition-timing);
+}
+
+.theme-card:hover {
+  box-shadow: var(--shadow-dropdown);
+  transform: translateY(-2px);
+}
+
+.theme-button {
+  border-radius: var(--theme-border-radius);
+  background-color: var(--theme-primary-color);
+  transition: all var(--transition-duration) var(--transition-timing);
+}
+
+.theme-button:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+/* Responsive spacing that respects compact mode */
+.theme-spacing-xs {
+  padding: calc(0.5rem * var(--theme-spacing-scale));
+}
+
+.theme-spacing-sm {
+  padding: calc(0.75rem * var(--theme-spacing-scale));
+}
+
+.theme-spacing-md {
+  padding: calc(1rem * var(--theme-spacing-scale));
+}
+
+.theme-spacing-lg {
+  padding: calc(1.5rem * var(--theme-spacing-scale));
+}
+
+.theme-spacing-xl {
+  padding: calc(2rem * var(--theme-spacing-scale));
+}
+
+/* Custom scrollbar styling */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--mantine-color-gray-4) transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--mantine-color-gray-4);
+  border-radius: var(--theme-border-radius);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: var(--mantine-color-gray-5);
+}
+
+/* Theme transition animations */
+* {
+  transition:
+    background-color var(--transition-duration) var(--transition-timing),
+    border-color var(--transition-duration) var(--transition-timing),
+    color var(--transition-duration) var(--transition-timing),
+    box-shadow var(--transition-duration) var(--transition-timing);
+}
+
+/* Disable transitions during theme changes to prevent flickering */
+.theme-changing * {
+  transition: none !important;
+}
+
+/* Custom focus styles that use theme variables */
+.theme-focus:focus-visible {
+  outline: 2px solid var(--theme-primary-color);
+  outline-offset: 2px;
+  border-radius: var(--theme-border-radius);
+}
+
+/* Gradient backgrounds for colored variants */
+.gradient-primary {
+  background: linear-gradient(
+    135deg,
+    var(--theme-primary-color) 0%,
+    color-mix(in srgb, var(--theme-primary-color) 80%, black 20%) 100%
+  );
+}
+
+.gradient-sidebar {
+  background: linear-gradient(
+    180deg,
+    var(--theme-primary-color) 0%,
+    color-mix(in srgb, var(--theme-primary-color) 70%, black 30%) 100%
+  );
+}
+
+.gradient-header {
+  background: linear-gradient(
+    90deg,
+    var(--theme-primary-color) 0%,
+    color-mix(in srgb, var(--theme-primary-color) 80%, black 20%) 100%
+  );
+}
+
+/* Dark mode specific adjustments */
+@media (prefers-color-scheme: dark) {
+  .gradient-sidebar {
+    background: linear-gradient(
+      180deg,
+      var(--mantine-color-dark-6) 0%,
+      var(--mantine-color-dark-8) 100%
+    );
+  }
+}
+
+/* Responsive design helpers */
+@media (max-width: 768px) {
+  .theme-spacing-lg,
+  .theme-spacing-xl {
+    padding: calc(1rem * var(--theme-spacing-scale));
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .theme-card {
+    border: 2px solid var(--mantine-color-gray-7);
+  }
+
+  .theme-button {
+    border: 2px solid currentColor;
+  }
 }

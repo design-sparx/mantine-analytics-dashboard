@@ -9,12 +9,31 @@ import React, {
 } from 'react';
 
 // Types
-export type SidebarVariant = 'default' | 'colored';
+export type SidebarVariant = 'default' | 'colored' | 'gradient';
 export type SidebarPosition = 'left' | 'right';
-export type HeaderVariant = 'default' | 'colored';
+export type HeaderVariant = 'default' | 'colored' | 'gradient';
 export type HeaderPosition = 'fixed' | 'sticky' | 'static';
 export type ContentLayout = 'boxed' | 'full-width' | 'centered' | 'fluid';
 export type SpacingSize = 'compact' | 'comfortable' | 'spacious';
+export type ColorScheme = 'light' | 'dark' | 'auto';
+
+// Predefined color schemes
+export const COLOR_SCHEMES = {
+  blue: { name: 'Blue', value: 'blue', color: '#339af0' },
+  cyan: { name: 'Cyan', value: 'cyan', color: '#22b8cf' },
+  teal: { name: 'Teal', value: 'teal', color: '#20c997' },
+  green: { name: 'Green', value: 'green', color: '#51cf66' },
+  lime: { name: 'Lime', value: 'lime', color: '#94d82d' },
+  yellow: { name: 'Yellow', value: 'yellow', color: '#ffd43b' },
+  orange: { name: 'Orange', value: 'orange', color: '#ff922b' },
+  red: { name: 'Red', value: 'red', color: '#ff6b6b' },
+  pink: { name: 'Pink', value: 'pink', color: '#f06292' },
+  grape: { name: 'Grape', value: 'grape', color: '#cc5de8' },
+  violet: { name: 'Violet', value: 'violet', color: '#845ef7' },
+  indigo: { name: 'Indigo', value: 'indigo', color: '#5c7cfa' },
+} as const;
+
+export type PrimaryColor = keyof typeof COLOR_SCHEMES;
 
 export interface ThemeConfig {
   layout: {
@@ -23,7 +42,7 @@ export interface ThemeConfig {
       position: SidebarPosition;
       width: number;
       overlay: boolean;
-      visible: boolean; // New: replaces hidden/mini/full states
+      visible: boolean;
     };
     header: {
       variant: HeaderVariant;
@@ -37,7 +56,10 @@ export interface ThemeConfig {
     };
   };
   appearance: {
-    colorScheme: 'light' | 'dark' | 'auto';
+    colorScheme: ColorScheme;
+    primaryColor: PrimaryColor;
+    borderRadius: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    compact: boolean; // For compact/comfortable UI density
   };
 }
 
@@ -63,6 +85,9 @@ export const defaultThemeConfig: ThemeConfig = {
   },
   appearance: {
     colorScheme: 'auto',
+    primaryColor: 'blue',
+    borderRadius: 'sm',
+    compact: false,
   },
 };
 
@@ -82,6 +107,11 @@ interface ThemeCustomizerContextType {
   toggleSidebarVisibility: () => void;
   showSidebar: () => void;
   hideSidebar: () => void;
+  // New methods for appearance
+  setPrimaryColor: (color: PrimaryColor) => void;
+  setColorScheme: (scheme: ColorScheme) => void;
+  setBorderRadius: (radius: ThemeConfig['appearance']['borderRadius']) => void;
+  toggleCompactMode: () => void;
 }
 
 const ThemeCustomizerContext = createContext<
@@ -116,13 +146,16 @@ export function ThemeCustomizerProvider({
               sidebar: {
                 ...defaultConfig.layout.sidebar,
                 ...parsedConfig.layout.sidebar,
-                // Ensure new properties exist
                 visible: parsedConfig.layout.sidebar?.visible ?? true,
               },
             },
             appearance: {
               ...defaultConfig.appearance,
               ...parsedConfig.appearance,
+              // Ensure new appearance properties exist
+              primaryColor: parsedConfig.appearance?.primaryColor ?? 'blue',
+              borderRadius: parsedConfig.appearance?.borderRadius ?? 'sm',
+              compact: parsedConfig.appearance?.compact ?? false,
             },
           };
         } catch (e) {
@@ -149,6 +182,40 @@ export function ThemeCustomizerProvider({
       setPreviewConfig(config);
     }
   }, [isCustomizerOpen, config]);
+
+  // Apply CSS custom properties when config changes
+  useEffect(() => {
+    const activeConfig = isCustomizerOpen ? previewConfig : config;
+
+    if (typeof window !== 'undefined') {
+      const root = document.documentElement;
+
+      // Set primary color
+      const primaryColorValue =
+        COLOR_SCHEMES[activeConfig.appearance.primaryColor].color;
+      root.style.setProperty('--theme-primary-color', primaryColorValue);
+
+      // Set border radius
+      const radiusMap = {
+        xs: '0.125rem',
+        sm: '0.25rem',
+        md: '0.5rem',
+        lg: '0.75rem',
+        xl: '1rem',
+      };
+      root.style.setProperty(
+        '--theme-border-radius',
+        radiusMap[activeConfig.appearance.borderRadius],
+      );
+
+      // Set density
+      if (activeConfig.appearance.compact) {
+        root.style.setProperty('--theme-spacing-scale', '0.8');
+      } else {
+        root.style.setProperty('--theme-spacing-scale', '1');
+      }
+    }
+  }, [config, previewConfig, isCustomizerOpen]);
 
   const updateConfig = (newConfig: ThemeConfig) => {
     setConfig(newConfig);
@@ -242,6 +309,77 @@ export function ThemeCustomizerProvider({
     }
   };
 
+  // New appearance methods
+  const setPrimaryColor = (color: PrimaryColor) => {
+    const currentConfig = isCustomizerOpen ? previewConfig : config;
+    const newConfig = {
+      ...currentConfig,
+      appearance: {
+        ...currentConfig.appearance,
+        primaryColor: color,
+      },
+    };
+
+    if (isCustomizerOpen) {
+      updatePreviewConfig(newConfig);
+    } else {
+      updateConfig(newConfig);
+    }
+  };
+
+  const setColorScheme = (scheme: ColorScheme) => {
+    const currentConfig = isCustomizerOpen ? previewConfig : config;
+    const newConfig = {
+      ...currentConfig,
+      appearance: {
+        ...currentConfig.appearance,
+        colorScheme: scheme,
+      },
+    };
+
+    if (isCustomizerOpen) {
+      updatePreviewConfig(newConfig);
+    } else {
+      updateConfig(newConfig);
+    }
+  };
+
+  const setBorderRadius = (
+    radius: ThemeConfig['appearance']['borderRadius'],
+  ) => {
+    const currentConfig = isCustomizerOpen ? previewConfig : config;
+    const newConfig = {
+      ...currentConfig,
+      appearance: {
+        ...currentConfig.appearance,
+        borderRadius: radius,
+      },
+    };
+
+    if (isCustomizerOpen) {
+      updatePreviewConfig(newConfig);
+    } else {
+      updateConfig(newConfig);
+    }
+  };
+
+  const toggleCompactMode = () => {
+    const currentConfig = isCustomizerOpen ? previewConfig : config;
+    const newConfig = {
+      ...currentConfig,
+      appearance: {
+        ...currentConfig.appearance,
+        compact: !currentConfig.appearance.compact,
+      },
+    };
+
+    if (isCustomizerOpen) {
+      updatePreviewConfig(newConfig);
+    } else {
+      updateConfig(newConfig);
+    }
+  };
+
   const hasUnsavedChanges =
     JSON.stringify(config) !== JSON.stringify(previewConfig);
 
@@ -263,6 +401,10 @@ export function ThemeCustomizerProvider({
         toggleSidebarVisibility,
         showSidebar,
         hideSidebar,
+        setPrimaryColor,
+        setColorScheme,
+        setBorderRadius,
+        toggleCompactMode,
       }}
     >
       {children}
@@ -320,6 +462,11 @@ export function generateSidebarStyles(
       styles.backgroundColor = 'var(--mantine-primary-color-filled)';
       styles.color = 'white';
       break;
+    case 'gradient':
+      styles.background =
+        'linear-gradient(135deg, var(--mantine-primary-color-filled) 0%, var(--mantine-primary-color-7) 100%)';
+      styles.color = 'white';
+      break;
     case 'default':
     default:
       // Default uses CSS variables for light/dark mode handling
@@ -349,6 +496,11 @@ export function generateHeaderStyles(config: ThemeConfig['layout']['header']) {
   switch (config.variant) {
     case 'colored':
       styles.backgroundColor = 'var(--mantine-primary-color-filled)';
+      styles.color = 'white';
+      break;
+    case 'gradient':
+      styles.background =
+        'linear-gradient(90deg, var(--mantine-primary-color-filled) 0%, var(--mantine-primary-color-7) 100%)';
       styles.color = 'white';
       break;
     case 'default':

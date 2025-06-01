@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import {
+  ActionIcon,
   Badge,
   Box,
   Button,
+  ColorSwatch,
   Divider,
   Drawer,
   Group,
@@ -13,13 +15,16 @@ import {
   ScrollArea,
   SegmentedControl,
   Select,
+  SimpleGrid,
   Stack,
   Switch,
   Tabs,
   Text,
+  Tooltip,
   useMantineColorScheme,
 } from '@mantine/core';
 import {
+  IconBorderRadius,
   IconCircle,
   IconCircleHalf2,
   IconComponents,
@@ -36,10 +41,12 @@ import {
   IconSunHigh,
   IconTypography,
   IconX,
+  IconZoomIn,
 } from '@tabler/icons-react';
 
 import {
-  ThemeConfig,
+  COLOR_SCHEMES,
+  PrimaryColor,
   useThemeCustomizer,
 } from '@/contexts/ThemeCustomizerContext';
 
@@ -47,6 +54,38 @@ interface ThemeCustomizerProps {
   opened: boolean;
   onClose: () => void;
 }
+
+// Color Picker Component
+const ColorPicker = ({
+  value,
+  onChange,
+}: {
+  value: PrimaryColor;
+  onChange: (color: PrimaryColor) => void;
+}) => {
+  return (
+    <SimpleGrid cols={6} spacing="xs">
+      {Object.entries(COLOR_SCHEMES).map(([key, colorInfo]) => (
+        <Tooltip key={key} label={colorInfo.name} position="top">
+          <ActionIcon
+            variant={value === key ? 'filled' : 'subtle'}
+            size="lg"
+            radius="md"
+            onClick={() => onChange(key as PrimaryColor)}
+            style={{
+              backgroundColor: value === key ? colorInfo.color : 'transparent',
+              border: `2px solid ${
+                value === key ? colorInfo.color : 'transparent'
+              }`,
+            }}
+          >
+            <ColorSwatch color={colorInfo.color} size={18} />
+          </ActionIcon>
+        </Tooltip>
+      ))}
+    </SimpleGrid>
+  );
+};
 
 export default function ThemeCustomizer({
   opened,
@@ -59,16 +98,21 @@ export default function ThemeCustomizer({
     applyPreview,
     resetPreview,
     hasUnsavedChanges,
+    setPrimaryColor,
+    setColorScheme,
+    setBorderRadius,
+    toggleCompactMode,
   } = useThemeCustomizer();
 
-  const { setColorScheme, colorScheme } = useMantineColorScheme();
+  const { setColorScheme: setMantineColorScheme, colorScheme } =
+    useMantineColorScheme();
 
   // Update color scheme immediately when preview config changes
   useEffect(() => {
     if (opened) {
-      setColorScheme(previewConfig.appearance.colorScheme);
+      setMantineColorScheme(previewConfig.appearance.colorScheme);
     }
-  }, [previewConfig.appearance.colorScheme, setColorScheme, opened]);
+  }, [previewConfig.appearance.colorScheme, setMantineColorScheme, opened]);
 
   const updateConfig = (path: string[], value: any) => {
     const newConfig = { ...previewConfig };
@@ -94,18 +138,20 @@ export default function ThemeCustomizer({
 
   const handleClose = () => {
     // Reset color scheme to saved config when closing
-    setColorScheme(config.appearance.colorScheme);
+    setMantineColorScheme(config.appearance.colorScheme);
     onClose();
   };
 
   const sidebarVariantOptions = [
     { value: 'default', label: 'Default' },
     { value: 'colored', label: 'Colored' },
+    { value: 'gradient', label: 'Gradient' },
   ];
 
   const headerVariantOptions = [
     { value: 'default', label: 'Default' },
     { value: 'colored', label: 'Colored' },
+    { value: 'gradient', label: 'Gradient' },
   ];
 
   return (
@@ -430,6 +476,123 @@ export default function ThemeCustomizer({
                         }
                       />
                     </Box>
+
+                    <Box>
+                      <Text size="sm" fw={500} mb={8}>
+                        Primary Color
+                      </Text>
+                      <ColorPicker
+                        value={previewConfig.appearance.primaryColor}
+                        onChange={(color) =>
+                          updateConfig(['appearance', 'primaryColor'], color)
+                        }
+                      />
+                    </Box>
+                  </Stack>
+                </Paper>
+
+                {/* UI Density */}
+                <Paper p="sm" withBorder>
+                  <Group mb="sm">
+                    <IconZoomIn size={20} />
+                    <Text fw={600}>UI Density</Text>
+                  </Group>
+
+                  <Stack gap="md">
+                    <Switch
+                      label="Compact mode"
+                      description="Reduce spacing for a more compact interface"
+                      checked={previewConfig.appearance.compact}
+                      onChange={(e) =>
+                        updateConfig(
+                          ['appearance', 'compact'],
+                          e.currentTarget.checked,
+                        )
+                      }
+                    />
+                  </Stack>
+                </Paper>
+
+                {/* Border Radius */}
+                <Paper p="sm" withBorder>
+                  <Group mb="sm">
+                    <IconBorderRadius size={20} />
+                    <Text fw={600}>Border Radius</Text>
+                  </Group>
+
+                  <Stack gap="md">
+                    <Box>
+                      <Text size="sm" fw={500} mb={8}>
+                        Corner Roundness
+                      </Text>
+                      <SegmentedControl
+                        fullWidth
+                        data={[
+                          { value: 'xs', label: 'Sharp' },
+                          { value: 'sm', label: 'Small' },
+                          { value: 'md', label: 'Medium' },
+                          { value: 'lg', label: 'Large' },
+                          { value: 'xl', label: 'Round' },
+                        ]}
+                        value={previewConfig.appearance.borderRadius}
+                        onChange={(value) =>
+                          updateConfig(['appearance', 'borderRadius'], value)
+                        }
+                      />
+                    </Box>
+                  </Stack>
+                </Paper>
+
+                {/* Preview Section */}
+                <Paper p="sm" withBorder>
+                  <Group mb="sm">
+                    <IconComponents size={20} />
+                    <Text fw={600}>Preview</Text>
+                  </Group>
+
+                  <Stack gap="md">
+                    <Text size="sm" c="dimmed">
+                      Current primary color:{' '}
+                      <ColorSwatch
+                        color={
+                          COLOR_SCHEMES[previewConfig.appearance.primaryColor]
+                            .color
+                        }
+                        size={16}
+                        style={{ display: 'inline-block' }}
+                      />{' '}
+                      {
+                        COLOR_SCHEMES[previewConfig.appearance.primaryColor]
+                          .name
+                      }
+                    </Text>
+
+                    <Group>
+                      <Button
+                        variant="filled"
+                        size={previewConfig.appearance.compact ? 'xs' : 'sm'}
+                        radius={previewConfig.appearance.borderRadius}
+                      >
+                        Primary Button
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size={previewConfig.appearance.compact ? 'xs' : 'sm'}
+                        radius={previewConfig.appearance.borderRadius}
+                      >
+                        Outline Button
+                      </Button>
+                    </Group>
+
+                    <Paper
+                      p={previewConfig.appearance.compact ? 'xs' : 'sm'}
+                      withBorder
+                      radius={previewConfig.appearance.borderRadius}
+                    >
+                      <Text size="sm">
+                        Sample card content with current settings
+                      </Text>
+                    </Paper>
                   </Stack>
                 </Paper>
 

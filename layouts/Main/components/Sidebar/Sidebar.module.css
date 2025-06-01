@@ -32,7 +32,7 @@
 
   /* Colored variant */
   &[data-variant="colored"] {
-    background-color: var(--mantine-primary-color-filled);
+    background-color: var(--mantine-primary-color-7);
     color: white;
 
     .linkHeader, .linkLabel, .logo {
@@ -114,8 +114,8 @@
 .header {
   padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
   border-bottom: rem(1px) solid light-dark(
-    var(--mantine-color-gray-2),
-    var(--mantine-color-dark-4)
+    var(--mantine-primary-color-4),
+    var(--mantine-primary-color-5)
   );
 }
 
@@ -182,7 +182,7 @@
 .footer {
   padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
   border-top: rem(1px) solid light-dark(
-    var(--mantine-color-gray-2),
-    var(--mantine-color-dark-4)
+    var(--mantine-primary-color-4),
+    var(--mantine-primary-color-5)
   );
 }

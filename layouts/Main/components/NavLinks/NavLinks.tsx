@@ -9,6 +9,7 @@ import {
   Tooltip,
   UnstyledButton,
 } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { IconChevronRight } from '@tabler/icons-react';
 import * as _ from 'lodash';
 import { usePathname, useRouter } from 'next/navigation';
@@ -44,6 +45,7 @@ export function LinksGroup(props: LinksGroupProps) {
   const [opened, setOpened] = useState(initiallyOpened || false);
   const [currentPath, setCurrentPath] = useState<string | undefined>();
   const ChevronIcon = IconChevronRight;
+  const tablet_match = useMediaQuery('(max-width: 768px)');
 
   const LinkItem = ({ link }: { link: { label: string; link: string } }) => {
     return (
@@ -86,7 +88,8 @@ export function LinksGroup(props: LinksGroupProps) {
           >
             <Menu.Target>
               <UnstyledButton
-                onClick={() => {
+                onClick={(evt) => {
+                  evt.preventDefault();
                   setOpened((o) => !o);
                   link && router.push(link || '#');
                   closeSidebar();
