@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { MainLayout } from '@/layout/Main';
+import { MainLayout } from '@/layouts/Main';
 
 export type SidebarState = 'hidden' | 'mini' | 'full';
 

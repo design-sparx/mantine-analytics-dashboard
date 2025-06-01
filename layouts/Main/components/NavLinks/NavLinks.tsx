@@ -13,7 +13,7 @@ import { IconChevronRight } from '@tabler/icons-react';
 import * as _ from 'lodash';
 import { usePathname, useRouter } from 'next/navigation';
 
-import classes from './Links.module.css';
+import classes from './NavLinks.module.css';
 
 interface LinksGroupProps {
   icon?: any;

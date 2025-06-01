@@ -28,6 +28,7 @@
 
   &[data-active] {
     background-color: light-dark(var(--mantine-primary-color-9), var(--mantine-primary-color-6));
+    color: var(--mantine-color-white);
   }
 
 }

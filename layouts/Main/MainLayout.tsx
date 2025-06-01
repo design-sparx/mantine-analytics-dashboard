@@ -25,10 +25,10 @@ import {
   generateSidebarStyles,
   useThemeCustomizer,
 } from '@/contexts/ThemeCustomizerContext';
-import FooterNav from '@/layout/Main/components/FooterNav';
-import HeaderNav from '@/layout/Main/components/HeaderNav';
-import Navigation from '@/layout/Main/components/Navigation';
 
+import FooterNav from './components/Footer';
+import HeaderNav from './components/Header';
+import SidebarNav from './components/Sidebar';
 import layoutClasses from './MainLayout.module.css';
 
 export type SidebarState = 'hidden' | 'mini' | 'full';
@@ -142,7 +142,7 @@ export function MainLayout({ children }: Props) {
               : 'translateX(0)',
         }}
       >
-        <Navigation
+        <SidebarNav
           onClose={toggleMobile}
           sidebarState={sidebarState}
           onSidebarStateChange={setSidebarState}
