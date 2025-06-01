@@ -49,7 +49,6 @@ export function MainLayout({ children }: Props) {
     isCustomizerOpen,
     openCustomizer,
     closeCustomizer,
-    updateConfig,
   } = useThemeCustomizer();
 
   const [sidebarState, setSidebarState] = useLocalStorage<SidebarState>({
@@ -137,8 +136,8 @@ export function MainLayout({ children }: Props) {
           transform:
             mobile_match && !mobileOpened
               ? `translateX(${
-                  config.layout.sidebar.position === 'right' ? '100%' : '-100%'
-                })`
+                config.layout.sidebar.position === 'right' ? '100%' : '-100%'
+              })`
               : 'translateX(0)',
         }}
       >
@@ -188,8 +187,6 @@ export function MainLayout({ children }: Props) {
       <ThemeCustomizer
         opened={isCustomizerOpen}
         onClose={closeCustomizer}
-        onApply={updateConfig}
-        currentConfig={config}
       />
 
       {/* Floating Action Button for Theme Customizer */}

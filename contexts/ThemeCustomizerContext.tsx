@@ -9,9 +9,9 @@ import React, {
 } from 'react';
 
 // Types
-export type SidebarVariant = 'default' | 'colored' | 'gradient';
+export type SidebarVariant = 'default' | 'colored';
 export type SidebarPosition = 'left' | 'right';
-export type HeaderVariant = 'default' | 'colored' | 'compact' | 'expanded';
+export type HeaderVariant = 'default' | 'colored';
 export type HeaderPosition = 'fixed' | 'sticky' | 'static';
 export type ContentLayout = 'boxed' | 'full-width' | 'centered' | 'fluid';
 export type SpacingSize = 'compact' | 'comfortable' | 'spacious';
@@ -36,18 +36,8 @@ export interface ThemeConfig {
       padding: SpacingSize;
     };
   };
-  // Future extensions
-  colors?: {
-    primaryColor?: string;
-    colorScheme?: 'light' | 'dark' | 'auto';
-  };
-  typography?: {
-    fontFamily?: string;
-    fontSize?: 'sm' | 'md' | 'lg';
-  };
-  components?: {
-    buttonStyle?: 'filled' | 'outlined' | 'ghost';
-    cardStyle?: 'flat' | 'elevated' | 'bordered';
+  appearance: {
+    colorScheme: 'light' | 'dark' | 'auto';
   };
 }
 
@@ -71,16 +61,24 @@ export const defaultThemeConfig: ThemeConfig = {
       padding: 'comfortable',
     },
   },
+  appearance: {
+    colorScheme: 'auto',
+  },
 };
 
 interface ThemeCustomizerContextType {
   config: ThemeConfig;
+  previewConfig: ThemeConfig;
   updateConfig: (newConfig: ThemeConfig) => void;
+  updatePreviewConfig: (newConfig: ThemeConfig) => void;
+  applyPreview: () => void;
   resetConfig: () => void;
+  resetPreview: () => void;
   isCustomizerOpen: boolean;
   openCustomizer: () => void;
   closeCustomizer: () => void;
   toggleCustomizer: () => void;
+  hasUnsavedChanges: boolean;
 }
 
 const ThemeCustomizerContext = createContext<
@@ -104,7 +102,20 @@ export function ThemeCustomizerProvider({
       const stored = localStorage.getItem(storageKey);
       if (stored) {
         try {
-          return JSON.parse(stored);
+          const parsedConfig = JSON.parse(stored);
+          // Merge with default config to handle new properties
+          return {
+            ...defaultConfig,
+            ...parsedConfig,
+            layout: {
+              ...defaultConfig.layout,
+              ...parsedConfig.layout,
+            },
+            appearance: {
+              ...defaultConfig.appearance,
+              ...parsedConfig.appearance,
+            },
+          };
         } catch (e) {
           console.error('Failed to parse stored theme config:', e);
         }
@@ -113,6 +124,7 @@ export function ThemeCustomizerProvider({
     return defaultConfig;
   });
 
+  const [previewConfig, setPreviewConfig] = useState<ThemeConfig>(config);
   const [isCustomizerOpen, setIsCustomizerOpen] = useState(false);
 
   // Save to localStorage whenever config changes
@@ -122,31 +134,62 @@ export function ThemeCustomizerProvider({
     }
   }, [config, storageKey]);
 
+  // Reset preview when customizer opens
+  useEffect(() => {
+    if (isCustomizerOpen) {
+      setPreviewConfig(config);
+    }
+  }, [isCustomizerOpen, config]);
+
   const updateConfig = (newConfig: ThemeConfig) => {
     setConfig(newConfig);
   };
 
+  const updatePreviewConfig = (newConfig: ThemeConfig) => {
+    setPreviewConfig(newConfig);
+  };
+
+  const applyPreview = () => {
+    setConfig(previewConfig);
+  };
+
   const resetConfig = () => {
     setConfig(defaultConfig);
+    setPreviewConfig(defaultConfig);
     if (typeof window !== 'undefined') {
       localStorage.removeItem(storageKey);
     }
   };
 
+  const resetPreview = () => {
+    setPreviewConfig(config);
+  };
+
   const openCustomizer = () => setIsCustomizerOpen(true);
-  const closeCustomizer = () => setIsCustomizerOpen(false);
+  const closeCustomizer = () => {
+    setIsCustomizerOpen(false);
+    setPreviewConfig(config); // Reset preview on close
+  };
   const toggleCustomizer = () => setIsCustomizerOpen((prev) => !prev);
+
+  const hasUnsavedChanges =
+    JSON.stringify(config) !== JSON.stringify(previewConfig);
 
   return (
     <ThemeCustomizerContext.Provider
       value={{
-        config,
+        config: isCustomizerOpen ? previewConfig : config,
+        previewConfig,
         updateConfig,
+        updatePreviewConfig,
+        applyPreview,
         resetConfig,
+        resetPreview,
         isCustomizerOpen,
         openCustomizer,
         closeCustomizer,
         toggleCustomizer,
+        hasUnsavedChanges,
       }}
     >
       {children}
@@ -185,6 +228,11 @@ export function useContentConfig() {
   return config.layout.content;
 }
 
+export function useAppearanceConfig() {
+  const { config } = useThemeCustomizer();
+  return config.appearance;
+}
+
 // Helper functions to generate CSS classes/styles based on config
 export function generateSidebarStyles(
   config: ThemeConfig['layout']['sidebar'],
@@ -197,11 +245,6 @@ export function generateSidebarStyles(
   switch (config.variant) {
     case 'colored':
       styles.backgroundColor = 'var(--mantine-primary-color-filled)';
-      styles.color = 'white';
-      break;
-    case 'gradient':
-      styles.background =
-        'linear-gradient(180deg, var(--mantine-primary-color-filled) 0%, var(--mantine-primary-color-light) 100%)';
       styles.color = 'white';
       break;
     case 'default':
@@ -234,12 +277,6 @@ export function generateHeaderStyles(config: ThemeConfig['layout']['header']) {
     case 'colored':
       styles.backgroundColor = 'var(--mantine-primary-color-filled)';
       styles.color = 'white';
-      break;
-    case 'compact':
-      styles.height = Math.min(config.height, 50);
-      break;
-    case 'expanded':
-      styles.height = Math.max(config.height, 80);
       break;
     case 'default':
     default:

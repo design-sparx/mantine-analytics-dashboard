@@ -16,155 +16,106 @@ import {
   Switch,
   Tabs,
   Text,
+  useMantineColorScheme,
 } from '@mantine/core';
 import {
   IconCircle,
+  IconCircleHalf2,
   IconComponents,
   IconDeviceFloppy,
   IconLayout,
   IconLayoutDistributeVertical,
   IconLayoutNavbar,
   IconLayoutSidebar,
+  IconMoonStars,
   IconPalette,
   IconRectangle,
   IconRefresh,
   IconSquare,
+  IconSunHigh,
   IconTypography,
   IconX,
 } from '@tabler/icons-react';
 
-// Types for theme configuration
-type SidebarVariant =
-  | 'default'
-  | 'transparent'
-  | 'colored'
-  | 'gradient'
-  | 'floating';
-type SidebarPosition = 'left' | 'right';
-type HeaderVariant =
-  | 'default'
-  | 'transparent'
-  | 'compact'
-  | 'expanded'
-  | 'floating';
-type HeaderPosition = 'fixed' | 'sticky' | 'static';
-type ContentLayout = 'boxed' | 'full-width' | 'centered' | 'fluid';
-
-interface ThemeConfig {
-  layout: {
-    sidebar: {
-      variant: SidebarVariant;
-      position: SidebarPosition;
-      width: number;
-      collapsible: boolean;
-      overlay: boolean;
-    };
-    header: {
-      variant: HeaderVariant;
-      position: HeaderPosition;
-      height: number;
-      showShadow: boolean;
-    };
-    content: {
-      layout: ContentLayout;
-      padding: 'compact' | 'comfortable' | 'spacious';
-    };
-  };
-}
+import {
+  ThemeConfig,
+  useThemeCustomizer,
+} from '@/contexts/ThemeCustomizerContext';
 
 interface ThemeCustomizerProps {
   opened: boolean;
   onClose: () => void;
-  onApply: (config: ThemeConfig) => void;
-  currentConfig?: ThemeConfig;
 }
-
-const defaultConfig: ThemeConfig = {
-  layout: {
-    sidebar: {
-      variant: 'default',
-      position: 'left',
-      width: 300,
-      collapsible: true,
-      overlay: false,
-    },
-    header: {
-      variant: 'default',
-      position: 'fixed',
-      height: 60,
-      showShadow: true,
-    },
-    content: {
-      layout: 'full-width',
-      padding: 'comfortable',
-    },
-  },
-};
 
 export default function ThemeCustomizer({
   opened,
   onClose,
-  onApply,
-  currentConfig = defaultConfig,
 }: ThemeCustomizerProps) {
-  const [config, setConfig] = useState<ThemeConfig>(currentConfig);
-  const [hasChanges, setHasChanges] = useState(false);
+  const {
+    config,
+    previewConfig,
+    updatePreviewConfig,
+    applyPreview,
+    resetPreview,
+    hasUnsavedChanges,
+  } = useThemeCustomizer();
 
-  useEffect(() => {
-    setConfig(currentConfig);
-  }, [currentConfig]);
+  const { setColorScheme, colorScheme } = useMantineColorScheme();
 
+  // Update color scheme immediately when preview config changes
   useEffect(() => {
-    setHasChanges(JSON.stringify(config) !== JSON.stringify(currentConfig));
-  }, [config, currentConfig]);
+    if (opened) {
+      setColorScheme(previewConfig.appearance.colorScheme);
+    }
+  }, [previewConfig.appearance.colorScheme, setColorScheme, opened]);
 
   const updateConfig = (path: string[], value: any) => {
-    setConfig((prev) => {
-      const newConfig = { ...prev };
-      let current: any = newConfig;
+    const newConfig = { ...previewConfig };
+    let current: any = newConfig;
 
-      for (let i = 0; i < path.length - 1; i++) {
-        current[path[i]] = { ...current[path[i]] };
-        current = current[path[i]];
-      }
+    for (let i = 0; i < path.length - 1; i++) {
+      current[path[i]] = { ...current[path[i]] };
+      current = current[path[i]];
+    }
 
-      current[path[path.length - 1]] = value;
-      return newConfig;
-    });
+    current[path[path.length - 1]] = value;
+    updatePreviewConfig(newConfig);
   };
 
   const handleApply = () => {
-    onApply(config);
-    setHasChanges(false);
+    applyPreview();
+    onClose();
   };
 
   const handleReset = () => {
-    setConfig(currentConfig);
-    setHasChanges(false);
+    resetPreview();
+  };
+
+  const handleClose = () => {
+    // Reset color scheme to saved config when closing
+    setColorScheme(config.appearance.colorScheme);
+    onClose();
   };
 
   const sidebarVariantOptions = [
     { value: 'default', label: 'Default' },
     { value: 'colored', label: 'Colored' },
-    { value: 'gradient', label: 'Gradient' },
   ];
 
   const headerVariantOptions = [
     { value: 'default', label: 'Default' },
     { value: 'colored', label: 'Colored' },
-    { value: 'compact', label: 'Compact' },
-    { value: 'expanded', label: 'Expanded' },
   ];
 
   return (
     <Drawer
       opened={opened}
-      onClose={onClose}
+      onClose={handleClose}
       title={
         <Group>
           <IconPalette size={20} />
           <Text fw={600}>Theme Customizer</Text>
-          {hasChanges && (
+          {hasUnsavedChanges && (
             <Badge size="sm" color="orange">
               Unsaved
             </Badge>
@@ -179,9 +130,11 @@ export default function ThemeCustomizer({
       }}
     >
       <Stack h="100%" gap={0}>
-        <Text fz="sm">
-          Explore different styles according to your preferences
+        <Text fz="sm" c="dimmed" mb="md">
+          Explore different styles according to your preferences. Changes are
+          previewed in real-time.
         </Text>
+
         <ScrollArea style={{ flex: 1 }} offsetScrollbars>
           <Tabs defaultValue="layout">
             <Tabs.List>
@@ -189,11 +142,10 @@ export default function ThemeCustomizer({
                 Layout
               </Tabs.Tab>
               <Tabs.Tab
-                value="colors"
+                value="appearance"
                 leftSection={<IconPalette size={16} />}
-                disabled
               >
-                Colors
+                Appearance
               </Tabs.Tab>
               <Tabs.Tab
                 value="typography"
@@ -224,20 +176,22 @@ export default function ThemeCustomizer({
                     <Select
                       label="Variant"
                       data={sidebarVariantOptions}
-                      value={config.layout.sidebar.variant}
+                      value={previewConfig.layout.sidebar.variant}
                       onChange={(value) =>
                         updateConfig(['layout', 'sidebar', 'variant'], value)
                       }
                     />
 
                     <Stack gap={0}>
-                      <Text fz="sm">Position</Text>
+                      <Text fz="sm" fw={500} mb={4}>
+                        Position
+                      </Text>
                       <SegmentedControl
                         data={[
                           { value: 'left', label: 'Left' },
                           { value: 'right', label: 'Right' },
                         ]}
-                        value={config.layout.sidebar.position}
+                        value={previewConfig.layout.sidebar.position}
                         onChange={(value) =>
                           updateConfig(['layout', 'sidebar', 'position'], value)
                         }
@@ -254,7 +208,7 @@ export default function ThemeCustomizer({
                           { value: '300', label: 'Default' },
                           { value: '350', label: 'Wide' },
                         ]}
-                        value={config.layout.sidebar.width.toString()}
+                        value={previewConfig.layout.sidebar.width.toString()}
                         onChange={(value) =>
                           updateConfig(
                             ['layout', 'sidebar', 'width'],
@@ -266,7 +220,7 @@ export default function ThemeCustomizer({
 
                     <Switch
                       label="Collapsible"
-                      checked={config.layout.sidebar.collapsible}
+                      checked={previewConfig.layout.sidebar.collapsible}
                       onChange={(e) =>
                         updateConfig(
                           ['layout', 'sidebar', 'collapsible'],
@@ -277,7 +231,7 @@ export default function ThemeCustomizer({
 
                     <Switch
                       label="Overlay on mobile"
-                      checked={config.layout.sidebar.overlay}
+                      checked={previewConfig.layout.sidebar.overlay}
                       onChange={(e) =>
                         updateConfig(
                           ['layout', 'sidebar', 'overlay'],
@@ -301,7 +255,7 @@ export default function ThemeCustomizer({
                     <Select
                       label="Variant"
                       data={headerVariantOptions}
-                      value={config.layout.header.variant}
+                      value={previewConfig.layout.header.variant}
                       onChange={(value) =>
                         updateConfig(['layout', 'header', 'variant'], value)
                       }
@@ -314,7 +268,7 @@ export default function ThemeCustomizer({
                         { value: 'sticky', label: 'Sticky' },
                         { value: 'static', label: 'Static' },
                       ]}
-                      value={config.layout.header.position}
+                      value={previewConfig.layout.header.position}
                       onChange={(value) =>
                         updateConfig(['layout', 'header', 'position'], value)
                       }
@@ -326,11 +280,11 @@ export default function ThemeCustomizer({
                       </Text>
                       <SegmentedControl
                         data={[
-                          { value: '50', label: 'Compact' },
+                          { value: '50', label: 'Small' },
                           { value: '60', label: 'Default' },
-                          { value: '80', label: 'Expanded' },
+                          { value: '80', label: 'Large' },
                         ]}
-                        value={config.layout.header.height.toString()}
+                        value={previewConfig.layout.header.height.toString()}
                         onChange={(value) =>
                           updateConfig(
                             ['layout', 'header', 'height'],
@@ -342,7 +296,7 @@ export default function ThemeCustomizer({
 
                     <Switch
                       label="Show shadow"
-                      checked={config.layout.header.showShadow}
+                      checked={previewConfig.layout.header.showShadow}
                       onChange={(e) =>
                         updateConfig(
                           ['layout', 'header', 'showShadow'],
@@ -398,7 +352,7 @@ export default function ThemeCustomizer({
                             ),
                           },
                         ]}
-                        value={config.layout.content.layout}
+                        value={previewConfig.layout.content.layout}
                         onChange={(value) =>
                           updateConfig(['layout', 'content', 'layout'], value)
                         }
@@ -415,7 +369,7 @@ export default function ThemeCustomizer({
                           { value: 'comfortable', label: 'Comfortable' },
                           { value: 'spacious', label: 'Spacious' },
                         ]}
-                        value={config.layout.content.padding}
+                        value={previewConfig.layout.content.padding}
                         onChange={(value) =>
                           updateConfig(['layout', 'content', 'padding'], value)
                         }
@@ -426,11 +380,67 @@ export default function ThemeCustomizer({
               </Stack>
             </Tabs.Panel>
 
-            <Tabs.Panel value="colors" pt="md">
-              <Stack align="center" mt="xl">
-                <Text c="dimmed" size="sm">
-                  Color customization coming soon
-                </Text>
+            <Tabs.Panel value="appearance" pt="md">
+              <Stack gap="lg">
+                {/* Color Scheme */}
+                <div>
+                  <Group mb="sm">
+                    <IconPalette size={20} />
+                    <Text fw={600}>Color Scheme</Text>
+                  </Group>
+
+                  <Stack gap="md">
+                    <Box>
+                      <Text size="sm" fw={500} mb={8}>
+                        Theme Mode
+                      </Text>
+                      <SegmentedControl
+                        fullWidth
+                        data={[
+                          {
+                            value: 'light',
+                            label: (
+                              <Group gap={6}>
+                                <IconSunHigh size={16} />
+                                <span>Light</span>
+                              </Group>
+                            ),
+                          },
+                          {
+                            value: 'dark',
+                            label: (
+                              <Group gap={6}>
+                                <IconMoonStars size={16} />
+                                <span>Dark</span>
+                              </Group>
+                            ),
+                          },
+                          {
+                            value: 'auto',
+                            label: (
+                              <Group gap={6}>
+                                <IconCircleHalf2 size={16} />
+                                <span>Auto</span>
+                              </Group>
+                            ),
+                          },
+                        ]}
+                        value={previewConfig.appearance.colorScheme}
+                        onChange={(value) =>
+                          updateConfig(['appearance', 'colorScheme'], value)
+                        }
+                      />
+                    </Box>
+                  </Stack>
+                </div>
+
+                <Divider />
+
+                <Stack align="center" mt="xl">
+                  <Text c="dimmed" size="sm">
+                    More appearance options coming soon
+                  </Text>
+                </Stack>
               </Stack>
             </Tabs.Panel>
 
@@ -461,16 +471,16 @@ export default function ThemeCustomizer({
               variant="subtle"
               leftSection={<IconRefresh size={16} />}
               onClick={handleReset}
-              disabled={!hasChanges}
+              disabled={!hasUnsavedChanges}
             >
               Reset
             </Button>
             <Button
               leftSection={<IconDeviceFloppy size={16} />}
               onClick={handleApply}
-              disabled={!hasChanges}
+              disabled={!hasUnsavedChanges}
             >
-              Apply Changes
+              Save Changes
             </Button>
           </Group>
         </Box>
