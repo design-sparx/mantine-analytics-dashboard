@@ -5,7 +5,7 @@ export const createDynamicTheme = (config: {
   primaryColor: string;
   borderRadius: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   compact: boolean;
-}): MantineTheme => {
+}): Partial<MantineTheme> | any => {
   const spacingScale = config.compact ? 0.8 : 1;
 
   return createTheme({
