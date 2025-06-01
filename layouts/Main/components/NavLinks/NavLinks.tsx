@@ -53,7 +53,10 @@ export function LinksGroup(props: LinksGroupProps) {
         className={classes.link}
         onClick={() => {
           router.push(link.link);
-          closeSidebar();
+          // Only close sidebar on mobile screens or when in overlay mode
+          if (tablet_match) {
+            closeSidebar();
+          }
         }}
         data-active={link.link.toLowerCase() === pathname || undefined}
         data-mini={isMini}
@@ -73,6 +76,33 @@ export function LinksGroup(props: LinksGroupProps) {
     ),
   );
 
+  const handleMainButtonClick = () => {
+    if (hasLinks) {
+      // If it has nested links, just toggle the collapse
+      setOpened((o) => !o);
+    } else if (link) {
+      // If it's a direct link, navigate and close sidebar only on mobile
+      router.push(link);
+      if (tablet_match) {
+        closeSidebar();
+      }
+    }
+  };
+
+  const handleMiniButtonClick = (evt: React.MouseEvent) => {
+    evt.preventDefault();
+    if (hasLinks) {
+      // For mini mode with nested links, just toggle
+      setOpened((o) => !o);
+    } else if (link) {
+      // For mini mode with direct link, navigate and close only on mobile
+      router.push(link);
+      if (tablet_match) {
+        closeSidebar();
+      }
+    }
+  };
+
   const content: React.ReactElement = useMemo(() => {
     let view: React.ReactElement;
     if (isMini) {
@@ -88,12 +118,7 @@ export function LinksGroup(props: LinksGroupProps) {
           >
             <Menu.Target>
               <UnstyledButton
-                onClick={(evt) => {
-                  evt.preventDefault();
-                  setOpened((o) => !o);
-                  link && router.push(link || '#');
-                  closeSidebar();
-                }}
+                onClick={handleMiniButtonClick}
                 className={classes.control}
                 data-active={opened || undefined}
                 data-mini={isMini}
@@ -115,11 +140,7 @@ export function LinksGroup(props: LinksGroupProps) {
       view = (
         <>
           <UnstyledButton
-            onClick={() => {
-              setOpened((o) => !o);
-              link && router.push(link || '#');
-              closeSidebar();
-            }}
+            onClick={handleMainButtonClick}
             className={classes.control}
             data-active={opened || undefined}
             data-mini={isMini}
@@ -150,14 +171,14 @@ export function LinksGroup(props: LinksGroupProps) {
   }, [
     ChevronIcon,
     Icon,
-    closeSidebar,
     hasLinks,
     isMini,
     items,
     label,
     link,
     opened,
-    router,
+    handleMainButtonClick,
+    handleMiniButtonClick,
   ]);
 
   useEffect(() => {
