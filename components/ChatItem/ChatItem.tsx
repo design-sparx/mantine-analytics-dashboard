@@ -1,12 +1,6 @@
-import {
-  Avatar,
-  Box,
-  BoxProps,
-  Flex,
-  Paper,
-  Skeleton,
-  Text,
-} from '@mantine/core';
+import { Avatar, Box, BoxProps, Flex, Skeleton, Text } from '@mantine/core';
+
+import { Surface } from '@/components';
 
 import classes from './ChatItem.module.css';
 
@@ -43,7 +37,7 @@ const ChatItem = (props: ChatItemProps) => {
       <Flex gap="xs">
         <Avatar src={avatar} radius="50%" />
         <Box>
-          <Paper
+          <Surface
             p="sm"
             className={isMe ? classes.isMeChatItem : classes.chatItem}
           >
@@ -59,7 +53,7 @@ const ChatItem = (props: ChatItemProps) => {
             <Text size="sm" c={isMe ? 'white' : 'initial'}>
               {message}
             </Text>
-          </Paper>
+          </Surface>
           <Text ta="end" size="sm" mt={4}>
             {sent_time}
           </Text>

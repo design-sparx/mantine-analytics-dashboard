@@ -2,7 +2,6 @@ import {
   Badge,
   Button,
   Group,
-  Paper,
   PaperProps,
   Stack,
   Text,
@@ -10,6 +9,7 @@ import {
 } from '@mantine/core';
 import { IconEdit, IconEye, IconFileText } from '@tabler/icons-react';
 
+import { Surface } from '@/components';
 import { useAuth } from '@/hooks/useAuth';
 import {
   IInvoice,
@@ -53,7 +53,7 @@ export const InvoiceCard = ({
   };
 
   return (
-    <Paper p="md" withBorder {...paperProps}>
+    <Surface p="md" {...paperProps}>
       <Stack gap="sm">
         <Group justify="space-between" align="flex-start">
           <div>
@@ -143,6 +143,6 @@ export const InvoiceCard = ({
           </Button>
         </Group>
       </Stack>
-    </Paper>
+    </Surface>
   );
 };

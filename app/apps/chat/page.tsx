@@ -19,7 +19,7 @@ import {
   rem,
   useMantineTheme,
 } from '@mantine/core';
-import { useColorScheme, useMediaQuery } from '@mantine/hooks';
+import { useMediaQuery } from '@mantine/hooks';
 import { Link, RichTextEditor } from '@mantine/tiptap';
 import { IconDotsVertical, IconSearch, IconSend } from '@tabler/icons-react';
 import Placeholder from '@tiptap/extension-placeholder';
@@ -50,16 +50,10 @@ const items = [
   </Anchor>
 ));
 
-const ICON_SIZE = 16;
-
-const PAPER_PROPS: PaperProps = {
-  shadow: 'md',
-  radius: 'md',
-};
+const PAPER_PROPS: PaperProps = {};
 
 function Chat() {
   const theme = useMantineTheme();
-  const colorScheme = useColorScheme();
   const tablet_match = useMediaQuery('(max-width: 768px)');
   const editor = useEditor({
     extensions: [
@@ -93,7 +87,6 @@ function Chat() {
         <Stack>
           <PageHeader title="Chat" breadcrumbItems={items} />
           <Surface
-            component={Paper}
             {...PAPER_PROPS}
             style={{ height: tablet_match ? 'auto' : rem(565) }}
           >

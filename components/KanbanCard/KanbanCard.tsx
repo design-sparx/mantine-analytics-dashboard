@@ -9,12 +9,8 @@ import {
   Avatar,
   Box,
   Button,
-  Card,
-  Divider,
   Flex,
   Menu,
-  Paper,
-  PaperProps,
   Text,
   Textarea,
   Tooltip,
@@ -29,6 +25,8 @@ import {
   IconTrash,
 } from '@tabler/icons-react';
 
+import { Surface } from '@/components';
+
 import classes from './KanbanCard.module.css';
 import { KanbanTask as ITask, Id } from '../../types';
 
@@ -37,12 +35,6 @@ const AVATARS = [
   'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
   'https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
 ];
-
-const PAPER_PROPS: PaperProps = {
-  p: 'md',
-  shadow: 'md',
-  radius: 'md',
-};
 
 const ICON_SIZE = 18;
 
@@ -103,12 +95,10 @@ const KanbanCard = (props: Props) => {
 
   if (editMode) {
     return (
-      <Paper
+      <Surface
         component="div"
         ref={setNodeRef}
         p="md"
-        shadow="md"
-        radius="md"
         {...attributes}
         {...listeners}
         style={{
@@ -119,7 +109,6 @@ const KanbanCard = (props: Props) => {
           cursor: 'grab',
           position: 'relative',
           alignItems: 'center',
-          borderRadius: theme.radius.md,
           backgroundColor: theme.colors[theme.primaryColor][8],
         }}
       >
@@ -128,7 +117,6 @@ const KanbanCard = (props: Props) => {
             border: 'none',
             outline: 'none',
             width: '100%',
-            borderRadius: theme.radius.md,
           }}
           mx="auto"
           value={task.content}
@@ -142,101 +130,94 @@ const KanbanCard = (props: Props) => {
           }}
           onChange={(e) => updateTask(task.id, e.target.value)}
         />
-      </Paper>
+      </Surface>
     );
   }
 
   return (
-    <Card
+    <Surface
       ref={setNodeRef}
       className={classes.card}
-      shadow="md"
-      radius="md"
       style={{
         ...style,
         cursor: 'grab',
       }}
+      p="sm"
       {...attributes}
       {...listeners}
     >
-      <Card.Section p="sm">
-        <Flex>
-          <Text
-            my="auto"
-            size="sm"
-            style={{
-              height: '90%',
-              width: '100%',
-              overflowY: 'hidden',
-              overflowX: 'hidden',
-            }}
-          >
-            {task.content}
-          </Text>
-          <Menu shadow="md" position="left-start" width={200}>
-            <Menu.Target>
-              <ActionIcon variant="subtle">
-                <IconDots size={ICON_SIZE} />
-              </ActionIcon>
-            </Menu.Target>
+      <Flex>
+        <Text
+          my="auto"
+          size="sm"
+          style={{
+            height: '90%',
+            width: '100%',
+            overflowY: 'hidden',
+            overflowX: 'hidden',
+          }}
+        >
+          {task.content}
+        </Text>
+        <Menu shadow="md" position="left-start" width={200}>
+          <Menu.Target>
+            <ActionIcon variant="subtle">
+              <IconDots size={ICON_SIZE} />
+            </ActionIcon>
+          </Menu.Target>
 
-            <Menu.Dropdown>
-              <Tooltip label="Rename task">
-                <Menu.Item
-                  leftSection={<IconEdit size={ICON_SIZE} />}
-                  onClick={toggleEditMode}
-                >
-                  Rename
-                </Menu.Item>
-              </Tooltip>
-              <Tooltip label="Delete task">
-                <Menu.Item
-                  leftSection={<IconTrash size={ICON_SIZE} />}
-                  onClick={() => {
-                    confirmModal(task);
-                  }}
-                >
-                  Delete
-                </Menu.Item>
-              </Tooltip>
-            </Menu.Dropdown>
-          </Menu>
-        </Flex>
-      </Card.Section>
-      <Card.Section>
-        <Divider />
-      </Card.Section>
-      <Card.Section p="sm">
-        <Flex gap="md" align="center" justify="space-between">
-          <Avatar.Group spacing="xs">
-            <Tooltip label="Anne Doe">
-              <Avatar src={AVATARS[0]} size="sm" radius="xl" />
+          <Menu.Dropdown>
+            <Tooltip label="Rename task">
+              <Menu.Item
+                leftSection={<IconEdit size={ICON_SIZE} />}
+                onClick={toggleEditMode}
+              >
+                Rename
+              </Menu.Item>
             </Tooltip>
-            <Tooltip label="Alex Doe">
-              <Avatar src={AVATARS[1]} size="sm" radius="xl" />
+            <Tooltip label="Delete task">
+              <Menu.Item
+                leftSection={<IconTrash size={ICON_SIZE} />}
+                onClick={() => {
+                  confirmModal(task);
+                }}
+              >
+                Delete
+              </Menu.Item>
             </Tooltip>
-            <Tooltip label="Abby Doe">
-              <Avatar src={AVATARS[2]} size="sm" radius="xl" />
-            </Tooltip>
-            <Tooltip label="and 5 others">
-              <Avatar size="sm" radius="xl">
-                +5
-              </Avatar>
-            </Tooltip>
-          </Avatar.Group>
-          {task?.comments !== undefined && (
-            <Button
-              rightSection={<IconMessageCircle size={ICON_SIZE} />}
-              size="compact.md"
-              variant="subtle"
-              radius="md"
-            >
-              {task.comments}
-            </Button>
-          )}
-        </Flex>
-      </Card.Section>
-    </Card>
+          </Menu.Dropdown>
+        </Menu>
+      </Flex>
+
+      <Flex gap="md" align="center" justify="space-between">
+        <Avatar.Group spacing="xs">
+          <Tooltip label="Anne Doe">
+            <Avatar src={AVATARS[0]} size="sm" radius="xl" />
+          </Tooltip>
+          <Tooltip label="Alex Doe">
+            <Avatar src={AVATARS[1]} size="sm" radius="xl" />
+          </Tooltip>
+          <Tooltip label="Abby Doe">
+            <Avatar src={AVATARS[2]} size="sm" radius="xl" />
+          </Tooltip>
+          <Tooltip label="and 5 others">
+            <Avatar size="sm" radius="xl">
+              +5
+            </Avatar>
+          </Tooltip>
+        </Avatar.Group>
+        {task?.comments !== undefined && (
+          <Button
+            rightSection={<IconMessageCircle size={ICON_SIZE} />}
+            size="compact.md"
+            variant="subtle"
+            radius="md"
+          >
+            {task.comments}
+          </Button>
+        )}
+      </Flex>
+    </Surface>
   );
 };
 

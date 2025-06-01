@@ -118,7 +118,7 @@ function Products() {
 
     if (!productsData?.data?.length) {
       return (
-        <Surface component={Paper} p="md">
+        <Surface p="md">
           <Stack align="center">
             <IconMoodEmpty size={24} />
             <Title order={4}>No products found</Title>

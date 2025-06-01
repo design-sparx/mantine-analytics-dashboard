@@ -24,10 +24,13 @@ import {
   useMantineColorScheme,
 } from '@mantine/core';
 import {
+  IconBorderAll,
   IconBorderRadius,
+  IconCards,
   IconCircle,
   IconCircleHalf2,
   IconComponents,
+  IconCube,
   IconDeviceFloppy,
   IconLayout,
   IconLayoutDistributeVertical,
@@ -98,10 +101,6 @@ export default function ThemeCustomizer({
     applyPreview,
     resetPreview,
     hasUnsavedChanges,
-    setPrimaryColor,
-    setColorScheme,
-    setBorderRadius,
-    toggleCompactMode,
   } = useThemeCustomizer();
 
   const { setColorScheme: setMantineColorScheme, colorScheme } =
@@ -539,6 +538,93 @@ export default function ThemeCustomizer({
                           updateConfig(['appearance', 'borderRadius'], value)
                         }
                       />
+                    </Box>
+                  </Stack>
+                </Paper>
+
+                {/* Card Feel */}
+                <Paper p="sm" withBorder>
+                  <Group mb="sm">
+                    <IconCards size={20} />{' '}
+                    {/* You'll need to import this icon */}
+                    <Text fw={600}>Card Feel</Text>
+                  </Group>
+
+                  <Stack gap="md">
+                    <Box>
+                      <Text size="sm" fw={500} mb={8}>
+                        Card Style
+                      </Text>
+                      <SegmentedControl
+                        fullWidth
+                        data={[
+                          {
+                            value: 'flat',
+                            label: (
+                              <Group gap={4}>
+                                <IconRectangle size={16} />
+                                <span>Flat</span>
+                              </Group>
+                            ),
+                          },
+                          {
+                            value: 'elevated',
+                            label: (
+                              <Group gap={4}>
+                                <IconCube size={16} />
+                                <span>Elevated</span>
+                              </Group>
+                            ),
+                          },
+                          {
+                            value: 'bordered',
+                            label: (
+                              <Group gap={4}>
+                                <IconBorderAll size={16} />
+                                <span>Bordered</span>
+                              </Group>
+                            ),
+                          },
+                        ]}
+                        value={previewConfig.appearance.cardFeel}
+                        onChange={(value) =>
+                          updateConfig(['appearance', 'cardFeel'], value)
+                        }
+                      />
+                    </Box>
+
+                    {/* Card Feel Preview */}
+                    <Box>
+                      <Text size="sm" fw={500} mb={8}>
+                        Preview
+                      </Text>
+                      <SimpleGrid cols={3} spacing="xs">
+                        {['flat', 'bordered', 'elevated'].map((feel) => (
+                          <Paper
+                            key={feel}
+                            p="xs"
+                            className={`surface-card surface-${feel}`}
+                            style={{
+                              minHeight: '60px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              border:
+                                feel === 'bordered'
+                                  ? '1px solid var(--mantine-color-default-border)'
+                                  : 'none',
+                              boxShadow:
+                                feel === 'elevated'
+                                  ? 'var(--shadow-card)'
+                                  : 'none',
+                            }}
+                          >
+                            <Text size="xs" ta="center" c="dimmed">
+                              {feel.charAt(0).toUpperCase() + feel.slice(1)}
+                            </Text>
+                          </Paper>
+                        ))}
+                      </SimpleGrid>
                     </Box>
                   </Stack>
                 </Paper>

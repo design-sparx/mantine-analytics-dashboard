@@ -89,11 +89,7 @@ const PageHeader = (props: PageHeaderProps) => {
 
   return (
     <>
-      <Surface
-        component={Paper}
-        style={{ backgroundColor: 'transparent' }}
-        {...others}
-      >
+      <Surface p="md" {...others}>
         {withActions ? (
           <Flex
             justify="space-between"

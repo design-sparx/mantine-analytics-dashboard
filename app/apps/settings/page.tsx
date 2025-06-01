@@ -11,7 +11,6 @@ import {
   Grid,
   Group,
   Image,
-  Paper,
   PaperProps,
   Stack,
   Text,
@@ -37,9 +36,7 @@ const ICON_SIZE = 16;
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',
-  shadow: 'md',
-  radius: 'md',
-  style: { height: '100%' },
+  style: { minHeight: '100%' },
 };
 
 const BIO =
@@ -87,7 +84,7 @@ function Settings() {
           <PageHeader title="Settings" breadcrumbItems={items} />
           <Grid>
             <Grid.Col span={{ base: 12, md: 8 }}>
-              <Surface component={Paper} {...PAPER_PROPS}>
+              <Surface {...PAPER_PROPS}>
                 <Text size="lg" fw={600} mb="md">
                   User information
                 </Text>
@@ -141,7 +138,7 @@ function Settings() {
               </Surface>
             </Grid.Col>
             <Grid.Col span={{ base: 12, md: 4 }}>
-              <Surface component={Paper} {...PAPER_PROPS}>
+              <Surface {...PAPER_PROPS}>
                 <Stack>
                   <Text size="lg" fw={600}>
                     Account information

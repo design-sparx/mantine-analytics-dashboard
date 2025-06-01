@@ -101,11 +101,10 @@ body {
 
 /* Theme transition animations */
 * {
-  transition:
-    background-color var(--transition-duration) var(--transition-timing),
-    border-color var(--transition-duration) var(--transition-timing),
-    color var(--transition-duration) var(--transition-timing),
-    box-shadow var(--transition-duration) var(--transition-timing);
+  transition: background-color var(--transition-duration) var(--transition-timing),
+  border-color var(--transition-duration) var(--transition-timing),
+  color var(--transition-duration) var(--transition-timing),
+  box-shadow var(--transition-duration) var(--transition-timing);
 }
 
 /* Disable transitions during theme changes to prevent flickering */
@@ -193,5 +192,73 @@ body {
 
   .theme-button {
     border: 2px solid currentColor;
+  }
+}
+
+/* Base surface card styles */
+.surface-card {
+  border-radius: var(--theme-border-radius);
+  transition: all var(--transition-duration) var(--transition-timing);
+  background-color: var(--mantine-color-body);
+}
+
+/* Flat card feel - no shadow or border */
+.surface-flat {
+  box-shadow: none;
+  border: none;
+  background-color: var(--mantine-color-body);
+}
+
+/* Elevated card feel - shadow-based depth */
+.surface-elevated {
+  box-shadow: var(--shadow-card);
+  border: none;
+  background-color: var(--mantine-color-body);
+}
+
+/* Bordered card feel - subtle border instead of shadow */
+.surface-bordered {
+  box-shadow: none;
+  border: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  background-color: var(--mantine-color-body);
+}
+
+/* Hover effects */
+.surface-hover:hover {
+  transform: translateY(-2px);
+  cursor: pointer;
+}
+
+.surface-flat.surface-hover:hover {
+  box-shadow: var(--shadow-card);
+}
+
+.surface-elevated.surface-hover:hover {
+  box-shadow: var(--shadow-dropdown);
+}
+
+.surface-bordered.surface-hover:hover {
+  border-color: var(--theme-primary-color);
+  box-shadow: 0 0 0 1px var(--theme-primary-color);
+}
+
+/* Compact mode adjustments */
+.surface-compact {
+  padding: calc(0.75rem * var(--theme-spacing-scale));
+}
+
+.surface-compact.surface-elevated {
+  box-shadow: var(--shadow-card);
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .surface-flat,
+  .surface-elevated {
+    border: 2px solid var(--mantine-color-gray-7);
+  }
+
+  .surface-bordered {
+    border-width: 2px;
   }
 }

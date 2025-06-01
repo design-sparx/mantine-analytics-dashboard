@@ -26,6 +26,7 @@ import {
   resolveFileIcon,
   resolveFolderIcon,
 } from '@/app/apps/file-manager/utils';
+import { Surface } from '@/components';
 import { useFetchData } from '@/hooks';
 
 const PAPER_PROPS: PaperProps = {
@@ -115,7 +116,7 @@ export default function FileManagerLayout({
             {children}
           </Grid.Col>
           <Grid.Col span={{ base: 12, md: 6, lg: 4, xl: 3 }}>
-            <Paper {...PAPER_PROPS}>
+            <Surface {...PAPER_PROPS}>
               <Title order={4} mb="md">
                 Storage usage
               </Title>
@@ -134,8 +135,8 @@ export default function FileManagerLayout({
                 chartLabel="125GB free"
               />
               <Stack gap="xs">{folders}</Stack>
-            </Paper>
-            <Paper {...PAPER_PROPS}>
+            </Surface>
+            <Surface {...PAPER_PROPS}>
               <Flex align="center" justify="space-between" mb="md">
                 <Title order={4}>Activity</Title>
                 <Button
@@ -148,7 +149,7 @@ export default function FileManagerLayout({
               <Timeline bulletSize={30} lineWidth={2}>
                 {fileActivityItems}
               </Timeline>
-            </Paper>
+            </Surface>
           </Grid.Col>
         </Grid>
       </Container>

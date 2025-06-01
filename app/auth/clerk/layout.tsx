@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 
-import { MainLayout } from '@/layout/Main';
+import { MainLayout } from '@/layouts/Main';
 import { Providers } from '@/providers/session';
 
 type AuthProps = {

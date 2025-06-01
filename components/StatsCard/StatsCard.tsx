@@ -1,4 +1,4 @@
-import { Badge, Group, Paper, PaperProps, Text } from '@mantine/core';
+import { Badge, Group, PaperProps, Text } from '@mantine/core';
 import { IconArrowDownRight, IconArrowUpRight } from '@tabler/icons-react';
 
 import { Surface } from '@/components';
@@ -14,7 +14,7 @@ const StatsCard = ({ data, ...others }: StatsCardProps) => {
   const DiffIcon = diff > 0 ? IconArrowUpRight : IconArrowDownRight;
 
   return (
-    <Surface component={Paper} {...others}>
+    <Surface {...others}>
       <Group justify="space-between">
         <Text size="xs" c="dimmed" className={classes.title}>
           {title}

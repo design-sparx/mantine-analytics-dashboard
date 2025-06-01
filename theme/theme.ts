@@ -118,6 +118,53 @@ export const createDynamicTheme = (config: {
           radius: config.borderRadius,
         },
         styles: {
+          label: {
+            fontSize: config.compact ? rem(12) : rem(14),
+          },
+          input: {
+            height: config.compact ? rem(32) : rem(36),
+            fontSize: config.compact ? rem(12) : rem(14),
+          },
+        },
+      },
+
+      Textarea: {
+        defaultProps: {
+          radius: config.borderRadius,
+        },
+        styles: {
+          label: {
+            fontSize: config.compact ? rem(12) : rem(14),
+          },
+          input: {
+            fontSize: config.compact ? rem(12) : rem(14),
+          },
+        },
+      },
+
+      DateInput: {
+        defaultProps: {
+          radius: config.borderRadius,
+        },
+        styles: {
+          label: {
+            fontSize: config.compact ? rem(12) : rem(14),
+          },
+          input: {
+            height: config.compact ? rem(32) : rem(36),
+            fontSize: config.compact ? rem(12) : rem(14),
+          },
+        },
+      },
+
+      NumberInput: {
+        defaultProps: {
+          radius: config.borderRadius,
+        },
+        styles: {
+          label: {
+            fontSize: config.compact ? rem(12) : rem(14),
+          },
           input: {
             height: config.compact ? rem(32) : rem(36),
             fontSize: config.compact ? rem(12) : rem(14),
@@ -130,6 +177,9 @@ export const createDynamicTheme = (config: {
           radius: config.borderRadius,
         },
         styles: {
+          label: {
+            fontSize: config.compact ? rem(12) : rem(14),
+          },
           input: {
             height: config.compact ? rem(32) : rem(36),
             fontSize: config.compact ? rem(12) : rem(14),
@@ -152,6 +202,7 @@ export const createDynamicTheme = (config: {
       ActionIcon: {
         defaultProps: {
           radius: config.borderRadius,
+          variant: 'default',
         },
         styles: {
           root: {
@@ -201,6 +252,44 @@ export const createDynamicTheme = (config: {
         styles: {
           root: {
             fontSize: config.compact ? rem(12) : rem(14),
+          },
+        },
+      },
+
+      Menu: {
+        defaultProps: {
+          radius: config.borderRadius,
+        },
+      },
+
+      SegmentedControl: {
+        defaultProps: {
+          radius: config.borderRadius,
+        },
+      },
+
+      Input: {
+        defaultProps: {
+          radius: config.borderRadius,
+        },
+      },
+
+      ThemeIcon: {
+        defaultProps: {
+          radius: config.borderRadius,
+        },
+      },
+
+      Alert: {
+        defaultProps: {
+          radius: config.borderRadius,
+        },
+        styles: {
+          label: {
+            fontSize: config.compact ? rem(12) : rem(14),
+          },
+          message: {
+            fontSize: config.compact ? rem(10) : rem(12),
           },
         },
       },

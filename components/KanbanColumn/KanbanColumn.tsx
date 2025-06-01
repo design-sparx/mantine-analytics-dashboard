@@ -54,9 +54,6 @@ const KanbanColumn = (props: Props) => {
   const tablet_match = useMediaQuery('(max-width: 768px)');
 
   const PAPER_PROPS: PaperProps = {
-    radius: 'md',
-    shadow: tablet_match ? 'xl' : '',
-    withBorder: tablet_match,
     pb: tablet_match ? 'md' : 'xs',
     style: {
       width: tablet_match ? '100%' : '350px',
@@ -146,9 +143,7 @@ const KanbanColumn = (props: Props) => {
               <Text fz="lg" fw={600}>
                 {column.title}
               </Text>
-              <Badge variant="dot" radius="sm" size="md">
-                {tasks.length}
-              </Badge>
+              <Badge variant="dot">{tasks.length}</Badge>
             </>
           )}
           {editMode && (
@@ -215,7 +210,6 @@ const KanbanColumn = (props: Props) => {
       {/* Column footer */}
       <Button
         mx="sm"
-        radius="sm"
         variant="outline"
         leftSection={<IconPlus size={ICON_SIZE} />}
         onClick={() => {

@@ -128,7 +128,7 @@ function Calendar() {
       <Container fluid>
         <Stack gap="lg">
           <PageHeader title="CalendarView" breadcrumbItems={items} />
-          <Surface component={Paper} p="md" shadow="md" radius="md">
+          <Surface p="md">
             <FullCalendar
               plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
               headerToolbar={{

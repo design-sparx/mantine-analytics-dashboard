@@ -1,14 +1,10 @@
 import { ReactNode } from 'react';
-import {
-  AppShell,
-  Box,
-  ColorSchemeScript,
-  MantineProvider,
-  useMantineTheme,
-} from '@mantine/core';
-import HeaderNav from '@/layout/Guest/HeaderNav/HeaderNav';
-import FooterNav from '@/layout/Guest/FooterNav/FooterNav';
+
+import { AppShell, Box, useMantineTheme } from '@mantine/core';
 import { useHeadroom } from '@mantine/hooks';
+
+import HeaderNav from './HeaderNav/HeaderNav';
+import FooterNav from '../Main/components/Footer';
 
 type GuestLayoutProps = {
   children: ReactNode;

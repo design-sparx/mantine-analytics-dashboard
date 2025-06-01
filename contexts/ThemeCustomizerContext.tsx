@@ -16,6 +16,7 @@ export type HeaderPosition = 'fixed' | 'sticky' | 'static';
 export type ContentLayout = 'boxed' | 'full-width' | 'centered' | 'fluid';
 export type SpacingSize = 'compact' | 'comfortable' | 'spacious';
 export type ColorScheme = 'light' | 'dark' | 'auto';
+export type CardFeel = 'flat' | 'elevated' | 'bordered';
 
 // Predefined color schemes
 export const COLOR_SCHEMES = {
@@ -59,7 +60,8 @@ export interface ThemeConfig {
     colorScheme: ColorScheme;
     primaryColor: PrimaryColor;
     borderRadius: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-    compact: boolean; // For compact/comfortable UI density
+    compact: boolean;
+    cardFeel: CardFeel;
   };
 }
 
@@ -88,6 +90,7 @@ export const defaultThemeConfig: ThemeConfig = {
     primaryColor: 'blue',
     borderRadius: 'sm',
     compact: false,
+    cardFeel: 'elevated',
   },
 };
 
@@ -107,11 +110,11 @@ interface ThemeCustomizerContextType {
   toggleSidebarVisibility: () => void;
   showSidebar: () => void;
   hideSidebar: () => void;
-  // New methods for appearance
   setPrimaryColor: (color: PrimaryColor) => void;
   setColorScheme: (scheme: ColorScheme) => void;
   setBorderRadius: (radius: ThemeConfig['appearance']['borderRadius']) => void;
   toggleCompactMode: () => void;
+  setCardFeel: (feel: CardFeel) => void;
 }
 
 const ThemeCustomizerContext = createContext<
@@ -380,6 +383,23 @@ export function ThemeCustomizerProvider({
     }
   };
 
+  const setCardFeel = (feel: CardFeel) => {
+    const currentConfig = isCustomizerOpen ? previewConfig : config;
+    const newConfig = {
+      ...currentConfig,
+      appearance: {
+        ...currentConfig.appearance,
+        cardFeel: feel,
+      },
+    };
+
+    if (isCustomizerOpen) {
+      updatePreviewConfig(newConfig);
+    } else {
+      updateConfig(newConfig);
+    }
+  };
+
   const hasUnsavedChanges =
     JSON.stringify(config) !== JSON.stringify(previewConfig);
 
@@ -405,6 +425,7 @@ export function ThemeCustomizerProvider({
         setColorScheme,
         setBorderRadius,
         toggleCompactMode,
+        setCardFeel,
       }}
     >
       {children}

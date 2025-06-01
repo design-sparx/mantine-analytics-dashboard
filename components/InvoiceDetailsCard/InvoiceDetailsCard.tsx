@@ -62,7 +62,7 @@ const InvoiceDetails = ({ data, ...others }: InvoiceDetailsProps) => {
   ));
 
   return (
-    <Surface component={Paper} {...others}>
+    <Surface {...others}>
       {data ? (
         <Stack>
           <Flex gap="sm" justify="flex-end">
