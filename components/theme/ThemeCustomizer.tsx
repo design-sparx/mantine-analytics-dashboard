@@ -145,18 +145,15 @@ export default function ThemeCustomizer({
 
   const sidebarVariantOptions = [
     { value: 'default', label: 'Default' },
-    { value: 'transparent', label: 'Transparent' },
     { value: 'colored', label: 'Colored' },
     { value: 'gradient', label: 'Gradient' },
-    { value: 'floating', label: 'Floating' },
   ];
 
   const headerVariantOptions = [
     { value: 'default', label: 'Default' },
-    { value: 'transparent', label: 'Transparent' },
+    { value: 'colored', label: 'Colored' },
     { value: 'compact', label: 'Compact' },
     { value: 'expanded', label: 'Expanded' },
-    { value: 'floating', label: 'Floating' },
   ];
 
   return (
@@ -182,6 +179,9 @@ export default function ThemeCustomizer({
       }}
     >
       <Stack h="100%" gap={0}>
+        <Text fz="sm">
+          Explore different styles according to your preferences
+        </Text>
         <ScrollArea style={{ flex: 1 }} offsetScrollbars>
           <Tabs defaultValue="layout">
             <Tabs.List>

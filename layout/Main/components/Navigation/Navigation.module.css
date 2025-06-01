@@ -9,43 +9,30 @@
 
   /* Default variant */
   &[data-variant="default"] {
-    background-color: var(--mantine-primary-color-filled);
-
     @mixin light {
-      background-color: var(--mantine-primary-color-7);
-      color: white;
+      background-color: white;
+      border-right: rem(1px) solid var(--mantine-color-gray-2);
+      color: var(--mantine-color-black);
 
       .linkHeader, .linkLabel {
-        color: rgba(255, 255, 255, 0.9);
+        color: var(--mantine-color-gray-7);
       }
     }
 
     @mixin dark {
       background-color: var(--mantine-color-dark-7);
       border-right: rem(1px) solid var(--mantine-color-dark-4);
-    }
-  }
+      color: var(--mantine-color-white);
 
-  /* Transparent variant */
-  &[data-variant="transparent"] {
-    @mixin light {
-      background-color: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-right: rem(1px) solid rgba(0, 0, 0, 0.05);
-    }
-
-    @mixin dark {
-      background-color: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-right: rem(1px) solid rgba(255, 255, 255, 0.1);
+      .linkHeader, .linkLabel {
+        color: var(--mantine-color-white);
+      }
     }
   }
 
   /* Colored variant */
   &[data-variant="colored"] {
-    background: var(--mantine-primary-color-filled);
+    background-color: var(--mantine-primary-color-filled);
     color: white;
 
     .linkHeader, .linkLabel, .logo {
@@ -77,40 +64,13 @@
     }
   }
 
-  /* Floating variant */
-  &[data-variant="floating"] {
-    height: calc(100vh - rem(32));
-    border-radius: var(--mantine-radius-lg);
-    overflow: hidden;
-
-    @mixin light {
-      background-color: white;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-      0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    }
-
-    @mixin dark {
-      background-color: var(--mantine-color-dark-7);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5),
-      0 10px 10px -5px rgba(0, 0, 0, 0.2);
-    }
-  }
-
   /* Position variations */
   &[data-position="right"] {
     &[data-variant="default"] {
       border-right: none;
       border-left: rem(1px) solid light-dark(
-        var(--mantine-primary-color-filled-hover),
+        var(--mantine-color-gray-2),
         var(--mantine-color-dark-4)
-      );
-    }
-
-    &[data-variant="transparent"] {
-      border-right: none;
-      border-left: rem(1px) solid light-dark(
-        rgba(0, 0, 0, 0.05),
-        rgba(255, 255, 255, 0.1)
       );
     }
   }

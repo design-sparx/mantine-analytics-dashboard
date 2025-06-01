@@ -40,13 +40,12 @@
 
   &[data-variant="default"] {
     background-color: light-dark(white, var(--mantine-color-dark-7));
+    color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
   }
 
-  &[data-variant="transparent"] {
-    background-color: transparent;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  &[data-variant="colored"] {
+    background-color: var(--mantine-primary-color-filled);
+    color: white;
   }
 
   &[data-variant="compact"] {
@@ -57,13 +56,6 @@
   &[data-variant="expanded"] {
     padding-top: var(--mantine-spacing-lg);
     padding-bottom: var(--mantine-spacing-lg);
-  }
-
-  &[data-variant="floating"] {
-    margin: 0 rem(16);
-    width: calc(100% - rem(32));
-    border-radius: var(--mantine-radius-lg);
-    box-shadow: var(--mantine-shadow-md);
   }
 }
 

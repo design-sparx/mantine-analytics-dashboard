@@ -80,16 +80,10 @@ export function MainLayout({ children }: Props) {
   // Calculate main content margin based on sidebar
   const getMainMargin = () => {
     if (mobile_match || config.layout.sidebar.overlay) return 0;
-    if (config.layout.sidebar.variant === 'floating') return 0;
     const width = getSidebarWidth();
     return config.layout.sidebar.position === 'right'
       ? { marginRight: width }
       : { marginLeft: width };
-  };
-
-  // Calculate header top margin for floating variant
-  const getHeaderTopMargin = () => {
-    return config.layout.header.variant === 'floating' ? rem(16) : 0;
   };
 
   // Mobile overlay backdrop
@@ -111,7 +105,6 @@ export function MainLayout({ children }: Props) {
         style={{
           ...headerStyles,
           ...getMainMargin(),
-          top: getHeaderTopMargin(),
           boxShadow: config.layout.header.showShadow
             ? tablet_match
               ? theme.shadows.md
@@ -125,6 +118,7 @@ export function MainLayout({ children }: Props) {
             toggleMobile={toggleMobile}
             sidebarState={sidebarState}
             onSidebarStateChange={toggleSidebarState}
+            headerVariant={config.layout.header.variant}
           />
         </Container>
       </Box>
@@ -164,8 +158,7 @@ export function MainLayout({ children }: Props) {
           ...getMainMargin(),
           paddingTop:
             config.layout.header.position === 'fixed'
-              ? config.layout.header.height +
-                (config.layout.header.variant === 'floating' ? 16 : 0)
+              ? config.layout.header.height
               : 0,
           minHeight: `calc(100vh - ${rem(60)})`, // Account for footer
         }}

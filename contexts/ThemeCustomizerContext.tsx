@@ -9,19 +9,9 @@ import React, {
 } from 'react';
 
 // Types
-export type SidebarVariant =
-  | 'default'
-  | 'transparent'
-  | 'colored'
-  | 'gradient'
-  | 'floating';
+export type SidebarVariant = 'default' | 'colored' | 'gradient';
 export type SidebarPosition = 'left' | 'right';
-export type HeaderVariant =
-  | 'default'
-  | 'transparent'
-  | 'compact'
-  | 'expanded'
-  | 'floating';
+export type HeaderVariant = 'default' | 'colored' | 'compact' | 'expanded';
 export type HeaderPosition = 'fixed' | 'sticky' | 'static';
 export type ContentLayout = 'boxed' | 'full-width' | 'centered' | 'fluid';
 export type SpacingSize = 'compact' | 'comfortable' | 'spacious';
@@ -205,21 +195,18 @@ export function generateSidebarStyles(
   };
 
   switch (config.variant) {
-    case 'transparent':
-      styles.backgroundColor = 'transparent';
-      styles.backdropFilter = 'blur(10px)';
-      break;
     case 'colored':
       styles.backgroundColor = 'var(--mantine-primary-color-filled)';
+      styles.color = 'white';
       break;
     case 'gradient':
       styles.background =
         'linear-gradient(180deg, var(--mantine-primary-color-filled) 0%, var(--mantine-primary-color-light) 100%)';
+      styles.color = 'white';
       break;
-    case 'floating':
-      styles.margin = '1rem';
-      styles.borderRadius = 'var(--mantine-radius-lg)';
-      styles.boxShadow = 'var(--mantine-shadow-xl)';
+    case 'default':
+    default:
+      // Default uses CSS variables for light/dark mode handling
       break;
   }
 
@@ -244,9 +231,9 @@ export function generateHeaderStyles(config: ThemeConfig['layout']['header']) {
   }
 
   switch (config.variant) {
-    case 'transparent':
-      styles.backgroundColor = 'transparent';
-      styles.backdropFilter = 'blur(10px)';
+    case 'colored':
+      styles.backgroundColor = 'var(--mantine-primary-color-filled)';
+      styles.color = 'white';
       break;
     case 'compact':
       styles.height = Math.min(config.height, 50);
@@ -254,10 +241,9 @@ export function generateHeaderStyles(config: ThemeConfig['layout']['header']) {
     case 'expanded':
       styles.height = Math.max(config.height, 80);
       break;
-    case 'floating':
-      styles.margin = '1rem 1rem 0';
-      styles.borderRadius = 'var(--mantine-radius-lg)';
-      styles.width = 'calc(100% - 2rem)';
+    case 'default':
+    default:
+      // Default uses CSS variables for light/dark mode handling
       break;
   }
 
