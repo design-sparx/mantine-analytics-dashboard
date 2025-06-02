@@ -109,6 +109,16 @@ export function generateSidebarStyles(
         'linear-gradient(135deg, var(--mantine-primary-color-filled) 0%, var(--mantine-primary-color-7) 100%)';
       styles.color = 'white';
       break;
+    case 'glassmorphism':
+      styles.background = `linear-gradient(180deg,
+    color-mix(in srgb, var(--theme-primary-color) 10%, rgba(255, 255, 255, 0.2)) 0%,
+    color-mix(in srgb, var(--theme-primary-color) 5%, rgba(255, 255, 255, 0.05)) 100%)`;
+      styles.backdropFilter = 'blur(24px) saturate(180%)';
+      styles.WebkitBackdropFilter = 'blur(24px) saturate(180%)';
+      styles.borderRight = '1px solid rgba(255, 255, 255, 0.25)';
+      styles.boxShadow =
+        '2px 0 20px rgba(0, 0, 0, 0.1), inset 1px 0 0 rgba(255, 255, 255, 0.3)';
+      break;
     case 'default':
     default:
       // Default uses CSS variables for light/dark mode handling
@@ -146,6 +156,16 @@ export function generateHeaderStyles(
       styles.background =
         'linear-gradient(90deg, var(--mantine-primary-color-filled) 0%, var(--mantine-primary-color-7) 100%)';
       styles.color = 'white';
+      break;
+    case 'glassmorphism':
+      styles.background = `linear-gradient(90deg,
+    color-mix(in srgb, var(--theme-primary-color) 10%, rgba(255, 255, 255, 0.2)) 0%,
+    color-mix(in srgb, var(--theme-primary-color) 5%, rgba(255, 255, 255, 0.08)) 100%)`;
+      styles.backdropFilter = 'blur(24px) saturate(180%)';
+      styles.WebkitBackdropFilter = 'blur(24px) saturate(180%)';
+      styles.borderBottom = '1px solid rgba(255, 255, 255, 0.25)';
+      styles.boxShadow =
+        '0 2px 20px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3)';
       break;
     case 'default':
     default:

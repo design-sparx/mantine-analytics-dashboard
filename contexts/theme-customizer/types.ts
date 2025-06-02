@@ -1,12 +1,20 @@
 // Theme Types and Constants
-export type SidebarVariant = 'default' | 'colored' | 'gradient';
+export type SidebarVariant =
+  | 'default'
+  | 'colored'
+  | 'gradient'
+  | 'glassmorphism';
 export type SidebarPosition = 'left' | 'right';
-export type HeaderVariant = 'default' | 'colored' | 'gradient';
+export type HeaderVariant =
+  | 'default'
+  | 'colored'
+  | 'gradient'
+  | 'glassmorphism';
 export type HeaderPosition = 'fixed' | 'sticky' | 'static';
 export type ContentLayout = 'boxed' | 'full-width' | 'centered' | 'fluid';
 export type SpacingSize = 'compact' | 'comfortable' | 'spacious';
 export type ColorScheme = 'light' | 'dark' | 'auto';
-export type CardFeel = 'flat' | 'elevated' | 'bordered';
+export type CardFeel = 'flat' | 'elevated' | 'bordered' | 'glassmorphism';
 
 // Predefined color schemes
 export const COLOR_SCHEMES = {

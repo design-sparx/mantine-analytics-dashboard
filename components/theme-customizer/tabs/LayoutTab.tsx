@@ -31,12 +31,14 @@ export const LayoutTab = ({ config, onConfigUpdate }: LayoutTabProps) => {
     { value: 'default', label: 'Default' },
     { value: 'colored', label: 'Colored' },
     { value: 'gradient', label: 'Gradient' },
+    { value: 'glassmorphism', label: 'Glassmorphism' },
   ];
 
   const headerVariantOptions = [
     { value: 'default', label: 'Default' },
     { value: 'colored', label: 'Colored' },
     { value: 'gradient', label: 'Gradient' },
+    { value: 'glassmorphism', label: 'Glassmorphism' },
   ];
 
   return (

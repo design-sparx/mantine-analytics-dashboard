@@ -20,6 +20,7 @@ import {
   IconCircleHalf2,
   IconComponents,
   IconCube,
+  IconGlass,
   IconMoonStars,
   IconPalette,
   IconRectangle,
@@ -197,6 +198,15 @@ export const AppearanceTab = ({
                     </Group>
                   ),
                 },
+                {
+                  value: 'glassmorphism',
+                  label: (
+                    <Group gap={4}>
+                      <IconGlass size={16} />
+                      <span>Glass</span>
+                    </Group>
+                  ),
+                },
               ]}
               value={config.appearance.cardFeel}
               onChange={(value) =>
@@ -211,7 +221,7 @@ export const AppearanceTab = ({
               Preview
             </Text>
             <SimpleGrid cols={3} spacing="xs">
-              {['flat', 'bordered', 'elevated'].map((feel) => (
+              {['flat', 'bordered', 'elevated', 'glassmorphism'].map((feel) => (
                 <Paper
                   key={feel}
                   p="xs"
@@ -224,16 +234,58 @@ export const AppearanceTab = ({
                     border:
                       feel === 'bordered'
                         ? '1px solid var(--mantine-color-default-border)'
-                        : 'none',
+                        : feel === 'glassmorphism'
+                          ? '1px solid rgba(255, 255, 255, 0.25)'
+                          : 'none',
                     boxShadow:
-                      feel === 'elevated' ? 'var(--shadow-card)' : 'none',
+                      feel === 'elevated'
+                        ? 'var(--shadow-card)'
+                        : feel === 'glassmorphism'
+                          ? '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.4)'
+                          : 'none',
+                    background:
+                      feel === 'glassmorphism'
+                        ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.05) 100%)'
+                        : undefined,
+                    backdropFilter:
+                      feel === 'glassmorphism'
+                        ? 'blur(20px) saturate(180%)'
+                        : undefined,
+                    WebkitBackdropFilter:
+                      feel === 'glassmorphism'
+                        ? 'blur(20px) saturate(180%)'
+                        : undefined,
+                    position: feel === 'glassmorphism' ? 'relative' : undefined,
+                    overflow: feel === 'glassmorphism' ? 'hidden' : undefined,
                   }}
                 >
-                  <Text size="xs" ta="center" c="dimmed">
+                  {feel === 'glassmorphism' && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: `linear-gradient(135deg,
+            color-mix(in srgb, var(--theme-primary-color) 15%, transparent) 0%,
+            color-mix(in srgb, var(--theme-primary-color) 5%, transparent) 100%)`,
+                        opacity: 0.3,
+                        pointerEvents: 'none',
+                        zIndex: -1,
+                      }}
+                    />
+                  )}
+                  <Text
+                    size="xs"
+                    ta="center"
+                    c="dimmed"
+                    style={{ position: 'relative', zIndex: 1 }}
+                  >
                     {feel.charAt(0).toUpperCase() + feel.slice(1)}
                   </Text>
                 </Paper>
-              ))}
+              ))}{' '}
             </SimpleGrid>
           </Box>
         </Stack>

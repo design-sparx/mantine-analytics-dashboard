@@ -223,6 +223,65 @@ body {
   background-color: var(--mantine-color-body);
 }
 
+/* Glassmorphism card feel */
+.surface-glassmorphism {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+  inset 0 1px 0 rgba(255, 255, 255, 0.4),
+  inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add subtle primary color tint to glassmorphism */
+.surface-glassmorphism::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--theme-primary-color) 20%, transparent) 0%,
+    color-mix(in srgb, var(--theme-primary-color) 8%, transparent) 100%
+  );
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Dark mode glassmorphism */
+@media (prefers-color-scheme: dark) {
+  .surface-glassmorphism {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .surface-glassmorphism::before {
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--theme-primary-color) 20%, transparent) 0%,
+      color-mix(in srgb, var(--theme-primary-color) 8%, transparent) 100%
+    );
+    opacity: 0.4;
+  }
+}
+
 /* Hover effects */
 .surface-hover:hover {
   transform: translateY(-2px);
@@ -242,13 +301,52 @@ body {
   box-shadow: 0 0 0 1px var(--theme-primary-color);
 }
 
+/* Glassmorphism hover effect */
+.surface-glassmorphism.surface-hover:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15),
+  inset 0 1px 0 rgba(255, 255, 255, 0.5),
+  inset 0 -1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.surface-glassmorphism.surface-hover:hover::before {
+  opacity: 0.5;
+}
+
+@media (prefers-color-scheme: dark) {
+  .surface-glassmorphism.surface-hover:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.25) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+  }
+}
+
 /* Compact mode adjustments */
 .surface-compact {
   padding: calc(0.75rem * var(--theme-spacing-scale));
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
 }
 
 .surface-compact.surface-elevated {
   box-shadow: var(--shadow-card);
+}
+
+.surface-glassmorphism.surface-compact {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 /* High contrast mode */
@@ -260,5 +358,55 @@ body {
 
   .surface-bordered {
     border-width: 2px;
+  }
+
+  .surface-glassmorphism {
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid var(--mantine-color-gray-7);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* Glassmorphism gradient variants for sidebar and header */
+.gradient-glassmorphism-sidebar {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.gradient-glassmorphism-header {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  .gradient-glassmorphism-sidebar {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .gradient-glassmorphism-header {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 }

@@ -41,6 +41,9 @@ const Surface = createPolymorphicComponent<'div', SurfaceProps>(
           case 'bordered':
             classes.push('surface-bordered');
             break;
+          case 'glassmorphism':
+            classes.push('surface-glassmorphism');
+            break;
           case 'elevated':
           default:
             classes.push('surface-elevated');
