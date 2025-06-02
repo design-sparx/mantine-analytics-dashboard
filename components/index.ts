@@ -26,6 +26,7 @@ import StatsCard from '@/components/StatsCard/StatsCard';
 import StatsGrid from '@/components/StatsGrid/StatsGrid';
 import Surface from '@/components/Surface';
 import TextEditor from '@/components/TextEditor';
+import ThemeCustomizer from '@/components/theme-customizer';
 import ThemeDrawer from '@/components/ThemeDrawer/ThemeDrawer';
 import TrafficTable from '@/components/TrafficTable/TrafficTable';
 import UserButton from '@/components/UserButton';
@@ -33,7 +34,6 @@ import UserProfileButton from '@/components/UserButton/UserButton';
 import UserProfileCard from '@/components/UserProfileCard/UserProfileCard';
 
 import Logo from './Logo/Logo';
-import ThemeCustomizer from './theme/ThemeCustomizer';
 import ToggleTheme from './ToggleTheme/ToggleTheme';
 
 export {

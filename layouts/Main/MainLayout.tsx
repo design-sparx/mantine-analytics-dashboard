@@ -19,7 +19,7 @@ import {
   generateHeaderStyles,
   generateSidebarStyles,
   useThemeCustomizer,
-} from '@/contexts/ThemeCustomizerContext';
+} from '@/contexts/theme-customizer';
 
 import FooterNav from './components/Footer';
 import HeaderNav from './components/Header';

@@ -17,7 +17,7 @@ import {
   COLOR_SCHEMES,
   ThemeCustomizerProvider,
   useThemeCustomizer,
-} from '@/contexts/ThemeCustomizerContext';
+} from '@/contexts/theme-customizer';
 import { createDynamicTheme } from '@/theme';
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';

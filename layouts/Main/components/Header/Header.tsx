@@ -28,10 +28,7 @@ import {
 import { LanguagePicker } from '@/components';
 import { MESSAGES } from '@/constants/messages';
 import { NOTIFICATIONS } from '@/constants/notifications';
-import {
-  HeaderVariant,
-  useSidebarConfig,
-} from '@/contexts/ThemeCustomizerContext';
+import { HeaderVariant, useSidebarConfig } from '@/contexts/theme-customizer';
 import { useAuth } from '@/hooks/useAuth';
 
 const ICON_SIZE = 20;

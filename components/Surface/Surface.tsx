@@ -6,11 +6,10 @@ import {
   Box,
   BoxProps,
   PaperProps,
-  UnstyledButtonProps,
   createPolymorphicComponent,
 } from '@mantine/core';
 
-import { useAppearanceConfig } from '@/contexts/ThemeCustomizerContext';
+import { useAppearanceConfig } from '@/contexts/theme-customizer';
 
 export type CardFeel = 'flat' | 'elevated' | 'bordered';
 

@@ -4,7 +4,7 @@ import { IconX } from '@tabler/icons-react';
 
 import { Logo, UserProfileButton } from '@/components';
 import { SIDEBAR_LINKS } from '@/constants/sidebar-links';
-import { useSidebarConfig } from '@/contexts/ThemeCustomizerContext';
+import { useSidebarConfig } from '@/contexts/theme-customizer';
 import { useAuth } from '@/hooks/useAuth';
 import UserProfileData from '@/public/mocks/UserProfile.json';
 
