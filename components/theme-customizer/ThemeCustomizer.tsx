@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+'use client';
+
+import { useEffect } from 'react';
 
 import {
   Badge,
@@ -13,17 +15,16 @@ import {
   useMantineColorScheme,
 } from '@mantine/core';
 import {
-  IconComponents,
   IconDeviceFloppy,
   IconLayout,
   IconPalette,
   IconRefresh,
-  IconTypography,
   IconX,
 } from '@tabler/icons-react';
 
 import { useThemeCustomizer } from '@/contexts/theme-customizer';
 
+import { ThemePreviewCanvas } from './components/ThemePreviewCanvas';
 import { AppearanceTab } from './tabs/AppearanceTab';
 import { LayoutTab } from './tabs/LayoutTab';
 
@@ -98,95 +99,75 @@ export default function ThemeCustomizerDrawer({
         </Group>
       }
       position="right"
-      size="md"
+      size="100%"
       padding="md"
       closeButtonProps={{
         icon: <IconX size={16} />,
       }}
     >
-      <Stack h="100%" gap={0}>
-        <Text fz="sm" c="dimmed" mb="md">
-          Explore different styles according to your preferences. Changes are
-          previewed in real-time.
-        </Text>
+      <Group grow align="start" h="100%" gap="xl" wrap="nowrap">
+        {/* Customization Controls */}
+        <Box w={360} style={{ minWidth: 320 }}>
+          <Stack gap="sm">
+            <Text fz="sm" c="dimmed">
+              Explore different styles. Changes are previewed in real-time.
+            </Text>
+            <ScrollArea h="calc(100vh - 180px)" offsetScrollbars>
+              <Tabs defaultValue="layout">
+                <Tabs.List grow>
+                  <Tabs.Tab
+                    value="layout"
+                    leftSection={<IconLayout size={16} />}
+                  >
+                    Layout
+                  </Tabs.Tab>
+                  <Tabs.Tab
+                    value="appearance"
+                    leftSection={<IconPalette size={16} />}
+                  >
+                    Appearance
+                  </Tabs.Tab>
+                  {/* Add more tabs here */}
+                </Tabs.List>
 
-        <ScrollArea style={{ flex: 1 }} offsetScrollbars>
-          <Tabs defaultValue="layout">
-            <Tabs.List>
-              <Tabs.Tab value="layout" leftSection={<IconLayout size={16} />}>
-                Layout
-              </Tabs.Tab>
-              <Tabs.Tab
-                value="appearance"
-                leftSection={<IconPalette size={16} />}
+                <Tabs.Panel value="layout" pt="md">
+                  <LayoutTab
+                    config={previewConfig}
+                    onConfigUpdate={updateConfig}
+                  />
+                </Tabs.Panel>
+
+                <Tabs.Panel value="appearance" pt="md">
+                  <AppearanceTab
+                    config={previewConfig}
+                    onConfigUpdate={updateConfig}
+                  />
+                </Tabs.Panel>
+              </Tabs>
+            </ScrollArea>
+            <Group justify="space-between">
+              <Button
+                variant="subtle"
+                leftSection={<IconRefresh size={16} />}
+                onClick={handleReset}
+                disabled={!hasUnsavedChanges}
               >
-                Appearance
-              </Tabs.Tab>
-              <Tabs.Tab
-                value="typography"
-                leftSection={<IconTypography size={16} />}
-                disabled
+                Reset
+              </Button>
+              <Button
+                leftSection={<IconDeviceFloppy size={16} />}
+                onClick={handleApply}
+                disabled={!hasUnsavedChanges}
               >
-                Typography
-              </Tabs.Tab>
-              <Tabs.Tab
-                value="components"
-                leftSection={<IconComponents size={16} />}
-                disabled
-              >
-                Components
-              </Tabs.Tab>
-            </Tabs.List>
-
-            <Tabs.Panel value="layout" pt="md">
-              <LayoutTab config={previewConfig} onConfigUpdate={updateConfig} />
-            </Tabs.Panel>
-
-            <Tabs.Panel value="appearance" pt="md">
-              <AppearanceTab
-                config={previewConfig}
-                onConfigUpdate={updateConfig}
-              />
-            </Tabs.Panel>
-
-            <Tabs.Panel value="typography" pt="md">
-              <Stack align="center" mt="xl">
-                <Text c="dimmed" size="sm">
-                  Typography customization coming soon
-                </Text>
-              </Stack>
-            </Tabs.Panel>
-
-            <Tabs.Panel value="components" pt="md">
-              <Stack align="center" mt="xl">
-                <Text c="dimmed" size="sm">
-                  Component customization coming soon
-                </Text>
-              </Stack>
-            </Tabs.Panel>
-          </Tabs>
-        </ScrollArea>
-
-        <Box pt="md">
-          <Group justify="space-between">
-            <Button
-              variant="subtle"
-              leftSection={<IconRefresh size={16} />}
-              onClick={handleReset}
-              disabled={!hasUnsavedChanges}
-            >
-              Reset
-            </Button>
-            <Button
-              leftSection={<IconDeviceFloppy size={16} />}
-              onClick={handleApply}
-              disabled={!hasUnsavedChanges}
-            >
-              Save Changes
-            </Button>
-          </Group>
+                Save Changes
+              </Button>
+            </Group>
+          </Stack>
         </Box>
-      </Stack>
+
+        {/* Preview Canvas */}
+        <ThemePreviewCanvas config={previewConfig} />
+      </Group>
     </Drawer>
   );
 }

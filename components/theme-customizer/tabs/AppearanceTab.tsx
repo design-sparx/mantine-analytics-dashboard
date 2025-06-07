@@ -279,60 +279,14 @@ export const AppearanceTab = ({
                   <Text
                     size="xs"
                     ta="center"
-                    c="dimmed"
                     style={{ position: 'relative', zIndex: 1 }}
                   >
                     {feel.charAt(0).toUpperCase() + feel.slice(1)}
                   </Text>
                 </Paper>
-              ))}{' '}
+              ))}
             </SimpleGrid>
           </Box>
-        </Stack>
-      </Paper>
-
-      {/* Preview Section */}
-      <Paper p="sm" withBorder>
-        <Group mb="sm">
-          <IconComponents size={20} />
-          <Text fw={600}>Preview</Text>
-        </Group>
-
-        <Stack gap="md">
-          <Text size="sm" c="dimmed">
-            Current primary color:{' '}
-            <ColorSwatch
-              color={COLOR_SCHEMES[config.appearance.primaryColor].color}
-              size={16}
-              style={{ display: 'inline-block' }}
-            />{' '}
-            {COLOR_SCHEMES[config.appearance.primaryColor].name}
-          </Text>
-
-          <Group>
-            <Button
-              variant="filled"
-              size={config.appearance.compact ? 'xs' : 'sm'}
-              radius={config.appearance.borderRadius}
-            >
-              Primary Button
-            </Button>
-            <Button
-              variant="outline"
-              size={config.appearance.compact ? 'xs' : 'sm'}
-              radius={config.appearance.borderRadius}
-            >
-              Outline Button
-            </Button>
-          </Group>
-
-          <Paper
-            p={config.appearance.compact ? 'xs' : 'sm'}
-            withBorder
-            radius={config.appearance.borderRadius}
-          >
-            <Text size="sm">Sample card content with current settings</Text>
-          </Paper>
         </Stack>
       </Paper>
 
