@@ -4,10 +4,8 @@ import {
   ActionIcon,
   Breadcrumbs,
   BreadcrumbsProps,
-  Button,
   Divider,
   Flex,
-  Paper,
   PaperProps,
   Stack,
   Text,
@@ -16,9 +14,10 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { useColorScheme } from '@mantine/hooks';
-import { IconPlus, IconRefresh } from '@tabler/icons-react';
+import { IconRefresh } from '@tabler/icons-react';
 
 import { FilterDateMenu, Surface } from '@/components';
+import { useAuth } from '@/hooks/useAuth';
 
 type PageHeaderProps = {
   title: string;
@@ -37,6 +36,7 @@ const PageHeader = (props: PageHeaderProps) => {
     actionContent,
     ...others
   } = props;
+  const { user } = useAuth();
 
   const theme = useMantineTheme();
   const colorScheme = useColorScheme();
@@ -89,11 +89,7 @@ const PageHeader = (props: PageHeaderProps) => {
 
   return (
     <>
-      <Surface
-        component={Paper}
-        style={{ backgroundColor: 'transparent' }}
-        {...others}
-      >
+      <Surface p="md" {...others}>
         {withActions ? (
           <Flex
             justify="space-between"
@@ -102,7 +98,7 @@ const PageHeader = (props: PageHeaderProps) => {
           >
             <Stack gap={4}>
               <Title order={3}>{title}</Title>
-              <Text>Welcome back, Kelvin!</Text>
+              <Text>Welcome back, {user?.userName}!</Text>
             </Stack>
             {renderActions()}
           </Flex>

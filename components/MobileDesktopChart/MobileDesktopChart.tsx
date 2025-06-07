@@ -3,7 +3,6 @@
 import {
   ActionIcon,
   Group,
-  Paper,
   PaperProps,
   Text,
   useMantineColorScheme,
@@ -91,7 +90,7 @@ const MobileDesktopChart = ({ ...others }: MobileDesktopChartProps) => {
   };
 
   return (
-    <Surface component={Paper} {...others}>
+    <Surface {...others}>
       <Group justify="space-between" mb="md">
         <Text size="lg" fw={600}>
           Mobile/Desktop

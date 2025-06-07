@@ -2,7 +2,6 @@ import {
   Badge,
   Button,
   Group,
-  Paper,
   PaperProps,
   Stack,
   Text,
@@ -10,6 +9,7 @@ import {
 } from '@mantine/core';
 import { IconEdit, IconEye } from '@tabler/icons-react';
 
+import { Surface } from '@/components';
 import { useAuth } from '@/hooks/useAuth';
 import {
   IOrder,
@@ -48,7 +48,7 @@ export const OrderCard = ({
   };
 
   return (
-    <Paper p="md" shadow="md" radius="md" {...paperProps}>
+    <Surface p="md" {...paperProps}>
       <Stack gap="sm">
         <Group justify="space-between" align="flex-start">
           <div>
@@ -121,6 +121,6 @@ export const OrderCard = ({
           </Button>
         </Group>
       </Stack>
-    </Paper>
+    </Surface>
   );
 };

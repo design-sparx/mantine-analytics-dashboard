@@ -3,7 +3,6 @@
 import {
   ActionIcon,
   Group,
-  Paper,
   PaperProps,
   Text,
   useMantineColorScheme,
@@ -86,7 +85,7 @@ const RevenueChart = ({ ...others }: RevenueChartProps) => {
   };
 
   return (
-    <Surface component={Paper} {...others}>
+    <Surface {...others}>
       <Group justify="space-between" mb="md">
         <Text size="lg" fw={600}>
           Total revenue

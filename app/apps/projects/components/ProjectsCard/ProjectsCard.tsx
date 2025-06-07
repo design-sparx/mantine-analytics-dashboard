@@ -7,9 +7,7 @@ import {
   Divider,
   Flex,
   Group,
-  Image,
   MantineColor,
-  Paper,
   PaperProps,
   Progress,
   Stack,
@@ -111,7 +109,7 @@ const ProjectsCard = (props: ProjectsCardProps) => {
   } = data;
 
   return (
-    <Surface component={Paper} {...others}>
+    <Surface {...others}>
       <Stack gap="sm">
         <Flex justify="space-between" align="center">
           <Flex align="center" gap="xs">

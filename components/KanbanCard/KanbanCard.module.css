@@ -1,5 +1,4 @@
 .card {
-  border: 1px solid transparent;
 
   @mixin dark {
     background-color: var(--mantine-color-dark-6);
@@ -10,7 +9,7 @@
   }
 
   @mixin hover {
-    border-color: var(--mantine-color-blue-6);
+    border-color: var(--mantine-primary-color-4);
   }
 }
 
@@ -21,7 +20,6 @@
   align-items: center;
   text-align: left;
   cursor: grab;
-  border-radius: var(--mantine-radius-md);
 
   @mixin dark {
     background-color: var(--mantine-color-gray-0);

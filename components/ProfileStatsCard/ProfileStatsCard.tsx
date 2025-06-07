@@ -3,7 +3,6 @@ import { createElement } from 'react';
 import {
   Flex,
   MantineColor,
-  Paper,
   PaperProps,
   Progress,
   Stack,
@@ -28,7 +27,7 @@ const ProfileStatsCard = (props: ProfileStatsCardProps) => {
     props;
 
   return (
-    <Surface component={Paper} {...others}>
+    <Surface {...others}>
       <Flex align="center" justify="space-between" mb="md">
         <Stack gap={2}>
           <Text size="lg" fw={700} tt="capitalize">

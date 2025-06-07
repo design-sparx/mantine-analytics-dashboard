@@ -18,13 +18,11 @@ import {
   Stack,
   Text,
   ThemeIcon,
-  ThemeIconProps,
   Title,
   Tooltip,
   UnstyledButton,
   rem,
   useMantineColorScheme,
-  useMantineTheme,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import {
@@ -45,7 +43,7 @@ import {
 } from '@tabler/icons-react';
 import Link from 'next/link';
 
-import GuestLayout from '@/layout/Guest';
+import GuestLayout from '@/layouts/Guest';
 import { PATH_APPS, PATH_AUTH, PATH_DASHBOARD, PATH_GITHUB } from '@/routes';
 
 import classes from './page.module.css';
@@ -101,7 +99,7 @@ const APPS = [
   {
     img: '/showcase/apps-invoices.png',
     title: 'invoices',
-    link: PATH_APPS.invoices.all,
+    link: PATH_APPS.invoices.root,
   },
   {
     img: '/showcase/apps-orders.png',
@@ -220,18 +218,6 @@ const FEATURES = [
   },
 ];
 
-const PAPER_PROPS: PaperProps = {
-  p: 'md',
-  shadow: 'md',
-  radius: 'md',
-  className: classes.paper,
-};
-
-const THEME_ICON_PROPS: Omit<ThemeIconProps, 'children'> = {
-  variant: 'light',
-  size: 48,
-};
-
 const IMAGE_PAPER_PROPS: PaperProps = {
   py: 'md',
   className: classes.paperImage,
@@ -240,7 +226,6 @@ const IMAGE_PAPER_PROPS: PaperProps = {
 export default function Home() {
   const tablet_match = useMediaQuery('(max-width: 768px)');
   const { colorScheme } = useMantineColorScheme();
-  const theme = useMantineTheme();
 
   const BOX_PROPS: ContainerProps = {
     pt: rem(120),

@@ -14,7 +14,6 @@ import {
   Stack,
   Text,
   UnstyledButton,
-  useMantineTheme,
 } from '@mantine/core';
 import {
   IconBrandFacebook,
@@ -66,13 +65,10 @@ const skills = [
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',
-  shadow: 'md',
-  radius: 'md',
-  style: { height: '100%' },
+  style: { minHeight: '100%' },
 };
 
 function Profile() {
-  const theme = useMantineTheme();
   const {
     data: projectsData,
     loading: projectsLoading,
@@ -99,7 +95,7 @@ function Profile() {
             <Grid.Col span={{ base: 12, md: 5, lg: 4 }}>
               <Stack>
                 <UserProfileCard data={UserData} {...PAPER_PROPS} />
-                <Surface component={Paper} {...PAPER_PROPS}>
+                <Surface {...PAPER_PROPS}>
                   <Text size="lg" fw={600} mb="md">
                     Skills
                   </Text>
@@ -111,7 +107,7 @@ function Profile() {
                     ))}
                   </Group>
                 </Surface>
-                <Surface component={Paper} {...PAPER_PROPS}>
+                <Surface {...PAPER_PROPS}>
                   <Stack>
                     <Text size="lg" fw={600}>
                       About
@@ -126,7 +122,7 @@ function Profile() {
                     </Group>
                   </Stack>
                 </Surface>
-                <Surface component={Paper} {...PAPER_PROPS}>
+                <Surface {...PAPER_PROPS}>
                   <Flex
                     direction={{ base: 'row', md: 'column' }}
                     gap={{ base: 'sm', md: 'xs' }}
@@ -214,7 +210,7 @@ function Profile() {
                     {...PAPER_PROPS}
                   />
                 </SimpleGrid>
-                <Paper {...PAPER_PROPS}>
+                <Surface {...PAPER_PROPS}>
                   <Group justify="space-between" mb="md">
                     <Text size="lg" fw={600}>
                       Projects
@@ -228,7 +224,7 @@ function Profile() {
                     loading={projectsLoading}
                     error={projectsError}
                   />
-                </Paper>
+                </Surface>
               </Stack>
             </Grid.Col>
           </Grid>

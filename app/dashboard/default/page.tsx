@@ -5,7 +5,6 @@ import {
   Container,
   Grid,
   Group,
-  Paper,
   PaperProps,
   Stack,
   Text,
@@ -20,15 +19,14 @@ import {
   RevenueChart,
   SalesChart,
   StatsGrid,
+  Surface,
 } from '@/components';
 import { useFetchData } from '@/hooks';
 import { PATH_TASKS } from '@/routes';
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',
-  shadow: 'md',
-  radius: 'md',
-  style: { height: '100%' },
+  style: { minHeight: '100%' },
 };
 
 function Page() {
@@ -72,7 +70,7 @@ function Page() {
               <MobileDesktopChart {...PAPER_PROPS} />
             </Grid.Col>
             <Grid.Col span={8}>
-              <Paper {...PAPER_PROPS}>
+              <Surface {...PAPER_PROPS}>
                 <Group justify="space-between" mb="md">
                   <Text size="lg" fw={600}>
                     Tasks
@@ -91,7 +89,7 @@ function Page() {
                   error={projectsError}
                   loading={projectsLoading}
                 />
-              </Paper>
+              </Surface>
             </Grid.Col>
           </Grid>
         </Stack>

@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import { ActionIcon, Group, Paper, PaperProps, Text } from '@mantine/core';
+import { ActionIcon, Group, PaperProps, Text } from '@mantine/core';
 import { IconDotsVertical } from '@tabler/icons-react';
 import { DataTable } from 'mantine-datatable';
 
@@ -24,7 +24,7 @@ const LanguageTable = ({
   ...others
 }: LanguageTableProps) => {
   return (
-    <Surface component={Paper} {...others}>
+    <Surface {...others}>
       <Group justify="space-between" mb="sm">
         <Text size="lg" fw={600}>
           Languages
