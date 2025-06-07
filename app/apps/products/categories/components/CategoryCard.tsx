@@ -1,6 +1,7 @@
-import { Button, Group, Paper, PaperProps, Text, Title } from '@mantine/core';
+import { Button, Group, PaperProps, Text, Title } from '@mantine/core';
 import { IconEdit } from '@tabler/icons-react';
 
+import { Surface } from '@/components';
 import { useAuth } from '@/hooks/useAuth';
 import { IProductCategory } from '@/types/products';
 
@@ -14,7 +15,7 @@ export const CategoryCard = ({ data, onEdit }: ProductCategoryCardProps) => {
   const isCreator = user?.id === data.createdById;
 
   return (
-    <Paper p="md" shadow="md" radius="md">
+    <Surface p="md">
       <Title order={4} mb="xs">
         {data.title}
       </Title>
@@ -41,6 +42,6 @@ export const CategoryCard = ({ data, onEdit }: ProductCategoryCardProps) => {
           Edit
         </Button>
       </Group>
-    </Paper>
+    </Surface>
   );
 };

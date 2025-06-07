@@ -1,18 +1,13 @@
-import {
-  Flex,
-  Stack,
-  Text,
-  UnstyledButton,
-  UnstyledButtonProps,
-} from '@mantine/core';
+import { Flex, PaperProps, Stack, Text } from '@mantine/core';
 import { IconPointFilled } from '@tabler/icons-react';
 
 import { IFile } from '@/app/apps/file-manager/types';
+import { Surface } from '@/components';
 
 import classes from './FileButton.module.css';
 import { resolveFileIcon } from '../../utils';
 
-type FileButtonProps = UnstyledButtonProps & {
+type FileButtonProps = PaperProps & {
   file: IFile;
 };
 
@@ -20,7 +15,7 @@ export function FileButton({ file, ...others }: FileButtonProps) {
   const Icon = resolveFileIcon(file.type);
 
   return (
-    <UnstyledButton className={classes.wrapper} {...others}>
+    <Surface className={classes.wrapper} {...others}>
       <Icon size={18} />
       <Stack gap={2}>
         <Text fz="sm" fw={700}>
@@ -36,6 +31,6 @@ export function FileButton({ file, ...others }: FileButtonProps) {
           </Text>
         </Flex>
       </Stack>
-    </UnstyledButton>
+    </Surface>
   );
 }

@@ -27,12 +27,10 @@
     light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-0));
 
   @mixin light {
-    background-color: var(--mantine-color-white);
     border-bottom: rem(1px) solid var(--mantine-color-gray-3);
   }
 
   @mixin dark {
-    background-color: var(--mantine-color-black);
     border-bottom: rem(1px) solid var(--mantine-color-gray-7);
   }
 }
@@ -45,10 +43,8 @@
   padding: var(--mantine-spacing-sm);
 
   @mixin light {
-    background-color: var(--mantine-color-white);
   }
 
   @mixin dark {
-    background-color: var(--mantine-color-black);
   }
 }

@@ -1,0 +1,161 @@
+.layoutRoot {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 101;
+  cursor: pointer;
+}
+
+/* Header Styles */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  transition: all 0.3s ease;
+
+  &[data-position="sticky"] {
+    position: sticky;
+  }
+
+  &[data-position="static"] {
+    position: static;
+  }
+
+  /* Header Variants */
+
+  &[data-variant="default"] {
+    background-color: light-dark(white, var(--mantine-color-dark-7));
+    color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  }
+
+  &[data-variant="colored"] {
+    background-color: var(--mantine-primary-color-filled);
+    color: white;
+  }
+}
+
+/* Sidebar Styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 101;
+  transition: all 0.3s ease;
+  overflow: hidden;
+
+  /* When in overlay mode, increase z-index */
+  &[data-overlay="true"] {
+    z-index: 102;
+    box-shadow: var(--mantine-shadow-xl);
+  }
+
+  /* Mobile behavior */
+  @media (max-width: 767px) {
+    z-index: 102;
+    box-shadow: var(--mantine-shadow-xl);
+  }
+}
+
+/* Main Content */
+.main {
+  transition: margin 0.3s ease;
+  position: relative;
+  z-index: 1;
+
+  &[data-header-position="static"] {
+    padding-top: 0 !important;
+  }
+
+  /* When sidebar is in overlay mode, ensure main content starts from edge */
+  &[data-overlay="true"] {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+/* Content Container */
+.content {
+  transition: all 0.3s ease;
+  min-height: calc(100vh - rem(120)); /* Account for header and footer */
+
+  @mixin light {
+    background-color: var(--mantine-color-gray-1);
+    /*box-shadow: 0 0 0 1px var(--mantine-color-gray-2);*/
+  }
+
+  @mixin dark {
+    background-color: var(--mantine-color-dark-6);
+    /*box-shadow: 0 0 0 1px var(--mantine-color-dark-6);*/
+  }
+
+  &[data-layout="boxed"] {
+    max-width: rem(1400px);
+    margin: 0 auto;
+  }
+
+  &[data-layout="centered"] {
+    max-width: rem(1200px);
+    margin: 0 auto;
+    padding-left: rem(32);
+    padding-right: rem(32);
+  }
+
+  &[data-layout="full-width"] {
+    width: 100%;
+  }
+
+  &[data-layout="fluid"] {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Padding variations */
+
+  &[data-padding="compact"] {
+    padding: rem(8);
+  }
+
+  &[data-padding="comfortable"] {
+    padding: rem(16);
+  }
+
+  &[data-padding="spacious"] {
+    padding: rem(32);
+  }
+
+  @media (max-width: 767px) {
+    &[data-padding="spacious"] {
+      padding: rem(16);
+    }
+  }
+}
+
+/* Footer */
+.footer {
+  position: relative;
+  z-index: 1;
+  padding: rem(16) 0;
+  transition: margin 0.3s ease;
+
+  @mixin light {
+    background-color: var(--mantine-color-gray-0);
+    border-top: 1px solid var(--mantine-color-gray-2);
+  }
+
+  @mixin dark {
+    background-color: var(--mantine-color-dark-8);
+    border-top: 1px solid var(--mantine-color-dark-6);
+  }
+}

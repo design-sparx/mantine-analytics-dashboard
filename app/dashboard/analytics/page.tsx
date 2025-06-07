@@ -8,7 +8,6 @@ import {
   Skeleton,
   Stack,
   rem,
-  useMantineTheme,
 } from '@mantine/core';
 
 import {
@@ -23,18 +22,12 @@ import {
 } from '@/components';
 import { useFetchData } from '@/hooks';
 
-const PRIMARY_COL_HEIGHT = rem(300);
-
 const PAPER_PROPS: PaperProps = {
   p: 'md',
-  shadow: 'md',
-  radius: 'md',
-  style: { height: '100%' },
+  style: { minHeight: '100%' },
 };
 
 function Page() {
-  const theme = useMantineTheme();
-  const SECONDARY_COL_HEIGHT = `calc(${PRIMARY_COL_HEIGHT} / 2 - var(--mantine-spacing-md) / 2)`;
   const {
     data: statsData,
     error: statsError,

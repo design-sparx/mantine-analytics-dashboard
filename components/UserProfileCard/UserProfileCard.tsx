@@ -1,4 +1,4 @@
-import { Avatar, Button, Paper, PaperProps, Stack, Text } from '@mantine/core';
+import { Avatar, Button, PaperProps, Stack, Text } from '@mantine/core';
 import { IconSend } from '@tabler/icons-react';
 
 import { Surface } from '@/components';
@@ -17,7 +17,7 @@ const UserProfileCard = ({
   ...others
 }: UserInfoActionProps) => {
   return (
-    <Surface component={Paper} {...others}>
+    <Surface {...others}>
       <Stack gap={4} align="center">
         <Text size="lg" fw={600} mb="md">
           Profile details

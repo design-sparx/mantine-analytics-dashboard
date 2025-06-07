@@ -1,10 +1,12 @@
 import { FC } from 'react';
 
-import { Text, UnstyledButton, UnstyledButtonProps } from '@mantine/core';
+import { PaperProps, Text } from '@mantine/core';
+
+import { Surface } from '@/components';
 
 import classes from './ActionButton.module.css';
 
-type ActionButtonProps = UnstyledButtonProps & {
+type ActionButtonProps = PaperProps & {
   icon: FC<any>;
   label: string;
   asPrimary?: boolean;
@@ -17,15 +19,11 @@ export function ActionButton({
   ...others
 }: ActionButtonProps) {
   return (
-    <UnstyledButton
-      {...others}
-      className={classes.wrapper}
-      data-primary={asPrimary}
-    >
+    <Surface {...others} className={classes.wrapper} data-primary={asPrimary}>
       <Icon size={24} />
       <Text mt={4} className={classes.label}>
         {label}
       </Text>
-    </UnstyledButton>
+    </Surface>
   );
 }

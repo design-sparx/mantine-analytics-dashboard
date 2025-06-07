@@ -1,5 +1,418 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 
+:root {
+  /* Default theme variables */
+  --theme-primary-color: #339af0;
+  --theme-border-radius: 0.25rem;
+  --theme-spacing-scale: 1;
+  --theme-compact: 0;
+  --sidebar-width: 300px;
+  --header-height: 60px;
+
+  /* Animation variables */
+  --transition-duration: 0.3s;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Custom shadows */
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --shadow-dropdown: 0 4px 16px rgba(0, 0, 0, 0.15);
+  --shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Compact mode adjustments */
+:root[style*="--theme-compact: 1"] {
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
 html,
 body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Custom utility classes that respond to theme variables */
+.theme-card {
+  border-radius: var(--theme-border-radius);
+  box-shadow: var(--shadow-card);
+  transition: all var(--transition-duration) var(--transition-timing);
+}
+
+.theme-card:hover {
+  box-shadow: var(--shadow-dropdown);
+  transform: translateY(-2px);
+}
+
+.theme-button {
+  border-radius: var(--theme-border-radius);
+  background-color: var(--theme-primary-color);
+  transition: all var(--transition-duration) var(--transition-timing);
+}
+
+.theme-button:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+/* Responsive spacing that respects compact mode */
+.theme-spacing-xs {
+  padding: calc(0.5rem * var(--theme-spacing-scale));
+}
+
+.theme-spacing-sm {
+  padding: calc(0.75rem * var(--theme-spacing-scale));
+}
+
+.theme-spacing-md {
+  padding: calc(1rem * var(--theme-spacing-scale));
+}
+
+.theme-spacing-lg {
+  padding: calc(1.5rem * var(--theme-spacing-scale));
+}
+
+.theme-spacing-xl {
+  padding: calc(2rem * var(--theme-spacing-scale));
+}
+
+/* Custom scrollbar styling */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--mantine-color-gray-4) transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--mantine-color-gray-4);
+  border-radius: var(--theme-border-radius);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: var(--mantine-color-gray-5);
+}
+
+/* Theme transition animations */
+* {
+  transition: background-color var(--transition-duration) var(--transition-timing),
+  border-color var(--transition-duration) var(--transition-timing),
+  color var(--transition-duration) var(--transition-timing),
+  box-shadow var(--transition-duration) var(--transition-timing);
+}
+
+/* Disable transitions during theme changes to prevent flickering */
+.theme-changing * {
+  transition: none !important;
+}
+
+/* Custom focus styles that use theme variables */
+.theme-focus:focus-visible {
+  outline: 2px solid var(--theme-primary-color);
+  outline-offset: 2px;
+  border-radius: var(--theme-border-radius);
+}
+
+/* Gradient backgrounds for colored variants */
+.gradient-primary {
+  background: linear-gradient(
+    135deg,
+    var(--theme-primary-color) 0%,
+    color-mix(in srgb, var(--theme-primary-color) 80%, black 20%) 100%
+  );
+}
+
+.gradient-sidebar {
+  @mixin light {
+    background: linear-gradient(
+      180deg,
+      var(--theme-primary-color) 0%,
+      color-mix(in srgb, var(--theme-primary-color) 70%, black 30%) 100%
+    );
+  }
+
+  @mixin dark {
+    background: linear-gradient(
+      180deg,
+      var(--mantine-color-dark-6) 0%,
+      var(--mantine-color-dark-8) 100%
+    );
+  }
+}
+
+.gradient-header {
+  background: linear-gradient(
+    90deg,
+    var(--theme-primary-color) 0%,
+    color-mix(in srgb, var(--theme-primary-color) 80%, black 20%) 100%
+  );
+}
+
+/* Responsive design helpers */
+@media (max-width: 768px) {
+  .theme-spacing-lg,
+  .theme-spacing-xl {
+    padding: calc(1rem * var(--theme-spacing-scale));
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .theme-card {
+    border: 2px solid var(--mantine-color-gray-7);
+  }
+
+  .theme-button {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Base surface card styles */
+.surface-card {
+  border-radius: var(--theme-border-radius);
+  transition: all var(--transition-duration) var(--transition-timing);
+  background-color: var(--mantine-color-body);
+}
+
+/* Flat card feel - no shadow or border */
+.surface-flat {
+  box-shadow: none;
+  border: none;
+  background-color: var(--mantine-color-body);
+}
+
+/* Elevated card feel - shadow-based depth */
+.surface-elevated {
+  box-shadow: var(--shadow-card);
+  border: none;
+  background-color: var(--mantine-color-body);
+}
+
+/* Bordered card feel - subtle border instead of shadow */
+.surface-bordered {
+  box-shadow: none;
+  border: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  background-color: var(--mantine-color-body);
+}
+
+/* Glassmorphism card feel */
+.surface-glassmorphism {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  position: relative;
+  overflow: hidden;
+
+  @mixin light {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    border: 1px solid rgba(150, 150, 150, 0.35);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  @mixin dark {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+    border: 1px solid rgba(100, 100, 100, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* Add subtle primary color tint to glassmorphism */
+.surface-glassmorphism::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: -1;
+
+  @mixin light {
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--theme-primary-color) 20%, transparent) 0%,
+      color-mix(in srgb, var(--theme-primary-color) 8%, transparent) 100%
+    );
+    opacity: 0.8;
+  }
+
+  @mixin dark {
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--theme-primary-color) 20%, transparent) 0%,
+      color-mix(in srgb, var(--theme-primary-color) 8%, transparent) 100%
+    );
+    opacity: 0.5;
+  }
+}
+
+/* Hover effects */
+.surface-hover:hover {
+  transform: translateY(-2px);
+  cursor: pointer;
+}
+
+.surface-flat.surface-hover:hover {
+  box-shadow: var(--shadow-card);
+}
+
+.surface-elevated.surface-hover:hover {
+  box-shadow: var(--shadow-dropdown);
+}
+
+.surface-bordered.surface-hover:hover {
+  border-color: var(--theme-primary-color);
+  box-shadow: 0 0 0 1px var(--theme-primary-color);
+}
+
+/* Glassmorphism hover effect */
+.surface-glassmorphism.surface-hover:hover {
+  @mixin light {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.35) 0%,
+      rgba(255, 255, 255, 0.08) 100%
+    );
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  @mixin dark {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.25) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+  }
+}
+
+.surface-glassmorphism.surface-hover:hover::before {
+  opacity: 0.5;
+}
+
+/* Compact mode adjustments */
+.surface-compact {
+  padding: calc(0.75rem * var(--theme-spacing-scale));
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+}
+
+.surface-compact.surface-elevated {
+  box-shadow: var(--shadow-card);
+}
+
+.surface-glassmorphism.surface-compact {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .surface-flat,
+  .surface-elevated {
+    border: 2px solid var(--mantine-color-gray-7);
+  }
+
+  .surface-bordered {
+    border-width: 2px;
+  }
+
+  .surface-glassmorphism {
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid var(--mantine-color-gray-7);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* Glassmorphism gradient variants for sidebar and header */
+.gradient-glassmorphism-sidebar {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  @mixin light {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  @mixin dark {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+.gradient-glassmorphism-header {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  @mixin light {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.1) 100%
+    );
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  @mixin dark {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
 }

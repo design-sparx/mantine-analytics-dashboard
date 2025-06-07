@@ -1,16 +1,9 @@
 'use client';
 
-import {
-  Badge,
-  Button,
-  Group,
-  Paper,
-  PaperProps,
-  Text,
-  Title,
-} from '@mantine/core';
+import { Badge, Button, Group, PaperProps, Text, Title } from '@mantine/core';
 import { IconEdit } from '@tabler/icons-react';
 
+import { Surface } from '@/components';
 import { useAuth } from '@/hooks/useAuth';
 import { IProduct } from '@/types/products';
 
@@ -24,7 +17,7 @@ export function ProductsCard({ data, onEdit, ...props }: ProductsCardProps) {
   const isCreator = user?.id === data.createdById;
 
   return (
-    <Paper {...props}>
+    <Surface {...props}>
       <Group justify="space-between" mb="xs">
         <Title order={4}>{data.title}</Title>
         <Badge color={data.isActive ? 'green' : 'red'}>
@@ -68,7 +61,7 @@ export function ProductsCard({ data, onEdit, ...props }: ProductsCardProps) {
           Edit
         </Button>
       </Group>
-    </Paper>
+    </Surface>
   );
 }
 

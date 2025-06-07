@@ -40,8 +40,9 @@ function Page() {
   const form = useForm({
     initialValues: { email: 'demo@adminhub.com', password: 'Demo@Pass1' },
     validate: {
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
-      password: (value) =>
+      email: (value: string) =>
+        /^\S+@\S+$/.test(value) ? null : 'Invalid email',
+      password: (value: string | undefined) =>
         value && value?.length < 6
           ? 'Password must include at least 6 characters'
           : null,

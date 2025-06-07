@@ -26,7 +26,6 @@ import {
 } from '@tabler/icons-react';
 
 import { PageHeader, Surface } from '@/components';
-import classes from '@/layout/Guest/HeaderNav/HeaderNav.module.css';
 import { PATH_DASHBOARD, PATH_GITHUB } from '@/routes';
 
 const items = [
@@ -104,7 +103,6 @@ function Pricing() {
               href={PATH_GITHUB.repo}
               variant="filled"
               leftSection={<IconBrandGithub size={16} />}
-              className={classes.link}
               rel="noopener noreferrer"
             >
               Give us a star

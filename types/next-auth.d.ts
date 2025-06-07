@@ -6,12 +6,7 @@ declare module 'next-auth' {
    * Extends the built-in Session interface
    */
   interface Session {
-    user: {
-      id: string;
-      name: string;
-      email: string;
-      image?: string;
-    };
+    user?: IUser;
     accessToken: string;
     roles: string[];
     permissions: string[];
@@ -23,7 +18,7 @@ declare module 'next-auth' {
    */
   interface User {
     id: string;
-    name: string;
+    userName: string;
     email?: string;
     image?: string;
     token: string;

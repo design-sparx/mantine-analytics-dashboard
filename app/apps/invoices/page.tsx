@@ -4,10 +4,10 @@ import { useCallback, useState } from 'react';
 
 import {
   Anchor,
+  Box,
   Button,
   Container,
   Group,
-  Paper,
   PaperProps,
   SegmentedControl,
   SimpleGrid,
@@ -158,7 +158,7 @@ function Invoices() {
 
     if (!invoicesData?.data?.length) {
       return (
-        <Surface component={Paper} p="md">
+        <Surface p="md">
           <Stack align="center">
             <IconMoodEmpty size={24} />
             <Title order={4}>No invoices found</Title>
@@ -226,7 +226,7 @@ function Invoices() {
             }
           />
 
-          <Paper {...PAPER_PROPS}>
+          <Box>
             <Group justify="space-between" mb="md">
               <Group>
                 <Text fz="lg" fw={600}>
@@ -250,7 +250,7 @@ function Invoices() {
             </Group>
 
             {renderContent()}
-          </Paper>
+          </Box>
         </Stack>
       </Container>
 

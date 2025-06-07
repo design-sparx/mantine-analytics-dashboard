@@ -34,7 +34,7 @@ import {
   FileButton,
   FilesTable,
 } from '@/app/apps/file-manager/components';
-import { PageHeader } from '@/components';
+import { PageHeader, Surface } from '@/components';
 import { useFetchData } from '@/hooks';
 import { PATH_DASHBOARD } from '@/routes';
 
@@ -53,8 +53,6 @@ const items = [
 const ICON_SIZE = 16;
 
 const PAPER_PROPS: PaperProps = {
-  shadow: 'md',
-  radius: 'md',
   p: 'md',
 };
 
@@ -91,7 +89,7 @@ function FileManager() {
           <ActionButton icon={IconPhotoVideo} label="Edit video" />
           <ActionButton icon={IconEdit} label="Edit PDF" />
         </SimpleGrid>
-        <Paper shadow="md">
+        <Surface>
           <Dropzone
             onDrop={(files) => console.log('accepted files', files)}
             onReject={(files) => console.log('rejected files', files)}
@@ -142,8 +140,8 @@ function FileManager() {
               </div>
             </Flex>
           </Dropzone>
-        </Paper>
-        <Paper {...PAPER_PROPS}>
+        </Surface>
+        <Surface {...PAPER_PROPS}>
           <Flex justify="space-between" align="center" mb="md">
             <Title order={4}>Recently modified</Title>
             <Button
@@ -158,8 +156,8 @@ function FileManager() {
               <FileButton key={file.id} file={file} />
             ))}
           </SimpleGrid>
-        </Paper>
-        <Paper {...PAPER_PROPS}>
+        </Surface>
+        <Surface {...PAPER_PROPS}>
           <Title order={4} mb="md">
             All files
           </Title>
@@ -192,7 +190,7 @@ function FileManager() {
             error={filesError}
             loading={filesLoading}
           />
-        </Paper>
+        </Surface>
       </Stack>
     </>
   );
