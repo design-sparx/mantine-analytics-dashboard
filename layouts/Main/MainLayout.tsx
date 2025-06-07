@@ -210,16 +210,18 @@ export function MainLayout({ children }: Props) {
       <ThemeCustomizer opened={isCustomizerOpen} onClose={closeCustomizer} />
 
       {/* Floating Action Button for Theme Customizer */}
-      <Affix position={{ bottom: 80, right: 20 }}>
-        <ActionIcon
-          size="xl"
-          radius="xl"
-          variant="filled"
-          onClick={openCustomizer}
-        >
-          <IconPalette size={24} />
-        </ActionIcon>
-      </Affix>
+      {!isCustomizerOpen && (
+        <Affix position={{ bottom: 80, right: 20 }}>
+          <ActionIcon
+            size="xl"
+            radius="xl"
+            variant="filled"
+            onClick={openCustomizer}
+          >
+            <IconPalette size={24} />
+          </ActionIcon>
+        </Affix>
+      )}
     </Box>
   );
 }
