@@ -91,7 +91,7 @@
   min-height: calc(100vh - rem(120)); /* Account for header and footer */
 
   @mixin light {
-    background-color: var(--mantine-color-gray-0);
+    background-color: var(--mantine-color-gray-1);
     /*box-shadow: 0 0 0 1px var(--mantine-color-gray-2);*/
   }
 

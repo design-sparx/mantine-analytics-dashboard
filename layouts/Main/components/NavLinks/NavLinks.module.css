@@ -19,11 +19,12 @@
 }
 
 .control, .link {
-  transition: all ease .2s;
+  transition: all ease .15;
   cursor: pointer;
 
   @mixin hover {
     background-color: light-dark(var(--mantine-primary-color-9), var(--mantine-primary-color-9));
+    color: var(--mantine-color-white);
   }
 
   &[data-active] {
@@ -31,6 +32,11 @@
     color: var(--mantine-color-white);
   }
 
+}
+
+.linksInner {
+  background-color: light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-6));
+  padding-left: var(--mantine-spacing-md);
 }
 
 .chevron {

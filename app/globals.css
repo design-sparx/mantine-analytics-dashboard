@@ -129,11 +129,21 @@ body {
 }
 
 .gradient-sidebar {
-  background: linear-gradient(
-    180deg,
-    var(--theme-primary-color) 0%,
-    color-mix(in srgb, var(--theme-primary-color) 70%, black 30%) 100%
-  );
+  @mixin light {
+    background: linear-gradient(
+      180deg,
+      var(--theme-primary-color) 0%,
+      color-mix(in srgb, var(--theme-primary-color) 70%, black 30%) 100%
+    );
+  }
+
+  @mixin dark {
+    background: linear-gradient(
+      180deg,
+      var(--mantine-color-dark-6) 0%,
+      var(--mantine-color-dark-8) 100%
+    );
+  }
 }
 
 .gradient-header {
@@ -142,17 +152,6 @@ body {
     var(--theme-primary-color) 0%,
     color-mix(in srgb, var(--theme-primary-color) 80%, black 20%) 100%
   );
-}
-
-/* Dark mode specific adjustments */
-@media (prefers-color-scheme: dark) {
-  .gradient-sidebar {
-    background: linear-gradient(
-      180deg,
-      var(--mantine-color-dark-6) 0%,
-      var(--mantine-color-dark-8) 100%
-    );
-  }
 }
 
 /* Responsive design helpers */
@@ -225,19 +224,34 @@ body {
 
 /* Glassmorphism card feel */
 .surface-glassmorphism {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.25) 0%,
-    rgba(255, 255, 255, 0.05) 100%
-  );
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
-  inset 0 1px 0 rgba(255, 255, 255, 0.4),
-  inset 0 -1px 0 rgba(255, 255, 255, 0.1);
   position: relative;
   overflow: hidden;
+
+  @mixin light {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    border: 1px solid rgba(150, 150, 150, 0.35);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  @mixin dark {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+    border: 1px solid rgba(100, 100, 100, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+  }
 }
 
 /* Add subtle primary color tint to glassmorphism */
@@ -248,37 +262,25 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    135deg,
-    color-mix(in srgb, var(--theme-primary-color) 20%, transparent) 0%,
-    color-mix(in srgb, var(--theme-primary-color) 8%, transparent) 100%
-  );
-  opacity: 0.3;
   pointer-events: none;
   z-index: -1;
-}
 
-/* Dark mode glassmorphism */
-@media (prefers-color-scheme: dark) {
-  .surface-glassmorphism {
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.15) 0%,
-      rgba(255, 255, 255, 0.02) 100%
-    );
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
-  }
-
-  .surface-glassmorphism::before {
+  @mixin light {
     background: linear-gradient(
       135deg,
       color-mix(in srgb, var(--theme-primary-color) 20%, transparent) 0%,
       color-mix(in srgb, var(--theme-primary-color) 8%, transparent) 100%
     );
-    opacity: 0.4;
+    opacity: 0.8;
+  }
+
+  @mixin dark {
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--theme-primary-color) 20%, transparent) 0%,
+      color-mix(in srgb, var(--theme-primary-color) 8%, transparent) 100%
+    );
+    opacity: 0.5;
   }
 }
 
@@ -303,24 +305,20 @@ body {
 
 /* Glassmorphism hover effect */
 .surface-glassmorphism.surface-hover:hover {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.35) 0%,
-    rgba(255, 255, 255, 0.08) 100%
-  );
-  border-color: rgba(255, 255, 255, 0.4);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15),
-  inset 0 1px 0 rgba(255, 255, 255, 0.5),
-  inset 0 -1px 0 rgba(255, 255, 255, 0.15);
-}
+  @mixin light {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.35) 0%,
+      rgba(255, 255, 255, 0.08) 100%
+    );
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.15);
+  }
 
-.surface-glassmorphism.surface-hover:hover::before {
-  opacity: 0.5;
-}
-
-@media (prefers-color-scheme: dark) {
-  .surface-glassmorphism.surface-hover:hover {
+  @mixin dark {
     background: linear-gradient(
       135deg,
       rgba(255, 255, 255, 0.25) 0%,
@@ -331,6 +329,10 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.3),
     inset 0 -1px 0 rgba(255, 255, 255, 0.08);
   }
+}
+
+.surface-glassmorphism.surface-hover:hover::before {
+  opacity: 0.5;
 }
 
 /* Compact mode adjustments */
@@ -370,29 +372,19 @@ body {
 
 /* Glassmorphism gradient variants for sidebar and header */
 .gradient-glassmorphism-sidebar {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.15) 0%,
-    rgba(255, 255, 255, 0.05) 100%
-  );
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
-}
 
-.gradient-glassmorphism-header {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.15) 0%,
-    rgba(255, 255, 255, 0.1) 100%
-  );
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
+  @mixin light {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+  }
 
-@media (prefers-color-scheme: dark) {
-  .gradient-glassmorphism-sidebar {
+  @mixin dark {
     background: linear-gradient(
       180deg,
       rgba(0, 0, 0, 0.3) 0%,
@@ -400,8 +392,22 @@ body {
     );
     border-right: 1px solid rgba(255, 255, 255, 0.1);
   }
+}
 
-  .gradient-glassmorphism-header {
+.gradient-glassmorphism-header {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  @mixin light {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.1) 100%
+    );
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  @mixin dark {
     background: linear-gradient(
       90deg,
       rgba(0, 0, 0, 0.3) 0%,

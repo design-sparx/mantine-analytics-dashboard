@@ -5,9 +5,6 @@ import {
   Group,
   Menu,
   Text,
-  rem,
-  useMantineColorScheme,
-  useMantineTheme,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconDots } from '@tabler/icons-react';
@@ -15,23 +12,11 @@ import { IconDots } from '@tabler/icons-react';
 import { PATH_GITHUB } from '@/routes';
 
 const FooterNav = () => {
-  const theme = useMantineTheme();
-  const { colorScheme } = useMantineColorScheme();
   const mobile_match = useMediaQuery('(max-width: 425px)');
 
   const BUTTON_PROPS: ButtonProps = {
     variant: 'subtle',
-    style: {
-      padding: `${rem(8)} ${rem(12)}`,
-      color: colorScheme === 'dark' ? theme.white : theme.black,
-
-      '&:hover': {
-        transition: 'all ease 150ms',
-        backgroundColor:
-          colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2],
-        textDecoration: 'none',
-      },
-    },
+    size: 'compact-md',
   };
 
   return (
@@ -59,13 +44,7 @@ const FooterNav = () => {
           <Button {...BUTTON_PROPS}>Terms of Use</Button>
         </Group>
       )}
-      <Text
-        c="dimmed"
-        fz="sm"
-        component="a"
-        href={PATH_GITHUB.org}
-        target="_blank"
-      >
+      <Text component="a" href={PATH_GITHUB.org} target="_blank">
         &copy;&nbsp;{new Date().getFullYear()}&nbsp;DesignSparx
       </Text>
     </Group>

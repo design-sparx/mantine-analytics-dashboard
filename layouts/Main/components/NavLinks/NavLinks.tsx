@@ -162,7 +162,11 @@ export function LinksGroup(props: LinksGroupProps) {
               )}
             </Group>
           </UnstyledButton>
-          {hasLinks ? <Collapse in={opened}>{items}</Collapse> : null}
+          {hasLinks ? (
+            <Collapse in={opened} className={classes.linksInner}>
+              {items}
+            </Collapse>
+          ) : null}
         </>
       );
     }

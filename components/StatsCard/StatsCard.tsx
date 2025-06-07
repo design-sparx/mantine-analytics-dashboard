@@ -16,7 +16,7 @@ const StatsCard = ({ data, ...others }: StatsCardProps) => {
   return (
     <Surface {...others}>
       <Group justify="space-between">
-        <Text size="xs" c="dimmed" className={classes.title}>
+        <Text size="xs" className={classes.title}>
           {title}
         </Text>
         {period && (
@@ -39,7 +39,7 @@ const StatsCard = ({ data, ...others }: StatsCardProps) => {
         </Text>
       </Group>
 
-      <Text fz="xs" c="dimmed" mt={7}>
+      <Text fz="xs" mt={7}>
         Compared to previous month
       </Text>
     </Surface>
