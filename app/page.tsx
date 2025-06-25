@@ -26,19 +26,8 @@ import {
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import {
-  IconAdjustmentsHorizontal,
-  IconApps,
   IconArrowRight,
-  IconBook,
   IconBrandGithub,
-  IconBrandMantine,
-  IconBrandTabler,
-  IconComponents,
-  IconDevices,
-  IconFileCode,
-  IconFileInfo,
-  IconLayoutBoard,
-  IconPaint,
   IconPlayerPlay,
 } from '@tabler/icons-react';
 import Link from 'next/link';
@@ -48,7 +37,7 @@ import { HOME_DASHBOARDS } from '@/constants/home-dashboard';
 import { HOME_FEATURES } from '@/constants/home-features';
 import { TECH_STACK } from '@/constants/tech-stack';
 import GuestLayout from '@/layouts/Guest';
-import { PATH_APPS, PATH_AUTH, PATH_DASHBOARD, PATH_GITHUB } from '@/routes';
+import { PATH_AUTH, PATH_GITHUB } from '@/routes';
 
 import classes from './page.module.css';
 
@@ -105,13 +94,13 @@ export default function Home() {
                   <Button
                     component={Link}
                     href={PATH_AUTH.signin}
-                    size="md"
+                    size="lg"
                     leftSection={<IconPlayerPlay size={18} />}
                   >
                     Live Preview
                   </Button>
                   <Button
-                    size="md"
+                    size="lg"
                     component="a"
                     href={PATH_GITHUB.repo}
                     target="_blank"
@@ -126,7 +115,7 @@ export default function Home() {
                   <Spoiler
                     maxHeight={48}
                     showLabel="Show more"
-                    hideLabel="Hide"
+                    hideLabel="Show less"
                     styles={{ control: { color: 'white', margin: '4px 8px' } }}
                   >
                     <Group pb="sm">
@@ -173,7 +162,7 @@ export default function Home() {
         >
           <Text>Created: June, 7 2025</Text>
           <Text>Updated: December, 8 2023</Text>
-          <Text>v 2.0</Text>
+          <Text>v 3.0</Text>
           <Text
             component="a"
             target="_blank"

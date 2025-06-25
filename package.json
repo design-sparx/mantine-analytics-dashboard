@@ -2,7 +2,7 @@
   "name": "mantine-analytics-dashboard",
   "description": "A free, open source, Next 14, React 18 admin dashboard template created using Mantine 7",
   "bugs": "https://github.com/design-sparx/mantine-analytics-dashboard/issues",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -15,12 +15,15 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "prettier": "prettier . --write",
-    "commitlint": "commitlint --edit"
+    "commitlint": "commitlint --edit",
+    "changeset:add": "pnpm changeset",
+    "changeset:release": "pnpm changeset version",
+    "changeset:publish": "pnpm changeset publish"
   },
   "dependencies": {
     "@auth/express": "^0.10.0",
     "@changesets/cli": "2.26.2",
-    "@clerk/nextjs": "^4.31.6",
+    "@clerk/nextjs": "^6.23.0",
     "@clerk/themes": "^1.7.9",
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/sortable": "^7.0.2",

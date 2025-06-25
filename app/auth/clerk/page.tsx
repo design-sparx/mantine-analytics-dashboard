@@ -1,56 +1,27 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import {
-  ClerkProvider,
   SignIn,
   SignInButton,
   SignOutButton,
   SignUp,
   SignUpButton,
 } from '@clerk/nextjs';
-import { dark, neobrutalism, shadesOfPurple } from '@clerk/themes';
 import {
   Button,
   Container,
-  Divider,
   Flex,
   Group,
   Image,
-  Select,
   Stack,
   Text,
   Title,
-  parseThemeColor,
-  useMantineTheme,
 } from '@mantine/core';
 import { IconLogin, IconLogin2, IconUserCircle } from '@tabler/icons-react';
 
 const ICON_SIZE = 18;
 
 function Home() {
-  const theme = useMantineTheme();
-  const parsedThemeColor = parseThemeColor({
-    color: theme.primaryColor,
-    theme,
-  });
-  const [clerkTheme, setClerkTheme] = useState<string | null>('');
-
-  const clerkAppearanceOptions: any = {
-    variables: { colorPrimary: parsedThemeColor.value },
-  };
-
-  useEffect(() => {
-    if (clerkTheme === 'dark') {
-      clerkAppearanceOptions['baseTheme'] = dark;
-    } else if (clerkTheme === 'neobrutalism') {
-      clerkAppearanceOptions['baseTheme'] = neobrutalism;
-    } else if (clerkTheme === 'purpleShades') {
-      clerkAppearanceOptions['baseTheme'] = shadesOfPurple;
-    }
-  }, [clerkTheme]);
-
   return (
     <>
       <>
@@ -60,7 +31,7 @@ function Home() {
           content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"
         />
       </>
-      <ClerkProvider appearance={...clerkAppearanceOptions}>
+      <>
         <Container>
           <Stack gap="lg">
             <Image
@@ -69,15 +40,6 @@ function Home() {
               w={120}
               fit="contain"
               alt=""
-            />
-            <Divider />
-            <Select
-              label="Select theme"
-              data={['light', 'dark', 'neobrutalism', 'purpleShades']}
-              value={clerkTheme}
-              onChange={setClerkTheme}
-              placeholder="select theme"
-              w={200}
             />
             <Stack gap="sm">
               <Title order={2}>Buttons</Title>
@@ -115,7 +77,7 @@ function Home() {
             </Flex>
           </Stack>
         </Container>
-      </ClerkProvider>
+      </>
     </>
   );
 }
