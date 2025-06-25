@@ -22,6 +22,12 @@
 
 .highlight {
   color: var(--mantine-primary-color-filled);
+  font-size: rem(40) !important;
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    font-size: rem(28) !important;
+    text-align: left;
+  }
 }
 
 .stackControl {
