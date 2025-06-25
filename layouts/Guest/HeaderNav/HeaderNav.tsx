@@ -18,7 +18,15 @@ import { PATH_AUTH, PATH_DASHBOARD, PATH_DOCS, PATH_GITHUB } from '@/routes';
 
 import classes from './HeaderNav.module.css';
 
-const MOCK_DATA = [
+const LINK_ITEMS = [
+  {
+    link: '/changelog',
+    label: 'changelog',
+  },
+  {
+    link: 'https://github.com/orgs/design-sparx/projects/5',
+    label: 'roadmap',
+  },
   {
     link: 'https://6564d1b09deea091e3ec0769-jsxuvbmjcr.chromatic.com/?path=/docs/welcome--docs',
     label: 'components',
@@ -41,7 +49,7 @@ const HeaderNav = () => {
     useDisclosure(false);
   const tablet_match = useMediaQuery('(max-width: 768px)');
 
-  const items = MOCK_DATA.map((link) => {
+  const items = LINK_ITEMS.map((link) => {
     return (
       <Button
         key={link.label}

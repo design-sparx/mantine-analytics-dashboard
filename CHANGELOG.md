@@ -1,5 +1,17 @@
 # analytics-dashboard
 
+## 3.1.0
+
+### Minor Changes
+
+- feat: added changesets page
+
+## 3.0.1
+
+### Patch Changes
+
+- a1d2c5c: fix: fixed image assets loading by reworking middleware.ts
+
 ## 3.0.0
 
 ### Major Changes

@@ -85,6 +85,7 @@ export default async function middleware(request: NextRequest) {
   // Route to appropriate auth middleware
   if (shouldUseClerk(pathname)) {
     // Use Clerk middleware for Clerk-specific paths
+    // @ts-ignore
     return clerkMiddleware(request);
   } else if (shouldUseNextAuth(pathname)) {
     // Use NextAuth middleware for NextAuth-specific paths
