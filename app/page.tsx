@@ -43,180 +43,14 @@ import {
 } from '@tabler/icons-react';
 import Link from 'next/link';
 
+import { HOME_APPS } from '@/constants/home-apps';
+import { HOME_DASHBOARDS } from '@/constants/home-dashboard';
+import { HOME_FEATURES } from '@/constants/home-features';
+import { TECH_STACK } from '@/constants/tech-stack';
 import GuestLayout from '@/layouts/Guest';
 import { PATH_APPS, PATH_AUTH, PATH_DASHBOARD, PATH_GITHUB } from '@/routes';
 
 import classes from './page.module.css';
-
-const TECH_STACK = [
-  { title: 'nextjs', version: '14.0.2', href: 'https://nextjs.org/' },
-  { title: 'react', version: '18.2.0', href: 'https://react.dev/' },
-  {
-    title: 'typescript',
-    version: '5.1.6',
-    href: 'https://www.typescriptlang.org/',
-  },
-  { title: 'mantine', version: '7.14.2', href: 'https://mantine.dev/' },
-  {
-    title: 'tabler icons',
-    version: '2.40.0',
-    href: 'https://tabler-icons.io/',
-  },
-  { title: 'tiptap', version: '2.1.12', href: 'https://tiptap.dev/' },
-  { title: 'apexcharts', version: '3.44.0', href: 'https://apexcharts.com/' },
-  { title: 'dayjs', version: '1.11.10', href: 'https://day.js.org/' },
-  { title: 'fullcalendar', version: '6.1.8', href: 'https://fullcalendar.io/' },
-  { title: 'dnd-kit', version: '6.0.8', href: 'https://dndkit.com/' },
-  {
-    title: 'embla-carousel',
-    version: '8.0.0',
-    href: 'https://www.embla-carousel.com/',
-  },
-  {
-    title: 'mantine datatable',
-    version: '7.1.7',
-    href: 'https://icflorescu.github.io/mantine-datatable',
-  },
-  { title: 'lodash', version: '4.17.21', href: 'https://lodash.com/' },
-  {
-    title: 'react simple maps',
-    version: '3.0.0',
-    href: 'https://www.react-simple-maps.io/',
-  },
-];
-
-const APPS = [
-  {
-    img: '/showcase/apps-calendar.png',
-    title: 'calendar',
-    link: PATH_APPS.calendar,
-  },
-  {
-    img: '/showcase/apps-chat.png',
-    title: 'chat',
-    link: PATH_APPS.chat,
-  },
-  {
-    img: '/showcase/apps-invoices.png',
-    title: 'invoices',
-    link: PATH_APPS.invoices.root,
-  },
-  {
-    img: '/showcase/apps-orders.png',
-    title: 'orders',
-    link: PATH_APPS.orders,
-  },
-  {
-    img: '/showcase/apps-profile.png',
-    title: 'profile',
-    link: PATH_APPS.profile,
-  },
-  {
-    img: '/showcase/apps-projects.png',
-    title: 'projects',
-    link: PATH_APPS.projects,
-  },
-  {
-    img: '/showcase/apps-settings.png',
-    title: 'settings',
-    link: PATH_APPS.settings,
-  },
-  {
-    img: '/showcase/apps-tasks.png',
-    title: 'tasks',
-    link: PATH_APPS.tasks,
-  },
-];
-
-const DASHBOARDS = [
-  {
-    img: '/showcase/dashboard-default.png',
-    title: 'default',
-    link: PATH_DASHBOARD.default,
-  },
-  {
-    img: '/showcase/dashboard-analytics.png',
-    title: 'analytics',
-    link: PATH_DASHBOARD.analytics,
-  },
-  {
-    img: '/showcase/dashboard-saas.png',
-    title: 'saas',
-    link: PATH_DASHBOARD.saas,
-  },
-  {
-    img: '/showcase/dashboard-default-dark.png',
-    title: 'dark mode',
-    link: PATH_DASHBOARD.default,
-  },
-];
-
-const FEATURES = [
-  {
-    title: '10+ Theme Colors',
-    description:
-      'We have included 6 pre-defined Theme Colors with Mantine Admin.',
-    icons: IconPaint,
-  },
-  {
-    title: '20+ Page Templates',
-    description: 'Yes, we have 20+ in page demos.',
-    icons: IconFileInfo,
-  },
-  {
-    title: '45+ UI Components',
-    description:
-      'Almost 45+ UI Components being given with Mantine Admin Pack.',
-    icons: IconComponents,
-  },
-  {
-    title: '2+ Dashboards',
-    description: 'Yes, we have designed 2 Stunning Dashboards.',
-    icons: IconLayoutBoard,
-  },
-  {
-    title: '11+ Applications',
-    description:
-      'Yes, we have designed 11 Applications which are ready to use.',
-    icons: IconApps,
-  },
-  {
-    title: 'Mantine UI',
-    description: 'Its been made with Mantine UI and full responsive layout.',
-    icons: IconBrandMantine,
-  },
-  {
-    title: '4800+ Font Icons',
-    description:
-      'Lots of Icon Fonts are included here in the package of Mantine Admin.',
-    icons: IconBrandTabler,
-  },
-  {
-    title: 'Documentation',
-    description: 'We have made detailed documentation, so it will easy to use.',
-    icons: IconBook,
-  },
-  {
-    title: 'Modular',
-    description: 'All components are built to be used in any combination.',
-    icons: IconFileCode,
-  },
-  {
-    title: 'Responsive',
-    description: 'Quick is optimized to work for most devices.',
-    icons: IconDevices,
-  },
-  {
-    title: 'Scalable',
-    description: 'Remain consistent while developing new features.',
-    icons: IconPaint,
-  },
-  {
-    title: 'Customizable',
-    description: 'Change a few variables and the whole theme adapts.',
-    icons: IconAdjustmentsHorizontal,
-  },
-];
 
 const IMAGE_PAPER_PROPS: PaperProps = {
   py: 'md',
@@ -262,7 +96,7 @@ export default function Home() {
                   </Text>
                   dashboard or app.
                 </Title>
-                <Text>
+                <Text fz="lg">
                   Mantine admin template comes with hundreds of UI elements,
                   forms, tables, charts, pages and icons that helps you to
                   create your web apps or applications faster.
@@ -337,7 +171,7 @@ export default function Home() {
           pt="xl"
           className={classes.section}
         >
-          <Text>Created: July, 24 2023</Text>
+          <Text>Created: June, 7 2025</Text>
           <Text>Updated: December, 8 2023</Text>
           <Text>v 2.0</Text>
           <Text
@@ -357,7 +191,7 @@ export default function Home() {
             spacing={{ base: 'sm', sm: 'sm', md: 'sm', lg: 'lg' }}
             verticalSpacing={{ base: 'sm', sm: 'sm', md: 'sm', lg: 'lg' }}
           >
-            {DASHBOARDS.map((dashboard) => (
+            {HOME_DASHBOARDS.map((dashboard) => (
               <Paper
                 key={dashboard.title}
                 component={Link}
@@ -378,14 +212,14 @@ export default function Home() {
         </Container>
         <Container fluid {...BOX_PROPS}>
           <Title order={2} ta="center" mb="xl">
-            {APPS.length - 2}+ apps included
+            {HOME_APPS.length - 2}+ apps included
           </Title>
           <SimpleGrid
             cols={{ base: 1, sm: 1, md: 2, lg: 3 }}
             spacing={{ base: 'sm', sm: 'sm', md: 'sm', lg: 'lg' }}
             verticalSpacing={{ base: 'sm', sm: 'sm', md: 'sm', lg: 'lg' }}
           >
-            {APPS.map((app) => (
+            {HOME_APPS.map((app) => (
               <Paper
                 key={app.title}
                 component={Link}
@@ -414,7 +248,7 @@ export default function Home() {
             spacing={{ base: 'sm', sm: 'sm', md: 'sm', lg: 'lg' }}
             verticalSpacing={{ base: 'sm', sm: 'sm', md: 'sm', lg: 'lg' }}
           >
-            {FEATURES.map((feature) => (
+            {HOME_FEATURES.map((feature) => (
               <Paper
                 key={feature.title}
                 p="md"

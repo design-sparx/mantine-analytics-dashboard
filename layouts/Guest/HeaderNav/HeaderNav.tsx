@@ -18,12 +18,7 @@ import { PATH_AUTH, PATH_DASHBOARD, PATH_DOCS, PATH_GITHUB } from '@/routes';
 
 import classes from './HeaderNav.module.css';
 
-
 const MOCK_DATA = [
-  {
-    link: 'https://652579e5b7998a00083d022b--mantine-analytics-dashboard.netlify.app/',
-    label: 'Version 1',
-  },
   {
     link: 'https://6564d1b09deea091e3ec0769-jsxuvbmjcr.chromatic.com/?path=/docs/welcome--docs',
     label: 'components',
@@ -48,14 +43,17 @@ const HeaderNav = () => {
 
   const items = MOCK_DATA.map((link) => {
     return (
-      <a
+      <Button
         key={link.label}
+        component="a"
         href={link.link}
         target="_blank"
+        variant="transparent"
+        c="white"
         className={classes.link}
       >
         {link.label}
-      </a>
+      </Button>
     );
   });
 
