@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useId } from 'react';
 
 import {
   DndContext,
@@ -133,6 +133,8 @@ const KanbanBoard = () => {
     }),
   );
 
+  const id = useId()
+
   return (
     <ScrollArea
       h="100%"
@@ -149,6 +151,7 @@ const KanbanBoard = () => {
       }}
     >
       <DndContext
+        id={id}
         sensors={sensors}
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}
