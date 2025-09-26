@@ -18,7 +18,7 @@ async function refreshAccessToken(token: JWT) {
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/refresh-token`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/refresh-token`,
       {
         method: 'POST',
         headers: {
@@ -86,7 +86,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         try {
           const res = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
+            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/login`,
             {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
