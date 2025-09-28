@@ -1,6 +1,5 @@
 // Updated types to match your C# backend models
-
-import { IUser } from '@/types/user';
+// Note: For new development, prefer using the OpenAPI-generated types from @/lib/api
 
 export interface IInvoiceItem {
   id?: string;
@@ -61,10 +60,10 @@ export interface IInvoice {
   // Audit fields
   created?: string;
   createdById?: string;
-  createdBy?: IUser;
+  createdBy?: any; // Use OpenAPI types for new development
   modified?: string;
   modifiedById?: string;
-  modifiedBy?: IUser;
+  modifiedBy?: any; // Use OpenAPI types for new development
 }
 
 export enum InvoiceStatus {

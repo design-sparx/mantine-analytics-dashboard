@@ -16,7 +16,7 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { useDisclosure, useFetch } from '@mantine/hooks';
+import { useDisclosure } from '@mantine/hooks';
 import {
   IconGridDots,
   IconList,
@@ -25,10 +25,15 @@ import {
 } from '@tabler/icons-react';
 
 import { ErrorAlert, PageHeader, Surface } from '@/components';
-import { useAuth } from '@/hooks/useAuth';
 import { PATH_DASHBOARD } from '@/routes';
-import { IApiResponse } from '@/types/api-response';
-import { IInvoice } from '@/types/invoice';
+
+// Simplified API imports
+import {
+  useInvoicesWithMutations,
+  usePermission,
+  type components,
+} from '@/lib/endpoints';
+import { PermissionGate } from '@/lib/api/permissions';
 
 import { EditInvoiceDrawer } from './components/EditInvoiceDrawer';
 import { InvoiceCard } from './components/InvoiceCard';
@@ -45,29 +50,27 @@ const items = [
   </Anchor>
 ));
 
-const PAPER_PROPS: PaperProps = {
-  p: 'md',
-};
-
 function Invoices() {
-  const { permissions, accessToken } = useAuth();
-  const [selectedInvoice, setSelectedInvoice] = useState<IInvoice | null>(null);
+  const [selectedInvoice, setSelectedInvoice] = useState<
+    components['schemas']['InvoiceDto'] | null
+  >(null);
   const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
 
+  // Use simplified API hooks with built-in RBAC
   const {
     data: invoicesData,
     loading: invoicesLoading,
     error: invoicesError,
     refetch: refetchInvoices,
-  } = useFetch<IApiResponse<IInvoice[]>>('/api/invoices', {
-    headers: {
-      Authorization: 'Bearer ' + accessToken,
-      'Content-Type': 'application/json',
-    },
-  });
+    mutations,
+    hasPermission: canViewInvoices,
+    permissionDenied,
+  } = useInvoicesWithMutations();
 
-  // Check if the user has permission to add invoices
-  const canAddInvoice = permissions?.includes('Permissions.Invoices.Create');
+  // Permission checking for UI components
+  const { hasPermission: canManageInvoices } = usePermission(
+    'Permissions.Personal.Invoices',
+  );
 
   const [newDrawerOpened, { open: newInvoiceOpen, close: newInvoiceClose }] =
     useDisclosure(false);
@@ -76,50 +79,39 @@ function Invoices() {
     useDisclosure(false);
 
   const handleInvoiceCreated = useCallback(() => {
-    refetchInvoices();
-  }, [refetchInvoices]);
+    // No need to manually refetch - mutations handle this automatically
+  }, []);
 
   const handleInvoiceUpdated = useCallback(() => {
-    refetchInvoices();
-  }, [refetchInvoices]);
+    // No need to manually refetch - mutations handle this automatically
+  }, []);
 
-  const handleEditInvoice = (invoice: IInvoice) => {
+  const handleEditInvoice = (invoice: components['schemas']['InvoiceDto']) => {
     setSelectedInvoice(invoice);
     editInvoiceOpen();
   };
 
-  const handleViewInvoice = (invoice: IInvoice) => {
+  const handleViewInvoice = (invoice: components['schemas']['InvoiceDto']) => {
     setSelectedInvoice(invoice);
     editInvoiceOpen();
   };
 
-  const handleDeleteInvoice = async (invoice: IInvoice) => {
+  const handleDeleteInvoice = async (
+    invoice: components['schemas']['InvoiceDto'],
+  ) => {
     if (!window.confirm('Are you sure you want to delete this invoice?')) {
       return;
     }
 
     try {
-      const response = await fetch(`/api/invoices/${invoice.id}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: 'Bearer ' + accessToken,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (response.ok) {
-        refetchInvoices();
-      } else {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to delete invoice');
-      }
+      await mutations.delete(invoice.id!);
     } catch (error) {
       console.error('Error deleting invoice:', error);
       alert('Failed to delete invoice. Please try again.');
     }
   };
 
-  const invoiceItems = invoicesData?.data?.map((invoice: IInvoice) => (
+  const invoiceItems = invoicesData?.data?.map((invoice) => (
     <InvoiceCard
       key={invoice.id}
       data={invoice}
@@ -128,7 +120,25 @@ function Invoices() {
     />
   ));
 
+  console.log({ invoicesData });
+
   const renderContent = () => {
+    // Show permission denied message if user doesn't have access
+    if (permissionDenied) {
+      return (
+        <Surface p="md">
+          <Stack align="center">
+            <IconMoodEmpty size={24} />
+            <Title order={4}>Access Denied</Title>
+            <Text>
+              You don&apos;t have permission to view invoices. Contact your
+              administrator for access.
+            </Text>
+          </Stack>
+        </Surface>
+      );
+    }
+
     if (invoicesLoading) {
       return (
         <SimpleGrid
@@ -165,7 +175,7 @@ function Invoices() {
             <Text>
               You don&apos;t have any invoices yet. Create one to get started.
             </Text>
-            {canAddInvoice && (
+            {canManageInvoices && (
               <Button
                 leftSection={<IconPlus size={18} />}
                 onClick={newInvoiceOpen}
@@ -215,14 +225,14 @@ function Invoices() {
             title="Invoices"
             breadcrumbItems={items}
             actionButton={
-              canAddInvoice && (
+              canManageInvoices && invoicesData?.data?.length ? (
                 <Button
                   leftSection={<IconPlus size={18} />}
                   onClick={newInvoiceOpen}
                 >
                   New Invoice
                 </Button>
-              )
+              ) : null
             }
           />
 

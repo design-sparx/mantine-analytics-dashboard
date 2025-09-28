@@ -21,6 +21,7 @@ import NewProductDrawer from '@/app/apps/products/components/NewProductDrawer';
 import ProductsCard from '@/app/apps/products/components/ProductCard/ProductsCard';
 import { ErrorAlert, PageHeader, Surface } from '@/components';
 import { useAuth } from '@/hooks/useAuth';
+import { PermissionGate } from '@/lib/api/permissions';
 import { PATH_DASHBOARD } from '@/routes';
 import { IApiResponse } from '@/types/api-response';
 import { IProduct } from '@/types/products';
@@ -42,7 +43,7 @@ const CARD_PROPS: Omit<PaperProps, 'children'> = {
 };
 
 function Products() {
-  const { permissions, accessToken } = useAuth();
+  const { hasPermission, accessToken } = useAuth();
   const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null);
 
   const {
@@ -57,8 +58,8 @@ function Products() {
     },
   });
 
-  // Check if the user has permission to add products
-  const canAddProduct = permissions?.includes('Permissions.Products.Create');
+  // Check if the user has permission to add products (now using new RBAC system)
+  const canAddProduct = hasPermission('Permissions.Team.Projects'); // Update permission name to match RBAC config
 
   const [newDrawerOpened, { open: newProductOpen, close: newProductClose }] =
     useDisclosure(false);
@@ -125,14 +126,14 @@ function Products() {
             <Text>
               You don&apos;t have any products yet. Create one to get started.
             </Text>
-            {canAddProduct && (
+            <PermissionGate permission="Permissions.Team.Projects">
               <Button
                 leftSection={<IconPlus size={18} />}
                 onClick={newProductOpen}
               >
                 New Product
               </Button>
-            )}
+            </PermissionGate>
           </Stack>
         </Surface>
       );
@@ -162,14 +163,15 @@ function Products() {
         title="Products"
         breadcrumbItems={items}
         actionButton={
-          canAddProduct &&
           productsData?.data?.length && (
-            <Button
-              leftSection={<IconPlus size={18} />}
-              onClick={newProductOpen}
-            >
-              New Product
-            </Button>
+            <PermissionGate permission="Permissions.Team.Projects">
+              <Button
+                leftSection={<IconPlus size={18} />}
+                onClick={newProductOpen}
+              >
+                New Product
+              </Button>
+            </PermissionGate>
           )
         }
       />

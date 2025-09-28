@@ -5,138 +5,102 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 
 import { PATH_AUTH, PATH_DASHBOARD } from '@/routes';
 import {
-  registerUser,
-  forgotPassword as forgotPasswordUtil,
-  resetPassword as resetPasswordUtil,
-  changePassword as changePasswordUtil,
-  updateProfile as updateProfileUtil,
-  getProfile as getProfileUtil,
-} from '@/utils/auth';
-import {
-  RegisterRequestDto,
-  ResetPasswordRequestDto,
-  ChangePasswordRequestDto,
-  UpdateProfileDto,
-  LogoutAuthRequestDto,
-} from '@/types/user';
+  usePermissions,
+  clearUserPermissions,
+  type Permission
+} from '@/lib/api/permissions';
+import type { components } from '@/lib/api';
+
+// Type aliases for compatibility
+type LoginDto = components['schemas']['LoginDto'];
+type RegisterDto = components['schemas']['RegisterDto'];
+type UserProfileDto = components['schemas']['UserProfileDto'];
 
 export const useAuth = () => {
   const { data: session, status } = useSession();
+  const userPermissions = usePermissions();
   const router = useRouter();
 
   const isAuthenticated = status === 'authenticated';
   const isLoading = status === 'loading';
 
-  // Keep the NextAuth logout flow but also call backend logout
+  // Simplified logout using NextAuth only
   const logout = async () => {
     try {
-      // Call backend logout endpoint if user email is available
-      if (session?.user?.email) {
-        const logoutData: LogoutAuthRequestDto = {
-          email: session.user.email,
-        };
+      // Clear permissions
+      clearUserPermissions();
 
+      // Call backend logout if we have a session
+      if (session?.user?.email) {
         await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/logout`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${session.accessToken}`,
           },
-          body: JSON.stringify(logoutData),
+          body: JSON.stringify({ email: session.user.email }),
         });
       }
+
+      // NextAuth logout
+      await signOut({ redirect: false });
+      router.push(PATH_AUTH.signin);
     } catch (error) {
-      console.error('Backend logout failed:', error);
-    } finally {
+      console.error('Logout failed:', error);
+      // Ensure cleanup happens even on error
+      clearUserPermissions();
       await signOut({ redirect: false });
       router.push(PATH_AUTH.signin);
     }
   };
 
-  // Keep the NextAuth login flow
+  // Simplified login using NextAuth only
   const login = async (email: string, password: string) => {
-    const result = await signIn('credentials', {
-      redirect: false,
-      email,
-      password,
-    });
-
-    if (result?.ok) {
-      router.push(PATH_DASHBOARD.default);
-      return true;
-    }
-
-    return false;
-  };
-
-  // Additional auth methods using the utility functions
-  const register = async (userData: RegisterRequestDto) => {
     try {
-      await registerUser(userData);
-      return true;
+      const result = await signIn('credentials', {
+        redirect: false,
+        email,
+        password,
+      });
+
+      if (result?.ok) {
+        router.push(PATH_DASHBOARD.default);
+        return true;
+      }
+
+      return false;
     } catch (error) {
+      console.error('Login failed:', error);
       return false;
     }
   };
 
-  const forgotPassword = async (email: string) => {
-    try {
-      await forgotPasswordUtil(email);
-      return true;
-    } catch (error) {
-      return false;
-    }
-  };
-
-  const resetPassword = async (resetData: ResetPasswordRequestDto) => {
-    try {
-      await resetPasswordUtil(resetData);
-      return true;
-    } catch (error) {
-      return false;
-    }
-  };
-
-  const changePassword = async (changePasswordData: ChangePasswordRequestDto) => {
-    try {
-      await changePasswordUtil(changePasswordData);
-      return true;
-    } catch (error) {
-      return false;
-    }
-  };
-
-  const updateProfile = async (profileData: UpdateProfileDto) => {
-    try {
-      await updateProfileUtil(profileData);
-      return true;
-    } catch (error) {
-      return false;
-    }
-  };
-
-  const getProfile = async () => {
-    try {
-      return await getProfileUtil();
-    } catch (error) {
-      return null;
-    }
+  // Permission helpers - use NextAuth session permissions
+  const hasPermission = (permission: Permission): boolean => {
+    // Try userPermissions first, then session permissions
+    const permissions = userPermissions?.permissions || session?.permissions || [];
+    return permissions.includes(permission);
   };
 
   return {
+    // User info from NextAuth session
     user: session?.user,
-    permissions: session?.permissions || [],
-    roles: session?.roles || [],
+
+    // Permissions from RBAC system or session
+    permissions: userPermissions?.permissions || session?.permissions || [],
+    roles: userPermissions?.role ? [userPermissions.role] : session?.roles || [],
+    userPermissions,
+    hasPermission,
+
+    // Auth state
     isAuthenticated,
     isLoading,
+
+    // Auth actions
     login,
     logout,
-    register,
-    forgotPassword,
-    resetPassword,
-    changePassword,
-    updateProfile,
-    getProfile,
+
+    // Token access
     accessToken: session?.accessToken,
   };
 };

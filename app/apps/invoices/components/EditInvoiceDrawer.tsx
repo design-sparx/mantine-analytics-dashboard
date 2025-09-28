@@ -23,11 +23,14 @@ import { notifications } from '@mantine/notifications';
 
 import { useAuth } from '@/hooks/useAuth';
 import {
-  IInvoice,
   InvoiceStatus,
   getInvoiceStatusColor,
   getInvoiceStatusLabel,
 } from '@/types/invoice';
+import { updateInvoice, type components } from '@/lib/endpoints';
+
+// Use the correct OpenAPI DTO type
+type InvoiceDto = components['schemas']['InvoiceDto'];
 
 interface EditInvoiceFormValues {
   invoiceNumber: string;
@@ -44,7 +47,7 @@ interface EditInvoiceFormValues {
 }
 
 type EditInvoiceDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
-  invoice: IInvoice | null;
+  invoice: InvoiceDto | null;
   onInvoiceUpdated?: () => void;
 };
 

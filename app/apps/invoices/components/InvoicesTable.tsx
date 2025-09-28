@@ -27,19 +27,22 @@ import {
 
 import { useAuth } from '@/hooks/useAuth';
 import {
-  IInvoice,
   InvoiceStatus,
   getInvoiceStatusColor,
   getInvoiceStatusLabel,
 } from '@/types/invoice';
+import { type components } from '@/lib/endpoints';
+
+// Use the correct OpenAPI DTO type
+type InvoiceDto = components['schemas']['InvoiceDto'];
 
 interface InvoicesTableProps {
-  data: IInvoice[];
+  data: InvoiceDto[];
   loading?: boolean;
   error?: string | null;
-  onEdit?: (invoice: IInvoice) => void;
-  onView?: (invoice: IInvoice) => void;
-  onDelete?: (invoice: IInvoice) => void;
+  onEdit?: (invoice: InvoiceDto) => void;
+  onView?: (invoice: InvoiceDto) => void;
+  onDelete?: (invoice: InvoiceDto) => void;
 }
 
 export const InvoicesTable = ({
@@ -73,10 +76,11 @@ export const InvoicesTable = ({
     });
   };
 
-  const isOverdue = (invoice: IInvoice) => {
-    if (!invoice.dueDate) return false;
+  const isOverdue = (invoice: InvoiceDto) => {
+    // Note: OpenAPI schema doesn't have dueDate, using issue_date as fallback
+    if (!invoice.issue_date) return false;
     return (
-      new Date(invoice.dueDate) < new Date() &&
+      new Date(invoice.issue_date) < new Date() &&
       invoice.status !== InvoiceStatus.Paid
     );
   };
@@ -85,18 +89,15 @@ export const InvoicesTable = ({
   const filteredData = data.filter((invoice) => {
     const matchesSearch =
       invoice.id?.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
-      invoice.invoiceNumber
+      invoice.client_name
         ?.toLowerCase()
         .includes(debouncedSearch.toLowerCase()) ||
-      invoice.customerName
-        ?.toLowerCase()
-        .includes(debouncedSearch.toLowerCase()) ||
-      invoice.customerEmail
+      invoice.client_email
         ?.toLowerCase()
         .includes(debouncedSearch.toLowerCase());
 
     const matchesStatus =
-      statusFilter === 'all' || invoice.status.toString() === statusFilter;
+      statusFilter === 'all' || invoice.status?.toString() === statusFilter;
 
     return matchesSearch && matchesStatus;
   });
@@ -147,7 +148,7 @@ export const InvoicesTable = ({
   }
 
   const rows = paginatedData.map((invoice) => {
-    const isCreator = user?.id === invoice.createdById;
+    const isCreator = user?.id === invoice.created_by_id;
 
     return (
       <Table.Tr key={invoice.id}>
@@ -156,11 +157,10 @@ export const InvoicesTable = ({
             <IconFileText size={16} />
             <div>
               <Text fw={500} size="sm">
-                {invoice.invoiceNumber ||
-                  `INV-${invoice.id?.slice(-6)?.toUpperCase()}`}
+                {`INV-${invoice.id?.slice(-6)?.toUpperCase()}`}
               </Text>
               <Text size="xs" c="dimmed">
-                {invoice.issueDate && formatDate(invoice.issueDate)}
+                {invoice.issue_date && formatDate(invoice.issue_date)}
               </Text>
             </div>
           </Group>
@@ -169,21 +169,21 @@ export const InvoicesTable = ({
         <Table.Td>
           <div>
             <Text size="sm" fw={500}>
-              {invoice.customerName || 'N/A'}
+              {invoice.client_name || 'N/A'}
             </Text>
             <Text size="xs" c="dimmed">
-              {invoice.customerEmail || 'N/A'}
+              {invoice.client_email || 'N/A'}
             </Text>
           </div>
         </Table.Td>
 
         <Table.Td>
           <Badge
-            color={getInvoiceStatusColor(invoice.status)}
+            color={getInvoiceStatusColor(invoice.status!)}
             variant="light"
             size="sm"
           >
-            {getInvoiceStatusLabel(invoice.status)}
+            {getInvoiceStatusLabel(invoice.status!)}
           </Badge>
           {isOverdue(invoice) && (
             <Text size="xs" c="red" mt={2}>
@@ -194,23 +194,23 @@ export const InvoicesTable = ({
 
         <Table.Td>
           <Text size="sm" c={isOverdue(invoice) ? 'red' : undefined}>
-            {invoice.dueDate ? formatDate(invoice.dueDate) : 'N/A'}
+            {invoice.issue_date ? formatDate(invoice.issue_date) : 'N/A'}
           </Text>
         </Table.Td>
 
         <Table.Td>
-          <Text size="sm">{invoice.invoiceItems?.length || 0} items</Text>
+          <Text size="sm">N/A</Text>
         </Table.Td>
 
         <Table.Td>
           <Text size="sm" fw={500}>
-            {invoice.totalAmount ? formatCurrency(invoice.totalAmount) : 'N/A'}
+            {invoice.amount ? formatCurrency(invoice.amount) : 'N/A'}
           </Text>
         </Table.Td>
 
         <Table.Td>
           <Text size="xs" c="dimmed">
-            {invoice.createdBy ? `${invoice.createdBy.userName}` : 'N/A'}
+            {invoice.created_by_name || 'N/A'}
           </Text>
         </Table.Td>
 

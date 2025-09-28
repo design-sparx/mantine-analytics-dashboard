@@ -26,6 +26,10 @@ import { IconPlus, IconTrash } from '@tabler/icons-react';
 
 import { useAuth } from '@/hooks/useAuth';
 import { InvoiceStatus } from '@/types/invoice';
+import { createInvoice, type components } from '@/lib/endpoints';
+
+// Use the correct OpenAPI DTO type
+type InvoiceDto = components['schemas']['InvoiceDto'];
 
 interface InvoiceItem {
   description: string;
@@ -128,19 +132,33 @@ export const NewInvoiceDrawer = ({
         createdById: user?.id,
       };
 
-      const response = await fetch('/api/invoices', {
-        method: 'POST',
-        headers: {
-          Authorization: 'Bearer ' + accessToken,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
+      // Map form values to OpenAPI DTO format
+      const invoiceData: InvoiceDto = {
+        id: undefined, // Backend will generate
+        full_name: values.customerName,
+        email: values.customerEmail,
+        address: values.customerAddress,
+        country: undefined, // Not in form
+        status: Number(values.status),
+        amount: totalAmount,
+        issue_date: values.issueDate?.toISOString(),
+        description: values.notes,
+        client_email: values.customerEmail,
+        client_address: values.billingAddress,
+        client_country: undefined, // Not in form
+        client_name: values.customerName,
+        client_company: undefined, // Not in form
+        created_by_id: user?.id,
+        created_by_email: user?.email,
+        created_by_name: user?.name,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      };
 
-      const data = await response.json();
+      const result = await createInvoice(invoiceData);
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to create invoice');
+      if (!result.succeeded) {
+        throw new Error(result.errors?.join(', ') || 'Failed to create invoice');
       }
 
       notifications.show({
