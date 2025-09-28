@@ -3,7 +3,10 @@ import { useSession } from 'next-auth/react';
 import type { components } from '@/lib/api';
 
 // Simple permission checking helper
-function hasPermission(userPermissions: string[] | undefined, requiredPermission: string): boolean {
+function hasPermission(
+  userPermissions: string[] | undefined,
+  requiredPermission: string,
+): boolean {
   if (!userPermissions || !requiredPermission) return false;
   return userPermissions.includes(requiredPermission);
 }
@@ -20,7 +23,9 @@ export type ApiResponse<T> = {
 };
 
 // Get auth headers helper using NextAuth session
-export function getAuthHeaders(accessToken?: string): HeadersInit {
+export function getAuthHeaders(
+  accessToken: string | undefined | null,
+): HeadersInit {
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
   };
@@ -33,11 +38,14 @@ export function getAuthHeaders(accessToken?: string): HeadersInit {
 }
 
 // Simple GET hook with NextAuth and RBAC
-export function useApiGet<T>(endpoint: string, options?: {
-  params?: Record<string, any>;
-  enabled?: boolean;
-  permission?: string;
-}) {
+export function useApiGet<T>(
+  endpoint: string,
+  options?: {
+    params?: Record<string, any>;
+    enabled?: boolean;
+    permission?: string;
+  },
+) {
   const { params, enabled = true, permission } = options || {};
   const { data: session } = useSession();
 
@@ -57,14 +65,12 @@ export function useApiGet<T>(endpoint: string, options?: {
     : true;
 
   // Only make request if we have a session, it's enabled, and permissions allow
-  const shouldFetch = enabled && !!session?.accessToken && hasRequiredPermission;
+  const shouldFetch =
+    enabled && !!session?.accessToken && hasRequiredPermission;
 
-  const result = useFetch<ApiResponse<T>>(
-    shouldFetch ? url.toString() : '',
-    {
-      headers: getAuthHeaders(session?.accessToken),
-    }
-  );
+  const result = useFetch<ApiResponse<T>>(shouldFetch ? url.toString() : '', {
+    headers: getAuthHeaders(session?.accessToken),
+  });
 
   // Add permission info to the result
   return {
@@ -79,7 +85,8 @@ async function getCurrentTokenAndPermissions(): Promise<{
   token: string | null;
   permissions: string[] | undefined;
 }> {
-  if (typeof window === 'undefined') return { token: null, permissions: undefined };
+  if (typeof window === 'undefined')
+    return { token: null, permissions: undefined };
 
   // Get session from NextAuth
   const { getSession } = await import('next-auth/react');
@@ -93,7 +100,7 @@ async function getCurrentTokenAndPermissions(): Promise<{
 // Permission-aware mutation wrapper
 async function withPermissionCheck<T>(
   operation: () => Promise<ApiResponse<T>>,
-  requiredPermission?: string
+  requiredPermission?: string,
 ): Promise<ApiResponse<T>> {
   if (!requiredPermission) {
     return operation();
@@ -112,74 +119,86 @@ async function withPermissionCheck<T>(
 export async function apiPost<T>(
   endpoint: string,
   data?: any,
-  options?: { permission?: string }
+  options?: { permission?: string },
 ): Promise<ApiResponse<T>> {
-  return withPermissionCheck(async () => {
-    const { token } = await getCurrentTokenAndPermissions();
+  return withPermissionCheck(
+    async () => {
+      const { token } = await getCurrentTokenAndPermissions();
 
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-      method: 'POST',
-      headers: getAuthHeaders(token),
-      body: data ? JSON.stringify(data) : undefined,
-    });
+      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        method: 'POST',
+        headers: getAuthHeaders(token),
+        body: data ? JSON.stringify(data) : undefined,
+      });
 
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
 
-    return response.json();
-  }, options?.permission);
+      return response.json();
+    },
+    options?.permission,
+  );
 }
 
 // Simple PUT function with NextAuth and optional permission check
 export async function apiPut<T>(
   endpoint: string,
   data?: any,
-  options?: { permission?: string }
+  options?: { permission?: string },
 ): Promise<ApiResponse<T>> {
-  return withPermissionCheck(async () => {
-    const { token } = await getCurrentTokenAndPermissions();
+  return withPermissionCheck(
+    async () => {
+      const { token } = await getCurrentTokenAndPermissions();
 
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-      method: 'PUT',
-      headers: getAuthHeaders(token),
-      body: data ? JSON.stringify(data) : undefined,
-    });
+      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        method: 'PUT',
+        headers: getAuthHeaders(token),
+        body: data ? JSON.stringify(data) : undefined,
+      });
 
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
 
-    return response.json();
-  }, options?.permission);
+      return response.json();
+    },
+    options?.permission,
+  );
 }
 
 // Simple DELETE function with NextAuth and optional permission check
 export async function apiDelete<T>(
   endpoint: string,
-  options?: { permission?: string }
+  options?: { permission?: string },
 ): Promise<ApiResponse<T>> {
-  return withPermissionCheck(async () => {
-    const { token } = await getCurrentTokenAndPermissions();
+  return withPermissionCheck(
+    async () => {
+      const { token } = await getCurrentTokenAndPermissions();
 
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-      method: 'DELETE',
-      headers: getAuthHeaders(token),
-    });
+      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        method: 'DELETE',
+        headers: getAuthHeaders(token),
+      });
 
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
 
-    return response.json();
-  }, options?.permission);
+      return response.json();
+    },
+    options?.permission,
+  );
 }
 
 // Simple permission hook for components
 export function usePermission(requiredPermission: string) {
   const { data: session } = useSession();
 
-  const hasRequiredPermission = hasPermission(session?.permissions, requiredPermission);
+  const hasRequiredPermission = hasPermission(
+    session?.permissions,
+    requiredPermission,
+  );
 
   return {
     hasPermission: hasRequiredPermission,

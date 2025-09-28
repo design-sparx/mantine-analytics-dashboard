@@ -10,7 +10,7 @@ import classes from './StatsGrid.module.css';
 type StatsGridProps = {
   data?: { title: string; value: string; diff: number; period?: string }[];
   paperProps?: PaperProps;
-  error?: ReactNode;
+  error: ReactNode | Error | undefined | null;
   loading?: boolean;
 };
 

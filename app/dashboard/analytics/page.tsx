@@ -20,7 +20,7 @@ import {
   StatsCard,
   TrafficTable,
 } from '@/components';
-import { useFetchData } from '@/hooks';
+import { useAllStats, useLanguages, useTraffic } from '@/lib/endpoints';
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',
@@ -32,17 +32,17 @@ function Page() {
     data: statsData,
     error: statsError,
     loading: statsLoading,
-  } = useFetchData('/mocks/StatsGrid.json');
+  } = useAllStats();
   const {
     data: languagesData,
     error: languageError,
     loading: languageLoading,
-  } = useFetchData('/mocks/Languages.json');
+  } = useLanguages();
   const {
     data: trafficData,
     error: trafficError,
     loading: trafficLoading,
-  } = useFetchData('/mocks/Traffic.json');
+  } = useTraffic();
 
   return (
     <>
@@ -92,7 +92,7 @@ function Page() {
             </Grid.Col>
             <Grid.Col span={{ base: 12, md: 6, lg: 4 }}>
               <LanguageTable
-                data={languagesData.slice(0, 6)}
+                data={languagesData?.data?.slice(0, 6) || []}
                 error={languageError}
                 loading={languageLoading}
                 {...PAPER_PROPS}
@@ -100,7 +100,7 @@ function Page() {
             </Grid.Col>
             <Grid.Col span={{ base: 12, md: 6, lg: 8 }}>
               <TrafficTable
-                data={trafficData.slice(0, 6)}
+                data={trafficData?.data?.slice(0, 6) || []}
                 error={trafficError}
                 loading={trafficLoading}
                 {...PAPER_PROPS}

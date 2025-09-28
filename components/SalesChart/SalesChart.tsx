@@ -13,7 +13,7 @@ import { DataTable } from 'mantine-datatable';
 import dynamic from 'next/dynamic';
 
 import { ErrorAlert, Surface } from '@/components';
-import { useFetchData } from '@/hooks';
+import { useSales } from '@/lib/endpoints';
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
@@ -27,7 +27,7 @@ const SalesChart = ({ ...others }: SalesChartProps) => {
     data: salesData,
     error: salesError,
     loading: salesLoading,
-  } = useFetchData('/mocks/Sales.json');
+  } = useSales();
 
   const options: any = {
     chart: { type: 'donut', fontFamily: 'Open Sans, sans-serif' },
@@ -119,7 +119,7 @@ const SalesChart = ({ ...others }: SalesChartProps) => {
             { accessor: 'revenue' },
             { accessor: 'value' },
           ]}
-          records={salesData.slice(0, 4)}
+          records={salesData?.data?.slice(0, 4) ?? []}
           height={200}
           fetching={salesLoading}
         />
