@@ -18,32 +18,33 @@ import {
   Textarea,
   Title,
 } from '@mantine/core';
+import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { useAuth } from '@/hooks/useAuth';
 import {
   InvoiceStatus,
   getInvoiceStatusColor,
   getInvoiceStatusLabel,
 } from '@/types/invoice';
 import { updateInvoice, type components } from '@/lib/endpoints';
+import { useAuth } from '@/hooks/useAuth';
 
 // Use the correct OpenAPI DTO type
 type InvoiceDto = components['schemas']['InvoiceDto'];
 
+// Simplified form values to match current InvoiceDto schema
 interface EditInvoiceFormValues {
-  invoiceNumber: string;
   customerName: string;
   customerEmail: string;
-  customerPhone: string;
   customerAddress: string;
   billingAddress: string;
+  country: string;
+  clientCompany: string;
+  issueDate: Date | null;
   status: number | string;
-  taxRate: number;
-  discountAmount: number;
+  amount: number;
   notes: string;
-  paymentTerms: string;
 }
 
 type EditInvoiceDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
@@ -56,27 +57,23 @@ export const EditInvoiceDrawer = ({
   onInvoiceUpdated,
   ...drawerProps
 }: EditInvoiceDrawerProps) => {
-  const { user, accessToken, permissions } = useAuth();
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [isCreator, setIsCreator] = useState(false);
-
-  // Check if the user has permission to edit invoices
-  const canEditInvoice = permissions?.includes('Permissions.Invoices.Edit');
 
   const form = useForm<EditInvoiceFormValues>({
     mode: 'controlled',
     initialValues: {
-      invoiceNumber: '',
       customerName: '',
       customerEmail: '',
-      customerPhone: '',
       customerAddress: '',
       billingAddress: '',
+      country: '',
+      clientCompany: '',
+      issueDate: new Date(),
       status: InvoiceStatus.Draft.toString(),
-      taxRate: 0,
-      discountAmount: 0,
+      amount: 0,
       notes: '',
-      paymentTerms: '',
     },
     validate: {
       customerName: isNotEmpty('Customer name cannot be empty'),
@@ -84,37 +81,36 @@ export const EditInvoiceDrawer = ({
         if (!value) return 'Customer email cannot be empty';
         return /^\S+@\S+$/.test(value) ? null : 'Invalid email format';
       },
+      amount: (value) => (value > 0 ? null : 'Amount must be greater than 0'),
     },
   });
 
   const handleSubmit = async (values: EditInvoiceFormValues) => {
-    if (!invoice || !isCreator || !canEditInvoice) return;
+    if (!invoice || !isCreator) return;
 
     setLoading(true);
     try {
-      const payload = {
-        ...values,
+      // Map form values to OpenAPI DTO format (only send changed fields)
+      const invoiceData: Partial<InvoiceDto> = {
+        full_name: values.customerName,
+        email: values.customerEmail,
+        address: values.customerAddress,
+        country: values.country || undefined,
         status: Number(values.status),
-        taxRate: values.taxRate ? Number(values.taxRate) : null,
-        discountAmount: values.discountAmount
-          ? Number(values.discountAmount)
-          : null,
-        modifiedById: user?.id,
+        amount: values.amount,
+        issue_date: values.issueDate?.toISOString(),
+        description: values.notes || undefined,
+        client_email: values.customerEmail,
+        client_address: values.billingAddress || undefined,
+        client_country: values.country || undefined,
+        client_name: values.customerName,
+        client_company: values.clientCompany || undefined,
       };
 
-      const response = await fetch(`/api/invoices/${invoice.id}`, {
-        method: 'PUT',
-        headers: {
-          Authorization: 'Bearer ' + accessToken,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
+      const result = await updateInvoice(invoice.id!, invoiceData);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to update invoice');
+      if (!result.succeeded) {
+        throw new Error(result.errors?.join(', ') || 'Failed to update invoice');
       }
 
       notifications.show({
@@ -142,82 +138,34 @@ export const EditInvoiceDrawer = ({
     }
   };
 
-  const handleDelete = async () => {
-    if (!invoice || !isCreator) return;
-
-    if (!window.confirm('Are you sure you want to delete this invoice?')) {
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const response = await fetch(`/api/invoices/${invoice.id}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: 'Bearer ' + accessToken,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to delete invoice');
-      }
-
-      notifications.show({
-        title: 'Success',
-        message: 'Invoice deleted successfully',
-        color: 'green',
-      });
-
-      if (drawerProps.onClose) {
-        drawerProps.onClose();
-      }
-
-      if (onInvoiceUpdated) {
-        onInvoiceUpdated();
-      }
-    } catch (error) {
-      notifications.show({
-        title: 'Error',
-        message:
-          error instanceof Error ? error.message : 'Failed to delete invoice',
-        color: 'red',
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
     if (invoice) {
       form.setValues({
-        invoiceNumber: invoice.invoiceNumber || '',
-        customerName: invoice.customerName || '',
-        customerEmail: invoice.customerEmail || '',
-        customerPhone: invoice.customerPhone || '',
-        customerAddress: invoice.customerAddress || '',
-        billingAddress: invoice.billingAddress || '',
-        status: invoice.status.toString() || InvoiceStatus.Draft.toString(),
-        taxRate: invoice.taxRate || 0,
-        discountAmount: invoice.discountAmount || 0,
-        notes: invoice.notes || '',
-        paymentTerms: invoice.paymentTerms || '',
+        customerName: invoice.client_name || '',
+        customerEmail: invoice.client_email || '',
+        customerAddress: invoice.address || '',
+        billingAddress: invoice.client_address || '',
+        country: invoice.country || '',
+        clientCompany: invoice.client_company || '',
+        issueDate: invoice.issue_date ? new Date(invoice.issue_date) : new Date(),
+        status: invoice.status?.toString() || InvoiceStatus.Draft.toString(),
+        amount: invoice.amount || 0,
+        notes: invoice.description || '',
       });
 
       // Check if the current user is the creator of the invoice
-      setIsCreator(user?.id === invoice.createdById);
+      setIsCreator(user?.id === invoice.created_by_id);
     }
   }, [invoice, user]);
 
   const statusOptions = [
     { value: InvoiceStatus.Draft.toString(), label: 'Draft' },
     { value: InvoiceStatus.Sent.toString(), label: 'Sent' },
-    { value: InvoiceStatus.Refunded.toString(), label: 'Refunded' },
-    { value: InvoiceStatus.PartiallyPaid.toString(), label: 'Partially Paid' },
     { value: InvoiceStatus.Paid.toString(), label: 'Paid' },
+    { value: InvoiceStatus.PartiallyPaid.toString(), label: 'Partially Paid' },
     { value: InvoiceStatus.Overdue.toString(), label: 'Overdue' },
     { value: InvoiceStatus.Cancelled.toString(), label: 'Cancelled' },
+    { value: InvoiceStatus.Refunded.toString(), label: 'Refunded' },
   ];
 
   const formatCurrency = (amount: number) => {
@@ -235,20 +183,12 @@ export const EditInvoiceDrawer = ({
     });
   };
 
-  const isOverdue = () => {
-    if (!invoice?.dueDate) return false;
-    return (
-      new Date(invoice.dueDate) < new Date() &&
-      invoice.status !== InvoiceStatus.Paid
-    );
-  };
-
   return (
-    <Drawer {...drawerProps} title="Invoice Details" size="xl">
+    <Drawer {...drawerProps} title="Invoice Details" size="lg">
       <LoadingOverlay visible={loading} />
 
       {!isCreator && (
-        <Text color="yellow" mb="md" size="sm">
+        <Text c="yellow" mb="md" size="sm">
           ⚠️ You can only edit invoices that you created.
         </Text>
       )}
@@ -259,120 +199,35 @@ export const EditInvoiceDrawer = ({
           <Group justify="space-between" align="flex-start">
             <div>
               <Title order={4}>
-                {invoice.invoiceNumber ||
-                  `INV-${invoice.id?.slice(-6)?.toUpperCase()}`}
+                {`INV-${invoice.id?.slice(-6)?.toUpperCase()}`}
               </Title>
               <Text size="sm" c="dimmed">
-                Issued: {invoice.issueDate && formatDate(invoice.issueDate)}
+                Issued: {invoice.issue_date && formatDate(invoice.issue_date)}
               </Text>
-              {invoice.dueDate && (
-                <Text size="sm" c={isOverdue() ? 'red' : 'dimmed'}>
-                  Due: {formatDate(invoice.dueDate)}
-                </Text>
-              )}
-              {invoice.createdBy && (
+              {invoice.created_by_name && (
                 <Text size="sm" c="dimmed">
-                  By: {invoice.createdBy.userName}
+                  By: {invoice.created_by_name}
                 </Text>
               )}
             </div>
             <Badge
-              color={getInvoiceStatusColor(invoice.status)}
+              color={getInvoiceStatusColor(invoice.status!)}
               variant="light"
               size="lg"
             >
-              {getInvoiceStatusLabel(invoice.status)}
+              {getInvoiceStatusLabel(invoice.status!)}
             </Badge>
           </Group>
 
-          {isOverdue() && (
-            <Text
-              size="sm"
-              c="red"
-              fw={500}
-              p="xs"
-              style={{
-                borderRadius: '4px',
-              }}
-            >
-              ⚠️ This invoice is overdue
+          {/* Amount Display */}
+          <Group justify="space-between" p="md" style={{ backgroundColor: 'var(--mantine-color-blue-0)', borderRadius: '8px' }}>
+            <Text fw={600} size="lg">
+              Total Amount:
             </Text>
-          )}
-
-          {/* Invoice Items */}
-          {invoice.invoiceItems && invoice.invoiceItems.length > 0 && (
-            <>
-              <Divider />
-              <Title order={5}>Invoice Items</Title>
-              <Stack gap="xs">
-                {invoice.invoiceItems.map((item, index) => (
-                  <Group
-                    key={index}
-                    justify="space-between"
-                    p="sm"
-                    style={{
-                      backgroundColor: 'var(--mantine-color-gray-0)',
-                      borderRadius: '4px',
-                    }}
-                  >
-                    <div style={{ flex: 1 }}>
-                      <Text fw={500}>{item.description}</Text>
-                      <Text size="sm" c="dimmed">
-                        Qty: {item.quantity} × {formatCurrency(item.unitPrice)}
-                      </Text>
-                    </div>
-                    <Text fw={500}>
-                      {formatCurrency(
-                        item.totalPrice || item.quantity * item.unitPrice,
-                      )}
-                    </Text>
-                  </Group>
-                ))}
-
-                {/* Totals */}
-                <Stack
-                  gap="xs"
-                  p="sm"
-                  style={{
-                    backgroundColor: 'var(--mantine-color-blue-0)',
-                    borderRadius: '4px',
-                  }}
-                >
-                  <Group justify="space-between">
-                    <Text>Subtotal:</Text>
-                    <Text>
-                      {invoice.subtotal
-                        ? formatCurrency(invoice.subtotal)
-                        : 'N/A'}
-                    </Text>
-                  </Group>
-                  {invoice.taxAmount && invoice.taxAmount > 0 && (
-                    <Group justify="space-between">
-                      <Text>Tax ({invoice.taxRate || 0}%):</Text>
-                      <Text>{formatCurrency(invoice.taxAmount)}</Text>
-                    </Group>
-                  )}
-                  {invoice.discountAmount && invoice.discountAmount > 0 && (
-                    <Group justify="space-between">
-                      <Text>Discount:</Text>
-                      <Text>-{formatCurrency(invoice.discountAmount)}</Text>
-                    </Group>
-                  )}
-                  <Divider />
-                  <Group justify="space-between">
-                    <Text fw={600} size="lg">
-                      Total Amount:
-                    </Text>
-                    <Text fw={600} size="lg">
-                      {invoice.totalAmount
-                        ? formatCurrency(invoice.totalAmount)
-                        : 'N/A'}
-                    </Text>
-                  </Group>
-                </Stack>
-              </Stack>
-            </>
-          )}
+            <Text fw={600} size="lg">
+              {invoice.amount ? formatCurrency(invoice.amount) : 'N/A'}
+            </Text>
+          </Group>
 
           <Divider />
 
@@ -381,11 +236,12 @@ export const EditInvoiceDrawer = ({
             <Stack>
               <Title order={4}>Invoice Details</Title>
               <Group grow>
-                <TextInput
-                  label="Invoice Number"
-                  placeholder="INV-001"
-                  key={form.key('invoiceNumber')}
-                  {...form.getInputProps('invoiceNumber')}
+                <DateInput
+                  label="Issue Date"
+                  placeholder="Select issue date"
+                  key={form.key('issueDate')}
+                  {...form.getInputProps('issueDate')}
+                  required
                   disabled={!isCreator}
                 />
                 <Select
@@ -397,6 +253,19 @@ export const EditInvoiceDrawer = ({
                   disabled={!isCreator}
                 />
               </Group>
+
+              <NumberInput
+                label="Amount"
+                placeholder="0.00"
+                min={0}
+                decimalScale={2}
+                fixedDecimalScale
+                prefix="$"
+                key={form.key('amount')}
+                {...form.getInputProps('amount')}
+                required
+                disabled={!isCreator}
+              />
 
               <Divider />
 
@@ -421,10 +290,10 @@ export const EditInvoiceDrawer = ({
               </Group>
 
               <TextInput
-                label="Customer Phone"
-                placeholder="Enter customer phone"
-                key={form.key('customerPhone')}
-                {...form.getInputProps('customerPhone')}
+                label="Company (Optional)"
+                placeholder="Enter company name"
+                key={form.key('clientCompany')}
+                {...form.getInputProps('clientCompany')}
                 disabled={!isCreator}
               />
 
@@ -438,68 +307,36 @@ export const EditInvoiceDrawer = ({
                 />
                 <Textarea
                   label="Billing Address"
-                  placeholder="Enter billing address"
+                  placeholder="Enter billing address (if different)"
                   key={form.key('billingAddress')}
                   {...form.getInputProps('billingAddress')}
                   disabled={!isCreator}
                 />
               </Group>
 
-              <Divider />
-
-              <Title order={4}>Terms & Notes</Title>
-              <Group grow>
-                <NumberInput
-                  label="Tax Rate (%)"
-                  placeholder="0"
-                  min={0}
-                  max={100}
-                  decimalScale={2}
-                  key={form.key('taxRate')}
-                  {...form.getInputProps('taxRate')}
-                  disabled={!isCreator}
-                />
-                <NumberInput
-                  label="Discount Amount"
-                  placeholder="0.00"
-                  min={0}
-                  decimalScale={2}
-                  fixedDecimalScale
-                  key={form.key('discountAmount')}
-                  {...form.getInputProps('discountAmount')}
-                  disabled={!isCreator}
-                />
-              </Group>
-
-              <Textarea
-                label="Payment Terms"
-                placeholder="e.g., Net 30, Due on receipt"
-                key={form.key('paymentTerms')}
-                {...form.getInputProps('paymentTerms')}
+              <TextInput
+                label="Country (Optional)"
+                placeholder="Enter country"
+                key={form.key('country')}
+                {...form.getInputProps('country')}
                 disabled={!isCreator}
               />
 
+              <Divider />
+
+              <Title order={4}>Additional Information</Title>
               <Textarea
                 label="Notes"
                 placeholder="Additional notes or terms"
+                minRows={3}
                 key={form.key('notes')}
                 {...form.getInputProps('notes')}
                 disabled={!isCreator}
               />
 
-              <Group justify="space-between" mt="xl">
-                <Button
-                  color="red"
-                  onClick={handleDelete}
-                  disabled={!isCreator}
-                  variant="outline"
-                >
-                  Delete Invoice
-                </Button>
-                <Button type="submit" disabled={!isCreator} loading={loading}>
-                  Update Invoice
-                </Button>
-              </Group>
+              <Button type="submit" disabled={!isCreator} loading={loading} mt="md">
+                Update Invoice
+              </Button>
             </Stack>
           </form>
         </Stack>

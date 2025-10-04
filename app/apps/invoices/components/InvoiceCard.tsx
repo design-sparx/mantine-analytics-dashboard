@@ -89,14 +89,6 @@ export const InvoiceCard = ({
         <Group justify="space-between">
           <div>
             <Text size="xs" c="dimmed">
-              Items
-            </Text>
-            <Text size="sm" fw={500}>
-              5
-            </Text>
-          </div>
-          <div>
-            <Text size="xs" c="dimmed">
               Amount
             </Text>
             <Text size="sm" fw={500}>

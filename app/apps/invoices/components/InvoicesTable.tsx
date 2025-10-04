@@ -76,13 +76,10 @@ export const InvoicesTable = ({
     });
   };
 
+  // Note: InvoiceDto doesn't have dueDate field in the current schema
+  // Overdue status should be set on the backend based on business logic
   const isOverdue = (invoice: InvoiceDto) => {
-    // Note: OpenAPI schema doesn't have dueDate, using issue_date as fallback
-    if (!invoice.issue_date) return false;
-    return (
-      new Date(invoice.issue_date) < new Date() &&
-      invoice.status !== InvoiceStatus.Paid
-    );
+    return invoice.status === InvoiceStatus.Overdue;
   };
 
   // Filter data based on search and status
@@ -193,16 +190,6 @@ export const InvoicesTable = ({
         </Table.Td>
 
         <Table.Td>
-          <Text size="sm" c={isOverdue(invoice) ? 'red' : undefined}>
-            {invoice.issue_date ? formatDate(invoice.issue_date) : 'N/A'}
-          </Text>
-        </Table.Td>
-
-        <Table.Td>
-          <Text size="sm">N/A</Text>
-        </Table.Td>
-
-        <Table.Td>
           <Text size="sm" fw={500}>
             {invoice.amount ? formatCurrency(invoice.amount) : 'N/A'}
           </Text>
@@ -291,8 +278,6 @@ export const InvoicesTable = ({
               <Table.Th>Invoice #</Table.Th>
               <Table.Th>Customer</Table.Th>
               <Table.Th>Status</Table.Th>
-              <Table.Th>Due Date</Table.Th>
-              <Table.Th>Items</Table.Th>
               <Table.Th>Amount</Table.Th>
               <Table.Th>Created By</Table.Th>
               <Table.Th>Actions</Table.Th>
