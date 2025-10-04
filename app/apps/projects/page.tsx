@@ -159,6 +159,7 @@ function Projects() {
         opened={newProjectOpened}
         onClose={newProjectClose}
         position="right"
+        onCreate={mutations.create}
         onProjectCreated={handleProjectCreated}
       />
     </>

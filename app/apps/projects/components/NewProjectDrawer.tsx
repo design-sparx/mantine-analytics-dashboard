@@ -14,17 +14,19 @@ import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { createProject, type components } from '@/lib/endpoints';
+import { type components, type ApiResponse } from '@/lib/endpoints';
 import { useAuth } from '@/hooks/useAuth';
 
 // Use OpenAPI type
 type ProjectDto = components['schemas']['ProjectDto'];
 
 type NewProjectDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
+  onCreate: (data: Partial<ProjectDto>) => Promise<ApiResponse<ProjectDto>>;
   onProjectCreated?: () => void;
 };
 
 export const NewProjectDrawer = ({
+  onCreate,
   onProjectCreated,
   ...drawerProps
 }: NewProjectDrawerProps) => {
@@ -58,7 +60,8 @@ export const NewProjectDrawer = ({
         end_date: values.endDate?.toISOString(),
       };
 
-      const result = await createProject(projectData);
+      // Use the onCreate mutation passed from parent (includes auto-refetch)
+      const result = await onCreate(projectData);
 
       if (!result.succeeded) {
         throw new Error(result.errors?.join(', ') || 'Failed to create project');

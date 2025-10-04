@@ -268,6 +268,7 @@ function Invoices() {
         opened={newDrawerOpened}
         onClose={newInvoiceClose}
         position="right"
+        onCreate={mutations.create}
         onInvoiceCreated={handleInvoiceCreated}
       />
 
@@ -276,6 +277,7 @@ function Invoices() {
         onClose={editInvoiceClose}
         position="right"
         invoice={selectedInvoice}
+        onUpdate={mutations.update}
         onInvoiceUpdated={handleInvoiceUpdated}
       />
     </>

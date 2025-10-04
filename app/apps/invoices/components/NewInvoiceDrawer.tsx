@@ -21,7 +21,7 @@ import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
 import { InvoiceStatus } from '@/types/invoice';
-import { createInvoice, type components } from '@/lib/endpoints';
+import { type components, type ApiResponse } from '@/lib/endpoints';
 import { useAuth } from '@/hooks/useAuth';
 
 // Use the correct OpenAPI DTO type
@@ -42,10 +42,12 @@ interface NewInvoiceFormValues {
 }
 
 type NewInvoiceDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
+  onCreate: (data: InvoiceDto) => Promise<ApiResponse<any>>;
   onInvoiceCreated?: () => void;
 };
 
 export const NewInvoiceDrawer = ({
+  onCreate,
   onInvoiceCreated,
   ...drawerProps
 }: NewInvoiceDrawerProps) => {
@@ -100,7 +102,8 @@ export const NewInvoiceDrawer = ({
         created_by_name: user?.name,
       };
 
-      const result = await createInvoice(invoiceData);
+      // Use the onCreate mutation passed from parent (includes auto-refetch)
+      const result = await onCreate(invoiceData);
 
       if (!result.succeeded) {
         throw new Error(result.errors?.join(', ') || 'Failed to create invoice');

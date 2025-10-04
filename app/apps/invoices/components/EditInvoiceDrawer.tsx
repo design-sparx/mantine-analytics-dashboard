@@ -27,7 +27,7 @@ import {
   getInvoiceStatusColor,
   getInvoiceStatusLabel,
 } from '@/types/invoice';
-import { updateInvoice, type components } from '@/lib/endpoints';
+import { type components, type ApiResponse } from '@/lib/endpoints';
 import { useAuth } from '@/hooks/useAuth';
 
 // Use the correct OpenAPI DTO type
@@ -49,11 +49,13 @@ interface EditInvoiceFormValues {
 
 type EditInvoiceDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
   invoice: InvoiceDto | null;
+  onUpdate: (id: string, data: Partial<InvoiceDto>) => Promise<ApiResponse<any>>;
   onInvoiceUpdated?: () => void;
 };
 
 export const EditInvoiceDrawer = ({
   invoice,
+  onUpdate,
   onInvoiceUpdated,
   ...drawerProps
 }: EditInvoiceDrawerProps) => {
@@ -107,7 +109,8 @@ export const EditInvoiceDrawer = ({
         client_company: values.clientCompany || undefined,
       };
 
-      const result = await updateInvoice(invoice.id!, invoiceData);
+      // Use the onUpdate mutation passed from parent (includes auto-refetch)
+      const result = await onUpdate(invoice.id!, invoiceData);
 
       if (!result.succeeded) {
         throw new Error(result.errors?.join(', ') || 'Failed to update invoice');
