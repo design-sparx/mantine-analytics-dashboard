@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import type { Permission, UserPermissions, PermissionCheck } from './types';
 import {
   getUserPermissions,
@@ -11,13 +12,26 @@ import {
 
 /**
  * Hook to get current user permissions
+ * Falls back to NextAuth session if localStorage is empty
  */
 export function usePermissions(): UserPermissions | null {
+  const { data: session } = useSession();
   const [permissions, setPermissions] = useState<UserPermissions | null>(null);
 
   useEffect(() => {
-    // Get initial permissions
-    setPermissions(getUserPermissions());
+    // Get initial permissions from localStorage
+    const storedPermissions = getUserPermissions();
+
+    if (storedPermissions) {
+      setPermissions(storedPermissions);
+    } else if (session?.permissions) {
+      // Fallback to session permissions if localStorage is empty
+      const sessionPermissions: UserPermissions = {
+        permissions: session.permissions as Permission[],
+        role: session.roles?.[0] as 'Admin' | 'User',
+      };
+      setPermissions(sessionPermissions);
+    }
 
     // Listen for localStorage changes (cross-tab sync)
     const handleStorageChange = (e: StorageEvent) => {
@@ -28,7 +42,7 @@ export function usePermissions(): UserPermissions | null {
 
     window.addEventListener('storage', handleStorageChange);
     return () => window.removeEventListener('storage', handleStorageChange);
-  }, []);
+  }, [session]);
 
   return permissions;
 }

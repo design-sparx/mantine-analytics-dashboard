@@ -51,6 +51,8 @@ function Projects() {
     mutations,
   } = useProjectsWithMutations();
 
+  console.log('Projects data:', projectsData);
+
   const [newProjectOpened, { open: newProjectOpen, close: newProjectClose }] =
     useDisclosure(false);
 
@@ -58,9 +60,11 @@ function Projects() {
     // No need to manually refetch - mutations handle this automatically
   }, []);
 
-  const projectItems = projectsData?.data?.map((p: components['schemas']['ProjectDto']) => (
-    <ProjectsCard key={p.id} data={p} {...CARD_PROPS} />
-  ));
+  const projectItems = projectsData?.data?.map(
+    (p: components['schemas']['ProjectDto']) => (
+      <ProjectsCard key={p.id} data={p} {...CARD_PROPS} />
+    ),
+  );
 
   const renderContent = () => {
     if (projectsLoading) {
