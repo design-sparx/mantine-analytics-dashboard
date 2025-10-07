@@ -10,11 +10,11 @@ export * from './traffic';
 export * from './languages';
 export * from './orders';
 export * from './kanban';
+export * from './chat';
 
 // You can add more endpoint files here as you create them:
 // export * from './categories';
 // export * from './users';
-// export * from './chats';
 // export * from './files';
 
 // Note: Auth is handled through NextAuth in /hooks/useAuth.ts
