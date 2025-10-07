@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   Anchor,
@@ -17,10 +17,18 @@ import {
   TextInput,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { notifications } from '@mantine/notifications';
 import { IconCloudUpload, IconDeviceFloppy } from '@tabler/icons-react';
 
 import { PageHeader, Surface, TextEditor } from '@/components';
+import { useAuth } from '@/hooks/useAuth';
+import {
+  type components,
+  useUserProfileWithMutations,
+} from '@/lib/endpoints';
 import { PATH_DASHBOARD } from '@/routes';
+
+type UpdateProfileDto = components['schemas']['UpdateProfileDto'];
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },
@@ -46,29 +54,66 @@ const BIO =
 
 function Settings() {
   const [file, setFile] = useState<File | null>(null);
+  const { user } = useAuth();
+
+  const {
+    data: profileData,
+    loading: profileLoading,
+    mutations,
+  } = useUserProfileWithMutations();
+
+  const profile = profileData?.data;
 
   const accountForm = useForm({
     initialValues: {
-      username: 'kelvinkiprop',
-      biograghy:
-        'A dynamic software engineering graduate from Nairobi, Kenya with 5+ years of experience. Passionate about turning creative sparks into seamless applications through technological experimentation. Experienced in crafting intuitive solutions and translating innovative concepts into user-friendly applications. Thrives on transforming the way we experience technology, one line of code at a time.\n' +
-        '\n' +
-        'Enthusiastic pioneer, constantly seeking the next big thing in tech. Eager to apply my passion and skills at Alternate Limited to bring ideas to life.',
+      username: profile?.name || user?.name || '',
+      biograghy: BIO,
     },
   });
 
-  const accountInfoForm = useForm({
+  const accountInfoForm = useForm<UpdateProfileDto>({
     initialValues: {
-      firstname: 'kelvin',
-      lastname: 'kiprop',
-      email: 'kelvin.kiprop96@gmail.com',
-      address: '',
-      apartment: '',
-      city: '',
-      state: '',
-      zip: '',
+      email: profile?.email || user?.email || '',
+      phoneNumber: '',
+    },
+    validate: {
+      email: (value) => {
+        if (!value) return 'Email is required';
+        return /^\S+@\S+$/.test(value) ? null : 'Invalid email';
+      },
     },
   });
+
+  // Update form when profile data loads
+  useEffect(() => {
+    if (profile) {
+      accountForm.setValues({
+        username: profile.name || user?.name || '',
+        biograghy: BIO,
+      });
+      accountInfoForm.setValues({
+        email: profile.email || user?.email || '',
+        phoneNumber: '',
+      });
+    }
+  }, [profile]);
+
+  const handleSaveAccountInfo = async () => {
+    try {
+      await mutations.update(accountInfoForm.values);
+      notifications.show({
+        title: 'Success',
+        message: 'Profile updated successfully',
+        color: 'green',
+      });
+    } catch (error) {
+      notifications.show({
+        title: 'Error',
+        message: 'Failed to update profile',
+        color: 'red',
+      });
+    }
+  };
 
   return (
     <>
@@ -108,7 +153,11 @@ function Settings() {
                   <Grid.Col span={{ base: 12, md: 6, lg: 3, xl: 3 }}>
                     <Stack align="center">
                       <Image
-                        src="https://res.cloudinary.com/ddh7hfzso/image/upload/v1700303804/me/ovqjhhs79u3g2fwbl2dd.jpg"
+                        src={
+                          profile?.avatar ||
+                          user?.avatar ||
+                          'https://res.cloudinary.com/ddh7hfzso/image/upload/v1700303804/me/ovqjhhs79u3g2fwbl2dd.jpg'
+                        }
                         h={128}
                         w={128}
                         radius="50%"
@@ -188,7 +237,11 @@ function Settings() {
                     />
                   </Group>
                   <Box style={{ width: 'auto' }}>
-                    <Button leftSection={<IconDeviceFloppy size={16} />}>
+                    <Button
+                      leftSection={<IconDeviceFloppy size={16} />}
+                      onClick={handleSaveAccountInfo}
+                      loading={profileLoading}
+                    >
                       Save changes
                     </Button>
                   </Box>

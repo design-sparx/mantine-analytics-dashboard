@@ -11,6 +11,7 @@ export * from './languages';
 export * from './orders';
 export * from './kanban';
 export * from './chat';
+export * from './profile';
 
 // You can add more endpoint files here as you create them:
 // export * from './categories';
