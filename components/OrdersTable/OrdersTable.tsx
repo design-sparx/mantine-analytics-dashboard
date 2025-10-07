@@ -2,9 +2,9 @@
 
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 
-import { Badge, MantineColor, MultiSelect, TextInput } from '@mantine/core';
+import { ActionIcon, Badge, Group, MantineColor, MultiSelect, TextInput, Tooltip } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
-import { IconSearch } from '@tabler/icons-react';
+import { IconEdit, IconEye, IconSearch } from '@tabler/icons-react';
 import sortBy from 'lodash/sortBy';
 import {
   DataTable,
@@ -13,32 +13,32 @@ import {
 } from 'mantine-datatable';
 
 import { ErrorAlert } from '@/components';
-import { OrderStatus, Orders } from '@/types';
+import { type components } from '@/lib/endpoints';
+
+type OrderDto = components['schemas']['OrderDto'];
+type OrderStatus = components['schemas']['OrderStatus'];
+type PaymentMethod = components['schemas']['PaymentMethod'];
 
 type StatusBadgeProps = {
-  status: OrderStatus;
+  status?: OrderStatus;
 };
 
 const StatusBadge = ({ status }: StatusBadgeProps) => {
-  let color: MantineColor = '';
+  if (!status) return <Badge color="gray" variant="filled" radius="sm">Unknown</Badge>;
 
-  switch (status) {
-    case 'shipped':
-      color = 'green';
-      break;
-    case 'processing':
-      color = 'blue';
-      break;
-    case 'cancelled':
-      color = 'orange';
-      break;
-    default:
-      color = 'gray';
-  }
+  const statusMap: Record<number, { label: string; color: MantineColor }> = {
+    1: { label: 'Pending', color: 'yellow' },
+    2: { label: 'Processing', color: 'blue' },
+    3: { label: 'Shipped', color: 'orange' },
+    4: { label: 'Delivered', color: 'green' },
+    5: { label: 'Cancelled', color: 'red' },
+  };
+
+  const statusInfo = statusMap[status as number] || { label: 'Unknown', color: 'gray' };
 
   return (
-    <Badge color={color} variant="filled" radius="sm">
-      {status}
+    <Badge color={statusInfo.color} variant="filled" radius="sm">
+      {statusInfo.label}
     </Badge>
   );
 };
@@ -46,33 +46,86 @@ const StatusBadge = ({ status }: StatusBadgeProps) => {
 const PAGE_SIZES = [5, 10, 20];
 
 type OrdersTableProps = {
-  data: Orders[];
+  data: OrderDto[];
   error?: ReactNode;
   loading?: boolean;
+  onEdit?: (order: OrderDto) => void;
+  onView?: (order: OrderDto) => void;
 };
 
-const OrdersTable = ({ data, loading, error }: OrdersTableProps) => {
+const OrdersTable = ({ data = [], loading, error, onEdit, onView }: OrdersTableProps) => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
-  const [selectedRecords, setSelectedRecords] = useState<Orders[]>([]);
-  const [records, setRecords] = useState<Orders[]>(data.slice(0, pageSize));
-  const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
+  const [selectedRecords, setSelectedRecords] = useState<OrderDto[]>([]);
+  const [records, setRecords] = useState<OrderDto[]>(data.slice(0, pageSize));
+  const [sortStatus, setSortStatus] = useState<DataTableSortStatus<OrderDto>>({
     columnAccessor: 'product',
     direction: 'asc',
   });
   const [query, setQuery] = useState('');
   const [debouncedQuery] = useDebouncedValue(query, 200);
   const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
+
   const statuses = useMemo(() => {
-    const statuses = new Set(data.map((e) => e.status));
-    // @ts-ignore
-    return [...statuses];
+    const statusMap: Record<number, string> = {
+      1: 'Pending',
+      2: 'Processing',
+      3: 'Shipped',
+      4: 'Delivered',
+      5: 'Cancelled',
+    };
+    const uniqueStatuses = new Set(
+      data.map((e) => statusMap[e.status as number] || 'Unknown')
+    );
+    return Array.from(uniqueStatuses);
   }, [data]);
 
-  const columns: DataTableProps<Orders>['columns'] = [
+  const formatCurrency = (amount?: number) => {
+    if (!amount) return 'N/A';
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(amount);
+  };
+
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return 'N/A';
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+  };
+
+  const getPaymentMethodLabel = (method?: PaymentMethod): string => {
+    if (!method) return 'N/A';
+    const methodMap: Record<number, string> = {
+      1: 'Credit Card',
+      2: 'Debit Card',
+      3: 'PayPal',
+      4: 'Cash',
+      5: 'Bank Transfer',
+    };
+    return methodMap[method as number] || 'Other';
+  };
+
+  const getStatusLabel = (status?: OrderStatus): string => {
+    if (!status) return 'Unknown';
+    const statusMap: Record<number, string> = {
+      1: 'Pending',
+      2: 'Processing',
+      3: 'Shipped',
+      4: 'Delivered',
+      5: 'Cancelled',
+    };
+    return statusMap[status as number] || 'Unknown';
+  };
+
+  const columns: DataTableProps<OrderDto>['columns'] = [
     {
       accessor: 'id',
-      render: (item: Orders) => <span>#{item.id.slice(0, 7)}</span>,
+      title: 'Order ID',
+      render: (item: OrderDto) => <span>#{item.id?.slice(-8)?.toUpperCase() || 'N/A'}</span>,
     },
     {
       accessor: 'product',
@@ -91,19 +144,21 @@ const OrdersTable = ({ data, loading, error }: OrdersTableProps) => {
     },
     {
       accessor: 'date',
+      sortable: true,
+      render: (item: OrderDto) => formatDate(item.date),
     },
     {
       accessor: 'total',
       sortable: true,
-      render: (item: Orders) => <span>${item.total}</span>,
+      render: (item: OrderDto) => formatCurrency(item.total),
     },
     {
       accessor: 'status',
-      render: (item: Orders) => <StatusBadge status={item.status} />,
+      render: (item: OrderDto) => <StatusBadge status={item.status} />,
       filter: (
         <MultiSelect
           label="Status"
-          description="Show all products with status"
+          description="Show all orders with status"
           data={statuses}
           value={selectedStatuses}
           placeholder="Search statuses…"
@@ -117,7 +172,40 @@ const OrdersTable = ({ data, loading, error }: OrdersTableProps) => {
     },
     {
       accessor: 'payment_method',
+      title: 'Payment Method',
       sortable: true,
+      render: (item: OrderDto) => getPaymentMethodLabel(item.payment_method),
+    },
+    {
+      accessor: 'actions',
+      title: 'Actions',
+      textAlign: 'right',
+      render: (item: OrderDto) => (
+        <Group gap="xs" justify="flex-end">
+          {onView && (
+            <Tooltip label="View">
+              <ActionIcon
+                variant="subtle"
+                color="blue"
+                onClick={() => onView(item)}
+              >
+                <IconEye size={16} />
+              </ActionIcon>
+            </Tooltip>
+          )}
+          {onEdit && (
+            <Tooltip label="Edit">
+              <ActionIcon
+                variant="subtle"
+                color="gray"
+                onClick={() => onEdit(item)}
+              >
+                <IconEdit size={16} />
+              </ActionIcon>
+            </Tooltip>
+          )}
+        </Group>
+      ),
     },
   ];
 
@@ -128,8 +216,8 @@ const OrdersTable = ({ data, loading, error }: OrdersTableProps) => {
   useEffect(() => {
     const from = (page - 1) * pageSize;
     const to = from + pageSize;
-    const d = sortBy(data, sortStatus.columnAccessor) as Orders[];
-    const dd = d.slice(from, to) as Orders[];
+    const d = sortBy(data, sortStatus.columnAccessor) as OrderDto[];
+    const dd = d.slice(from, to) as OrderDto[];
     let filtered = sortStatus.direction === 'desc' ? dd.reverse() : dd;
 
     if (debouncedQuery || selectedStatuses.length) {
@@ -137,17 +225,17 @@ const OrdersTable = ({ data, loading, error }: OrdersTableProps) => {
         .filter(({ product, status }) => {
           if (
             debouncedQuery !== '' &&
+            product &&
             !product.toLowerCase().includes(debouncedQuery.trim().toLowerCase())
           ) {
             return false;
           }
 
-          // @ts-ignore
-          if (
-            selectedStatuses.length &&
-            !selectedStatuses.some((s) => s === status)
-          ) {
-            return false;
+          if (selectedStatuses.length && status) {
+            const statusLabel = getStatusLabel(status);
+            if (!selectedStatuses.includes(statusLabel)) {
+              return false;
+            }
           }
           return true;
         })
@@ -164,11 +252,9 @@ const OrdersTable = ({ data, loading, error }: OrdersTableProps) => {
       minHeight={200}
       verticalSpacing="sm"
       striped={true}
-      // @ts-ignore
       columns={columns}
       records={records}
       selectedRecords={selectedRecords}
-      // @ts-ignore
       onSelectedRecordsChange={setSelectedRecords}
       totalRecords={
         debouncedQuery || selectedStatuses.length > 0

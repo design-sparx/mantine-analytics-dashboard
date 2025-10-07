@@ -3,19 +3,23 @@
 import { useCallback, useState } from 'react';
 
 import {
+  ActionIcon,
   Anchor,
   Button,
+  Group,
   Paper,
+  SegmentedControl,
   SimpleGrid,
   Skeleton,
   Stack,
   Text,
   Title,
+  Tooltip,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconMoodEmpty, IconPlus } from '@tabler/icons-react';
+import { IconLayoutGrid, IconList, IconMoodEmpty, IconPlus } from '@tabler/icons-react';
 
-import { ErrorAlert, PageHeader, Surface } from '@/components';
+import { ErrorAlert, OrdersTable, PageHeader, Surface } from '@/components';
 import { useOrdersWithMutations, type components } from '@/lib/endpoints';
 import { PATH_DASHBOARD } from '@/routes';
 
@@ -24,6 +28,8 @@ type OrderDto = components['schemas']['OrderDto'];
 import { EditOrderDrawer } from './components/EditOrderDrawer';
 import { NewOrderDrawer } from './components/NewOrderDrawer';
 import { OrderCard } from './components/OrderCard';
+
+type ViewMode = 'grid' | 'table';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },
@@ -37,6 +43,7 @@ const items = [
 
 function Orders() {
   const [selectedOrder, setSelectedOrder] = useState<OrderDto | null>(null);
+  const [viewMode, setViewMode] = useState<ViewMode>('grid');
 
   const {
     data: ordersData,
@@ -80,7 +87,7 @@ function Orders() {
 
   const renderContent = () => {
     if (ordersLoading) {
-      return (
+      return viewMode === 'grid' ? (
         <SimpleGrid
           cols={{ base: 1, sm: 2, lg: 3, xl: 4 }}
           spacing={{ base: 10, sm: 'xl' }}
@@ -90,6 +97,15 @@ function Orders() {
             <Skeleton key={`order-loading-${i}`} visible={true} height={200} />
           ))}
         </SimpleGrid>
+      ) : (
+        <Surface>
+          <OrdersTable
+            data={[]}
+            loading={true}
+            onEdit={handleEditOrder}
+            onView={handleViewOrder}
+          />
+        </Surface>
       );
     }
 
@@ -119,7 +135,7 @@ function Orders() {
       );
     }
 
-    return (
+    return viewMode === 'grid' ? (
       <SimpleGrid
         cols={{ base: 1, sm: 2, lg: 3, xl: 4 }}
         spacing={{ base: 10, sm: 'xl' }}
@@ -127,6 +143,15 @@ function Orders() {
       >
         {orderItems}
       </SimpleGrid>
+    ) : (
+      <Surface>
+        <OrdersTable
+          data={ordersData.data}
+          loading={false}
+          onEdit={handleEditOrder}
+          onView={handleViewOrder}
+        />
+      </Surface>
     );
   };
 
@@ -142,9 +167,35 @@ function Orders() {
         actionButton={
           ordersData?.data &&
           ordersData.data?.length > 0 && (
-            <Button leftSection={<IconPlus size={18} />} onClick={newOrderOpen}>
-              New Order
-            </Button>
+            <Group gap="sm">
+              <SegmentedControl
+                value={viewMode}
+                onChange={(value) => setViewMode(value as ViewMode)}
+                data={[
+                  {
+                    value: 'grid',
+                    label: (
+                      <Group gap={8}>
+                        <IconLayoutGrid size={16} />
+                        <span>Grid</span>
+                      </Group>
+                    ),
+                  },
+                  {
+                    value: 'table',
+                    label: (
+                      <Group gap={8}>
+                        <IconList size={16} />
+                        <span>Table</span>
+                      </Group>
+                    ),
+                  },
+                ]}
+              />
+              <Button leftSection={<IconPlus size={18} />} onClick={newOrderOpen}>
+                New Order
+              </Button>
+            </Group>
           )
         }
       />
