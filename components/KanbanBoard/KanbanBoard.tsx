@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState, useId } from 'react';
+import { useMemo, useState, useId, useEffect } from 'react';
 
 import {
   DndContext,
@@ -13,12 +13,29 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
-import { Box, Button, Portal, ScrollArea } from '@mantine/core';
+import { Box, Button, Portal, ScrollArea, LoadingOverlay } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconNewSection, IconPlus } from '@tabler/icons-react';
 
 import { KanbanCard, KanbanColumn } from '@/components';
-import { KanbanColumn as IColumn, KanbanTask as ITask, Id } from '@/types';
+import { useKanbanTasksWithMutations, type components } from '@/lib/endpoints';
+
+type KanbanTaskDto = components['schemas']['KanbanTaskDto'];
+type TaskStatus = components['schemas']['TaskStatus'];
+type Id = string | number;
+
+// Column type for local UI state
+interface IColumn {
+  id: Id;
+  title: string;
+}
+
+// Extended task type for local UI state (includes columnId for drag-n-drop)
+interface ITask extends Omit<KanbanTaskDto, 'id'> {
+  id: string;
+  columnId: Id;
+  content: string;
+}
 
 const defaultCols: IColumn[] = [
   {
@@ -118,12 +135,37 @@ const defaultTasks: ITask[] = [
 ];
 
 const KanbanBoard = () => {
+  const { data: apiTasks, loading, mutations } = useKanbanTasksWithMutations();
   const [columns, setColumns] = useState<IColumn[]>(defaultCols);
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
-  const [tasks, setTasks] = useState<ITask[]>(defaultTasks);
+  const [tasks, setTasks] = useState<ITask[]>([]);
   const [activeColumn, setActiveColumn] = useState<IColumn | null>(null);
   const [activeTask, setActiveTask] = useState<ITask | null>(null);
   const tablet_match = useMediaQuery('(max-width: 768px)');
+
+  // Map API tasks to local task format
+  useEffect(() => {
+    if (apiTasks) {
+      const mappedTasks: ITask[] = apiTasks.data?.map((task) => {
+        // Map status to columnId
+        let columnId: Id = 'todo';
+        if (task.status === 1) columnId = 'todo';
+        else if (task.status === 2) columnId = 'doing';
+        else if (task.status === 3) columnId = 'done';
+
+        return {
+          id: task.id || generateId().toString(),
+          columnId,
+          content: task.title || '',
+          title: task.title,
+          status: task.status,
+          comments: task.comments,
+          users: task.users,
+        };
+      });
+      setTasks(mappedTasks);
+    }
+  }, [apiTasks]);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -133,7 +175,11 @@ const KanbanBoard = () => {
     }),
   );
 
-  const id = useId()
+  const id = useId();
+
+  if (loading) {
+    return <LoadingOverlay visible={true} />;
+  }
 
   return (
     <ScrollArea
@@ -235,28 +281,36 @@ const KanbanBoard = () => {
     </ScrollArea>
   );
 
-  function createTask(columnId: Id) {
-    const newTask: ITask = {
-      id: generateId(),
-      columnId,
-      content: `Task ${tasks.length + 1}`,
+  async function createTask(columnId: Id) {
+    // Map columnId to status
+    let status: TaskStatus = 1; // todo
+    if (columnId === 'doing') status = 2;
+    else if (columnId === 'done') status = 3;
+
+    const newTaskDto: Partial<KanbanTaskDto> = {
+      title: `Task ${tasks.length + 1}`,
+      status,
+      comments: 0,
+      users: 0,
     };
 
-    setTasks([...tasks, newTask]);
+    await mutations.create(newTaskDto);
   }
 
-  function deleteTask(id: Id) {
-    const newTasks = tasks.filter((task) => task.id !== id);
-    setTasks(newTasks);
+  async function deleteTask(id: Id) {
+    if (typeof id === 'string') {
+      await mutations.delete(id);
+    }
   }
 
-  function updateTask(id: Id, content: string) {
-    const newTasks = tasks.map((task) => {
-      if (task.id !== id) return task;
-      return { ...task, content };
-    });
-
-    setTasks(newTasks);
+  async function updateTask(id: Id, content: string) {
+    if (typeof id === 'string') {
+      const task = tasks.find((t) => t.id === id);
+      await mutations.update(id, {
+        title: content,
+        status: task?.status,
+      });
+    }
   }
 
   function createNewColumn() {
@@ -318,7 +372,7 @@ const KanbanBoard = () => {
     });
   }
 
-  function onDragOver(event: DragOverEvent) {
+  async function onDragOver(event: DragOverEvent) {
     const { active, over } = event;
     if (!over) return;
 
@@ -338,7 +392,21 @@ const KanbanBoard = () => {
         const activeIndex = tasks.findIndex((t) => t.id === activeId);
         const overIndex = tasks.findIndex((t) => t.id === overId);
 
-        tasks[activeIndex].columnId = tasks[overIndex].columnId;
+        const newColumnId = tasks[overIndex].columnId;
+        tasks[activeIndex].columnId = newColumnId;
+
+        // Update task status in API based on new column
+        const task = tasks[activeIndex];
+        if (typeof task.id === 'string') {
+          let newStatus: TaskStatus = 1;
+          if (newColumnId === 'doing') newStatus = 2;
+          else if (newColumnId === 'done') newStatus = 3;
+
+          mutations.update(task.id, {
+            title: task.title,
+            status: newStatus,
+          });
+        }
 
         return arrayMove(tasks, activeIndex, overIndex);
       });
@@ -352,6 +420,19 @@ const KanbanBoard = () => {
         const activeIndex = tasks.findIndex((t) => t.id === activeId);
 
         tasks[activeIndex].columnId = overId;
+
+        // Update task status in API based on new column
+        const task = tasks[activeIndex];
+        if (typeof task.id === 'string') {
+          let newStatus: TaskStatus = 1;
+          if (overId === 'doing') newStatus = 2;
+          else if (overId === 'done') newStatus = 3;
+
+          mutations.update(task.id, {
+            title: task.title,
+            status: newStatus,
+          });
+        }
 
         return arrayMove(tasks, activeIndex, activeIndex);
       });

@@ -24,8 +24,24 @@ import { modals } from '@mantine/modals';
 import { IconDots, IconEdit, IconPlus, IconTrash } from '@tabler/icons-react';
 
 import { KanbanCard } from '@/components';
+import { type components } from '@/lib/endpoints';
 
-import { KanbanColumn as IColumn, KanbanTask as ITask, Id } from '../../types';
+type KanbanTaskDto = components['schemas']['KanbanTaskDto'];
+type TaskStatus = components['schemas']['TaskStatus'];
+type Id = string | number;
+
+// Column type for local UI state
+interface IColumn {
+  id: Id;
+  title: string;
+}
+
+// Extended task type for local UI state (includes columnId for drag-n-drop)
+interface ITask extends Omit<KanbanTaskDto, 'id'> {
+  id: string;
+  columnId: Id;
+  content: string;
+}
 
 const ICON_SIZE = 18;
 
