@@ -10,17 +10,16 @@ import {
 import { IconEdit, IconEye } from '@tabler/icons-react';
 
 import { Surface } from '@/components';
-import { useAuth } from '@/hooks/useAuth';
-import {
-  IOrder,
-  getOrderStatusColor,
-  getOrderStatusLabel,
-} from '@/types/order';
+import { type components } from '@/lib/endpoints';
+
+type OrderDto = components['schemas']['OrderDto'];
+type OrderStatus = components['schemas']['OrderStatus'];
+type PaymentMethod = components['schemas']['PaymentMethod'];
 
 interface OrderCardProps extends Omit<PaperProps, 'children'> {
-  data: IOrder;
-  onEdit?: (order: IOrder) => void;
-  onView?: (order: IOrder) => void;
+  data: OrderDto;
+  onEdit?: (order: OrderDto) => void;
+  onView?: (order: OrderDto) => void;
 }
 
 export const OrderCard = ({
@@ -29,9 +28,6 @@ export const OrderCard = ({
   onView,
   ...paperProps
 }: OrderCardProps) => {
-  const { user } = useAuth();
-  const isCreator = user?.id === data.createdById;
-
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -47,53 +43,80 @@ export const OrderCard = ({
     });
   };
 
+  const getStatusColor = (status?: OrderStatus): string => {
+    if (!status) return 'gray';
+    // Map numeric status to colors
+    const statusMap: Record<number, string> = {
+      1: 'yellow',   // Pending
+      2: 'blue',     // Processing
+      3: 'orange',   // Shipped
+      4: 'green',    // Delivered
+      5: 'red',      // Cancelled
+    };
+    return statusMap[status as number] || 'gray';
+  };
+
+  const getStatusLabel = (status?: OrderStatus): string => {
+    if (!status) return 'Unknown';
+    const statusMap: Record<number, string> = {
+      1: 'Pending',
+      2: 'Processing',
+      3: 'Shipped',
+      4: 'Delivered',
+      5: 'Cancelled',
+    };
+    return statusMap[status as number] || 'Unknown';
+  };
+
+  const getPaymentMethodLabel = (method?: PaymentMethod): string => {
+    if (!method) return 'N/A';
+    const methodMap: Record<number, string> = {
+      1: 'Credit Card',
+      2: 'Debit Card',
+      3: 'PayPal',
+      4: 'Cash',
+      5: 'Bank Transfer',
+    };
+    return methodMap[method as number] || 'Other';
+  };
+
   return (
     <Surface p="md" {...paperProps}>
       <Stack gap="sm">
         <Group justify="space-between" align="flex-start">
           <div>
             <Title order={5} mb={4}>
-              Order #{data.id?.slice(-8)?.toUpperCase()}
+              Order #{data.id?.slice(-8)?.toUpperCase() || 'N/A'}
             </Title>
             <Text size="sm" c="dimmed">
-              {data.createdAt && formatDate(data.createdAt)}
+              {data.date && formatDate(data.date)}
             </Text>
           </div>
           <Badge
-            color={getOrderStatusColor(data.status)}
+            color={getStatusColor(data.status)}
             variant="light"
             size="sm"
           >
-            {getOrderStatusLabel(data.status)}
+            {getStatusLabel(data.status)}
           </Badge>
         </Group>
 
         <div>
           <Text size="sm" fw={500}>
-            Customer: {data.customerName || 'N/A'}
+            Product: {data.product || 'N/A'}
           </Text>
-          {data.customerEmail && (
-            <Text size="xs" c="dimmed">
-              {data.customerEmail}
-            </Text>
-          )}
+          <Text size="xs" c="dimmed">
+            Payment: {getPaymentMethodLabel(data.payment_method)}
+          </Text>
         </div>
 
         <Group justify="space-between">
           <div>
             <Text size="xs" c="dimmed">
-              Items
-            </Text>
-            <Text size="sm" fw={500}>
-              {data.orderItems?.length || 0}
-            </Text>
-          </div>
-          <div>
-            <Text size="xs" c="dimmed">
               Total
             </Text>
             <Text size="sm" fw={500}>
-              {data.totalAmount ? formatCurrency(data.totalAmount) : 'N/A'}
+              {data.total ? formatCurrency(data.total) : 'N/A'}
             </Text>
           </div>
         </Group>
@@ -112,10 +135,6 @@ export const OrderCard = ({
             size="xs"
             leftSection={<IconEdit size={14} />}
             onClick={() => onEdit && onEdit(data)}
-            disabled={!isCreator}
-            title={
-              isCreator ? 'Edit order' : 'Only the creator can edit this order'
-            }
           >
             Edit
           </Button>

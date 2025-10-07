@@ -12,14 +12,14 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { useDisclosure, useFetch } from '@mantine/hooks';
+import { useDisclosure } from '@mantine/hooks';
 import { IconMoodEmpty, IconPlus } from '@tabler/icons-react';
 
 import { ErrorAlert, PageHeader, Surface } from '@/components';
-import { useAuth } from '@/hooks/useAuth';
+import { useOrdersWithMutations, type components } from '@/lib/endpoints';
 import { PATH_DASHBOARD } from '@/routes';
-import { IApiResponse } from '@/types/api-response';
-import { IOrder } from '@/types/order';
+
+type OrderDto = components['schemas']['OrderDto'];
 
 import { EditOrderDrawer } from './components/EditOrderDrawer';
 import { NewOrderDrawer } from './components/NewOrderDrawer';
@@ -36,22 +36,14 @@ const items = [
 ));
 
 function Orders() {
-  const { permissions, accessToken } = useAuth();
-  const [selectedOrder, setSelectedOrder] = useState<IOrder | null>(null);
+  const [selectedOrder, setSelectedOrder] = useState<OrderDto | null>(null);
 
   const {
     data: ordersData,
     loading: ordersLoading,
     error: ordersError,
     refetch: refetchOrders,
-  } = useFetch<IApiResponse<IOrder[]>>('/api/orders', {
-    headers: {
-      Authorization: 'Bearer ' + accessToken,
-    },
-  });
-
-  // Check if the user has permission to add orders
-  const canAddOrder = permissions?.includes('Permissions.Orders.Create');
+  } = useOrdersWithMutations();
 
   const [newDrawerOpened, { open: newOrderOpen, close: newOrderClose }] =
     useDisclosure(false);
@@ -67,17 +59,17 @@ function Orders() {
     refetchOrders();
   }, [refetchOrders]);
 
-  const handleEditOrder = (order: IOrder) => {
+  const handleEditOrder = (order: OrderDto) => {
     setSelectedOrder(order);
     editOrderOpen();
   };
 
-  const handleViewOrder = (order: IOrder) => {
+  const handleViewOrder = (order: OrderDto) => {
     setSelectedOrder(order);
     editOrderOpen();
   };
 
-  const orderItems = ordersData?.data?.map((order: IOrder) => (
+  const orderItems = ordersData?.data?.map((order: OrderDto) => (
     <OrderCard
       key={order.id}
       data={order}
@@ -101,16 +93,16 @@ function Orders() {
       );
     }
 
-    if (ordersError || !ordersData?.succeeded) {
+    if (ordersError) {
       return (
         <ErrorAlert
           title="Error loading orders"
-          message={ordersData?.errors?.join(',')}
+          message={ordersError?.message || 'Failed to load orders'}
         />
       );
     }
 
-    if (!ordersData?.data?.length) {
+    if (!ordersData?.data.length) {
       return (
         <Surface p="md">
           <Stack align="center">
@@ -119,14 +111,9 @@ function Orders() {
             <Text>
               You don&apos;t have any orders yet. Create one to get started.
             </Text>
-            {canAddOrder && (
-              <Button
-                leftSection={<IconPlus size={18} />}
-                onClick={newOrderOpen}
-              >
-                New Order
-              </Button>
-            )}
+            <Button leftSection={<IconPlus size={18} />} onClick={newOrderOpen}>
+              New Order
+            </Button>
           </Stack>
         </Surface>
       );
@@ -153,8 +140,8 @@ function Orders() {
         title="Orders"
         breadcrumbItems={items}
         actionButton={
-          canAddOrder &&
-          ordersData?.data?.length && (
+          ordersData?.data &&
+          ordersData.data?.length > 0 && (
             <Button leftSection={<IconPlus size={18} />} onClick={newOrderOpen}>
               New Order
             </Button>
