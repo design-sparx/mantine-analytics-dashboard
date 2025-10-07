@@ -114,8 +114,8 @@
 .header {
   padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
   border-bottom: rem(1px) solid light-dark(
-    var(--mantine-primary-color-4),
-    var(--mantine-primary-color-5)
+    var(--mantine-color-gray-3),
+    var(--mantine-color-dark-5)
   );
 }
 
@@ -182,7 +182,7 @@
 .footer {
   padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
   border-top: rem(1px) solid light-dark(
-    var(--mantine-primary-color-4),
-    var(--mantine-primary-color-5)
+    var(--mantine-color-gray-3),
+    var(--mantine-color-dark-5)
   );
 }
