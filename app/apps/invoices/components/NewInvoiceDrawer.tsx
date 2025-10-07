@@ -20,9 +20,9 @@ import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { InvoiceStatus } from '@/types/invoice';
-import { type components, type ApiResponse } from '@/lib/endpoints';
 import { useAuth } from '@/hooks/useAuth';
+import { type ApiResponse, type components } from '@/lib/endpoints';
+import { InvoiceStatus } from '@/types/invoice';
 
 // Use the correct OpenAPI DTO type
 type InvoiceDto = components['schemas']['InvoiceDto'];

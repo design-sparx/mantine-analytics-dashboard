@@ -3,7 +3,6 @@
 import {
   ActionIcon,
   Avatar,
-  Burger,
   Flex,
   Group,
   Indicator,
@@ -83,7 +82,7 @@ const HeaderNav = (props: HeaderNavProps) => {
 
   const getSidebarToggleIcon = () => {
     if (mobile_match) {
-      return <Burger opened={mobileOpened} size="sm" color={textColor} />;
+      return <IconMenu2 size={ICON_SIZE} color={textColor} />;
     }
 
     // Desktop: use menu icon for overlay mode or when sidebar is hidden
@@ -91,8 +90,8 @@ const HeaderNav = (props: HeaderNavProps) => {
       return <IconMenu2 size={ICON_SIZE} color={textColor} />;
     }
 
-    // Use burger for normal mode when sidebar is visible
-    return <Burger opened={sidebarVisible} size="sm" color={textColor} />;
+    // Use menu icon for normal mode when sidebar is visible
+    return <IconMenu2 size={ICON_SIZE} color={textColor} />;
   };
 
   const getSidebarToggleTooltip = () => {

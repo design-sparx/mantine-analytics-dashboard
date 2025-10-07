@@ -16,7 +16,7 @@ import {
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { createOrder, type components } from '@/lib/endpoints';
+import { type components, createOrder } from '@/lib/endpoints';
 
 type OrderDto = components['schemas']['OrderDto'];
 

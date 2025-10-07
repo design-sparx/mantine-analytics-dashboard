@@ -3,31 +3,32 @@
 import { useCallback, useState } from 'react';
 
 import {
-  ActionIcon,
   Anchor,
   Button,
   Group,
-  Paper,
   SegmentedControl,
   SimpleGrid,
   Skeleton,
   Stack,
   Text,
   Title,
-  Tooltip,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconLayoutGrid, IconList, IconMoodEmpty, IconPlus } from '@tabler/icons-react';
+import {
+  IconLayoutGrid,
+  IconList,
+  IconMoodEmpty,
+  IconPlus,
+} from '@tabler/icons-react';
 
 import { ErrorAlert, OrdersTable, PageHeader, Surface } from '@/components';
-import { useOrdersWithMutations, type components } from '@/lib/endpoints';
+import { type components, useOrdersWithMutations } from '@/lib/endpoints';
 import { PATH_DASHBOARD } from '@/routes';
-
-type OrderDto = components['schemas']['OrderDto'];
-
 import { EditOrderDrawer } from './components/EditOrderDrawer';
 import { NewOrderDrawer } from './components/NewOrderDrawer';
 import { OrderCard } from './components/OrderCard';
+
+type OrderDto = components['schemas']['OrderDto'];
 
 type ViewMode = 'grid' | 'table';
 
@@ -174,25 +175,18 @@ function Orders() {
                 data={[
                   {
                     value: 'grid',
-                    label: (
-                      <Group gap={8}>
-                        <IconLayoutGrid size={16} />
-                        <span>Grid</span>
-                      </Group>
-                    ),
+                    label: <IconLayoutGrid size={16} />,
                   },
                   {
                     value: 'table',
-                    label: (
-                      <Group gap={8}>
-                        <IconList size={16} />
-                        <span>Table</span>
-                      </Group>
-                    ),
+                    label: <IconList size={16} />,
                   },
                 ]}
               />
-              <Button leftSection={<IconPlus size={18} />} onClick={newOrderOpen}>
+              <Button
+                leftSection={<IconPlus size={18} />}
+                onClick={newOrderOpen}
+              >
                 New Order
               </Button>
             </Group>

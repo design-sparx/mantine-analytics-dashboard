@@ -19,11 +19,11 @@ import { IconMoodEmpty, IconPlus } from '@tabler/icons-react';
 import NewProjectDrawer from '@/app/apps/projects/components/NewProjectDrawer';
 import ProjectsCard from '@/app/apps/projects/components/ProjectsCard/ProjectsCard';
 import { ErrorAlert, PageHeader, Surface } from '@/components';
+import { PermissionGate } from '@/lib/api/permissions';
+import { type components, useProjectsWithMutations } from '@/lib/endpoints';
 import { PATH_DASHBOARD } from '@/routes';
 
 // Simplified API imports
-import { useProjectsWithMutations, type components } from '@/lib/endpoints';
-import { PermissionGate } from '@/lib/api/permissions';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },

@@ -1,4 +1,4 @@
-import { useApiGet, type ApiResponse, type components } from './api-utils';
+import { type ApiResponse, type components, useApiGet } from './api-utils';
 
 // Note: Using any since TrafficDto doesn't exist in api.d.ts yet
 // Replace with proper type when available in OpenAPI schema

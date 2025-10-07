@@ -25,15 +25,15 @@ import {
 } from '@tabler/icons-react';
 
 import { ErrorAlert, PageHeader, Surface } from '@/components';
+import { PermissionGate } from '@/lib/api/permissions';
+import {
+  type components,
+  useInvoicesWithMutations,
+  usePermission,
+} from '@/lib/endpoints';
 import { PATH_DASHBOARD } from '@/routes';
 
 // Simplified API imports
-import {
-  useInvoicesWithMutations,
-  usePermission,
-  type components,
-} from '@/lib/endpoints';
-import { PermissionGate } from '@/lib/api/permissions';
 
 import { EditInvoiceDrawer } from './components/EditInvoiceDrawer';
 import { InvoiceCard } from './components/InvoiceCard';

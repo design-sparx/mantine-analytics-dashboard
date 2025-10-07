@@ -82,7 +82,7 @@ const KanbanColumn = (props: Props) => {
   };
 
   const tasksIds = useMemo(() => {
-    return tasks.map((task) => task.id);
+    return tasks?.map((task) => task.id) || [];
   }, [tasks]);
 
   const {
@@ -159,7 +159,7 @@ const KanbanColumn = (props: Props) => {
               <Text fz="lg" fw={600}>
                 {column.title}
               </Text>
-              <Badge variant="dot">{tasks.length}</Badge>
+              <Badge variant="dot">{tasks?.length}</Badge>
             </>
           )}
           {editMode && (
@@ -212,14 +212,15 @@ const KanbanColumn = (props: Props) => {
       >
         <Stack gap="sm" px="sm" py="md">
           <SortableContext items={tasksIds}>
-            {tasks.map((task) => (
-              <KanbanCard
-                key={task.id}
-                task={task}
-                deleteTask={deleteTask}
-                updateTask={updateTask}
-              />
-            ))}
+            {tasks?.length > 0 &&
+              tasks?.map((task) => (
+                <KanbanCard
+                  key={task.id}
+                  task={task}
+                  deleteTask={deleteTask}
+                  updateTask={updateTask}
+                />
+              ))}
           </SortableContext>
         </Stack>
       </ScrollArea>

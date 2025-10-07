@@ -19,7 +19,7 @@ import {
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { updateOrder, deleteOrder, type components } from '@/lib/endpoints';
+import { type components, deleteOrder, updateOrder } from '@/lib/endpoints';
 
 type OrderDto = components['schemas']['OrderDto'];
 type OrderStatus = components['schemas']['OrderStatus'];

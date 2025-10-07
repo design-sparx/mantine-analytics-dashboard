@@ -14,8 +14,8 @@ import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { type components, type ApiResponse } from '@/lib/endpoints';
 import { useAuth } from '@/hooks/useAuth';
+import { type ApiResponse, type components } from '@/lib/endpoints';
 
 // Use OpenAPI type
 type ProjectDto = components['schemas']['ProjectDto'];

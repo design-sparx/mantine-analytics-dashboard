@@ -1,8 +1,11 @@
 import React from 'react';
+
 import { Alert, Text } from '@mantine/core';
 import { IconLock } from '@tabler/icons-react';
+
+import { useHasAllPermissions, useHasAnyPermission, useHasPermission } from './hooks';
+
 import type { Permission } from './types';
-import { useHasPermission, useHasAnyPermission, useHasAllPermissions } from './hooks';
 
 interface PermissionGateProps {
   permission: Permission;

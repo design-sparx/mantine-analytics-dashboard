@@ -1,4 +1,4 @@
-import { useApiGet, apiPost, apiPut, apiDelete, type ApiResponse, type components } from './api-utils';
+import { type ApiResponse, apiDelete, apiPost, apiPut, type components, useApiGet } from './api-utils';
 
 // Type aliases from OpenAPI
 type SalesDto = components['schemas']['SalesDto'];

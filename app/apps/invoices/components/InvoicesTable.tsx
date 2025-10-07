@@ -26,12 +26,12 @@ import {
 } from '@tabler/icons-react';
 
 import { useAuth } from '@/hooks/useAuth';
+import { type components } from '@/lib/endpoints';
 import {
   InvoiceStatus,
   getInvoiceStatusColor,
   getInvoiceStatusLabel,
 } from '@/types/invoice';
-import { type components } from '@/lib/endpoints';
 
 // Use the correct OpenAPI DTO type
 type InvoiceDto = components['schemas']['InvoiceDto'];

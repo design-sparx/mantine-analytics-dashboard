@@ -1,8 +1,8 @@
 import {
+  type ApiResponse,
   apiDelete,
   apiPost,
   apiPut,
-  type ApiResponse,
   type components,
   useApiGet,
 } from './api-utils';
@@ -80,9 +80,15 @@ export function useKanbanTasksWithMutations() {
       return result;
     },
 
-    update: async (id: string, data: Partial<KanbanTaskDto>) => {
+    update: async (
+      id: string,
+      data: Partial<KanbanTaskDto>,
+      options?: { skipRefetch?: boolean },
+    ) => {
       const result = await updateKanbanTask(id, data);
-      tasksQuery.refetch(); // Refresh the list
+      if (!options?.skipRefetch) {
+        tasksQuery.refetch(); // Refresh the list only if not skipped
+      }
       return result;
     },
 

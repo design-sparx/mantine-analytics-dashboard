@@ -1,4 +1,4 @@
-import type { Permission, UserPermissions, PermissionCheck } from './types';
+import type { Permission, PermissionCheck, UserPermissions } from './types';
 
 /**
  * Check if user has a specific permission
