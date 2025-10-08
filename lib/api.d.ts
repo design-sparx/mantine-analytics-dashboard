@@ -1109,7 +1109,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": unknown;
+                        "application/json": components["schemas"]["ProjectListResponse"];
                     };
                 };
             };
@@ -1130,13 +1130,13 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description OK */
-                200: {
+                /** @description Created */
+                201: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": unknown;
+                        "application/json": components["schemas"]["ProjectCreateResponse"];
                     };
                 };
             };
@@ -1171,7 +1171,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": unknown;
+                        "application/json": components["schemas"]["ProjectResponse"];
                     };
                 };
             };
@@ -1199,7 +1199,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": unknown;
+                        "application/json": components["schemas"]["ProjectUpdateResponse"];
                     };
                 };
             };
@@ -1222,7 +1222,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": unknown;
+                        "application/json": components["schemas"]["ProjectDeleteResponse"];
                     };
                 };
             };
@@ -1967,6 +1967,301 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/products": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["ProductListResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["CreateProductDto"];
+                    "text/json": components["schemas"]["CreateProductDto"];
+                    "application/*+json": components["schemas"]["CreateProductDto"];
+                };
+            };
+            responses: {
+                /** @description Created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["ProductCreateResponse"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/products/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["ProductResponse"];
+                    };
+                };
+            };
+        };
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["UpdateProductDto"];
+                    "text/json": components["schemas"]["UpdateProductDto"];
+                    "application/*+json": components["schemas"]["UpdateProductDto"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["ProductUpdateResponse"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["ApiResponseOfObject"];
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/products/category/{category}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    category: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["ProductListResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/products/low-stock": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["ProductListResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/products/featured": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["ProductListResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/products/{id}/stock": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": number;
+                    "text/json": number;
+                    "application/*+json": number;
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["ApiResponseOfObject"];
+                    };
+                };
+            };
+        };
+        trace?: never;
+    };
     "/api/v1/profile": {
         parameters: {
             query?: never;
@@ -2328,6 +2623,13 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        ApiResponseOfObject: {
+            succeeded?: boolean;
+            message?: string | null;
+            data?: unknown;
+            errors?: string[] | null;
+            meta?: components["schemas"]["PaginationMeta"];
+        };
         ChangePasswordRequestDto: {
             email: string | null;
             currentPassword: string | null;
@@ -2356,6 +2658,27 @@ export interface components {
         ClaimDto: {
             type?: string | null;
             value?: string | null;
+        };
+        CreateProductDto: {
+            name: string | null;
+            sku?: string | null;
+            description?: string | null;
+            /** Format: double */
+            price: number;
+            /** Format: double */
+            compareAtPrice?: number | null;
+            /** Format: double */
+            costPrice?: number;
+            /** Format: int32 */
+            stockQuantity: number;
+            /** Format: int32 */
+            lowStockThreshold?: number;
+            category?: string | null;
+            brand?: string | null;
+            imageUrl?: string | null;
+            tags?: string[] | null;
+            isActive?: boolean;
+            isFeatured?: boolean;
         };
         CreateUserDto: {
             userName: string | null;
@@ -2503,6 +2826,104 @@ export interface components {
             totalPages?: number;
         } | null;
         PaymentMethod: number;
+        ProductCreateResponse: {
+            succeeded?: boolean;
+            message?: string | null;
+            data?: components["schemas"]["ProductDto2"];
+            errors?: string[] | null;
+            meta?: components["schemas"]["PaginationMeta"];
+        };
+        ProductDto: {
+            /** Format: uuid */
+            id?: string;
+            name?: string | null;
+            sku?: string | null;
+            description?: string | null;
+            /** Format: double */
+            price?: number;
+            /** Format: double */
+            compareAtPrice?: number | null;
+            /** Format: double */
+            costPrice?: number;
+            /** Format: int32 */
+            stockQuantity?: number;
+            /** Format: int32 */
+            lowStockThreshold?: number;
+            category?: string | null;
+            brand?: string | null;
+            imageUrl?: string | null;
+            tags?: string[] | null;
+            isActive?: boolean;
+            isFeatured?: boolean;
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            updatedAt?: string | null;
+            createdBy?: string | null;
+        };
+        ProductDto2: {
+            /** Format: uuid */
+            id?: string;
+            name?: string | null;
+            sku?: string | null;
+            description?: string | null;
+            /** Format: double */
+            price?: number;
+            /** Format: double */
+            compareAtPrice?: number | null;
+            /** Format: double */
+            costPrice?: number;
+            /** Format: int32 */
+            stockQuantity?: number;
+            /** Format: int32 */
+            lowStockThreshold?: number;
+            category?: string | null;
+            brand?: string | null;
+            imageUrl?: string | null;
+            tags?: string[] | null;
+            isActive?: boolean;
+            isFeatured?: boolean;
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            updatedAt?: string | null;
+            createdBy?: string | null;
+        } | null;
+        ProductListResponse: {
+            succeeded?: boolean;
+            message?: string | null;
+            data?: components["schemas"]["ProductDto"][] | null;
+            errors?: string[] | null;
+            meta?: components["schemas"]["PaginationMeta"];
+        };
+        ProductResponse: {
+            succeeded?: boolean;
+            message?: string | null;
+            data?: components["schemas"]["ProductDto2"];
+            errors?: string[] | null;
+            meta?: components["schemas"]["PaginationMeta"];
+        };
+        ProductUpdateResponse: {
+            succeeded?: boolean;
+            message?: string | null;
+            data?: components["schemas"]["ProductDto2"];
+            errors?: string[] | null;
+            meta?: components["schemas"]["PaginationMeta"];
+        };
+        ProjectCreateResponse: {
+            succeeded?: boolean;
+            message?: string | null;
+            data?: components["schemas"]["ProjectDto2"];
+            errors?: string[] | null;
+            meta?: components["schemas"]["PaginationMeta"];
+        };
+        ProjectDeleteResponse: {
+            succeeded?: boolean;
+            message?: string | null;
+            data?: unknown;
+            errors?: string[] | null;
+            meta?: components["schemas"]["PaginationMeta"];
+        };
         ProjectDto: {
             id?: string | null;
             name?: string | null;
@@ -2511,7 +2932,36 @@ export interface components {
             state?: components["schemas"]["ProjectState"];
             assignee?: string | null;
         };
+        ProjectDto2: {
+            id?: string | null;
+            name?: string | null;
+            start_date?: string | null;
+            end_date?: string | null;
+            state?: components["schemas"]["ProjectState"];
+            assignee?: string | null;
+        } | null;
+        ProjectListResponse: {
+            succeeded?: boolean;
+            message?: string | null;
+            data?: components["schemas"]["ProjectDto"][] | null;
+            errors?: string[] | null;
+            meta?: components["schemas"]["PaginationMeta"];
+        };
+        ProjectResponse: {
+            succeeded?: boolean;
+            message?: string | null;
+            data?: components["schemas"]["ProjectDto2"];
+            errors?: string[] | null;
+            meta?: components["schemas"]["PaginationMeta"];
+        };
         ProjectState: number;
+        ProjectUpdateResponse: {
+            succeeded?: boolean;
+            message?: string | null;
+            data?: components["schemas"]["ProjectDto2"];
+            errors?: string[] | null;
+            meta?: components["schemas"]["PaginationMeta"];
+        };
         RefreshTokenRequestDto: {
             token: string | null;
         };
@@ -2540,6 +2990,27 @@ export interface components {
             value?: number;
         };
         TaskStatus: number;
+        UpdateProductDto: {
+            name: string | null;
+            sku?: string | null;
+            description?: string | null;
+            /** Format: double */
+            price: number;
+            /** Format: double */
+            compareAtPrice?: number | null;
+            /** Format: double */
+            costPrice?: number;
+            /** Format: int32 */
+            stockQuantity: number;
+            /** Format: int32 */
+            lowStockThreshold?: number;
+            category?: string | null;
+            brand?: string | null;
+            imageUrl?: string | null;
+            tags?: string[] | null;
+            isActive?: boolean;
+            isFeatured?: boolean;
+        };
         UpdateProfileDto: {
             email?: string | null;
             phoneNumber?: string | null;

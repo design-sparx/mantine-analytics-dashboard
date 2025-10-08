@@ -23,12 +23,11 @@ import {
 } from '@tabler/icons-react';
 
 import { Surface } from '@/components';
-import { Invoices } from '@/types';
 
 const ICON_SIZE = 16;
 
 type InvoiceDetailsProps = {
-  data?: Invoices;
+  data?: any;
 } & PaperProps;
 
 const elements = [

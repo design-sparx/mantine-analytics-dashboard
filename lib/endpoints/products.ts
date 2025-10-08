@@ -1,4 +1,11 @@
-import { type ApiResponse, apiDelete, apiPost, apiPut, type components, useApiGet } from './api-utils';
+import {
+  type ApiResponse,
+  apiDelete,
+  apiPost,
+  apiPut,
+  type components,
+  useApiGet,
+} from './api-utils';
 
 // Type aliases from OpenAPI (adjust based on your actual schema names)
 type ProductDto = components['schemas']['ProductDto'];
@@ -35,11 +42,16 @@ export function useProduct(id: string, options?: { enabled?: boolean }) {
 }
 
 // Mutations
-export async function createProduct(data: Partial<ProductDto>): Promise<ApiResponse<ProductDto>> {
+export async function createProduct(
+  data: Partial<ProductDto>,
+): Promise<ApiResponse<ProductDto>> {
   return apiPost<ProductDto>(ENDPOINTS.create, data);
 }
 
-export async function updateProduct(id: string, data: Partial<ProductDto>): Promise<ApiResponse<ProductDto>> {
+export async function updateProduct(
+  id: string,
+  data: Partial<ProductDto>,
+): Promise<ApiResponse<ProductDto>> {
   return apiPut<ProductDto>(ENDPOINTS.update(id), data);
 }
 

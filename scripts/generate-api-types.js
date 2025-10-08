@@ -18,6 +18,7 @@ const INCLUDE_TAGS = [
   'User Management',
   'Countries',
   'Languages',
+  'Products',
   // All Mantine tags
   'Mantine - Communication',
   'Mantine - File Management',

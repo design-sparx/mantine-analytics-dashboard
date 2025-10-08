@@ -54,8 +54,8 @@ const TrafficTable = ({
             {
               accessor: 'avg_session_duration',
               title: 'Avg session (sec)',
-              render: ({ avg_session_duration }) => (
-                <Text fz="sm">{avg_session_duration}s</Text>
+              render: ({ avg_session_period }) => (
+                <Text fz="sm">{avg_session_period}s</Text>
               ),
             },
           ]}
