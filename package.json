@@ -23,7 +23,7 @@
   "dependencies": {
     "@auth/express": "^0.10.0",
     "@changesets/cli": "2.26.2",
-    "@clerk/nextjs": "^6.23.0",
+    "@clerk/nextjs": "^6.23.3",
     "@clerk/themes": "^1.7.9",
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/sortable": "^7.0.2",
