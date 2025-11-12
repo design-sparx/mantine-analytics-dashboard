@@ -36,7 +36,7 @@ export function PermissionGate({
   if (showFallback) {
     return (
       <Alert icon={<IconLock size={16} />} color="yellow" variant="light">
-        <Text size="sm">You don't have permission to access this feature.</Text>
+        <Text size="sm">You don&apos;t have permission to access this feature.</Text>
       </Alert>
     );
   }
@@ -79,7 +79,7 @@ export function MultiPermissionGate({
     return (
       <Alert icon={<IconLock size={16} />} color="yellow" variant="light">
         <Text size="sm">
-          You don't have the required permissions to access this feature.
+          You don&apos;t have the required permissions to access this feature.
         </Text>
       </Alert>
     );

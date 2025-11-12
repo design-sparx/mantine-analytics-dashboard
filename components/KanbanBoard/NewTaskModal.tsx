@@ -47,6 +47,7 @@ export const NewTaskModal = ({
     if (!opened) {
       form.reset();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [opened]);
 
   const handleSubmit = (values: typeof form.values) => {

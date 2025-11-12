@@ -1,5 +1,6 @@
 'use client';
 
+import { ComponentProps } from 'react';
 import {
   Avatar,
   Flex,
@@ -19,6 +20,7 @@ type ChatsListProps = {
   lastName: string;
   lastMessage: string;
   isSelected?: boolean;
+  onClick?: ComponentProps<'button'>['onClick'];
 } & UnstyledButtonProps;
 
 const ChatsList = ({

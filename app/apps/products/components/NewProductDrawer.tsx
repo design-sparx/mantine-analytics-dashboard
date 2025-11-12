@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import {
   Button,
@@ -35,14 +35,7 @@ export const NewProductDrawer = ({
   >([]);
   const [categoriesLoading, setCategoriesLoading] = useState(false);
 
-  // Fetch categories when drawer opens
-  useEffect(() => {
-    if (drawerProps.opened) {
-      fetchCategories();
-    }
-  }, [drawerProps.opened]);
-
-  const fetchCategories = async () => {
+  const fetchCategories = useCallback(async () => {
     setCategoriesLoading(true);
     try {
       const response = await fetch('/api/product-categories', {
@@ -69,7 +62,14 @@ export const NewProductDrawer = ({
     } finally {
       setCategoriesLoading(false);
     }
-  };
+  }, [accessToken]);
+
+  // Fetch categories when drawer opens
+  useEffect(() => {
+    if (drawerProps.opened) {
+      fetchCategories();
+    }
+  }, [drawerProps.opened, fetchCategories]);
 
   const form = useForm({
     mode: 'controlled',

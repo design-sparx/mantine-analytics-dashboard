@@ -152,6 +152,7 @@ export const EditOrderDrawer = ({
         payment_method: order.payment_method?.toString() || '1',
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [order]);
 
   const statusOptions = [

@@ -96,6 +96,7 @@ function Settings() {
         phoneNumber: '',
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profile]);
 
   const handleSaveAccountInfo = async () => {

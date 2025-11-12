@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { Carousel } from '@mantine/carousel';
 import {
@@ -12,7 +12,6 @@ import {
   Divider,
   Flex,
   Grid,
-  Paper,
   PaperProps,
   ScrollArea,
   Skeleton,
@@ -41,7 +40,6 @@ import {
   ErrorAlert,
   PageHeader,
   Surface,
-  UserButton,
 } from '@/components';
 import { useAuth } from '@/hooks/useAuth';
 import {
@@ -96,7 +94,7 @@ function Chat() {
     mutations: chatMutations,
   } = useChatsWithMutations();
 
-  const chatsListData = chatsData?.data || [];
+  const chatsListData = useMemo(() => chatsData?.data || [], [chatsData?.data]);
 
   // Fetch messages for selected chat
   const {

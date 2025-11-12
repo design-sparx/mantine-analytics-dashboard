@@ -169,6 +169,7 @@ export const EditCategoryDrawer = ({
       // Check if the current user is the creator of the product
       setIsCreator(user?.id === productCategory.createdById);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productCategory, user]);
 
   return (

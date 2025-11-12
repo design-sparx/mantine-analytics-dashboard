@@ -43,7 +43,7 @@ const MapChart = ({ ...others }: MapChartProps) => {
 
   const popScale = useMemo(
     () => scaleLinear().domain([0, maxValue]).range([0, 24]),
-    [],
+    [maxValue],
   );
 
   return (

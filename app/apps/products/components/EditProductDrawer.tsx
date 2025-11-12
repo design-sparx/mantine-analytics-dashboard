@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import {
   Button,
@@ -67,33 +67,7 @@ export const EditProductDrawer = ({
     },
   });
 
-  // Fetch categories when drawer opens
-  useEffect(() => {
-    if (drawerProps.opened) {
-      fetchCategories();
-    }
-  }, [drawerProps.opened]);
-
-  // Load product data when product changes
-  useEffect(() => {
-    if (product) {
-      form.setValues({
-        title: product.title || '',
-        description: product.description || '',
-        price: product.price || 0,
-        quantityInStock: product.quantityInStock || 0,
-        sku: product.sku || '',
-        isActive: product.isActive || false,
-        status: product.status || 1,
-        categoryId: product.categoryId || '',
-      });
-
-      // Check if the current user is the creator of the product
-      setIsCreator(user?.id === product.createdById);
-    }
-  }, [product, user]);
-
-  const fetchCategories = async () => {
+  const fetchCategories = useCallback(async () => {
     setCategoriesLoading(true);
     try {
       const response = await fetch('/api/product-categories', {
@@ -120,7 +94,34 @@ export const EditProductDrawer = ({
     } finally {
       setCategoriesLoading(false);
     }
-  };
+  }, [accessToken]);
+
+  // Fetch categories when drawer opens
+  useEffect(() => {
+    if (drawerProps.opened) {
+      fetchCategories();
+    }
+  }, [drawerProps.opened, fetchCategories]);
+
+  // Load product data when product changes
+  useEffect(() => {
+    if (product) {
+      form.setValues({
+        title: product.title || '',
+        description: product.description || '',
+        price: product.price || 0,
+        quantityInStock: product.quantityInStock || 0,
+        sku: product.sku || '',
+        isActive: product.isActive || false,
+        status: product.status || 1,
+        categoryId: product.categoryId || '',
+      });
+
+      // Check if the current user is the creator of the product
+      setIsCreator(user?.id === product.createdById);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product, user]);
 
   const handleSubmit = async (values: typeof form.values) => {
     if (!product || !isCreator || !canEditProduct) return;

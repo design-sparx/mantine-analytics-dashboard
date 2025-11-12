@@ -34,12 +34,6 @@ export const NewChatModal = ({
     },
   });
 
-  useEffect(() => {
-    if (!opened) {
-      form.reset();
-    }
-  }, [opened]);
-
   const handleSubmit = (values: typeof form.values) => {
     const newChat: Partial<ChatDto> = {
       name: values.name,
@@ -50,6 +44,12 @@ export const NewChatModal = ({
     form.reset();
     onClose();
   };
+
+  useEffect(() => {
+    if (!opened) {
+      form.reset();
+    }
+  }, [opened, form]);
 
   return (
     <Modal

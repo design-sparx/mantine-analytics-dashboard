@@ -159,6 +159,7 @@ export const EditInvoiceDrawer = ({
       // Check if the current user is the creator of the invoice
       setIsCreator(user?.id === invoice.created_by_id);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [invoice, user]);
 
   const statusOptions = [
