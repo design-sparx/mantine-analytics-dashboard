@@ -1,7 +1,7 @@
 import OrdersTable from './OrdersTable';
 
-import type { StoryObj } from '@storybook/react';
 import type { components } from '@/lib/endpoints';
+import type { StoryObj } from '@storybook/react';
 
 type OrderDto = components['schemas']['OrderDto'];
 

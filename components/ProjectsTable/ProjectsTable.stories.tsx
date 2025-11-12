@@ -1,7 +1,7 @@
 import ProjectsTable from './ProjectsTable';
 
-import type { StoryObj } from '@storybook/react';
 import type { components } from '@/lib/api';
+import type { StoryObj } from '@storybook/react';
 
 type ProjectDto = components['schemas']['ProjectDto'];
 
