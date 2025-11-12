@@ -18,6 +18,7 @@ type ChatsListProps = {
   firstName: string;
   lastName: string;
   lastMessage: string;
+  isSelected?: boolean;
 } & UnstyledButtonProps;
 
 const ChatsList = ({
@@ -25,11 +26,17 @@ const ChatsList = ({
   lastName,
   lastMessage,
   firstName,
+  isSelected = false,
+  ...buttonProps
 }: ChatsListProps) => {
   const tablet_match = useMediaQuery('(max-width: 768px)');
 
   return tablet_match ? (
-    <UnstyledButton className={classes.itemRounded}>
+    <UnstyledButton
+      className={classes.itemRounded}
+      data-selected={isSelected}
+      {...buttonProps}
+    >
       <Flex align="center" gap="xs">
         <Indicator position="bottom-end" color="green" offset={5} size={9}>
           <Avatar size="md" radius="50%" src={avatar} />
@@ -40,7 +47,11 @@ const ChatsList = ({
       </Flex>
     </UnstyledButton>
   ) : (
-    <UnstyledButton className={classes.item}>
+    <UnstyledButton
+      className={classes.item}
+      data-selected={isSelected}
+      {...buttonProps}
+    >
       <Flex align="center" gap="xs">
         <Indicator position="bottom-end" color="green" offset={5} size={9}>
           <Avatar size="md" radius="50%" src={avatar} />

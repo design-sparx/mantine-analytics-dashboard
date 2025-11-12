@@ -21,7 +21,7 @@ import {
   StatsGrid,
   Surface,
 } from '@/components';
-import { useFetchData } from '@/hooks';
+import { useAllStats, useProjects } from '@/lib/endpoints';
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',
@@ -33,12 +33,12 @@ function Page() {
     data: statsData,
     error: statsError,
     loading: statsLoading,
-  } = useFetchData('/mocks/StatsGrid.json');
+  } = useAllStats();
   const {
     data: projectsData,
     error: projectsError,
     loading: projectsLoading,
-  } = useFetchData('/mocks/Projects.json');
+  } = useProjects();
 
   return (
     <>
@@ -53,7 +53,7 @@ function Page() {
         <Stack gap="lg">
           <PageHeader title="Saas dashboard" withActions={true} />
           <StatsGrid
-            data={statsData.data}
+            data={statsData?.data || []}
             error={statsError}
             loading={statsLoading}
             paperProps={PAPER_PROPS}
@@ -82,7 +82,7 @@ function Page() {
                   </Button>
                 </Group>
                 <ProjectsTable
-                  data={projectsData.slice(0, 6)}
+                  data={projectsData?.data?.slice(0, 6) || []}
                   error={projectsError}
                   loading={projectsLoading}
                 />

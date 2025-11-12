@@ -9,37 +9,41 @@ import {
   LoadingOverlay,
   Stack,
   TextInput,
-  Textarea,
 } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
 import { useAuth } from '@/hooks/useAuth';
+import { type ApiResponse, type components } from '@/lib/endpoints';
+
+// Use OpenAPI type
+type ProjectDto = components['schemas']['ProjectDto'];
 
 type NewProjectDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
+  onCreate: (data: Partial<ProjectDto>) => Promise<ApiResponse<ProjectDto>>;
   onProjectCreated?: () => void;
 };
 
 export const NewProjectDrawer = ({
+  onCreate,
   onProjectCreated,
   ...drawerProps
 }: NewProjectDrawerProps) => {
-  const { user, accessToken } = useAuth();
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
 
   const form = useForm({
     mode: 'controlled',
     initialValues: {
-      title: '',
-      description: '',
-      status: 1,
-      startDate: null,
-      dueDate: null,
+      name: '',
+      assignee: '',
+      state: 0, // 0 = pending
+      startDate: null as Date | null,
+      endDate: null as Date | null,
     },
     validate: {
-      title: isNotEmpty('Project title cannot be empty'),
-      description: isNotEmpty('Project description cannot be empty'),
+      name: isNotEmpty('Project name cannot be empty'),
       startDate: isNotEmpty('Start date cannot be empty'),
     },
   });
@@ -47,52 +51,38 @@ export const NewProjectDrawer = ({
   const handleSubmit = async (values: typeof form.values) => {
     setLoading(true);
     try {
-      // Format dates for API
-      const payload = {
-        ...values,
-        startDate: values.startDate
-          ? new Date(values.startDate).toISOString()
-          : null,
-        dueDate: values.dueDate ? new Date(values.dueDate).toISOString() : null,
-        ownerId: user?.id,
+      // Map form values to ProjectDto format
+      const projectData: Partial<ProjectDto> = {
+        name: values.name,
+        assignee: values.assignee || undefined,
+        state: values.state,
+        start_date: values.startDate?.toISOString(),
+        end_date: values.endDate?.toISOString(),
       };
 
-      const response = await fetch('/api/projects', {
-        method: 'POST',
-        headers: {
-          Authorization: 'Bearer ' + accessToken,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
+      // Use the onCreate mutation passed from parent (includes auto-refetch)
+      const result = await onCreate(projectData);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to create project');
+      if (!result.succeeded) {
+        throw new Error(result.errors?.join(', ') || 'Failed to create project');
       }
 
-      // Show success notification
       notifications.show({
         title: 'Success',
         message: 'Project created successfully',
         color: 'green',
       });
 
-      // Reset form
       form.reset();
 
-      // Close drawer
       if (drawerProps.onClose) {
         drawerProps.onClose();
       }
 
-      // Trigger refresh of projects list
       if (onProjectCreated) {
         onProjectCreated();
       }
     } catch (error) {
-      // Show error notification
       notifications.show({
         title: 'Error',
         message:
@@ -110,31 +100,31 @@ export const NewProjectDrawer = ({
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack>
           <TextInput
-            label="Project title"
-            placeholder="Project title"
-            key={form.key('title')}
-            {...form.getInputProps('title')}
+            label="Project Name"
+            placeholder="Enter project name"
+            key={form.key('name')}
+            {...form.getInputProps('name')}
             required
           />
-          <Textarea
-            label="Project description"
-            placeholder="Project description"
-            key={form.key('description')}
-            {...form.getInputProps('description')}
-            required
+          <TextInput
+            label="Assignee (Optional)"
+            placeholder="Enter assignee name or ID"
+            key={form.key('assignee')}
+            {...form.getInputProps('assignee')}
           />
           <DateInput
-            label="Start date"
-            placeholder="Start date"
+            label="Start Date"
+            placeholder="Select start date"
             key={form.key('startDate')}
             {...form.getInputProps('startDate')}
+            required
             clearable
           />
           <DateInput
-            label="Due date"
-            placeholder="Due date"
-            key={form.key('dueDate')}
-            {...form.getInputProps('dueDate')}
+            label="End Date (Optional)"
+            placeholder="Select end date"
+            key={form.key('endDate')}
+            {...form.getInputProps('endDate')}
             clearable
           />
           <Button type="submit" mt="md" loading={loading}>

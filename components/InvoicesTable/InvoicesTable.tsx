@@ -30,14 +30,13 @@ import { useRouter } from 'next/navigation';
 
 import { ErrorAlert } from '@/components';
 import { PATH_INVOICES } from '@/routes';
-import { InvoiceStatus, Invoices } from '@/types';
 
 const PAGE_SIZES = [5, 10, 20];
 
 const ICON_SIZE = 18;
 
 type StatusBadgeProps = {
-  status: InvoiceStatus;
+  status: any;
 };
 
 const StatusBadge = ({ status }: StatusBadgeProps) => {
@@ -71,7 +70,7 @@ const StatusBadge = ({ status }: StatusBadgeProps) => {
 };
 
 type InvoicesTableProps = {
-  data: Invoices[];
+  data: any[];
   error?: ReactNode;
   loading?: boolean;
 };
@@ -80,8 +79,8 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
   const theme = useMantineTheme();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
-  const [selectedRecords, setSelectedRecords] = useState<Invoices[]>([]);
-  const [records, setRecords] = useState<Invoices[]>(data.slice(0, pageSize));
+  const [selectedRecords, setSelectedRecords] = useState<any[]>([]);
+  const [records, setRecords] = useState<any[]>(data.slice(0, pageSize));
   const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
     columnAccessor: 'full_name',
     direction: 'asc',
@@ -96,7 +95,7 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
     return [...statuses];
   }, [data]);
 
-  const columns: DataTableProps<Invoices>['columns'] = [
+  const columns: DataTableProps<any>['columns'] = [
     {
       accessor: 'full_name',
       title: 'Customer',
@@ -208,9 +207,9 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
   useEffect(() => {
     const from = (page - 1) * pageSize;
     const to = from + pageSize;
-    const d = sortBy(data, sortStatus.columnAccessor) as Invoices[];
+    const d = sortBy(data, sortStatus.columnAccessor) as any[];
     const dd = sortStatus.direction === 'desc' ? d.reverse() : d;
-    let filtered = dd.slice(from, to) as Invoices[];
+    let filtered = dd.slice(from, to) as any[];
 
     if (debouncedQuery || selectedStatuses.length) {
       filtered = data

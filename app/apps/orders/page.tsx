@@ -5,25 +5,32 @@ import { useCallback, useState } from 'react';
 import {
   Anchor,
   Button,
-  Paper,
+  Group,
+  SegmentedControl,
   SimpleGrid,
   Skeleton,
   Stack,
   Text,
   Title,
 } from '@mantine/core';
-import { useDisclosure, useFetch } from '@mantine/hooks';
-import { IconMoodEmpty, IconPlus } from '@tabler/icons-react';
+import { useDisclosure } from '@mantine/hooks';
+import {
+  IconLayoutGrid,
+  IconList,
+  IconMoodEmpty,
+  IconPlus,
+} from '@tabler/icons-react';
 
-import { ErrorAlert, PageHeader, Surface } from '@/components';
-import { useAuth } from '@/hooks/useAuth';
+import { ErrorAlert, OrdersTable, PageHeader, Surface } from '@/components';
+import { type components, useOrdersWithMutations } from '@/lib/endpoints';
 import { PATH_DASHBOARD } from '@/routes';
-import { IApiResponse } from '@/types/api-response';
-import { IOrder } from '@/types/order';
-
 import { EditOrderDrawer } from './components/EditOrderDrawer';
 import { NewOrderDrawer } from './components/NewOrderDrawer';
 import { OrderCard } from './components/OrderCard';
+
+type OrderDto = components['schemas']['OrderDto'];
+
+type ViewMode = 'grid' | 'table';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },
@@ -36,22 +43,15 @@ const items = [
 ));
 
 function Orders() {
-  const { permissions, accessToken } = useAuth();
-  const [selectedOrder, setSelectedOrder] = useState<IOrder | null>(null);
+  const [selectedOrder, setSelectedOrder] = useState<OrderDto | null>(null);
+  const [viewMode, setViewMode] = useState<ViewMode>('grid');
 
   const {
     data: ordersData,
     loading: ordersLoading,
     error: ordersError,
     refetch: refetchOrders,
-  } = useFetch<IApiResponse<IOrder[]>>('/api/orders', {
-    headers: {
-      Authorization: 'Bearer ' + accessToken,
-    },
-  });
-
-  // Check if the user has permission to add orders
-  const canAddOrder = permissions?.includes('Permissions.Orders.Create');
+  } = useOrdersWithMutations();
 
   const [newDrawerOpened, { open: newOrderOpen, close: newOrderClose }] =
     useDisclosure(false);
@@ -67,17 +67,17 @@ function Orders() {
     refetchOrders();
   }, [refetchOrders]);
 
-  const handleEditOrder = (order: IOrder) => {
+  const handleEditOrder = (order: OrderDto) => {
     setSelectedOrder(order);
     editOrderOpen();
   };
 
-  const handleViewOrder = (order: IOrder) => {
+  const handleViewOrder = (order: OrderDto) => {
     setSelectedOrder(order);
     editOrderOpen();
   };
 
-  const orderItems = ordersData?.data?.map((order: IOrder) => (
+  const orderItems = ordersData?.data?.map((order: OrderDto) => (
     <OrderCard
       key={order.id}
       data={order}
@@ -88,7 +88,7 @@ function Orders() {
 
   const renderContent = () => {
     if (ordersLoading) {
-      return (
+      return viewMode === 'grid' ? (
         <SimpleGrid
           cols={{ base: 1, sm: 2, lg: 3, xl: 4 }}
           spacing={{ base: 10, sm: 'xl' }}
@@ -98,19 +98,28 @@ function Orders() {
             <Skeleton key={`order-loading-${i}`} visible={true} height={200} />
           ))}
         </SimpleGrid>
+      ) : (
+        <Surface>
+          <OrdersTable
+            data={[]}
+            loading={true}
+            onEdit={handleEditOrder}
+            onView={handleViewOrder}
+          />
+        </Surface>
       );
     }
 
-    if (ordersError || !ordersData?.succeeded) {
+    if (ordersError) {
       return (
         <ErrorAlert
           title="Error loading orders"
-          message={ordersData?.errors?.join(',')}
+          message={ordersError?.message || 'Failed to load orders'}
         />
       );
     }
 
-    if (!ordersData?.data?.length) {
+    if (!ordersData?.data.length) {
       return (
         <Surface p="md">
           <Stack align="center">
@@ -119,20 +128,15 @@ function Orders() {
             <Text>
               You don&apos;t have any orders yet. Create one to get started.
             </Text>
-            {canAddOrder && (
-              <Button
-                leftSection={<IconPlus size={18} />}
-                onClick={newOrderOpen}
-              >
-                New Order
-              </Button>
-            )}
+            <Button leftSection={<IconPlus size={18} />} onClick={newOrderOpen}>
+              New Order
+            </Button>
           </Stack>
         </Surface>
       );
     }
 
-    return (
+    return viewMode === 'grid' ? (
       <SimpleGrid
         cols={{ base: 1, sm: 2, lg: 3, xl: 4 }}
         spacing={{ base: 10, sm: 'xl' }}
@@ -140,6 +144,15 @@ function Orders() {
       >
         {orderItems}
       </SimpleGrid>
+    ) : (
+      <Surface>
+        <OrdersTable
+          data={ordersData.data}
+          loading={false}
+          onEdit={handleEditOrder}
+          onView={handleViewOrder}
+        />
+      </Surface>
     );
   };
 
@@ -153,11 +166,30 @@ function Orders() {
         title="Orders"
         breadcrumbItems={items}
         actionButton={
-          canAddOrder &&
-          ordersData?.data?.length && (
-            <Button leftSection={<IconPlus size={18} />} onClick={newOrderOpen}>
-              New Order
-            </Button>
+          ordersData?.data &&
+          ordersData.data?.length > 0 && (
+            <Group gap="sm">
+              <SegmentedControl
+                value={viewMode}
+                onChange={(value) => setViewMode(value as ViewMode)}
+                data={[
+                  {
+                    value: 'grid',
+                    label: <IconLayoutGrid size={16} />,
+                  },
+                  {
+                    value: 'table',
+                    label: <IconList size={16} />,
+                  },
+                ]}
+              />
+              <Button
+                leftSection={<IconPlus size={18} />}
+                onClick={newOrderOpen}
+              >
+                New Order
+              </Button>
+            </Group>
           )
         }
       />

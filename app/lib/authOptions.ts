@@ -18,7 +18,7 @@ async function refreshAccessToken(token: JWT) {
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/refresh-token`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/refresh-token`,
       {
         method: 'POST',
         headers: {
@@ -33,34 +33,66 @@ async function refreshAccessToken(token: JWT) {
 
     // Handle error response properly
     if (!response.ok) {
-      const errorData = await response.json();
-      console.error('Refresh token error:', errorData);
+      console.error('Refresh token failed with status:', response.status);
+      let errorData;
+      try {
+        errorData = await response.json();
+      } catch (e) {
+        errorData = await response.text();
+      }
+      console.error('Refresh token error response:', errorData);
       return {
         ...token,
         error: 'RefreshAccessTokenError',
       };
     }
 
-    // Only try to read the body if we haven't read it yet
-    const refreshedTokens = await response.json();
+    // Parse response body
+    const responseText = await response.text();
+    console.log('Refresh token raw response:', responseText);
+
+    let refreshedTokens;
+    try {
+      refreshedTokens = responseText ? JSON.parse(responseText) : {};
+    } catch (e) {
+      console.error('Failed to parse refresh token response as JSON:', responseText);
+      return {
+        ...token,
+        error: 'RefreshAccessTokenError',
+      };
+    }
+
     console.log('Refreshed tokens response:', refreshedTokens);
 
-    // Update permissions from a new token if needed
+    // Validate that we received a new token
+    if (!refreshedTokens.token && !refreshedTokens.accessToken) {
+      console.error('No token in refresh response. Response keys:', Object.keys(refreshedTokens));
+      return {
+        ...token,
+        error: 'RefreshAccessTokenError',
+      };
+    }
+
+    const newToken = refreshedTokens.token || refreshedTokens.accessToken;
+
+    // Update permissions from the new token if needed
     let permissions = [];
-    if (refreshedTokens.token) {
+    if (newToken) {
       try {
         const payload = JSON.parse(
-          Buffer.from(refreshedTokens.token.split('.')[1], 'base64').toString(),
+          Buffer.from(newToken.split('.')[1], 'base64').toString(),
         );
         permissions = payload.permission || [];
+        console.log('Decoded permissions from refreshed token:', permissions);
       } catch (e) {
         console.error('Error decoding refreshed JWT:', e);
       }
     }
 
+    console.log('✅ Token refresh successful');
     return {
       ...token,
-      accessToken: refreshedTokens.token,
+      accessToken: newToken,
       expiration: refreshedTokens.expiration,
       permissions: permissions,
       roles: refreshedTokens.roles || token.roles,
@@ -86,7 +118,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         try {
           const res = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
+            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/login`,
             {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -142,7 +174,8 @@ export const authOptions: NextAuthOptions = {
   ],
   session: {
     strategy: 'jwt',
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    maxAge: 60 * 60, // 60 minutes (1 hour) - matches backend JWT expiration
+    updateAge: 5 * 60, // Update session every 5 minutes to trigger token refresh check
   },
   pages: {
     signIn: '/auth/signin',

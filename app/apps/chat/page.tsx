@@ -1,10 +1,13 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import { Carousel } from '@mantine/carousel';
 import {
   ActionIcon,
   Anchor,
   Box,
+  Button,
   Container,
   Divider,
   Flex,
@@ -14,14 +17,20 @@ import {
   ScrollArea,
   Skeleton,
   Stack,
+  Text,
   TextInput,
   Tooltip,
   rem,
   useMantineTheme,
 } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { Link, RichTextEditor } from '@mantine/tiptap';
-import { IconDotsVertical, IconSearch, IconSend } from '@tabler/icons-react';
+import {
+  IconDotsVertical,
+  IconPlus,
+  IconSearch,
+  IconSend,
+} from '@tabler/icons-react';
 import Placeholder from '@tiptap/extension-placeholder';
 import { BubbleMenu, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -34,11 +43,19 @@ import {
   Surface,
   UserButton,
 } from '@/components';
-import { useFetchData } from '@/hooks';
-import UserProfileData from '@/public/mocks/UserProfile.json';
+import { useAuth } from '@/hooks/useAuth';
+import {
+  type components,
+  useChatMessagesWithMutations,
+  useChatsWithMutations,
+} from '@/lib/endpoints';
 import { PATH_DASHBOARD } from '@/routes';
 
+import { NewChatModal } from './components/NewChatModal';
 import classes from './page.module.css';
+
+type ChatDto = components['schemas']['ChatDto'];
+type ChatMessageDto = components['schemas']['ChatMessageDto'];
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },
@@ -55,24 +72,73 @@ const PAPER_PROPS: PaperProps = {};
 function Chat() {
   const theme = useMantineTheme();
   const tablet_match = useMediaQuery('(max-width: 768px)');
+  const { user } = useAuth();
+  const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
+  const [
+    newChatModalOpened,
+    { open: openNewChatModal, close: closeNewChatModal },
+  ] = useDisclosure(false);
+
   const editor = useEditor({
     extensions: [
       StarterKit,
       Link,
       Placeholder.configure({ placeholder: 'Type your message' }),
     ],
-    content: '<p>Select some text to see a bubble menu</p>',
+    content: '',
   });
+
+  // Fetch chats list
   const {
-    data: chatsListData,
+    data: chatsData,
     loading: chatsListLoading,
     error: chatsListError,
-  } = useFetchData('/mocks/ChatsList.json');
+    mutations: chatMutations,
+  } = useChatsWithMutations();
+
+  const chatsListData = chatsData?.data || [];
+
+  // Fetch messages for selected chat
   const {
-    data: chatItemsData,
+    data: messagesData,
     loading: chatsItemsLoading,
     error: chatsItemsError,
-  } = useFetchData('/mocks/ChatItems.json');
+    mutations: messageMutations,
+  } = useChatMessagesWithMutations(selectedChatId || '');
+
+  const chatItemsData = messagesData?.data || [];
+
+  // Select first chat by default
+  useEffect(() => {
+    if (chatsListData.length > 0 && !selectedChatId) {
+      setSelectedChatId(chatsListData[0].id || null);
+    }
+  }, [chatsListData, selectedChatId]);
+
+  const handleCreateChat = async (chatData: Partial<ChatDto>) => {
+    await chatMutations.create(chatData);
+  };
+
+  const handleSendMessage = async () => {
+    if (!editor || !selectedChatId) return;
+
+    const content = editor.getText().trim();
+    if (!content) return;
+
+    const messageData: Partial<ChatMessageDto> = {
+      chat_id: selectedChatId,
+      sender_id: user?.id,
+      content,
+      message_type: 1, // Text message
+    };
+
+    await messageMutations.send(messageData);
+    editor.commands.clearContent();
+  };
+
+  const handleSelectChat = (chatId: string) => {
+    setSelectedChatId(chatId);
+  };
 
   return (
     <>
@@ -85,7 +151,18 @@ function Chat() {
       </>
       <Container fluid>
         <Stack>
-          <PageHeader title="Chat" breadcrumbItems={items} />
+          <PageHeader
+            title="Chat"
+            breadcrumbItems={items}
+            actionButton={
+              <Button
+                leftSection={<IconPlus size={18} />}
+                onClick={openNewChatModal}
+              >
+                New Chat
+              </Button>
+            }
+          />
           <Surface
             {...PAPER_PROPS}
             style={{ height: tablet_match ? 'auto' : rem(565) }}
@@ -131,13 +208,17 @@ function Chat() {
                           />
                         ) : (
                           chatsListData.length > 0 &&
-                          chatsListData.map((c: any) => (
+                          chatsListData.map((c: ChatDto) => (
                             <Carousel.Slide key={`carousel-${c.id}`}>
                               <ChatsList
-                                lastMessage={c.last_message}
-                                firstName={c.first_name}
-                                lastName={c.last_name}
-                                avatar={c.avatar}
+                                lastMessage={
+                                  c.last_message || 'No messages yet'
+                                }
+                                firstName={c.name || 'Unknown'}
+                                lastName=""
+                                avatar=""
+                                isSelected={c.id === selectedChatId}
+                                onClick={() => handleSelectChat(c.id || '')}
                               />
                             </Carousel.Slide>
                           ))
@@ -161,13 +242,15 @@ function Chat() {
                         />
                       ) : (
                         chatsListData.length > 0 &&
-                        chatsListData.map((c: any) => (
+                        chatsListData.map((c: ChatDto) => (
                           <ChatsList
                             key={c.id}
-                            lastMessage={c.last_message}
-                            firstName={c.first_name}
-                            lastName={c.last_name}
-                            avatar={c.avatar}
+                            lastMessage={c.last_message || 'No messages yet'}
+                            firstName={c.name || 'Unknown'}
+                            lastName=""
+                            avatar=""
+                            isSelected={c.id === selectedChatId}
+                            onClick={() => handleSelectChat(c.id || '')}
                           />
                         ))
                       )}
@@ -179,23 +262,29 @@ function Chat() {
                 <Box className={classes.chatItems}>
                   <Box className={classes.chatHeader}>
                     <Skeleton visible={chatsListLoading || chatsItemsLoading}>
-                      <Flex align="center" justify="space-between">
-                        <UserButton
-                          email={UserProfileData.email}
-                          image={UserProfileData.avatar}
-                          name={UserProfileData.name}
-                          asAction={false}
-                          className={classes.user}
-                        />
-                        <Flex gap="sm">
-                          <ActionIcon variant="subtle">
-                            <IconSearch size={16} />
-                          </ActionIcon>
-                          <ActionIcon variant="subtle">
-                            <IconDotsVertical size={16} />
-                          </ActionIcon>
+                      <Stack gap="xs">
+                        <Flex align="center" justify="space-between">
+                          <div>
+                            <Text size="lg" fw={600}>
+                              {chatsListData.find(
+                                (c) => c.id === selectedChatId,
+                              )?.name || 'Select a chat'}
+                            </Text>
+                            <Text size="xs" c="dimmed">
+                              You can send messages to yourself for notes and
+                              reminders
+                            </Text>
+                          </div>
+                          <Flex gap="sm">
+                            <ActionIcon variant="subtle">
+                              <IconSearch size={16} />
+                            </ActionIcon>
+                            <ActionIcon variant="subtle">
+                              <IconDotsVertical size={16} />
+                            </ActionIcon>
+                          </Flex>
                         </Flex>
-                      </Flex>
+                      </Stack>
                     </Skeleton>
                   </Box>
                   <ScrollArea h={415}>
@@ -207,20 +296,18 @@ function Chat() {
                         />
                       ) : (
                         chatItemsData.length > 0 &&
-                        chatItemsData.map((c: any) => (
+                        chatItemsData.map((c: ChatMessageDto) => (
                           <ChatItem
                             key={c.id}
-                            avatar={c.avatar}
-                            id={c.id}
-                            message={c.message}
+                            avatar=""
+                            id={c.id || ''}
+                            message={c.content || ''}
                             fullName={
-                              c.sender
-                                ? 'you'
-                                : `${c?.first_name} ${c.last_name}`
+                              c.sender_id === user?.id ? 'You' : 'Participant'
                             }
-                            sender={c.sender}
-                            sent_time={c.sent_time}
-                            ml={c.sender ? 'auto' : 0}
+                            sender={c.sender_id === user?.id}
+                            sent_time={c.created_at || ''}
+                            ml={c.sender_id === user?.id ? 'auto' : 0}
                             style={{ maxWidth: tablet_match ? '100%' : '70%' }}
                             loading={chatsItemsLoading}
                           />
@@ -252,8 +339,11 @@ function Chat() {
                           size="xl"
                           radius="xl"
                           color={theme.colors[theme.primaryColor][7]}
-                          disabled={!Boolean(editor?.getText())}
+                          disabled={
+                            !Boolean(editor?.getText()) || !selectedChatId
+                          }
                           loading={chatsListLoading || chatsItemsLoading}
+                          onClick={handleSendMessage}
                         >
                           <IconSend size={24} />
                         </ActionIcon>
@@ -266,6 +356,13 @@ function Chat() {
           </Surface>
         </Stack>
       </Container>
+
+      <NewChatModal
+        opened={newChatModalOpened}
+        onClose={closeNewChatModal}
+        onSubmit={handleCreateChat}
+        loading={chatsListLoading}
+      />
     </>
   );
 }

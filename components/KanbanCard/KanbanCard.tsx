@@ -26,9 +26,20 @@ import {
 } from '@tabler/icons-react';
 
 import { Surface } from '@/components';
+import { type components } from '@/lib/endpoints';
 
 import classes from './KanbanCard.module.css';
-import { KanbanTask as ITask, Id } from '../../types';
+
+type KanbanTaskDto = components['schemas']['KanbanTaskDto'];
+type TaskStatus = components['schemas']['TaskStatus'];
+type Id = string | number;
+
+// Extended task type for local UI state (includes columnId for drag-n-drop)
+interface ITask extends Omit<KanbanTaskDto, 'id'> {
+  id: string;
+  columnId: Id;
+  content: string;
+}
 
 const AVATARS = [
   'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',

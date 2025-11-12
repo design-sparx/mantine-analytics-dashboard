@@ -5,42 +5,36 @@ import { useEffect, useState } from 'react';
 import {
   Badge,
   Button,
-  Divider,
   Drawer,
   DrawerProps,
   Group,
   LoadingOverlay,
-  Paper,
+  NumberInput,
   Select,
   Stack,
   Text,
   TextInput,
-  Textarea,
   Title,
 } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { useAuth } from '@/hooks/useAuth';
-import {
-  IOrder,
-  OrderStatus,
-  getOrderStatusColor,
-  getOrderStatusLabel,
-} from '@/types/order';
+import { type components, deleteOrder, updateOrder } from '@/lib/endpoints';
+
+type OrderDto = components['schemas']['OrderDto'];
+type OrderStatus = components['schemas']['OrderStatus'];
+type PaymentMethod = components['schemas']['PaymentMethod'];
 
 interface EditOrderFormValues {
-  customerName: string;
-  customerEmail: string;
-  customerPhone: string;
+  product: string;
+  date: string;
+  total: number;
   status: number | string;
-  shippingAddress: string;
-  billingAddress: string;
-  paymentMethod: string;
+  payment_method: number | string;
 }
 
 type EditOrderDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
-  order: IOrder | null;
+  order: OrderDto | null;
   onOrderUpdated?: () => void;
 };
 
@@ -49,57 +43,38 @@ export const EditOrderDrawer = ({
   onOrderUpdated,
   ...drawerProps
 }: EditOrderDrawerProps) => {
-  const { user, accessToken, permissions } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [isCreator, setIsCreator] = useState(false);
-
-  // Check if the user has permission to edit orders
-  const canEditOrder = permissions?.includes('Permissions.Orders.Edit');
 
   const form = useForm<EditOrderFormValues>({
     mode: 'controlled',
     initialValues: {
-      customerName: '',
-      customerEmail: '',
-      customerPhone: '',
-      status: OrderStatus.Pending,
-      shippingAddress: '',
-      billingAddress: '',
-      paymentMethod: '',
+      product: '',
+      date: '',
+      total: 0,
+      status: 1,
+      payment_method: 1,
     },
     validate: {
-      customerName: isNotEmpty('Customer name cannot be empty'),
-      customerEmail: (value) => {
-        if (!value) return 'Customer email cannot be empty';
-        return /^\S+@\S+$/.test(value) ? null : 'Invalid email format';
-      },
+      product: isNotEmpty('Product name cannot be empty'),
+      total: (value) => (value > 0 ? null : 'Total must be greater than 0'),
     },
   });
 
   const handleSubmit = async (values: EditOrderFormValues) => {
-    if (!order || !isCreator || !canEditOrder) return;
+    if (!order?.id) return;
 
     setLoading(true);
     try {
       const payload = {
         ...values,
         status: Number(values.status),
-        modifiedById: user?.id,
+        payment_method: Number(values.payment_method),
       };
 
-      const response = await fetch(`/api/orders/${order.id}`, {
-        method: 'PUT',
-        headers: {
-          Authorization: 'Bearer ' + accessToken,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
+      const result = await updateOrder(order.id, payload);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to update order');
+      if (result.error) {
+        throw new Error(result.error.message || 'Failed to update order');
       }
 
       notifications.show({
@@ -128,7 +103,7 @@ export const EditOrderDrawer = ({
   };
 
   const handleDelete = async () => {
-    if (!order || !isCreator) return;
+    if (!order?.id) return;
 
     if (!window.confirm('Are you sure you want to delete this order?')) {
       return;
@@ -136,17 +111,10 @@ export const EditOrderDrawer = ({
 
     setLoading(true);
     try {
-      const response = await fetch(`/api/orders/${order.id}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: 'Bearer ' + accessToken,
-          'Content-Type': 'application/json',
-        },
-      });
+      const result = await deleteOrder(order.id);
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to delete order');
+      if (result.error) {
+        throw new Error(result.error.message || 'Failed to delete order');
       }
 
       notifications.show({
@@ -177,27 +145,29 @@ export const EditOrderDrawer = ({
   useEffect(() => {
     if (order) {
       form.setValues({
-        customerName: order.customerName || '',
-        customerEmail: order.customerEmail || '',
-        customerPhone: order.customerPhone || '',
-        status: order.status.toString() || OrderStatus.Pending.toString(),
-        shippingAddress: order.shippingAddress || '',
-        billingAddress: order.billingAddress || '',
-        paymentMethod: order.paymentMethod || '',
+        product: order.product || '',
+        date: order.date || '',
+        total: order.total || 0,
+        status: order.status?.toString() || '1',
+        payment_method: order.payment_method?.toString() || '1',
       });
-
-      // Check if the current user is the creator of the order
-      setIsCreator(user?.id === order.createdById);
     }
-  }, [order, user]);
+  }, [order]);
 
   const statusOptions = [
-    { value: OrderStatus.Pending.toString(), label: 'Pending' },
-    { value: OrderStatus.Processing.toString(), label: 'Processing' },
-    { value: OrderStatus.Shipped.toString(), label: 'Shipped' },
-    { value: OrderStatus.Delivered.toString(), label: 'Delivered' },
-    { value: OrderStatus.Cancelled.toString(), label: 'Cancelled' },
-    { value: OrderStatus.Refunded.toString(), label: 'Refunded' },
+    { value: '1', label: 'Pending' },
+    { value: '2', label: 'Processing' },
+    { value: '3', label: 'Shipped' },
+    { value: '4', label: 'Delivered' },
+    { value: '5', label: 'Cancelled' },
+  ];
+
+  const paymentMethodOptions = [
+    { value: '1', label: 'Credit Card' },
+    { value: '2', label: 'Debit Card' },
+    { value: '3', label: 'PayPal' },
+    { value: '4', label: 'Cash' },
+    { value: '5', label: 'Bank Transfer' },
   ];
 
   const formatCurrency = (amount: number) => {
@@ -212,144 +182,84 @@ export const EditOrderDrawer = ({
       year: 'numeric',
       month: 'short',
       day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
     });
+  };
+
+  const getStatusColor = (status?: OrderStatus): string => {
+    if (!status) return 'gray';
+    const statusMap: Record<number, string> = {
+      1: 'yellow',
+      2: 'blue',
+      3: 'orange',
+      4: 'green',
+      5: 'red',
+    };
+    return statusMap[status as number] || 'gray';
+  };
+
+  const getStatusLabel = (status?: OrderStatus): string => {
+    if (!status) return 'Unknown';
+    const statusMap: Record<number, string> = {
+      1: 'Pending',
+      2: 'Processing',
+      3: 'Shipped',
+      4: 'Delivered',
+      5: 'Cancelled',
+    };
+    return statusMap[status as number] || 'Unknown';
   };
 
   return (
     <Drawer {...drawerProps} title="Order Details" size="lg">
       <LoadingOverlay visible={loading} />
 
-      {!isCreator && (
-        <Text color="yellow" mb="md" size="sm">
-          ⚠️ You can only edit orders that you created.
-        </Text>
-      )}
-
       {order && (
         <Stack>
-          {/* Order Summary */}
           <Group justify="space-between" align="flex-start">
             <div>
               <Title order={4}>
                 Order #{order.id?.slice(-8)?.toUpperCase()}
               </Title>
               <Text size="sm" c="dimmed">
-                Created: {order.createdAt && formatDate(order.createdAt)}
+                Date: {order.date && formatDate(order.date)}
               </Text>
-              {order.createdBy && (
-                <Text size="sm" c="dimmed">
-                  By: {order.createdBy.firstName} {order.createdBy.lastName}
-                </Text>
-              )}
             </div>
             <Badge
-              color={getOrderStatusColor(order.status)}
+              color={getStatusColor(order.status)}
               variant="light"
               size="lg"
             >
-              {getOrderStatusLabel(order.status)}
+              {getStatusLabel(order.status)}
             </Badge>
           </Group>
 
-          {/* Order Items */}
-          {order.orderItems && order.orderItems.length > 0 && (
-            <>
-              <Divider />
-              <Title order={5}>Order Items</Title>
-              <Stack gap="xs">
-                {order.orderItems.map((item, index) => (
-                  <Paper key={index} p="sm" withBorder>
-                    <Group justify="space-between">
-                      <div>
-                        <Text fw={500}>
-                          {item.product?.title || `Product ${item.productId}`}
-                        </Text>
-                        <Text size="sm" c="dimmed">
-                          SKU: {item.product?.sku || 'N/A'} | Qty:{' '}
-                          {item.quantity}
-                        </Text>
-                      </div>
-                      <Text fw={500}>
-                        {item.price
-                          ? formatCurrency(item.price * item.quantity)
-                          : 'N/A'}
-                      </Text>
-                    </Group>
-                  </Paper>
-                ))}
-                {order.totalAmount && (
-                  <Paper p="sm" withBorder>
-                    <Group justify="space-between">
-                      <Text fw={600}>Total Amount</Text>
-                      <Text fw={600} size="lg">
-                        {formatCurrency(order.totalAmount)}
-                      </Text>
-                    </Group>
-                  </Paper>
-                )}
-              </Stack>
-            </>
-          )}
-
-          <Divider />
-
-          {/* Edit Form */}
           <form onSubmit={form.onSubmit(handleSubmit)}>
             <Stack>
-              <Title order={4}>Customer Information</Title>
+              <Title order={4}>Order Information</Title>
               <TextInput
-                label="Customer Name"
-                placeholder="Enter customer name"
-                key={form.key('customerName')}
-                {...form.getInputProps('customerName')}
+                label="Product"
+                placeholder="Enter product name"
+                key={form.key('product')}
+                {...form.getInputProps('product')}
                 required
-                disabled={!isCreator}
               />
               <TextInput
-                label="Customer Email"
-                placeholder="Enter customer email"
-                key={form.key('customerEmail')}
-                {...form.getInputProps('customerEmail')}
+                label="Date"
+                type="date"
+                key={form.key('date')}
+                {...form.getInputProps('date')}
                 required
-                disabled={!isCreator}
               />
-              <TextInput
-                label="Customer Phone"
-                placeholder="Enter customer phone"
-                key={form.key('customerPhone')}
-                {...form.getInputProps('customerPhone')}
-                disabled={!isCreator}
-              />
-
-              <Divider />
-
-              <Title order={4}>Addresses</Title>
-              <Textarea
-                label="Shipping Address"
-                placeholder="Enter shipping address"
-                key={form.key('shippingAddress')}
-                {...form.getInputProps('shippingAddress')}
-                disabled={!isCreator}
-              />
-              <Textarea
-                label="Billing Address"
-                placeholder="Enter billing address"
-                key={form.key('billingAddress')}
-                {...form.getInputProps('billingAddress')}
-                disabled={!isCreator}
-              />
-
-              <Divider />
-
-              <Title order={4}>Payment & Status</Title>
-              <TextInput
-                label="Payment Method"
-                placeholder="e.g., Credit Card, PayPal, Cash"
-                key={form.key('paymentMethod')}
-                {...form.getInputProps('paymentMethod')}
-                disabled={!isCreator}
+              <NumberInput
+                label="Total"
+                placeholder="Enter total amount"
+                min={0}
+                step={0.01}
+                decimalScale={2}
+                prefix="$"
+                key={form.key('total')}
+                {...form.getInputProps('total')}
+                required
               />
               <Select
                 label="Status"
@@ -357,19 +267,24 @@ export const EditOrderDrawer = ({
                 key={form.key('status')}
                 {...form.getInputProps('status')}
                 required
-                disabled={!isCreator}
+              />
+              <Select
+                label="Payment Method"
+                data={paymentMethodOptions}
+                key={form.key('payment_method')}
+                {...form.getInputProps('payment_method')}
+                required
               />
 
               <Group justify="space-between" mt="xl">
                 <Button
                   color="red"
                   onClick={handleDelete}
-                  disabled={!isCreator}
                   variant="outline"
                 >
                   Delete Order
                 </Button>
-                <Button type="submit" disabled={!isCreator} loading={loading}>
+                <Button type="submit" loading={loading}>
                   Update Order
                 </Button>
               </Group>

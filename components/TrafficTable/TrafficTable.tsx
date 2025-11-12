@@ -15,7 +15,7 @@ type LanguageTableProps = {
     avg_session_period: number;
   }[];
   loading: boolean;
-  error: ReactNode;
+  error: ReactNode | Error | null | undefined;
 } & PaperProps;
 
 const TrafficTable = ({
@@ -45,32 +45,18 @@ const TrafficTable = ({
           highlightOnHover
           columns={[
             { accessor: 'source' },
-            { accessor: 'users' },
-            { accessor: 'sessions' },
+            { accessor: 'visitors' },
+            { accessor: 'pageviews' },
             {
               accessor: 'bounce_rate',
-              render: ({ bounce_rate }) => <Text>{bounce_rate}%</Text>,
+              render: ({ bounce_rate }) => <Text fz="sm">{bounce_rate}%</Text>,
             },
             {
-              accessor: 'avg_session_period',
-              render: ({ avg_session_period }) => {
-                const seconds = avg_session_period;
-
-                // ✅ get hh:mm:ss string
-                const result = new Date(seconds * 1000)
-                  .toISOString()
-                  .slice(11, 19);
-                console.log(result); // 👉️ "00:10:00" (hh:mm:ss)
-                const hh = result.split(':')[0],
-                  mm = result.split(':')[1],
-                  ss = result.split(':')[3];
-
-                return (
-                  <Text>
-                    {hh}h {mm}m {ss}s
-                  </Text>
-                );
-              },
+              accessor: 'avg_session_duration',
+              title: 'Avg session (sec)',
+              render: ({ avg_session_period }) => (
+                <Text fz="sm">{avg_session_period}s</Text>
+              ),
             },
           ]}
           records={data}

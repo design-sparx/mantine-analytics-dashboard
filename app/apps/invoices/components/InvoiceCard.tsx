@@ -11,16 +11,19 @@ import { IconEdit, IconEye, IconFileText } from '@tabler/icons-react';
 
 import { Surface } from '@/components';
 import { useAuth } from '@/hooks/useAuth';
+import { type components } from '@/lib/endpoints';
 import {
-  IInvoice,
   getInvoiceStatusColor,
   getInvoiceStatusLabel,
 } from '@/types/invoice';
 
+// Use the correct OpenAPI DTO type
+type InvoiceDto = components['schemas']['InvoiceDto'];
+
 interface InvoiceCardProps extends Omit<PaperProps, 'children'> {
-  data: IInvoice;
-  onEdit?: (invoice: IInvoice) => void;
-  onView?: (invoice: IInvoice) => void;
+  data: InvoiceDto;
+  onEdit?: (invoice: InvoiceDto) => void;
+  onView?: (invoice: InvoiceDto) => void;
 }
 
 export const InvoiceCard = ({
@@ -30,7 +33,8 @@ export const InvoiceCard = ({
   ...paperProps
 }: InvoiceCardProps) => {
   const { user } = useAuth();
-  const isCreator = user?.id === data.createdById;
+
+  const isCreator = user?.id === data?.created_by_id;
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -47,11 +51,6 @@ export const InvoiceCard = ({
     });
   };
 
-  const isOverdue = () => {
-    if (!data.dueDate) return false;
-    return new Date(data.dueDate) < new Date() && data.status !== 5; // Not paid
-  };
-
   return (
     <Surface p="md" {...paperProps}>
       <Stack gap="sm">
@@ -60,35 +59,29 @@ export const InvoiceCard = ({
             <Group gap="xs" align="center">
               <IconFileText size={16} />
               <Title order={5} mb={2}>
-                {data.invoiceNumber ||
-                  `INV-${data.id?.slice(-6)?.toUpperCase()}`}
+                {data?.id || `INV-${data?.id?.slice(-6)?.toUpperCase()}`}
               </Title>
             </Group>
             <Text size="sm" c="dimmed">
-              Issued: {data.issueDate && formatDate(data.issueDate)}
+              Issued: {data?.issue_date && formatDate(data?.issue_date)}
             </Text>
-            {data.dueDate && (
-              <Text size="sm" c={isOverdue() ? 'red' : 'dimmed'}>
-                Due: {formatDate(data.dueDate)}
-              </Text>
-            )}
           </div>
           <Badge
-            color={getInvoiceStatusColor(data.status)}
+            color={getInvoiceStatusColor(data?.status!)}
             variant="light"
             size="sm"
           >
-            {getInvoiceStatusLabel(data.status)}
+            {getInvoiceStatusLabel(data?.status!)}
           </Badge>
         </Group>
 
         <div>
           <Text size="sm" fw={500}>
-            Customer: {data.customerName || 'N/A'}
+            Customer: {data?.client_name || 'N/A'}
           </Text>
-          {data.customerEmail && (
+          {data?.client_email && (
             <Text size="xs" c="dimmed">
-              {data.customerEmail}
+              {data.client_email}
             </Text>
           )}
         </div>
@@ -96,27 +89,13 @@ export const InvoiceCard = ({
         <Group justify="space-between">
           <div>
             <Text size="xs" c="dimmed">
-              Items
-            </Text>
-            <Text size="sm" fw={500}>
-              {data.invoiceItems?.length || 0}
-            </Text>
-          </div>
-          <div>
-            <Text size="xs" c="dimmed">
               Amount
             </Text>
             <Text size="sm" fw={500}>
-              {data.totalAmount ? formatCurrency(data.totalAmount) : 'N/A'}
+              {data?.amount ? formatCurrency(data?.amount) : 'N/A'}
             </Text>
           </div>
         </Group>
-
-        {isOverdue() && (
-          <Text size="xs" c="red" fw={500}>
-            ⚠️ Overdue
-          </Text>
-        )}
 
         <Group justify="flex-end" mt="md">
           <Button

@@ -13,16 +13,17 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { useDisclosure, useFetch } from '@mantine/hooks';
+import { useDisclosure } from '@mantine/hooks';
 import { IconMoodEmpty, IconPlus } from '@tabler/icons-react';
 
 import NewProjectDrawer from '@/app/apps/projects/components/NewProjectDrawer';
 import ProjectsCard from '@/app/apps/projects/components/ProjectsCard/ProjectsCard';
 import { ErrorAlert, PageHeader, Surface } from '@/components';
-import { useAuth } from '@/hooks/useAuth';
+import { PermissionGate } from '@/lib/api/permissions';
+import { type components, useProjectsWithMutations } from '@/lib/endpoints';
 import { PATH_DASHBOARD } from '@/routes';
-import { IApiResponse } from '@/types/api-response';
-import { IProject } from '@/types/projects';
+
+// Simplified API imports
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },
@@ -41,32 +42,29 @@ const CARD_PROPS: Omit<PaperProps, 'children'> = {
 };
 
 function Projects() {
-  const { permissions, accessToken } = useAuth();
+  // Use new API hooks with built-in permission checking
   const {
     data: projectsData,
     loading: projectsLoading,
     error: projectsError,
     refetch: refetchProjects,
-  } = useFetch<IApiResponse<IProject[]>>('/api/projects', {
-    headers: {
-      Authorization: 'Bearer ' + accessToken,
-      'Content-Type': 'application/json',
-    },
-  });
+    mutations,
+  } = useProjectsWithMutations();
 
-  // Check if the user has a can add project
-  const canAddProject = permissions?.includes('Permissions.Projects.Create');
+  console.log('Projects data:', projectsData);
 
   const [newProjectOpened, { open: newProjectOpen, close: newProjectClose }] =
     useDisclosure(false);
 
   const handleProjectCreated = useCallback(() => {
-    refetchProjects();
-  }, [refetchProjects]);
+    // No need to manually refetch - mutations handle this automatically
+  }, []);
 
-  const projectItems = projectsData?.data?.map((p: any) => (
-    <ProjectsCard key={p.id} data={p} {...CARD_PROPS} />
-  ));
+  const projectItems = projectsData?.data?.map(
+    (p: components['schemas']['ProjectDto']) => (
+      <ProjectsCard key={p.id} data={p} {...CARD_PROPS} />
+    ),
+  );
 
   const renderContent = () => {
     if (projectsLoading) {
@@ -105,14 +103,14 @@ function Projects() {
             <Text>
               You don&apos;t have any projects yet. Create one to get started.
             </Text>
-            {canAddProject && (
+            <PermissionGate permission="Permissions.Team.Projects">
               <Button
                 leftSection={<IconPlus size={18} />}
                 onClick={newProjectOpen}
               >
                 New Project
               </Button>
-            )}
+            </PermissionGate>
           </Stack>
         </Surface>
       );
@@ -142,14 +140,15 @@ function Projects() {
         title="Projects"
         breadcrumbItems={items}
         actionButton={
-          canAddProject &&
           projectsData?.data?.length && (
-            <Button
-              leftSection={<IconPlus size={18} />}
-              onClick={newProjectOpen}
-            >
-              New Project
-            </Button>
+            <PermissionGate permission="Permissions.Team.Projects">
+              <Button
+                leftSection={<IconPlus size={18} />}
+                onClick={newProjectOpen}
+              >
+                New Project
+              </Button>
+            </PermissionGate>
           )
         }
       />
@@ -160,6 +159,7 @@ function Projects() {
         opened={newProjectOpened}
         onClose={newProjectClose}
         position="right"
+        onCreate={mutations.create}
         onProjectCreated={handleProjectCreated}
       />
     </>

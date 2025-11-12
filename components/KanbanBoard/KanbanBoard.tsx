@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState, useId } from 'react';
+import { useEffect, useId, useMemo, useState } from 'react';
 
 import {
   DndContext,
@@ -13,12 +13,31 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
-import { Box, Button, Portal, ScrollArea } from '@mantine/core';
+import { Box, Button, LoadingOverlay, Portal, ScrollArea } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconNewSection, IconPlus } from '@tabler/icons-react';
 
 import { KanbanCard, KanbanColumn } from '@/components';
-import { KanbanColumn as IColumn, KanbanTask as ITask, Id } from '@/types';
+import { type components, useKanbanTasksWithMutations } from '@/lib/endpoints';
+
+import { NewTaskModal } from './NewTaskModal';
+
+type KanbanTaskDto = components['schemas']['KanbanTaskDto'];
+type TaskStatus = components['schemas']['TaskStatus'];
+type Id = string | number;
+
+// Column type for local UI state
+interface IColumn {
+  id: Id;
+  title: string;
+}
+
+// Extended task type for local UI state (includes columnId for drag-n-drop)
+interface ITask extends Omit<KanbanTaskDto, 'id'> {
+  id: string;
+  columnId: Id;
+  content: string;
+}
 
 const defaultCols: IColumn[] = [
   {
@@ -118,12 +137,39 @@ const defaultTasks: ITask[] = [
 ];
 
 const KanbanBoard = () => {
+  const { data: apiTasks, loading, mutations } = useKanbanTasksWithMutations();
   const [columns, setColumns] = useState<IColumn[]>(defaultCols);
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
-  const [tasks, setTasks] = useState<ITask[]>(defaultTasks);
+  const [tasks, setTasks] = useState<ITask[]>([]);
   const [activeColumn, setActiveColumn] = useState<IColumn | null>(null);
   const [activeTask, setActiveTask] = useState<ITask | null>(null);
   const tablet_match = useMediaQuery('(max-width: 768px)');
+  const [newTaskModalOpened, setNewTaskModalOpened] = useState(false);
+  const [selectedColumnId, setSelectedColumnId] = useState<Id | null>(null);
+
+  // Map API tasks to local task format
+  useEffect(() => {
+    if (apiTasks) {
+      const mappedTasks: ITask[] = apiTasks.data?.map((task) => {
+        // Map status to columnId
+        let columnId: Id = 'todo';
+        if (task.status === 1) columnId = 'todo';
+        else if (task.status === 2) columnId = 'doing';
+        else if (task.status === 3) columnId = 'done';
+
+        return {
+          id: task.id || generateId().toString(),
+          columnId,
+          content: task.title || '',
+          title: task.title,
+          status: task.status,
+          comments: task.comments,
+          users: task.users,
+        };
+      });
+      setTasks(mappedTasks);
+    }
+  }, [apiTasks]);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -133,130 +179,145 @@ const KanbanBoard = () => {
     }),
   );
 
-  const id = useId()
+  const id = useId();
+
+  if (loading) {
+    return <LoadingOverlay visible={true} />;
+  }
 
   return (
-    <ScrollArea
-      h="100%"
-      w="100%"
-      style={{
-        margin: 'auto',
-        display: 'flex',
-        minHeight: '70vh',
-        height: '100%',
-        width: '100%',
-        alignItems: 'center',
-        overflowX: 'auto',
-        overflowY: 'hidden',
-      }}
-    >
-      <DndContext
-        id={id}
-        sensors={sensors}
-        onDragStart={onDragStart}
-        onDragEnd={onDragEnd}
-        onDragOver={onDragOver}
+    <>
+      <ScrollArea
+        h="100%"
+        w="100%"
+        style={{
+          margin: 'auto',
+          display: 'flex',
+          minHeight: '70vh',
+          height: '100%',
+          width: '100%',
+          alignItems: 'center',
+          overflowX: 'auto',
+          overflowY: 'hidden',
+        }}
       >
-        <Box
-          component="div"
-          style={{
-            margin: 'auto',
-            display: 'flex',
-            flexDirection: tablet_match ? 'column' : 'row',
-            gap: '1rem',
-          }}
+        <DndContext
+          id={id}
+          sensors={sensors}
+          onDragStart={onDragStart}
+          onDragEnd={onDragEnd}
+          onDragOver={onDragOver}
         >
           <Box
             component="div"
             style={{
+              margin: 'auto',
               display: 'flex',
               flexDirection: tablet_match ? 'column' : 'row',
               gap: '1rem',
             }}
           >
-            <SortableContext items={columnsId}>
-              {columns.map((col) => (
+            <Box
+              component="div"
+              style={{
+                display: 'flex',
+                flexDirection: tablet_match ? 'column' : 'row',
+                gap: '1rem',
+              }}
+            >
+              <SortableContext items={columnsId}>
+                {columns.map((col) => (
+                  <KanbanColumn
+                    key={col.id}
+                    column={col}
+                    deleteColumn={deleteColumn}
+                    updateColumn={updateColumn}
+                    createTask={openNewTaskModal}
+                    deleteTask={deleteTask}
+                    updateTask={updateTask}
+                    tasks={tasks?.filter((task) => task.columnId === col.id)}
+                  />
+                ))}
+              </SortableContext>
+            </Box>
+            <Button
+              mt={tablet_match ? 'lg' : 0}
+              size="md"
+              variant="outline"
+              leftSection={<IconNewSection size={16} />}
+              style={{
+                width: '350px',
+                minWidth: '350px',
+                borderStyle: 'dashed',
+              }}
+              onClick={() => {
+                createNewColumn();
+              }}
+            >
+              Add a new bucket
+            </Button>
+          </Box>
+
+          <Portal>
+            <DragOverlay>
+              {activeColumn && (
                 <KanbanColumn
-                  key={col.id}
-                  column={col}
+                  column={activeColumn}
                   deleteColumn={deleteColumn}
                   updateColumn={updateColumn}
-                  createTask={createTask}
+                  createTask={openNewTaskModal}
                   deleteTask={deleteTask}
                   updateTask={updateTask}
-                  tasks={tasks.filter((task) => task.columnId === col.id)}
+                  tasks={tasks.filter(
+                    (task) => task.columnId === activeColumn.id,
+                  )}
                 />
-              ))}
-            </SortableContext>
-          </Box>
-          <Button
-            mt={tablet_match ? 'lg' : 0}
-            size="md"
-            variant="outline"
-            leftSection={<IconNewSection size={16} />}
-            style={{
-              width: '350px',
-              minWidth: '350px',
-              borderStyle: 'dashed',
-            }}
-            onClick={() => {
-              createNewColumn();
-            }}
-          >
-            Add a new bucket
-          </Button>
-        </Box>
+              )}
+              {activeTask && (
+                <KanbanCard
+                  task={activeTask}
+                  deleteTask={deleteTask}
+                  updateTask={updateTask}
+                />
+              )}
+            </DragOverlay>
+          </Portal>
+        </DndContext>
+      </ScrollArea>
 
-        <Portal>
-          <DragOverlay>
-            {activeColumn && (
-              <KanbanColumn
-                column={activeColumn}
-                deleteColumn={deleteColumn}
-                updateColumn={updateColumn}
-                createTask={createTask}
-                deleteTask={deleteTask}
-                updateTask={updateTask}
-                tasks={tasks.filter(
-                  (task) => task.columnId === activeColumn.id,
-                )}
-              />
-            )}
-            {activeTask && (
-              <KanbanCard
-                task={activeTask}
-                deleteTask={deleteTask}
-                updateTask={updateTask}
-              />
-            )}
-          </DragOverlay>
-        </Portal>
-      </DndContext>
-    </ScrollArea>
+      <NewTaskModal
+        opened={newTaskModalOpened}
+        onClose={() => setNewTaskModalOpened(false)}
+        onSubmit={createTask}
+        columnId={selectedColumnId || 'todo'}
+        loading={loading}
+      />
+    </>
   );
 
-  function createTask(columnId: Id) {
-    const newTask: ITask = {
-      id: generateId(),
-      columnId,
-      content: `Task ${tasks.length + 1}`,
-    };
-
-    setTasks([...tasks, newTask]);
+  function openNewTaskModal(columnId: Id) {
+    setSelectedColumnId(columnId);
+    setNewTaskModalOpened(true);
   }
 
-  function deleteTask(id: Id) {
-    const newTasks = tasks.filter((task) => task.id !== id);
-    setTasks(newTasks);
+  async function createTask(taskData: Partial<KanbanTaskDto>) {
+    await mutations.create(taskData);
   }
 
-  function updateTask(id: Id, content: string) {
-    const newTasks = tasks.map((task) => {
-      if (task.id !== id) return task;
-      return { ...task, content };
-    });
+  async function deleteTask(id: Id) {
+    if (typeof id === 'string') {
+      await mutations.delete(id);
+    }
+  }
 
-    setTasks(newTasks);
+  async function updateTask(id: Id, content: string) {
+    if (typeof id === 'string') {
+      const task = tasks.find((t) => t.id === id);
+      await mutations.update(id, {
+        title: content,
+        status: task?.status,
+      });
+    }
   }
 
   function createNewColumn() {
@@ -318,7 +379,7 @@ const KanbanBoard = () => {
     });
   }
 
-  function onDragOver(event: DragOverEvent) {
+  async function onDragOver(event: DragOverEvent) {
     const { active, over } = event;
     if (!over) return;
 
@@ -338,7 +399,25 @@ const KanbanBoard = () => {
         const activeIndex = tasks.findIndex((t) => t.id === activeId);
         const overIndex = tasks.findIndex((t) => t.id === overId);
 
-        tasks[activeIndex].columnId = tasks[overIndex].columnId;
+        const newColumnId = tasks[overIndex].columnId;
+        tasks[activeIndex].columnId = newColumnId;
+
+        // Update task status in API based on new column (skip refetch to avoid loading spinner)
+        const task = tasks[activeIndex];
+        if (typeof task.id === 'string') {
+          let newStatus: TaskStatus = 1;
+          if (newColumnId === 'doing') newStatus = 2;
+          else if (newColumnId === 'done') newStatus = 3;
+
+          mutations.update(
+            task.id,
+            {
+              title: task.title,
+              status: newStatus,
+            },
+            { skipRefetch: true },
+          );
+        }
 
         return arrayMove(tasks, activeIndex, overIndex);
       });
@@ -352,6 +431,23 @@ const KanbanBoard = () => {
         const activeIndex = tasks.findIndex((t) => t.id === activeId);
 
         tasks[activeIndex].columnId = overId;
+
+        // Update task status in API based on new column (skip refetch to avoid loading spinner)
+        const task = tasks[activeIndex];
+        if (typeof task.id === 'string') {
+          let newStatus: TaskStatus = 1;
+          if (overId === 'doing') newStatus = 2;
+          else if (overId === 'done') newStatus = 3;
+
+          mutations.update(
+            task.id,
+            {
+              title: task.title,
+              status: newStatus,
+            },
+            { skipRefetch: true },
+          );
+        }
 
         return arrayMove(tasks, activeIndex, activeIndex);
       });

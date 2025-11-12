@@ -21,7 +21,12 @@ import {
   StatsGrid,
   Surface,
 } from '@/components';
-import { useFetchData } from '@/hooks';
+import {
+  useAllStats,
+  useProjects,
+  useSales,
+  useTraffic,
+} from '@/lib/endpoints';
 import { PATH_TASKS } from '@/routes';
 
 const PAPER_PROPS: PaperProps = {
@@ -30,16 +35,30 @@ const PAPER_PROPS: PaperProps = {
 };
 
 function Page() {
+  // Use new API endpoints with RBAC
   const {
     data: projectsData,
     error: projectsError,
     loading: projectsLoading,
-  } = useFetchData('/mocks/Projects.json');
+  } = useProjects({ limit: 6 });
+
   const {
     data: statsData,
     error: statsError,
     loading: statsLoading,
-  } = useFetchData('/mocks/StatsGrid.json');
+  } = useAllStats();
+
+  const {
+    data: salesData,
+    error: salesError,
+    loading: salesLoading,
+  } = useSales();
+
+  const {
+    data: trafficData,
+    error: trafficError,
+    loading: trafficLoading,
+  } = useTraffic();
 
   return (
     <>
@@ -54,12 +73,12 @@ function Page() {
         <Stack gap="lg">
           <PageHeader title="Default dashboard" withActions={true} />
           <StatsGrid
-            data={statsData.data}
+            data={statsData?.data || []}
             loading={statsLoading}
             error={statsError}
             paperProps={PAPER_PROPS}
           />
-          <Grid gutter={{ base: 5, xs: 'md', md: 'xl', xl: 50 }}>
+          <Grid gutter={{ base: 5, xs: 'md', md: 'md', lg: 'lg', xl: 'xl' }}>
             <Grid.Col span={8}>
               <RevenueChart {...PAPER_PROPS} />
             </Grid.Col>
@@ -85,7 +104,7 @@ function Page() {
                   </Button>
                 </Group>
                 <ProjectsTable
-                  data={projectsData.slice(0, 6)}
+                  data={projectsData?.data?.slice(0, 6) || []}
                   error={projectsError}
                   loading={projectsLoading}
                 />

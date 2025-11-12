@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/app/lib/authOptions';
 import { PATH_AUTH } from '@/routes';
 
+// NextAuth server-side utilities
 export async function getSession() {
   return await getServerSession(authOptions);
 }
@@ -22,3 +23,6 @@ export async function requireAuth() {
 
   return user;
 }
+
+// Note: Client-side auth operations (register, login, profile updates, etc.)
+// are now handled by the new API hooks in lib/api/hooks/auth.ts

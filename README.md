@@ -1,4 +1,5 @@
 ## 🔉 Announcements
+- ✅ **NEW**: Type-safe API integration with RBAC system now available! See [API Integration Guide](#-api-integration--rbac-system) below.
 - Working on integrating our mock data with actual apis for a more real-world experience. This is the roadmap for implementing our APIs - [Admin Hub Apis roadmap](https://github.com/orgs/design-sparx/projects/6/views/1?filterQuery=&layout=roadmap)
 
 ---
@@ -58,13 +59,15 @@ fork the repo use this link - [version 1](https://github.com/design-sparx/mantin
 
 # Features
 
+- **Type-Safe API Integration:** Auto-generated TypeScript types from OpenAPI specs with zero boilerplate
+- **Advanced RBAC System:** Role-Based Access Control with permission-aware UI components
 - **Customizable:** You don't need to be an expert to customize the template. Our code is very readable and
   well-documented.
-- **Fully Responsive:** With mobile, tablet & desktop support it doesn't matter what device you're using. Antd Dashboard
+- **Fully Responsive:** With mobile, tablet & desktop support it doesn't matter what device you're using. Dashboard
   is responsive in all browsers.
 - **Cross-Browser:** Our themes are working perfectly with Chrome, Firefox, Opera, and Edge. We're working hard to
   support them.
-- **Clean Code:** We strictly follow Ant Design's guidelines to make your integration as easy as possible. All code is
+- **Clean Code:** We strictly follow best practices to make your integration as easy as possible. All code is
   handwritten.
 - **Regular Updates:** From time to time you'll receive an update containing new components, improvements, and bug
   fixes.
@@ -89,6 +92,7 @@ To make this template awesome, I used the following packages:
 - **Changeset CLI v2:** Changeset is a package that helps in managing my versions and changelogs.
 - **NextAuth v4:** NextAuth.js is a flexible and secure authentication library that can be used for client-side
   authentication in Next.js.
+- **OpenAPI TypeScript:** Auto-generates TypeScript types from OpenAPI specifications for type-safe API integration.
 - **Tabler icons v2:** Tabler Icons is a free, open-source icon library with over 4,700 icons. The icons are designed
   with a modern aesthetic and are suitable for a wide range of applications.
 - **Mantine datatable v7:** Mantine DataTable is a React component that can be used to create data-rich user interfaces.
@@ -148,6 +152,15 @@ Compile, optimize, minify and uglify all source files to build/
 npm run build
 ```
 
+## API Integration Setup
+
+Generate type-safe API types from your backend:
+
+```bash copy
+# Generate types from development backend
+npm run generate:types
+```
+
 # File structure
 
 Inside the zip-file you'll find the following directories and files. Both compiled and minified distribution files, as
@@ -195,15 +208,137 @@ mantine-analytics-dashboard/
 │   ├── components/
 │   ├── hooks/
 │   ├── layout/
+│   ├── lib/
+│   ├────── api.d.ts           # Auto-generated API types
+│   ├────── api-client.ts      # Type-safe API client
+│   ├────── api/
+│   ├──────── hooks/           # API hooks
+│   ├──────── permissions/     # RBAC system
 │   ├── providers/
 │   ├── public/
 │   ├── routes/
+│   ├── scripts/
+│   ├────── generate-api-types.js  # Type generation script
 │   ├── styles/
 │   ├── theme/
 │   ├── types/
 │   ├── utils/
+│   ├── docs/
+│   ├────── API_INTEGRATION.md     # Complete API guide
+│   ├────── RBAC_SYSTEM.md         # RBAC documentation
 └──
 ```
+
+# 🚀 API Integration & RBAC System
+
+This template now features a comprehensive type-safe API integration system with Role-Based Access Control (RBAC).
+
+## ⚡ Quick Start
+
+```bash
+# 1. Generate API types from your backend
+npm run generate:types
+
+# 2. Use type-safe hooks in your components
+import { useInvoicesWithMutations, PermissionGate } from '@/lib/api';
+
+function MyComponent() {
+  const { data, mutations } = useInvoicesWithMutations();
+
+  return (
+    <PermissionGate permission="Permissions.Personal.Invoices">
+      <InvoiceManager data={data} onCreate={mutations.create} />
+    </PermissionGate>
+  );
+}
+```
+
+## 🎯 Key Features
+
+- **🤖 Auto-generated TypeScript types** from OpenAPI spec
+- **🔒 Permission-based access control** with React components
+- **⚡ Zero-boilerplate API calls** with Mantine hooks
+- **🔄 Automatic data refreshing** after mutations
+- **🛡️ Type-safe throughout** the entire data flow
+- **📱 Mantine-native** integration (no extra dependencies)
+
+## 🏗️ System Overview
+
+```
+lib/api/
+├── 🤖 api.d.ts              # Auto-generated OpenAPI types
+├── 🔧 api-client.ts         # Mantine useFetch + auth wrapper
+├── hooks/                   # Type-safe API hooks
+│   ├── auth.ts             # Authentication & profiles
+│   ├── projects.ts         # Team collaboration
+│   └── invoices.ts         # Personal data
+└── permissions/            # RBAC system
+    ├── types.ts           # Permission definitions
+    ├── hooks.ts           # Permission React hooks
+    ├── components.tsx     # Permission UI components
+    └── utils.ts           # Permission utilities
+```
+
+## 🔒 RBAC Overview
+
+### Roles
+- **Admin**: Full system access + user management
+- **User**: Team collaboration + personal data access
+
+### Permission Categories
+- **Admin**: `Permissions.Admin.*` - System administration
+- **Team**: `Permissions.Team.*` - Collaborative resources (shared visibility)
+- **Personal**: `Permissions.Personal.*` - Private user data (owner-only)
+- **Users**: `Permissions.Users.*` - User directory access
+
+### Usage Examples
+
+```typescript
+// Permission-based UI rendering
+<PermissionGate permission="Permissions.Team.Projects">
+  <ProjectManager />
+</PermissionGate>
+
+// Multiple permission checks
+<MultiPermissionGate
+  permissions={['Permissions.Team.Projects', 'Permissions.Team.Orders']}
+  mode="any"
+>
+  <TeamDashboard />
+</MultiPermissionGate>
+
+// Admin-only content
+<AdminOnly>
+  <UserManagementPanel />
+</AdminOnly>
+
+// Permission hooks
+const canCreateInvoices = useHasPermission('Permissions.Personal.Invoices');
+const isAdmin = useIsAdmin();
+```
+
+## 📚 Complete Documentation
+
+- **📖 [API Integration Guide](./docs/API_INTEGRATION.md)** - Complete usage guide, adding endpoints, troubleshooting
+- **🔐 [RBAC System Documentation](./docs/RBAC_SYSTEM.md)** - Permission system, components, patterns
+
+## 🚀 Development Workflow
+
+1. **Update Backend**: Add endpoints to OpenAPI spec with proper tags
+2. **Generate Types**: `npm run generate:types`
+3. **Create Hooks**: Add API hooks in `lib/api/hooks/`
+4. **Add Permissions**: Update permission types if needed
+5. **Use in Components**: Import type-safe hooks and permission gates
+
+## ✨ Benefits
+
+- **Developer Experience**: Full TypeScript autocomplete and error checking
+- **Security**: Permission checks prevent unauthorized access
+- **Performance**: Built-in caching and automatic data invalidation
+- **Maintainability**: Single source of truth from OpenAPI spec
+- **Scalability**: Automatically grows with your backend API
+
+---
 
 # Contributing and Support
 

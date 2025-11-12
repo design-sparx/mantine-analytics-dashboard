@@ -4,6 +4,7 @@ import { Badge, MantineColor } from '@mantine/core';
 import { DataTable } from 'mantine-datatable';
 
 import { ErrorAlert } from '@/components';
+import { components } from '@/lib/api';
 
 type Status = 'In Progress' | 'Cancelled' | 'Completed' | 'Pending' | string;
 
@@ -44,8 +45,8 @@ type ProjectItem = {
 };
 
 type ProjectsTableProps = {
-  data?: ProjectItem[];
-  error: ReactNode;
+  data?: components['schemas']['ProjectDto'][];
+  error: Error | null | undefined | ReactNode;
   loading: boolean;
 };
 const ProjectsTable = ({ data, error, loading }: ProjectsTableProps) => {
@@ -61,7 +62,6 @@ const ProjectsTable = ({ data, error, loading }: ProjectsTableProps) => {
         { accessor: 'end_date' },
         {
           accessor: 'state',
-          render: ({ state }) => <StatusBadge status={state} />,
         },
         { accessor: 'assignee' },
       ]}

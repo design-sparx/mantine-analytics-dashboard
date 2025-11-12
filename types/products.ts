@@ -1,4 +1,5 @@
-import { IUser } from '@/types/user';
+// Updated types to match your C# backend models
+// Note: For new development, prefer using the OpenAPI-generated types from @/lib/api
 
 export interface IProduct {
   id: string;
@@ -16,9 +17,9 @@ export interface IProduct {
   created: string;
   modified: string;
   createdById: any;
-  createdBy: IUser;
+  createdBy: any; // Use OpenAPI types for new development
   modifiedById: any;
-  modifiedBy: IUser;
+  modifiedBy: any; // Use OpenAPI types for new development
 }
 
 export interface IProductCategory {
@@ -28,8 +29,8 @@ export interface IProductCategory {
   created: string;
   modified: string;
   createdById: any;
-  createdBy: IUser;
+  createdBy: any; // Use OpenAPI types for new development
   modifiedById: any;
-  modifiedBy: IUser;
+  modifiedBy: any; // Use OpenAPI types for new development
   productCount: number;
 }

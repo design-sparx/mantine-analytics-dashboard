@@ -13,7 +13,7 @@ type LanguageTableProps = {
     users: number;
     users_percentage: number;
   }[];
-  error: ReactNode;
+  error: ReactNode | Error | null | undefined;
   loading: boolean;
 } & PaperProps;
 
@@ -43,9 +43,9 @@ const LanguageTable = ({
           verticalSpacing="sm"
           highlightOnHover
           columns={[
-            { accessor: 'language' },
-            { accessor: 'users' },
-            { accessor: 'users_percentage', title: 'Users %' },
+            { accessor: 'code' },
+            { accessor: 'name' },
+            { accessor: 'native_name' },
           ]}
           records={data}
           fetching={loading}

@@ -24,8 +24,24 @@ import { modals } from '@mantine/modals';
 import { IconDots, IconEdit, IconPlus, IconTrash } from '@tabler/icons-react';
 
 import { KanbanCard } from '@/components';
+import { type components } from '@/lib/endpoints';
 
-import { KanbanColumn as IColumn, KanbanTask as ITask, Id } from '../../types';
+type KanbanTaskDto = components['schemas']['KanbanTaskDto'];
+type TaskStatus = components['schemas']['TaskStatus'];
+type Id = string | number;
+
+// Column type for local UI state
+interface IColumn {
+  id: Id;
+  title: string;
+}
+
+// Extended task type for local UI state (includes columnId for drag-n-drop)
+interface ITask extends Omit<KanbanTaskDto, 'id'> {
+  id: string;
+  columnId: Id;
+  content: string;
+}
 
 const ICON_SIZE = 18;
 
@@ -66,7 +82,7 @@ const KanbanColumn = (props: Props) => {
   };
 
   const tasksIds = useMemo(() => {
-    return tasks.map((task) => task.id);
+    return tasks?.map((task) => task.id) || [];
   }, [tasks]);
 
   const {
@@ -143,7 +159,7 @@ const KanbanColumn = (props: Props) => {
               <Text fz="lg" fw={600}>
                 {column.title}
               </Text>
-              <Badge variant="dot">{tasks.length}</Badge>
+              <Badge variant="dot">{tasks?.length}</Badge>
             </>
           )}
           {editMode && (
@@ -196,14 +212,15 @@ const KanbanColumn = (props: Props) => {
       >
         <Stack gap="sm" px="sm" py="md">
           <SortableContext items={tasksIds}>
-            {tasks.map((task) => (
-              <KanbanCard
-                key={task.id}
-                task={task}
-                deleteTask={deleteTask}
-                updateTask={updateTask}
-              />
-            ))}
+            {tasks?.length > 0 &&
+              tasks?.map((task) => (
+                <KanbanCard
+                  key={task.id}
+                  task={task}
+                  deleteTask={deleteTask}
+                  updateTask={updateTask}
+                />
+              ))}
           </SortableContext>
         </Stack>
       </ScrollArea>

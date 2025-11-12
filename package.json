@@ -18,7 +18,8 @@
     "commitlint": "commitlint --edit",
     "changeset:add": "pnpm changeset",
     "changeset:release": "pnpm changeset version",
-    "changeset:publish": "pnpm changeset publish"
+    "changeset:publish": "pnpm changeset publish",
+    "generate:types": "node scripts/generate-api-types.js"
   },
   "dependencies": {
     "@auth/express": "^0.10.0",
@@ -103,6 +104,7 @@
     "eslint-plugin-import": "^2.31.0",
     "husky": "^8.0.0",
     "lint-staged": "^15.2.9",
+    "openapi-typescript": "^7.9.1",
     "pinst": "^3.0.0",
     "postcss": "^8.4.47",
     "postcss-preset-mantine": "^1.17.0",

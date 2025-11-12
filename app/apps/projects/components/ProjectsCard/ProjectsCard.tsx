@@ -17,9 +17,12 @@ import {
 import { IconNotebook, IconShare } from '@tabler/icons-react';
 
 import { Surface } from '@/components';
-import { IProject } from '@/types/projects';
+import { type components } from '@/lib/endpoints';
 
 import classes from './ProjectsCard.module.css';
+
+// Use OpenAPI type
+type ProjectDto = components['schemas']['ProjectDto'];
 
 const avatars = [
   'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
@@ -90,7 +93,7 @@ const StatusBadge = ({ status }: StatusProps) => {
 };
 
 type ProjectsCardProps = {
-  data: IProject;
+  data: ProjectDto;
 } & Omit<PaperProps, 'children'>;
 
 const ProjectsCard = (props: ProjectsCardProps) => {
@@ -100,13 +103,26 @@ const ProjectsCard = (props: ProjectsCardProps) => {
     return null;
   }
 
-  const {
-    statusText = 'pending',
-    title = 'Untitled Project',
-    description = 'No description provided',
-    owner = {},
-    completionPercentage = 0,
-  } = data;
+  // Map ProjectDto fields to display values
+  const name = data.name || 'Untitled Project';
+  const startDate = data.start_date ? new Date(data.start_date).toLocaleDateString() : 'Not set';
+  const endDate = data.end_date ? new Date(data.end_date).toLocaleDateString() : 'Not set';
+  const assignee = data.assignee || 'Unassigned';
+  const state = data.state ?? 0; // ProjectState is a number
+
+  // Map state number to status text
+  const getStatusText = (stateNum: number) => {
+    switch (stateNum) {
+      case 0: return 'pending';
+      case 1: return 'in progress';
+      case 2: return 'completed';
+      case 3: return 'on hold';
+      case 4: return 'cancelled';
+      default: return 'pending';
+    }
+  };
+
+  const statusText = getStatusText(state);
 
   return (
     <Surface {...others}>
@@ -114,43 +130,33 @@ const ProjectsCard = (props: ProjectsCardProps) => {
         <Flex justify="space-between" align="center">
           <Flex align="center" gap="xs">
             <Text fz="md" fw={600}>
-              {title}
+              {name}
             </Text>
           </Flex>
           <StatusBadge status={statusText.toLowerCase()} />
         </Flex>
-        <Text fz="sm" lineClamp={3}>
-          {description}
-        </Text>
 
-        <Text fz="sm">
-          Tasks completed:{' '}
-          <Text span fz="sm" fw={500} className={classes.tasksCompleted}>
-            {completionPercentage}
+        <Stack gap="xs">
+          <Text fz="sm" c="dimmed">
+            <Text span fw={500}>Start:</Text> {startDate}
           </Text>
-        </Text>
-
-        <Progress
-          value={completionPercentage}
-          mt={5}
-          size="sm"
-          color={
-            completionPercentage < 21
-              ? 'red'
-              : completionPercentage < 51
-                ? 'yellow'
-                : completionPercentage < 86
-                  ? 'blue'
-                  : 'green'
-          }
-        />
+          <Text fz="sm" c="dimmed">
+            <Text span fw={500}>End:</Text> {endDate}
+          </Text>
+        </Stack>
 
         <Flex align="center" gap="xs">
-          <Tooltip label={data.owner.userName}>
-            <Avatar size="md" radius="xl" />
+          <Tooltip label={assignee}>
+            <Avatar size="md" radius="xl">
+              {assignee.substring(0, 2).toUpperCase()}
+            </Avatar>
           </Tooltip>
-          <Text>{data.owner.userName}</Text>
+          <div>
+            <Text fz="xs" c="dimmed">Assigned to</Text>
+            <Text fz="sm" fw={500}>{assignee}</Text>
+          </div>
         </Flex>
+
         <Divider />
 
         <Group gap="sm">
