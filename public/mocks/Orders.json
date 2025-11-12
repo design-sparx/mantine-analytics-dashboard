@@ -4,8 +4,8 @@
     "product": "Reactive",
     "date": "4/25/2023",
     "total": 704.32,
-    "status": "shipped",
-    "payment_method": "bitcoin"
+    "status": 3,
+    "payment_method": 3
   },
   {
     "id": "067c4dcd-4b07-42b8-8cd0-55a6b3e9d608",

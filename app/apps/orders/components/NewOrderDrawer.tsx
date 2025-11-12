@@ -56,11 +56,7 @@ export const NewOrderDrawer = ({
   const handleSubmit = async (values: NewOrderFormValues) => {
     setLoading(true);
     try {
-      const result = await createOrder(values);
-
-      if (result.error) {
-        throw new Error(result.error.message || 'Failed to create order');
-      }
+      await createOrder(values);
 
       notifications.show({
         title: 'Success',

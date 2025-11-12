@@ -71,11 +71,7 @@ export const EditOrderDrawer = ({
         payment_method: Number(values.payment_method),
       };
 
-      const result = await updateOrder(order.id, payload);
-
-      if (result.error) {
-        throw new Error(result.error.message || 'Failed to update order');
-      }
+      await updateOrder(order.id, payload);
 
       notifications.show({
         title: 'Success',
@@ -111,11 +107,7 @@ export const EditOrderDrawer = ({
 
     setLoading(true);
     try {
-      const result = await deleteOrder(order.id);
-
-      if (result.error) {
-        throw new Error(result.error.message || 'Failed to delete order');
-      }
+      await deleteOrder(order.id);
 
       notifications.show({
         title: 'Success',
@@ -278,11 +270,7 @@ export const EditOrderDrawer = ({
               />
 
               <Group justify="space-between" mt="xl">
-                <Button
-                  color="red"
-                  onClick={handleDelete}
-                  variant="outline"
-                >
+                <Button color="red" onClick={handleDelete} variant="outline">
                   Delete Order
                 </Button>
                 <Button type="submit" loading={loading}>

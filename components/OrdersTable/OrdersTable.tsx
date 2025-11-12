@@ -2,7 +2,15 @@
 
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 
-import { ActionIcon, Badge, Group, MantineColor, MultiSelect, TextInput, Tooltip } from '@mantine/core';
+import {
+  ActionIcon,
+  Badge,
+  Group,
+  MantineColor,
+  MultiSelect,
+  TextInput,
+  Tooltip,
+} from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import { IconEdit, IconEye, IconSearch } from '@tabler/icons-react';
 import sortBy from 'lodash/sortBy';
@@ -24,7 +32,12 @@ type StatusBadgeProps = {
 };
 
 const StatusBadge = ({ status }: StatusBadgeProps) => {
-  if (!status) return <Badge color="gray" variant="filled" radius="sm">Unknown</Badge>;
+  if (!status)
+    return (
+      <Badge color="gray" variant="filled" radius="sm">
+        Unknown
+      </Badge>
+    );
 
   const statusMap: Record<number, { label: string; color: MantineColor }> = {
     1: { label: 'Pending', color: 'yellow' },
@@ -34,7 +47,10 @@ const StatusBadge = ({ status }: StatusBadgeProps) => {
     5: { label: 'Cancelled', color: 'red' },
   };
 
-  const statusInfo = statusMap[status as number] || { label: 'Unknown', color: 'gray' };
+  const statusInfo = statusMap[status as number] || {
+    label: 'Unknown',
+    color: 'gray',
+  };
 
   return (
     <Badge color={statusInfo.color} variant="filled" radius="sm">
@@ -53,7 +69,13 @@ type OrdersTableProps = {
   onView?: (order: OrderDto) => void;
 };
 
-const OrdersTable = ({ data = [], loading, error, onEdit, onView }: OrdersTableProps) => {
+const OrdersTable = ({
+  data = [],
+  loading,
+  error,
+  onEdit,
+  onView,
+}: OrdersTableProps) => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
   const [selectedRecords, setSelectedRecords] = useState<OrderDto[]>([]);
@@ -75,7 +97,7 @@ const OrdersTable = ({ data = [], loading, error, onEdit, onView }: OrdersTableP
       5: 'Cancelled',
     };
     const uniqueStatuses = new Set(
-      data.map((e) => statusMap[e.status as number] || 'Unknown')
+      data.map((e) => statusMap[e.status as number] || 'Unknown'),
     );
     return Array.from(uniqueStatuses);
   }, [data]);
@@ -125,7 +147,9 @@ const OrdersTable = ({ data = [], loading, error, onEdit, onView }: OrdersTableP
     {
       accessor: 'id',
       title: 'Order ID',
-      render: (item: OrderDto) => <span>#{item.id?.slice(-8)?.toUpperCase() || 'N/A'}</span>,
+      render: (item: OrderDto) => (
+        <span>#{item.id?.slice(-8)?.toUpperCase() || 'N/A'}</span>
+      ),
     },
     {
       accessor: 'product',
@@ -145,7 +169,8 @@ const OrdersTable = ({ data = [], loading, error, onEdit, onView }: OrdersTableP
     {
       accessor: 'date',
       sortable: true,
-      render: (item: OrderDto) => formatDate(item.date),
+      render: (item: OrderDto) =>
+        item.date ? formatDate(item.date ?? '') : '----',
     },
     {
       accessor: 'total',
