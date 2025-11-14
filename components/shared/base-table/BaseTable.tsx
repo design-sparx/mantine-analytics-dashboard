@@ -37,8 +37,7 @@ function BaseTable<T extends Record<string, unknown>>({
   withBorder = false,
   stickyHeader = false,
   maxHeight,
-  ...others
-}: BaseTableProps<T> & Omit<DataTableProps<T>, 'records' | 'columns'>) {
+}: BaseTableProps<T>) {
   // Default empty state
   const defaultEmptyState = useMemo(
     () => ({
@@ -140,7 +139,7 @@ function BaseTable<T extends Record<string, unknown>>({
   return (
     <DataTable<T>
       records={data}
-      columns={columns as DataTableProps<T>['columns']}
+      columns={columns}
       striped={striped}
       highlightOnHover={highlightOnHover}
       withTableBorder={withBorder}
@@ -149,7 +148,6 @@ function BaseTable<T extends Record<string, unknown>>({
       fetching={loading}
       idAccessor={rowKey}
       onRowClick={handleRowClick}
-      {...others}
     />
   );
 }

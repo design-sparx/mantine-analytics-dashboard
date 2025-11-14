@@ -1,5 +1,8 @@
 import { ReactNode } from 'react';
-import { SortDirection, SortState, FilterState, PaginationProps, EmptyStateProps } from './components';
+
+import { DataTableColumn } from 'mantine-datatable';
+
+import { FilterState, PaginationProps, EmptyStateProps, SortDirection, SortState } from './components';
 
 /**
  * Column definition for data tables
@@ -53,8 +56,8 @@ export type TableError = {
 export type BaseTableProps<T> = {
   /** Array of data to display in the table */
   data: T[];
-  /** Column definitions */
-  columns: TableColumn<T>[];
+  /** Column definitions using mantine-datatable's DataTableColumn type */
+  columns: DataTableColumn<T>[];
   /** Whether data is loading */
   loading?: boolean;
   /** Error state */
