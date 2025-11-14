@@ -2,8 +2,7 @@ import { ReactNode } from 'react';
 
 import { PaperProps, SimpleGrid, Skeleton } from '@mantine/core';
 
-import { ErrorAlert } from '@/components';
-import StatsCard from '@/components/StatsCard/StatsCard';
+import { ErrorAlert, StatsCard } from '@/components';
 
 import classes from './StatsGrid.module.css';
 
