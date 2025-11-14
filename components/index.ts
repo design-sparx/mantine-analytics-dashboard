@@ -1,3 +1,7 @@
+// Shared/Base Components
+export { default as BaseTable } from './shared/BaseTable';
+export { default as BaseCard } from './shared/BaseCard';
+
 // Layout Components
 export { default as Logo } from './Logo';
 export { default as PageHeader } from './PageHeader';
