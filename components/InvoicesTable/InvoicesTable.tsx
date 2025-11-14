@@ -30,13 +30,14 @@ import { useRouter } from 'next/navigation';
 
 import { ErrorAlert } from '@/components';
 import { PATH_INVOICES } from '@/routes';
+import { InvoiceTableRow, InvoiceStatus } from './types';
 
 const PAGE_SIZES = [5, 10, 20];
 
 const ICON_SIZE = 18;
 
 type StatusBadgeProps = {
-  status: any;
+  status: InvoiceStatus;
 };
 
 const StatusBadge = ({ status }: StatusBadgeProps) => {
@@ -70,7 +71,7 @@ const StatusBadge = ({ status }: StatusBadgeProps) => {
 };
 
 type InvoicesTableProps = {
-  data: any[];
+  data: InvoiceTableRow[];
   error?: ReactNode;
   loading?: boolean;
 };
@@ -79,8 +80,8 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
   const theme = useMantineTheme();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
-  const [selectedRecords, setSelectedRecords] = useState<any[]>([]);
-  const [records, setRecords] = useState<any[]>(data.slice(0, pageSize));
+  const [selectedRecords, setSelectedRecords] = useState<InvoiceTableRow[]>([]);
+  const [records, setRecords] = useState<InvoiceTableRow[]>(data.slice(0, pageSize));
   const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
     columnAccessor: 'full_name',
     direction: 'asc',
@@ -90,16 +91,15 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
   const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
   const router = useRouter();
   const statuses = useMemo(() => {
-    const statuses = new Set(data.map((e) => e.status));
-    // @ts-ignore
-    return [...statuses];
+    const statusSet = new Set(data.map((e) => e.status));
+    return Array.from(statusSet);
   }, [data]);
 
-  const columns: DataTableProps<any>['columns'] = [
+  const columns: DataTableProps<InvoiceTableRow>['columns'] = [
     {
       accessor: 'full_name',
       title: 'Customer',
-      render: ({ full_name, email }: any) => {
+      render: ({ full_name, email }: InvoiceTableRow) => {
         const firstName = full_name.split(' ')[0],
           lastName = full_name.split(' ')[1];
 
@@ -148,7 +148,7 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
     },
     {
       accessor: 'status',
-      render: (item: any) => <StatusBadge status={item.status} />,
+      render: (item: InvoiceTableRow) => <StatusBadge status={item.status} />,
       filter: (
         <MultiSelect
           label="Status"
@@ -166,12 +166,12 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
     },
     {
       accessor: 'id',
-      render: (item: any) => <Text>#{item.id.slice(0, 7)}</Text>,
+      render: (item: InvoiceTableRow) => <Text>#{item.id.slice(0, 7)}</Text>,
     },
     {
       accessor: 'amount',
       sortable: true,
-      render: (item: any) => <Text>${item.amount}</Text>,
+      render: (item: InvoiceTableRow) => <Text>${item.amount}</Text>,
     },
     {
       accessor: 'issue_date',
@@ -179,7 +179,7 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
     {
       accessor: '',
       title: 'Actions',
-      render: (item: any) => (
+      render: (item: InvoiceTableRow) => (
         <Group gap="sm">
           <Tooltip label="Download invoice">
             <ActionIcon>
@@ -207,9 +207,9 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
   useEffect(() => {
     const from = (page - 1) * pageSize;
     const to = from + pageSize;
-    const d = sortBy(data, sortStatus.columnAccessor) as any[];
-    const dd = sortStatus.direction === 'desc' ? d.reverse() : d;
-    let filtered = dd.slice(from, to) as any[];
+    const sorted = sortBy(data, sortStatus.columnAccessor) as InvoiceTableRow[];
+    const sortedData = sortStatus.direction === 'desc' ? sorted.reverse() : sorted;
+    let filtered = sortedData.slice(from, to);
 
     if (debouncedQuery || selectedStatuses.length) {
       filtered = data
@@ -223,7 +223,6 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
             return false;
           }
 
-          // @ts-ignore
           if (
             selectedStatuses.length &&
             !selectedStatuses.some((s) => s === status)
@@ -241,16 +240,14 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
   return error ? (
     <ErrorAlert title="Error loading invoices" message={error.toString()} />
   ) : (
-    <DataTable
+    <DataTable<InvoiceTableRow>
       minHeight={200}
       verticalSpacing="xs"
       striped
       highlightOnHover
-      // @ts-ignore
       columns={columns}
       records={records}
       selectedRecords={selectedRecords}
-      // @ts-ignore
       onSelectedRecordsChange={setSelectedRecords}
       totalRecords={
         debouncedQuery || selectedStatuses.length > 0

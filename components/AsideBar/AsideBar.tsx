@@ -1,5 +1,5 @@
-const AsideBard = () => {
+const AsideBar = () => {
   return <div>aside bar</div>;
 };
 
-export default AsideBard;
+export default AsideBar;

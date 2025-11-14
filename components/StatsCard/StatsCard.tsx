@@ -3,7 +3,7 @@ import { IconArrowDownRight, IconArrowUpRight } from '@tabler/icons-react';
 
 import { Surface } from '@/components';
 
-import classes from './Stats.module.css';
+import classes from './StatsCard.module.css';
 
 type StatsCardProps = {
   data: { title: string; value: string; diff: number; period?: string };
