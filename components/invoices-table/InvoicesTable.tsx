@@ -30,7 +30,8 @@ import { useRouter } from 'next/navigation';
 
 import { ErrorAlert } from '@/components';
 import { PATH_INVOICES } from '@/routes';
-import { InvoiceTableRow, InvoiceStatus } from './types';
+
+import { InvoiceStatus, InvoiceTableRow } from './types';
 
 const PAGE_SIZES = [5, 10, 20];
 
@@ -82,7 +83,7 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
   const [selectedRecords, setSelectedRecords] = useState<InvoiceTableRow[]>([]);
   const [records, setRecords] = useState<InvoiceTableRow[]>(data.slice(0, pageSize));
-  const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
+  const [sortStatus, setSortStatus] = useState<DataTableSortStatus<InvoiceTableRow>>({
     columnAccessor: 'full_name',
     direction: 'asc',
   });

@@ -1,9 +1,11 @@
 'use client';
 
 import { ReactNode, useMemo } from 'react';
+
 import { Alert, Center, Loader, Stack, Text } from '@mantine/core';
-import { DataTable, DataTableProps } from 'mantine-datatable';
 import { IconAlertCircle } from '@tabler/icons-react';
+import { DataTable, DataTableProps } from 'mantine-datatable';
+
 import { BaseTableProps, TableError } from '@/types/table';
 
 /**
@@ -104,7 +106,7 @@ function BaseTable<T extends Record<string, unknown>>({
     return (
       <Center p="xl">
         <Stack align="center" gap="md">
-          {effectiveEmptyState.icon}
+          {'icon' in effectiveEmptyState && effectiveEmptyState.icon}
           <Stack align="center" gap="xs">
             <Text size="lg" fw={600}>
               {effectiveEmptyState.title}
@@ -115,7 +117,7 @@ function BaseTable<T extends Record<string, unknown>>({
               </Text>
             )}
           </Stack>
-          {effectiveEmptyState.action && (
+          {'action' in effectiveEmptyState && effectiveEmptyState.action && (
             <button onClick={effectiveEmptyState.action.onClick}>
               {effectiveEmptyState.action.label}
             </button>
@@ -127,7 +129,7 @@ function BaseTable<T extends Record<string, unknown>>({
 
   // Generate row key function
   const rowKey = getRowId
-    ? (row: T, index: number) => String(getRowId(row, index))
+    ? (row: T) => String(getRowId(row, 0)) // DataTable idAccessor doesn't support index
     : undefined;
 
   // Handle row click
