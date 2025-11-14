@@ -10,7 +10,8 @@ import {
 import { DatesProvider } from '@mantine/dates';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
-import { Open_Sans } from 'next/font/google';
+// Temporarily commented out for build without network access
+// import { Open_Sans } from 'next/font/google';
 
 import { AuthProvider } from '@/components/auth/AuthProvider';
 import {
@@ -30,10 +31,10 @@ import '@mantine/charts/styles.css';
 import './globals.css';
 
 // If loading a variable font, you don't need to specify the font weight
-const openSans = Open_Sans({
-  subsets: ['latin'],
-  display: 'swap',
-});
+// const openSans = Open_Sans({
+//   subsets: ['latin'],
+//   display: 'swap',
+// });
 
 // Component that provides the dynamic theme
 function ThemeProvider({ children }: { children: React.ReactNode }) {
@@ -119,7 +120,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={openSans.className}>
+    <html lang="en">{/* className={openSans.className} */}
       <head>
         <title>DesignSparx - Nextjs Mantine Admin Dashboard Template</title>
         <link

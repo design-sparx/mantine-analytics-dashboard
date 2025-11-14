@@ -19,7 +19,8 @@
     "changeset:add": "pnpm changeset",
     "changeset:release": "pnpm changeset version",
     "changeset:publish": "pnpm changeset publish",
-    "generate:types": "node scripts/generate-api-types.js"
+    "generate:types": "node scripts/generate-api-types.js",
+    "generate:component": "node scripts/generate-component.js"
   },
   "dependencies": {
     "@auth/express": "^0.10.0",

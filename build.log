@@ -1,0 +1,7 @@
+
+> mantine-analytics-dashboard@3.1.0 build /home/user/mantine-analytics-dashboard
+> next build
+
+sh: 1: next: not found
+ ELIFECYCLE  Command failed.
+ WARN   Local package.json exists, but node_modules missing, did you mean to install?

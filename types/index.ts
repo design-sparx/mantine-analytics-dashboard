@@ -2,3 +2,8 @@
 // Only keep types here that are UI-specific and not related to API endpoints
 
 export type Id = string | number;
+
+// Component Types
+export * from './components';
+export * from './table';
+export * from './chart';
