@@ -1,69 +1,69 @@
 // Shared/Base Components
-export { default as BaseTable } from './shared/BaseTable';
-export { default as BaseCard } from './shared/BaseCard';
+export { default as BaseTable } from './shared/base-table';
+export { default as BaseCard } from './shared/base-card';
 
 // Layout Components
-export { default as Logo } from './Logo';
-export { default as PageHeader } from './PageHeader';
-export { default as Surface } from './Surface';
-export { default as ThemeDrawer } from './ThemeDrawer';
-export { default as ToggleTheme } from './ToggleTheme';
-export { default as RouterTransition } from './RouterTransition';
-export { default as AsideBar } from './AsideBar';
+export { default as Logo } from './logo';
+export { default as PageHeader } from './page-header';
+export { default as Surface } from './surface';
+export { default as ThemeDrawer } from './theme-drawer';
+export { default as ToggleTheme } from './toggle-theme';
+export { default as RouterTransition } from './router-transition';
+export { default as AsideBar } from './aside-bar';
 
 // Theme Customizer
 export { default as ThemeCustomizer } from './theme-customizer';
 
 // User Components
-export { default as UserButton } from './UserButton';
-export { default as UserProfileCard } from './UserProfileCard';
+export { default as UserButton } from './user-button';
+export { default as UserProfileCard } from './user-profile-card';
 
 // Stats & Analytics
-export { default as StatsCard } from './StatsCard';
-export { default as StatsGrid } from './StatsGrid';
-export { default as ProfileStatsCard } from './ProfileStatsCard';
+export { default as StatsCard } from './stats-card';
+export { default as StatsGrid } from './stats-grid';
+export { default as ProfileStatsCard } from './profile-stats-card';
 
 // Charts
-export { default as RevenueChart } from './RevenueChart';
-export { default as SalesChart } from './SalesChart';
-export { default as MobileDesktopChart } from './MobileDesktopChart';
-export { default as MapChart } from './MapChart';
+export { default as RevenueChart } from './revenue-chart';
+export { default as SalesChart } from './sales-chart';
+export { default as MobileDesktopChart } from './mobile-desktop-chart';
+export { default as MapChart } from './map-chart';
 
 // Tables
-export { default as InvoicesTable } from './InvoicesTable';
-export { default as OrdersTable } from './OrdersTable';
-export { default as ProjectsTable } from './ProjectsTable';
-export { default as TrafficTable } from './TrafficTable';
-export { default as LanguageTable } from './LanguageTable';
+export { default as InvoicesTable } from './invoices-table';
+export { default as OrdersTable } from './orders-table';
+export { default as ProjectsTable } from './projects-table';
+export { default as TrafficTable } from './traffic-table';
+export { default as LanguageTable } from './language-table';
 
 // Cards
-export { default as AddTaskCard } from './AddTaskCard';
-export { default as InvoiceDetailsCard } from './InvoiceDetailsCard';
-export { default as PricingCard } from './PricingCard';
-export { default as ProjectsCard } from './ProjectsCard';
+export { default as AddTaskCard } from './add-task-card';
+export { default as InvoiceDetailsCard } from './invoice-details-card';
+export { default as PricingCard } from './pricing-card';
+export { default as ProjectsCard } from './projects-card';
 
 // Kanban
-export { default as KanbanBoard } from './KanbanBoard';
-export { default as KanbanCard } from './KanbanCard';
-export { default as KanbanColumn } from './KanbanColumn';
+export { default as KanbanBoard } from './kanban-board';
+export { default as KanbanCard } from './kanban-card';
+export { default as KanbanColumn } from './kanban-column';
 
 // Chat
-export { default as ChatItem } from './ChatItem';
-export { default as ChatsList } from './ChatsList';
+export { default as ChatItem } from './chat-item';
+export { default as ChatsList } from './chats-list';
 
 // Forms & Inputs
-export { default as FilterDateMenu } from './FilterDateMenu';
-export { default as SliderInput } from './SliderInput';
-export { default as TextEditor } from './TextEditor';
+export { default as FilterDateMenu } from './filter-date-menu';
+export { default as SliderInput } from './slider-input';
+export { default as TextEditor } from './text-editor';
 
 // Multi-Component Directories
-export * from './Buttons';
-export * from './Dates';
+export * from './buttons';
+export * from './dates';
 
 // Calendar
-export { default as CalendarView } from './CalendarView';
+export { default as CalendarView } from './calendar-view';
 
 // Misc
-export { default as ErrorAlert } from './ErrorAlert';
-export { default as Faqs } from './Faqs';
-export { default as LanguagePicker } from './LanguagePicker';
+export { default as ErrorAlert } from './error-alert';
+export { default as Faqs } from './faqs';
+export { default as LanguagePicker } from './language-picker';

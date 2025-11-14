@@ -35,12 +35,21 @@ if (!/^[A-Z][a-zA-Z0-9]*$/.test(componentName)) {
   process.exit(1);
 }
 
+// Convert PascalCase to kebab-case for directory name
+function toKebabCase(str) {
+  return str
+    .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+    .replace(/([A-Z])([A-Z])([a-z])/g, '$1-$2$3')
+    .toLowerCase();
+}
+
 const componentsDir = path.join(process.cwd(), 'components');
-const componentDir = path.join(componentsDir, componentName);
+const directoryName = toKebabCase(componentName);
+const componentDir = path.join(componentsDir, directoryName);
 
 // Check if component already exists
 if (fs.existsSync(componentDir)) {
-  console.error(`❌ Error: Component "${componentName}" already exists`);
+  console.error(`❌ Error: Component "${componentName}" already exists at ${directoryName}/`);
   process.exit(1);
 }
 
@@ -255,12 +264,12 @@ fs.writeFileSync(
 
 console.log(`✅ Component "${componentName}" created successfully!`);
 console.log(`\nFiles created:`);
-console.log(`  📁 ${componentDir}`);
+console.log(`  📁 components/${directoryName}/`);
 console.log(`  📄 ${componentName}.tsx`);
 console.log(`  📄 index.ts`);
 console.log(`  📄 ${componentName}.stories.tsx`);
 console.log(`\nNext steps:`);
-console.log(`  1. Edit the component at components/${componentName}/${componentName}.tsx`);
+console.log(`  1. Edit the component at components/${directoryName}/${componentName}.tsx`);
 console.log(`  2. Add the component to components/index.ts:`);
-console.log(`     export { default as ${componentName} } from './${componentName}';`);
+console.log(`     export { default as ${componentName} } from './${directoryName}';`);
 console.log(`  3. Use it in your app: import { ${componentName} } from '@/components';`);

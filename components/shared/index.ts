@@ -1,4 +1,4 @@
 // Shared/Base Components
-export { default as BaseTable } from './BaseTable';
-export { default as BaseCard } from './BaseCard';
-export type { BaseCardProps } from './BaseCard';
+export { default as BaseTable } from './base-table';
+export { default as BaseCard } from './base-card';
+export type { BaseCardProps } from './base-card';

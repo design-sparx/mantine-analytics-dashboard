@@ -23,7 +23,7 @@ This document defines the standards and best practices for creating and maintain
 Use this structure for standalone components:
 
 ```
-ComponentName/
+component-name/
 ├── ComponentName.tsx           # Main component file
 ├── ComponentName.module.css    # Styles (if needed)
 ├── ComponentName.stories.tsx   # Storybook stories (if applicable)
@@ -32,12 +32,14 @@ ComponentName/
 └── README.md                   # Usage documentation (optional)
 ```
 
+**Example:** `stats-card/StatsCard.tsx`
+
 ### Multi-Component Directory
 
 Use this structure for feature modules with multiple related components:
 
 ```
-FeatureName/
+feature-name/
 ├── FeatureName.tsx             # Main/parent component
 ├── SubComponentA.tsx           # Child component
 ├── SubComponentB.tsx           # Child component
@@ -49,6 +51,8 @@ FeatureName/
 └── README.md                   # Usage documentation
 ```
 
+**Example:** `invoices-table/InvoicesTable.tsx`
+
 ### Shared/Base Components
 
 Place reusable base components in `components/shared/`:
@@ -56,9 +60,9 @@ Place reusable base components in `components/shared/`:
 ```
 components/
 ├── shared/                     # Reusable across features
-│   ├── BaseTable/
-│   ├── BaseCard/
-│   └── BaseButton/
+│   ├── base-table/
+│   ├── base-card/
+│   └── base-button/
 ├── dashboard/                  # Dashboard-specific
 ├── forms/                      # Form components
 └── layout/                     # Layout components
@@ -96,10 +100,15 @@ components/
 
 ### Directory Naming
 
-- Match the primary component name exactly
-- Use PascalCase
-  - ✅ `StatsCard/`, `UserButton/`
-  - ❌ `stats-card/`, `userButton/`
+- Use kebab-case (lowercase with hyphens)
+- Should reflect the component name but in kebab-case format
+  - ✅ `stats-card/`, `user-button/`, `invoices-table/`
+  - ❌ `StatsCard/`, `userButton/`, `stats_card/`
+
+**Examples:**
+- Component: `StatsCard` → Directory: `stats-card/`
+- Component: `UserProfileCard` → Directory: `user-profile-card/`
+- Component: `InvoicesTable` → Directory: `invoices-table/`
 
 ---
 
