@@ -2,7 +2,7 @@ import { ActionIcon, Box, Flex, Group, ScrollArea, Text } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconX } from '@tabler/icons-react';
 
-import { Logo, UserProfileButton } from '@/components';
+import { Logo, UserButton } from '@/components';
 import { SIDEBAR_LINKS } from '@/constants/sidebar-links';
 import { useSidebarConfig } from '@/contexts/theme-customizer';
 import { useAuth } from '@/hooks/useAuth';
@@ -82,7 +82,7 @@ const SidebarNav = ({ onClose, showCloseButton = false }: NavigationProps) => {
       </ScrollArea>
 
       <div className={classes.footer}>
-        <UserProfileButton
+        <UserButton
           email={user?.email ?? UserProfileData.email}
           image={user?.image ?? UserProfileData.avatar}
           name={user?.userName ?? UserProfileData.name}

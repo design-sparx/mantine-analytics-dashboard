@@ -48,18 +48,6 @@ function Page() {
     loading: statsLoading,
   } = useAllStats();
 
-  const {
-    data: salesData,
-    error: salesError,
-    loading: salesLoading,
-  } = useSales();
-
-  const {
-    data: trafficData,
-    error: trafficError,
-    loading: trafficLoading,
-  } = useTraffic();
-
   return (
     <>
       <>
@@ -73,7 +61,7 @@ function Page() {
         <Stack gap="lg">
           <PageHeader title="Default dashboard" withActions={true} />
           <StatsGrid
-            data={statsData?.data || []}
+            data={statsData?.data?.slice(0, 4) || []}
             loading={statsLoading}
             error={statsError}
             paperProps={PAPER_PROPS}
