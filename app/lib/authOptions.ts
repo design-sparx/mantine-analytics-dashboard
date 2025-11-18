@@ -117,23 +117,38 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         try {
-          const res = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/login`,
-            {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                email: credentials?.email,
-                password: credentials?.password,
-              }),
-            },
-          );
+          const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/login`;
+          console.log('🔐 Attempting login to:', apiUrl);
+          console.log('📧 Email:', credentials?.email);
+
+          const res = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: credentials?.email,
+              password: credentials?.password,
+            }),
+          });
+
+          console.log('📡 Response status:', res.status, res.statusText);
 
           if (!res.ok) {
+            let errorBody;
+            try {
+              errorBody = await res.json();
+            } catch {
+              errorBody = await res.text();
+            }
+            console.error('❌ Login failed:', {
+              status: res.status,
+              statusText: res.statusText,
+              error: errorBody,
+            });
             return null;
           }
 
           const response = await res.json();
+          console.log('✅ Login successful, response keys:', Object.keys(response));
 
           // If your JWT already contains the permissions
           // You can extract the payload portion without validating the signature
