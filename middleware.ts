@@ -19,6 +19,7 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith('/api/auth') ||
     pathname.startsWith('/images') ||
     pathname.startsWith('/fonts') ||
+    pathname.startsWith('/changelog') ||
     // Match static file extensions
     /\.(jpg|jpeg|png|gif|svg|ico|css|js|woff|woff2|ttf|eot|webp|avif|pdf|txt|xml|json)$/i.test(
       pathname,

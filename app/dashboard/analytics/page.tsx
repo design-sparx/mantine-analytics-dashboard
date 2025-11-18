@@ -76,9 +76,11 @@ function Page() {
                         height={200}
                       />
                     ))
-                  : statsData?.data?.map((s: any) => (
-                      <StatsCard key={s.title} data={s} {...PAPER_PROPS} />
-                    ))}
+                  : statsData?.data
+                      ?.slice(0, 4)
+                      ?.map((s: any) => (
+                        <StatsCard key={s.title} data={s} {...PAPER_PROPS} />
+                      ))}
               </SimpleGrid>
             )}
             <MobileDesktopChart {...PAPER_PROPS} />
