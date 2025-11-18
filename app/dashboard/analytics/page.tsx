@@ -7,7 +7,6 @@ import {
   SimpleGrid,
   Skeleton,
   Stack,
-  rem,
 } from '@mantine/core';
 
 import {

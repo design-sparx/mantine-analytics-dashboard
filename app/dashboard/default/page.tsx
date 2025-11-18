@@ -48,18 +48,6 @@ function Page() {
     loading: statsLoading,
   } = useAllStats();
 
-  const {
-    data: salesData,
-    error: salesError,
-    loading: salesLoading,
-  } = useSales();
-
-  const {
-    data: trafficData,
-    error: trafficError,
-    loading: trafficLoading,
-  } = useTraffic();
-
   return (
     <>
       <>
