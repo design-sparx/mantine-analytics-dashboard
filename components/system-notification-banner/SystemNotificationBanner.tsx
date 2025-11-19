@@ -1,6 +1,6 @@
 'use client';
 
-import { Alert, Anchor, Box, Button, CloseButton, Group, Stack, Text } from '@mantine/core';
+import { Anchor, Box, CloseButton, Group, Stack, Text } from '@mantine/core';
 import {
   IconAlertTriangle,
   IconCircleCheck,
@@ -21,19 +21,19 @@ const notificationConfig: Record<
 > = {
   info: {
     color: 'blue',
-    icon: <IconInfoCircle size={20} />,
+    icon: <IconInfoCircle size={16} />,
   },
   warning: {
     color: 'yellow',
-    icon: <IconAlertTriangle size={20} />,
+    icon: <IconAlertTriangle size={16} />,
   },
   error: {
     color: 'red',
-    icon: <IconX size={20} />,
+    icon: <IconX size={16} />,
   },
   success: {
     color: 'green',
-    icon: <IconCircleCheck size={20} />,
+    icon: <IconCircleCheck size={16} />,
   },
 };
 
@@ -51,56 +51,44 @@ const SystemNotificationBanner = ({ layout }: SystemNotificationBannerProps) => 
         const config = notificationConfig[notification.type];
 
         return (
-          <Alert
+          <Box
             key={notification.id}
-            variant="filled"
-            color={config.color}
-            radius={0}
-            icon={config.icon}
-            title={notification.title}
-            withCloseButton={notification.dismissible !== false}
-            onClose={() => dismissNotification(notification.id)}
-            styles={{
-              root: {
-                borderRadius: 0,
-              },
-              message: {
-                color: 'inherit',
-              },
-            }}
+            bg={`var(--mantine-color-${config.color}-filled)`}
+            c="white"
+            py="xs"
+            px="md"
           >
-            <Group justify="space-between" align="center" wrap="nowrap">
-              <Text size="sm" inherit>
-                {notification.message}
-              </Text>
-              {notification.action && (
-                <Box>
-                  {notification.action.href ? (
-                    <Anchor
-                      href={notification.action.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      c="white"
-                      fw={600}
-                      size="sm"
-                      underline="always"
-                    >
-                      {notification.action.label}
-                    </Anchor>
-                  ) : (
-                    <Button
-                      variant="white"
-                      color={config.color}
-                      size="compact-sm"
-                      onClick={notification.action.onClick}
-                    >
-                      {notification.action.label}
-                    </Button>
-                  )}
-                </Box>
+            <Group justify="space-between" align="center" wrap="nowrap" gap="md">
+              <Group gap="xs" wrap="nowrap" style={{ flex: 1, minWidth: 0 }}>
+                {config.icon}
+                <Text size="sm" truncate>
+                  {notification.message}
+                </Text>
+                {notification.action?.href && (
+                  <Anchor
+                    href={notification.action.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    c="white"
+                    fw={600}
+                    size="sm"
+                    underline="always"
+                    style={{ flexShrink: 0 }}
+                  >
+                    {notification.action.label}
+                  </Anchor>
+                )}
+              </Group>
+              {notification.dismissible !== false && (
+                <CloseButton
+                  size="sm"
+                  c="white"
+                  onClick={() => dismissNotification(notification.id)}
+                  aria-label="Dismiss notification"
+                />
               )}
             </Group>
-          </Alert>
+          </Box>
         );
       })}
     </Stack>

@@ -2,18 +2,20 @@
   {
     "id": "welcome-notification",
     "type": "info",
-    "title": "Welcome to DesignSparx Dashboard",
-    "message": "This is a demo notification. Edit public/system-announcements.json to customize.",
-    "dismissible": true
+    "message": "Welcome to DesignSparx Dashboard. Edit public/system-announcements.json to customize.",
+    "dismissible": true,
+    "action": {
+      "label": "Learn more",
+      "href": "https://github.com/design-sparx/mantine-analytics-dashboard"
+    }
   },
   {
     "id": "example-previous-announcement",
     "type": "warning",
-    "title": "Example: Previous Breaking Change",
-    "message": "This is an example of a previous announcement kept for history. Only the first item in the array is shown.",
+    "message": "Example: API endpoints restructured in v4.0. Please review the migration guide.",
     "dismissible": true,
     "action": {
-      "label": "Learn More",
+      "label": "Read more",
       "href": "https://github.com/design-sparx/mantine-analytics-dashboard"
     }
   }
