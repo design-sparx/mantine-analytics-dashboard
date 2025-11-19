@@ -104,9 +104,6 @@ export function MainLayout({ children }: Props) {
 
   return (
     <Box className={layoutClasses.layoutRoot}>
-      {/* System Notification Banner */}
-      <SystemNotificationBanner layout="main" />
-
       {/* Overlay backdrop */}
       {showOverlay && (
         <Box className={layoutClasses.overlay} onClick={handleSidebarClose} />
@@ -194,6 +191,8 @@ export function MainLayout({ children }: Props) {
           data-padding={config.layout.content.padding}
           style={contentStyles}
         >
+          {/* System Notification Banner */}
+          <SystemNotificationBanner layout="main" mb="md" />
           {children}
         </Box>
       </Box>

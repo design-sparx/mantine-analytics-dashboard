@@ -1,6 +1,16 @@
 'use client';
 
-import { Alert, Anchor, Box, Button, CloseButton, Group, Stack, Text } from '@mantine/core';
+import {
+  Alert,
+  Anchor,
+  Box,
+  Button,
+  CloseButton,
+  Group,
+  Stack,
+  StackProps,
+  Text,
+} from '@mantine/core';
 import {
   IconAlertTriangle,
   IconCircleCheck,
@@ -9,9 +19,13 @@ import {
 } from '@tabler/icons-react';
 
 import { useSystemNotifications } from '@/contexts/system-notifications';
-import { NotificationType, SystemNotification } from '@/contexts/system-notifications/types';
+import {
+  NotificationType,
+  SystemNotification,
+} from '@/contexts/system-notifications/types';
 
-interface SystemNotificationBannerProps {
+interface SystemNotificationBannerProps
+  extends Pick<StackProps, 'm' | 'mb' | 'mt' | 'my' | 'mx'> {
   layout?: 'main' | 'guest' | 'auth';
 }
 
@@ -37,8 +51,12 @@ const notificationConfig: Record<
   },
 };
 
-const SystemNotificationBanner = ({ layout }: SystemNotificationBannerProps) => {
-  const { getActiveNotifications, dismissNotification } = useSystemNotifications();
+const SystemNotificationBanner = ({
+  layout,
+  ...others
+}: SystemNotificationBannerProps) => {
+  const { getActiveNotifications, dismissNotification } =
+    useSystemNotifications();
   const activeNotifications = getActiveNotifications(layout);
 
   if (activeNotifications.length === 0) {
@@ -46,7 +64,7 @@ const SystemNotificationBanner = ({ layout }: SystemNotificationBannerProps) => 
   }
 
   return (
-    <Stack gap={0}>
+    <Stack gap={0} {...others}>
       {activeNotifications.map((notification: SystemNotification) => {
         const config = notificationConfig[notification.type];
 
