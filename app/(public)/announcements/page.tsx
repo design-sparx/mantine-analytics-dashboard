@@ -29,7 +29,7 @@ import {
   IconExternalLink,
   IconGitBranch,
   IconInfoCircle,
-  IconMegaphone,
+  IconSpeakerphone,
   IconRocket,
   IconVersions,
 } from '@tabler/icons-react';
@@ -140,7 +140,7 @@ const getAnnouncementIcon = (type: string) => {
     case 'deprecated':
       return <IconAlertTriangle size={20} />;
     default:
-      return <IconMegaphone size={20} />;
+      return <IconSpeakerphone size={20} />;
   }
 };
 
@@ -157,7 +157,7 @@ export default function AnnouncementsPage() {
               color="blue"
               className="surface-elevated"
             >
-              <IconMegaphone size={24} />
+              <IconSpeakerphone size={24} />
             </ThemeIcon>
             <Title order={1}>Announcements</Title>
           </Group>
@@ -228,7 +228,7 @@ export default function AnnouncementsPage() {
 
         {/* Timeline of Announcements */}
         <Timeline active={0} bulletSize={32} lineWidth={2}>
-          {announcements.map((announcement, index) => {
+          {announcements.map((announcement) => {
             const badge = getAnnouncementBadge(announcement.type);
             return (
               <Timeline.Item
