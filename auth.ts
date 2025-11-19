@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
-import { NextAuthOptions } from 'next-auth';
-import { JWT } from 'next-auth/jwt';
-import CredentialsProvider from 'next-auth/providers/credentials';
+import Credentials from 'next-auth/providers/credentials';
+
+import type { JWT } from 'next-auth/jwt';
 
 // Helper function to refresh the token
 async function refreshAccessToken(token: JWT) {
@@ -76,7 +76,7 @@ async function refreshAccessToken(token: JWT) {
     const newToken = refreshedTokens.token || refreshedTokens.accessToken;
 
     // Update permissions from the new token if needed
-    let permissions = [];
+    let permissions: string[] = [];
     if (newToken) {
       try {
         const payload = JSON.parse(
@@ -107,9 +107,9 @@ async function refreshAccessToken(token: JWT) {
   }
 }
 
-export const authOptions: NextAuthOptions = {
+export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
-    CredentialsProvider({
+    Credentials({
       name: 'Credentials',
       credentials: {
         email: { label: 'Email', type: 'email' },
@@ -154,7 +154,7 @@ export const authOptions: NextAuthOptions = {
           // You can extract the payload portion without validating the signature
           // (NextAuth will handle token validation)
           const token = response.token;
-          let permissions = [];
+          let permissions: string[] = [];
 
           if (token) {
             try {
@@ -211,7 +211,7 @@ export const authOptions: NextAuthOptions = {
       }
 
       // Return the previous token if the access token has not expired yet
-      if (token.expiration && new Date(token.expiration) > new Date()) {
+      if (token.expiration && new Date(token.expiration as string) > new Date()) {
         console.log('Token not expired, returning existing token');
         return token;
       }
@@ -235,24 +235,18 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.id as string;
 
         // Add custom fields to session
-        // @ts-ignore - Adding custom properties
-        session.accessToken = token.accessToken;
-        // @ts-ignore
-        session.roles = token.roles;
-        // @ts-ignore
-        session.permissions = token.permissions;
-        // @ts-ignore
-        session.expiration = token.expiration;
+        session.accessToken = token.accessToken as string;
+        session.roles = token.roles as string[];
+        session.permissions = token.permissions as string[];
+        session.expiration = token.expiration as string;
 
         // Add refresh token error to session if it exists
         if (token.error) {
-          // @ts-ignore
-          session.error = token.error;
+          session.error = token.error as string;
         }
       }
 
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET!,
-};
+});
