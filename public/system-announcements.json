@@ -2,21 +2,11 @@
   {
     "id": "welcome-notification",
     "type": "info",
-    "message": "Welcome to DesignSparx Dashboard. Edit public/system-announcements.json to customize.",
-    "dismissible": true,
-    "action": {
-      "label": "Learn more",
-      "href": "https://github.com/design-sparx/mantine-analytics-dashboard"
-    }
-  },
-  {
-    "id": "example-previous-announcement",
-    "type": "warning",
-    "message": "Example: API endpoints restructured in v4.0. Please review the migration guide.",
+    "message": "Moving away from using mock data to real time APIs.",
     "dismissible": true,
     "action": {
       "label": "Read more",
-      "href": "https://github.com/design-sparx/mantine-analytics-dashboard"
+      "href": "https://github.com/design-sparx/mantine-analytics-dashboard/discussions/69"
     }
   }
 ]
