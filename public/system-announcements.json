@@ -5,5 +5,16 @@
     "title": "Welcome to DesignSparx Dashboard",
     "message": "This is a demo notification. Edit public/system-announcements.json to customize.",
     "dismissible": true
+  },
+  {
+    "id": "example-previous-announcement",
+    "type": "warning",
+    "title": "Example: Previous Breaking Change",
+    "message": "This is an example of a previous announcement kept for history. Only the first item in the array is shown.",
+    "dismissible": true,
+    "action": {
+      "label": "Learn More",
+      "href": "https://github.com/design-sparx/mantine-analytics-dashboard"
+    }
   }
 ]

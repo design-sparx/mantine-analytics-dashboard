@@ -102,9 +102,10 @@ export function SystemNotificationsProvider({
         }
         const announcements: SystemNotification[] = await response.json();
         if (Array.isArray(announcements) && announcements.length > 0) {
+          // Only show the first (most recent) announcement
           setConfig((prev) => ({
             ...prev,
-            notifications: announcements,
+            notifications: [announcements[0]],
           }));
         }
       } catch (error) {
