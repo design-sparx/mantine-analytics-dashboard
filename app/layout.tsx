@@ -54,7 +54,7 @@ function ThemeProvider({ children }: { children: React.ReactNode }) {
     config.appearance.compact,
   ]);
 
-  // Update CSS custom properties when theme changes
+  // Update CSS custom properties when the theme changes
   useEffect(() => {
     const root = document.documentElement;
 
@@ -121,7 +121,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">{/* className={openSans.className} */}
+    <html lang="en">
+      {/* className={openSans.className} */}
       <head>
         <title>DesignSparx - Nextjs Mantine Admin Dashboard Template</title>
         <link

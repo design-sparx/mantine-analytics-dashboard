@@ -293,6 +293,14 @@ export const createDynamicTheme = (config: {
           },
         },
       },
+
+      Anchor: {
+        styles: {
+          root: {
+            fontSize: config.compact ? rem(12) : rem(14),
+          },
+        },
+      },
     },
 
     // Custom CSS variables that can be used throughout the app

@@ -1,16 +1,6 @@
 'use client';
 
-import {
-  Alert,
-  Anchor,
-  Box,
-  Button,
-  CloseButton,
-  Group,
-  Stack,
-  StackProps,
-  Text,
-} from '@mantine/core';
+import { Alert, Anchor, Group, Stack, StackProps } from '@mantine/core';
 import {
   IconAlertTriangle,
   IconCircleCheck,
@@ -25,7 +15,7 @@ import {
 } from '@/contexts/system-notifications/types';
 
 interface SystemNotificationBannerProps
-  extends Pick<StackProps, 'm' | 'mb' | 'mt' | 'my' | 'mx'> {
+  extends Pick<StackProps, 'm' | 'mb' | 'mt' | 'my' | 'mx' | 'p'> {
   layout?: 'main' | 'guest' | 'auth';
 }
 
@@ -69,44 +59,32 @@ const SystemNotificationBanner = ({
         const config = notificationConfig[notification.type];
 
         return (
-          <Box
+          <Alert
             key={notification.id}
             bg={`var(--mantine-color-${config.color}-filled)`}
             c="white"
             py="xs"
             px="md"
+            icon={config.icon}
+            withCloseButton={notification.dismissible !== false}
+            onClose={() => dismissNotification(notification.id)}
           >
-            <Group justify="space-between" align="center" wrap="nowrap" gap="md">
-              <Group gap="xs" wrap="nowrap" style={{ flex: 1, minWidth: 0 }}>
-                {config.icon}
-                <Text size="sm" truncate>
-                  {notification.message}
-                </Text>
-                {notification.action?.href && (
-                  <Anchor
-                    href={notification.action.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    c="white"
-                    fw={600}
-                    size="sm"
-                    underline="always"
-                    style={{ flexShrink: 0 }}
-                  >
-                    {notification.action.label}
-                  </Anchor>
-                )}
-              </Group>
-              {notification.dismissible !== false && (
-                <CloseButton
-                  size="sm"
+            <Group gap="xs" wrap="nowrap">
+              {notification.message}
+              {notification.action?.href && (
+                <Anchor
+                  href={notification.action.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   c="white"
-                  onClick={() => dismissNotification(notification.id)}
-                  aria-label="Dismiss notification"
-                />
+                  underline="always"
+                  style={{ flexShrink: 0 }}
+                >
+                  {notification.action.label}
+                </Anchor>
               )}
             </Group>
-          </Box>
+          </Alert>
         );
       })}
     </Stack>
