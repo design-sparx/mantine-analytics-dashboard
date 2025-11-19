@@ -33,6 +33,7 @@ interface SystemNotificationsProviderProps {
   children: ReactNode;
   storageKey?: string;
   initialNotifications?: SystemNotification[];
+  announcementsUrl?: string;
 }
 
 // Storage utilities
@@ -75,6 +76,7 @@ export function SystemNotificationsProvider({
   children,
   storageKey = 'system-notifications',
   initialNotifications = [],
+  announcementsUrl = '/system-announcements.json',
 }: SystemNotificationsProviderProps) {
   const [config, setConfig] = useState<SystemNotificationsConfig>(() => {
     const loaded = SystemNotificationsStorage.load(
@@ -86,6 +88,32 @@ export function SystemNotificationsProvider({
       notifications: initialNotifications.length > 0 ? initialNotifications : loaded.notifications,
     };
   });
+
+  // Fetch announcements from JSON file on mount
+  useEffect(() => {
+    if (!announcementsUrl) return;
+
+    const fetchAnnouncements = async () => {
+      try {
+        const response = await fetch(announcementsUrl);
+        if (!response.ok) {
+          console.warn(`Failed to fetch announcements: ${response.status}`);
+          return;
+        }
+        const announcements: SystemNotification[] = await response.json();
+        if (Array.isArray(announcements) && announcements.length > 0) {
+          setConfig((prev) => ({
+            ...prev,
+            notifications: announcements,
+          }));
+        }
+      } catch (error) {
+        console.warn('Failed to fetch system announcements:', error);
+      }
+    };
+
+    fetchAnnouncements();
+  }, [announcementsUrl]);
 
   // Save dismissed IDs to localStorage whenever they change
   useEffect(() => {

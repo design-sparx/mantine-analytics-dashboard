@@ -1,0 +1,9 @@
+[
+  {
+    "id": "welcome-notification",
+    "type": "info",
+    "title": "Welcome to DesignSparx Dashboard",
+    "message": "This is a demo notification. Edit public/system-announcements.json to customize.",
+    "dismissible": true
+  }
+]
