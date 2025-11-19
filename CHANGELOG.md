@@ -1,5 +1,17 @@
 # analytics-dashboard
 
+## 3.2.0
+
+### Minor Changes
+
+- 0ca9f9a: migrating from next 14 to next 16
+
+### Patch Changes
+
+- 2acaf66: feat: upgraded clerk versions
+- 5fb5465: Fix for Kanban Board hydration error.
+- 78e3a9d: added announcements page and updated readme announcements
+
 ## 3.1.0
 
 ### Minor Changes
