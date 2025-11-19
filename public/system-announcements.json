@@ -1,8 +1,18 @@
 [
   {
-    "id": "welcome-notification",
+    "id": "next-16-migration",
+    "type": "success",
+    "message": "We've upgraded to Next.js 16! The previous Next.js 14 version is available on the 'next-14' branch.",
+    "dismissible": true,
+    "action": {
+      "label": "View announcements",
+      "href": "/announcements"
+    }
+  },
+  {
+    "id": "api-integration",
     "type": "info",
-    "message": "Moving away from using mock data to real time APIs.",
+    "message": "Type-safe API integration with RBAC system now available.",
     "dismissible": true,
     "action": {
       "label": "Read more",
