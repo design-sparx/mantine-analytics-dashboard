@@ -1,12 +1,11 @@
 import { redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth/next';
 
-import { authOptions } from '@/app/lib/authOptions';
+import { auth } from '@/auth';
 import { PATH_AUTH } from '@/routes';
 
-// NextAuth server-side utilities
+// NextAuth v5 server-side utilities
 export async function getSession() {
-  return await getServerSession(authOptions);
+  return await auth();
 }
 
 export async function getCurrentUser() {

@@ -1,15 +1,11 @@
-import { clerkMiddleware } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
-import { getToken } from 'next-auth/jwt';
 
+import { auth } from '@/auth';
 import { PATH_DASHBOARD } from '@/routes';
 
-import type { NextRequest } from 'next/server';
-
-export default clerkMiddleware();
-
-export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+export default auth((req) => {
+  const { pathname } = req.nextUrl;
+  const isAuthenticated = !!req.auth;
 
   // Check if the path starts with these prefixes
   const isPublicPath =
@@ -25,27 +21,20 @@ export async function middleware(request: NextRequest) {
       pathname,
     );
 
-  const token = await getToken({
-    req: request,
-    secret: process.env.NEXTAUTH_SECRET,
-  });
-
-  const isAuthenticated = !!token;
-
   // Redirect authenticated users away from auth pages
   if (isAuthenticated && pathname.startsWith('/auth')) {
-    return NextResponse.redirect(new URL(PATH_DASHBOARD.default, request.url));
+    return NextResponse.redirect(new URL(PATH_DASHBOARD.default, req.url));
   }
 
   // Redirect unauthenticated users to login page for protected routes
   if (!isAuthenticated && !isPublicPath) {
-    const redirectUrl = new URL('/auth/signin', request.url);
-    redirectUrl.searchParams.set('callbackUrl', encodeURI(request.url));
+    const redirectUrl = new URL('/auth/signin', req.url);
+    redirectUrl.searchParams.set('callbackUrl', encodeURI(req.url));
     return NextResponse.redirect(redirectUrl);
   }
 
   return NextResponse.next();
-}
+});
 
 // See "Matching Paths" below to learn more
 export const config = {
