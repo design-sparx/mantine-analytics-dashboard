@@ -26,9 +26,7 @@ function GuestLayout({ children }: GuestLayoutProps) {
           <HeaderNav />
         </AppShell.Header>
         <AppShell.Main>
-          <Box style={{ backgroundColor: theme.colors.gray[0] }}>
-            {children}
-          </Box>
+          <Box>{children}</Box>
           <FooterNav />
         </AppShell.Main>
       </AppShell>
