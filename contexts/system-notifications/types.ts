@@ -5,7 +5,6 @@ export type NotificationType = 'info' | 'warning' | 'error' | 'success';
 export interface SystemNotification {
   id: string;
   type: NotificationType;
-  title: string;
   message: string;
   dismissible?: boolean;
   action?: {
