@@ -19,6 +19,7 @@ import {
   ThemeCustomizerProvider,
   useThemeCustomizer,
 } from '@/contexts/theme-customizer';
+import { SystemNotificationsProvider } from '@/contexts/system-notifications';
 import { createDynamicTheme } from '@/theme';
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
@@ -158,9 +159,11 @@ export default function RootLayout({
       </head>
       <body>
         <AuthProvider>
-          <ThemeCustomizerProvider>
-            <ThemeProvider>{children}</ThemeProvider>
-          </ThemeCustomizerProvider>
+          <SystemNotificationsProvider>
+            <ThemeCustomizerProvider>
+              <ThemeProvider>{children}</ThemeProvider>
+            </ThemeCustomizerProvider>
+          </SystemNotificationsProvider>
         </AuthProvider>
       </body>
     </html>

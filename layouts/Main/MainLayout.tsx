@@ -13,7 +13,7 @@ import {
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { IconPalette } from '@tabler/icons-react';
 
-import { ThemeCustomizer } from '@/components';
+import { SystemNotificationBanner, ThemeCustomizer } from '@/components';
 import {
   generateContentStyles,
   generateHeaderStyles,
@@ -104,6 +104,9 @@ export function MainLayout({ children }: Props) {
 
   return (
     <Box className={layoutClasses.layoutRoot}>
+      {/* System Notification Banner */}
+      <SystemNotificationBanner layout="main" />
+
       {/* Overlay backdrop */}
       {showOverlay && (
         <Box className={layoutClasses.overlay} onClick={handleSidebarClose} />
