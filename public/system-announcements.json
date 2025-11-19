@@ -1,0 +1,12 @@
+[
+  {
+    "id": "welcome-notification",
+    "type": "info",
+    "message": "Moving away from using mock data to real time APIs.",
+    "dismissible": true,
+    "action": {
+      "label": "Read more",
+      "href": "https://github.com/design-sparx/mantine-analytics-dashboard/discussions/69"
+    }
+  }
+]
