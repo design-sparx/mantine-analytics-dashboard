@@ -13,6 +13,7 @@ const ROOTS_CALENDAR = '/calendar';
 const ROOTS_AUTH = '/auth';
 const ROOTS_ERRORS = '/error';
 const ROOTS_CHANGELOG = '/changelog';
+const ROOTS_ANNOUNCEMENTS = '/announcements';
 const ROOTS_AUTH_PROVIDERS = '/authProviders';
 const ROOTS_ABOUT = '/pages/about';
 const ROOTS_PRODUCTS = '/products';
@@ -99,6 +100,10 @@ export const PATH_DOCS = {
 
 export const PATH_CHANGELOG = {
   root: ROOTS_CHANGELOG,
+};
+
+export const PATH_ANNOUNCEMENTS = {
+  root: ROOTS_ANNOUNCEMENTS,
 };
 
 export const PATH_GITHUB = {

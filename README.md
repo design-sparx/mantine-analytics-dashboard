@@ -1,4 +1,5 @@
 ## 🔉 Announcements
+- 🚀 **MAJOR**: Upgraded to **Next.js 16**! The previous Next.js 14 version is available on the [`next-14`](https://github.com/design-sparx/mantine-analytics-dashboard/tree/next-14) branch for backwards compatibility.
 - ✅ **NEW**: Type-safe API integration with RBAC system now available! See [API Integration Guide](#-api-integration--rbac-system) below.
 - Working on integrating our mock data with actual apis for a more real-world experience. This is the roadmap for implementing our APIs - [Admin Hub Apis roadmap](https://github.com/orgs/design-sparx/projects/6/views/1?filterQuery=&layout=roadmap)
 
@@ -46,14 +47,20 @@
 
 A professional admin & dashboard template built using on [Mantine 7](https://mantine.dev/) that comes with hundreds of
 UI components, forms, tables, charts, pages and icons. This template is built
-using [Next v14](https://nextjs.org/), [React](https://react.dev/), [Apex Charts](https://apexcharts.com/),[Mantine DataTable](https://icflorescu.github.io/mantine-datatable/)
+using [Next.js 16](https://nextjs.org/), [React](https://react.dev/), [Apex Charts](https://apexcharts.com/),[Mantine DataTable](https://icflorescu.github.io/mantine-datatable/)
 and [Storybook](https://storybook.js.org/).
 
 ![preview image](public/dashboard.png)
 
-# Previous release
+# Previous releases
 
-The previous release of the dashboard template, supports Next 13 with Pages router and Mantine 6. To view the live demo
+## Next.js 14 (App Router)
+The previous release with Next.js 14 and Mantine 7 is available for users who need backwards compatibility or prefer the stable version:
+- **Branch**: [`next-14`](https://github.com/design-sparx/mantine-analytics-dashboard/tree/next-14)
+- **Features**: App Router, Mantine 7, React 18, Type-safe API integration, RBAC system
+
+## Next.js 13 (Pages Router)
+The legacy version supports Next 13 with Pages router and Mantine 6. To view the live demo
 use this link - [preview](https://652579e5b7998a00083d022b--mantine-analytics-dashboard.netlify.app/), and to checkout
 fork the repo use this link - [version 1](https://github.com/design-sparx/mantine-analytics-dashboard/tree/v1)
 
@@ -78,7 +85,7 @@ To make this template awesome, I used the following packages:
 
 ## Core
 
-- **Next js v14:** Next.js is an open-source web development framework created by the private company Vercel providing
+- **Next.js v16:** Next.js is an open-source web development framework created by the private company Vercel providing
   React-based web applications with server-side rendering and static website generation.
 - **Mantine v7:** Mantine is a React UI components library. It's built on top of React and TypeScript, and provides a
   variety of

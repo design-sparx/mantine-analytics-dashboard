@@ -10,8 +10,6 @@ import {
 import { DatesProvider } from '@mantine/dates';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
-// Temporarily commented out for build without network access
-// import { Open_Sans } from 'next/font/google';
 
 import { AuthProvider } from '@/components/auth/AuthProvider';
 import {
@@ -21,6 +19,7 @@ import {
 } from '@/contexts/theme-customizer';
 import { SystemNotificationsProvider } from '@/contexts/system-notifications';
 import { createDynamicTheme } from '@/theme';
+
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 import '@mantine/tiptap/styles.css';
@@ -30,12 +29,6 @@ import 'mantine-datatable/styles.layer.css';
 import '@mantine/dropzone/styles.css';
 import '@mantine/charts/styles.css';
 import './globals.css';
-
-// If loading a variable font, you don't need to specify the font weight
-// const openSans = Open_Sans({
-//   subsets: ['latin'],
-//   display: 'swap',
-// });
 
 // Component that provides the dynamic theme
 function ThemeProvider({ children }: { children: React.ReactNode }) {
@@ -151,11 +144,6 @@ export default function RootLayout({
           name="description"
           content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"
         />
-
-        <script
-          src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
-          defer
-        ></script>
         <ColorSchemeScript defaultColorScheme="auto" />
       </head>
       <body>
