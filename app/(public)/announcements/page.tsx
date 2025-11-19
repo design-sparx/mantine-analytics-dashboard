@@ -146,7 +146,7 @@ const getAnnouncementIcon = (type: string) => {
 
 export default function AnnouncementsPage() {
   return (
-    <Container size="lg" py="xl" mt={rem(80)}>
+    <Container size="lg" py={rem(80)}>
       <Stack gap="xl">
         {/* Header */}
         <Box>
