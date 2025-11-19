@@ -6,11 +6,12 @@ declare module 'next-auth' {
    * Extends the built-in Session interface
    */
   interface Session {
-    user?: IUser;
+    user: User;
     accessToken: string;
     roles: string[];
     permissions: string[];
     expiration: string;
+    error?: string;
   }
 
   /**
@@ -19,8 +20,9 @@ declare module 'next-auth' {
   interface User {
     id: string;
     userName: string;
-    email?: string;
-    image?: string;
+    email?: string | null;
+    image?: string | null;
+    avatar?: string | null;
     token: string;
     roles: string[];
     permissions: string[];
@@ -38,5 +40,6 @@ declare module 'next-auth/jwt' {
     roles: string[];
     permissions: string[];
     expiration: string;
+    error?: string;
   }
 }
