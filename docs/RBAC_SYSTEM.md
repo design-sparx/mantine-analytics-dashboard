@@ -5,6 +5,7 @@ This project implements a comprehensive permission-based authorization system th
 ## 🎯 Overview
 
 The RBAC system provides:
+
 - **Type-safe permissions** with TypeScript integration
 - **Automatic UI filtering** based on user permissions
 - **API-level authorization** with permission checks
@@ -28,30 +29,34 @@ lib/api/permissions/
 
 ### Available Roles
 
-| Role | Description | Hierarchy Level |
-|------|-------------|----------------|
-| **Admin** | Full system access including user management | 100 |
-| **User** | Standard user with team collaboration access | 10 |
+| Role      | Description                                  | Hierarchy Level |
+| --------- | -------------------------------------------- | --------------- |
+| **Admin** | Full system access including user management | 100             |
+| **User**  | Standard user with team collaboration access | 10              |
 
 ### Permission Categories
 
 #### 🔧 Admin Permissions
+
 - `Permissions.Admin.UserManagement` - Create, edit, delete users and manage roles
 - `Permissions.Admin.SystemSettings` - Configure system-wide settings
 
 #### 👥 Team Permissions (Collaborative)
+
 - `Permissions.Team.Projects` - Full CRUD access to team projects
 - `Permissions.Team.Orders` - Full CRUD access to orders
 - `Permissions.Team.KanbanTasks` - Manage kanban board tasks
 - `Permissions.Team.Analytics` - Access sales data and analytics
 
 #### 👤 Personal Permissions (Owner-Only)
+
 - `Permissions.Personal.Profile` - Manage own user profile
 - `Permissions.Personal.Invoices` - Create and manage own invoices
 - `Permissions.Personal.Files` - Manage personal files with sharing
 - `Permissions.Personal.Chats` - Access personal messages
 
 #### 📁 User Directory
+
 - `Permissions.Users.ViewDirectory` - View basic info about other users
 
 ## 🎣 Permission Hooks
@@ -229,7 +234,7 @@ import {
   hasPermission,
   hasAnyPermission,
   hasAllPermissions,
-  checkPermission
+  checkPermission,
 } from '@/lib/api/permissions';
 
 // In API routes or server components
@@ -243,8 +248,8 @@ function validateUserAccess(userPermissions, requiredPermission) {
 
 // Filter data based on permissions
 function filterMenuItems(userPermissions, allMenuItems) {
-  return allMenuItems.filter(item =>
-    hasPermission(userPermissions, item.requiredPermission)
+  return allMenuItems.filter((item) =>
+    hasPermission(userPermissions, item.requiredPermission),
   );
 }
 ```
@@ -255,7 +260,7 @@ function filterMenuItems(userPermissions, allMenuItems) {
 import {
   setUserPermissions,
   getUserPermissions,
-  clearUserPermissions
+  clearUserPermissions,
 } from '@/lib/api/permissions';
 
 // Store permissions after login
@@ -263,7 +268,7 @@ const loginResponse = await api.login(credentials);
 if (loginResponse.succeeded) {
   setUserPermissions({
     role: loginResponse.data.role,
-    permissions: loginResponse.data.permissions
+    permissions: loginResponse.data.permissions,
   });
 }
 
@@ -277,6 +282,7 @@ clearUserPermissions();
 ## 🎯 Data Access Patterns
 
 ### Team Collaboration Pattern
+
 **Used for**: Projects, Orders, Kanban Tasks, Analytics
 
 - **Visibility**: All team members can see all data
@@ -291,6 +297,7 @@ clearUserPermissions();
 ```
 
 ### Personal Privacy Pattern
+
 **Used for**: Invoices, Chats, User Profiles
 
 - **Visibility**: Users only see their own data
@@ -305,6 +312,7 @@ clearUserPermissions();
 ```
 
 ### File Sharing Pattern
+
 **Used for**: Files, Documents
 
 - **Visibility**: Owner-only by default, with sharing capabilities
@@ -318,6 +326,7 @@ clearUserPermissions();
 ```
 
 ### Directory Access Pattern
+
 **Used for**: User Directory
 
 - **Visibility**: Basic info visible to all users
@@ -365,44 +374,45 @@ function ProjectsPage() {
 // Copy this for reference in your components
 type Permission =
   // Admin Operations
-  | 'Permissions.Admin.UserManagement'      // Manage users and roles
-  | 'Permissions.Admin.SystemSettings'      // System configuration
+  | 'Permissions.Admin.UserManagement' // Manage users and roles
+  | 'Permissions.Admin.SystemSettings' // System configuration
 
   // Team Collaboration (all users can see all data)
-  | 'Permissions.Team.Projects'             // Team projects
-  | 'Permissions.Team.Orders'               // Order management
-  | 'Permissions.Team.KanbanTasks'          // Kanban boards
-  | 'Permissions.Team.Analytics'            // Analytics/reports
+  | 'Permissions.Team.Projects' // Team projects
+  | 'Permissions.Team.Orders' // Order management
+  | 'Permissions.Team.KanbanTasks' // Kanban boards
+  | 'Permissions.Team.Analytics' // Analytics/reports
 
   // Personal Data (owner-only access)
-  | 'Permissions.Personal.Profile'          // User profile
-  | 'Permissions.Personal.Invoices'         // Personal invoices
-  | 'Permissions.Personal.Files'            // File management
-  | 'Permissions.Personal.Chats'            // Personal messages
+  | 'Permissions.Personal.Profile' // User profile
+  | 'Permissions.Personal.Invoices' // Personal invoices
+  | 'Permissions.Personal.Files' // File management
+  | 'Permissions.Personal.Chats' // Personal messages
 
   // User Directory
-  | 'Permissions.Users.ViewDirectory';      // View user list
+  | 'Permissions.Users.ViewDirectory'; // View user list
 ```
 
 ### Role-Permission Mapping
 
-| Permission | Admin | User |
-|------------|-------|------|
-| Admin.UserManagement | ✅ | ❌ |
-| Admin.SystemSettings | ✅ | ❌ |
-| Team.Projects | ✅ | ✅ |
-| Team.Orders | ✅ | ✅ |
-| Team.KanbanTasks | ✅ | ✅ |
-| Team.Analytics | ✅ | ✅ |
-| Personal.Profile | ✅ | ✅ |
-| Personal.Invoices | ✅ | ✅ |
-| Personal.Files | ✅ | ✅ |
-| Personal.Chats | ✅ | ✅ |
-| Users.ViewDirectory | ✅ | ✅ |
+| Permission           | Admin | User |
+| -------------------- | ----- | ---- |
+| Admin.UserManagement | ✅    | ❌   |
+| Admin.SystemSettings | ✅    | ❌   |
+| Team.Projects        | ✅    | ✅   |
+| Team.Orders          | ✅    | ✅   |
+| Team.KanbanTasks     | ✅    | ✅   |
+| Team.Analytics       | ✅    | ✅   |
+| Personal.Profile     | ✅    | ✅   |
+| Personal.Invoices    | ✅    | ✅   |
+| Personal.Files       | ✅    | ✅   |
+| Personal.Chats       | ✅    | ✅   |
+| Users.ViewDirectory  | ✅    | ✅   |
 
 ## 🚀 Best Practices
 
 ### 1. Always Use Permission Gates for UI
+
 ```typescript
 // ✅ Good
 <PermissionGate permission="Permissions.Admin.UserManagement">
@@ -414,6 +424,7 @@ type Permission =
 ```
 
 ### 2. Combine Permission Hooks with API Hooks
+
 ```typescript
 // ✅ Good - API hook handles permissions automatically
 const { data, mutations } = useInvoicesWithMutations();
@@ -424,6 +435,7 @@ const data = canAccess ? useFetch('/api/invoices') : null;
 ```
 
 ### 3. Provide Meaningful Fallbacks
+
 ```typescript
 // ✅ Good
 <PermissionGate
@@ -440,6 +452,7 @@ const data = canAccess ? useFetch('/api/invoices') : null;
 ```
 
 ### 4. Use Multi-Permission Gates for Complex Access
+
 ```typescript
 // ✅ Good
 <MultiPermissionGate
@@ -453,6 +466,7 @@ const data = canAccess ? useFetch('/api/invoices') : null;
 ## 🐛 Debugging Permissions
 
 ### Debug Component
+
 ```typescript
 import { usePermissions } from '@/lib/api/permissions';
 
@@ -469,6 +483,7 @@ function PermissionDebugger() {
 ```
 
 ### Console Debugging
+
 ```typescript
 import { checkPermission } from '@/lib/api/permissions';
 

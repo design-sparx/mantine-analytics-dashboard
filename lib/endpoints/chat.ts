@@ -62,8 +62,14 @@ export function useChatMessages(options?: {
   messageType?: string;
   enabled?: boolean;
 }) {
-  const { page, limit, chatId, senderId, messageType, enabled = true } =
-    options || {};
+  const {
+    page,
+    limit,
+    chatId,
+    senderId,
+    messageType,
+    enabled = true,
+  } = options || {};
 
   return useApiGet<ChatMessageDto[]>(ENDPOINTS.messages.list, {
     params: {

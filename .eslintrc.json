@@ -8,10 +8,7 @@
           "builtin",
           "external",
           "internal",
-          [
-            "parent",
-            "sibling"
-          ],
+          ["parent", "sibling"],
           "index",
           "object",
           "type"
@@ -23,9 +20,7 @@
             "position": "before"
           }
         ],
-        "pathGroupsExcludedImportTypes": [
-          "react"
-        ],
+        "pathGroupsExcludedImportTypes": ["react"],
         "newlines-between": "always",
         "alphabetize": {
           "order": "asc",
@@ -39,12 +34,7 @@
         "ignoreCase": false,
         "ignoreDeclarationSort": true,
         "ignoreMemberSort": false,
-        "memberSyntaxSortOrder": [
-          "none",
-          "all",
-          "multiple",
-          "single"
-        ]
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
       }
     ]
   }

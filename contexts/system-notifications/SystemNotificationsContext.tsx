@@ -22,7 +22,9 @@ interface SystemNotificationsContextType {
   dismissNotification: (id: string) => void;
   clearAllNotifications: () => void;
   clearDismissed: () => void;
-  getActiveNotifications: (layout?: 'main' | 'guest' | 'auth') => SystemNotification[];
+  getActiveNotifications: (
+    layout?: 'main' | 'guest' | 'auth',
+  ) => SystemNotification[];
 }
 
 const SystemNotificationsContext = createContext<
@@ -38,7 +40,10 @@ interface SystemNotificationsProviderProps {
 
 // Storage utilities
 const SystemNotificationsStorage = {
-  load: (key: string, defaultValue: SystemNotificationsConfig): SystemNotificationsConfig => {
+  load: (
+    key: string,
+    defaultValue: SystemNotificationsConfig,
+  ): SystemNotificationsConfig => {
     if (typeof window === 'undefined') return defaultValue;
     try {
       const stored = localStorage.getItem(key);
@@ -81,11 +86,14 @@ export function SystemNotificationsProvider({
   const [config, setConfig] = useState<SystemNotificationsConfig>(() => {
     const loaded = SystemNotificationsStorage.load(
       storageKey,
-      defaultSystemNotificationsConfig
+      defaultSystemNotificationsConfig,
     );
     return {
       ...loaded,
-      notifications: initialNotifications.length > 0 ? initialNotifications : loaded.notifications,
+      notifications:
+        initialNotifications.length > 0
+          ? initialNotifications
+          : loaded.notifications,
     };
   });
 
@@ -127,7 +135,10 @@ export function SystemNotificationsProvider({
   const addNotification = (notification: SystemNotification) => {
     setConfig((prev) => ({
       ...prev,
-      notifications: [...prev.notifications.filter(n => n.id !== notification.id), notification],
+      notifications: [
+        ...prev.notifications.filter((n) => n.id !== notification.id),
+        notification,
+      ],
     }));
   };
 
@@ -196,7 +207,7 @@ export function useSystemNotifications() {
   const context = useContext(SystemNotificationsContext);
   if (!context) {
     throw new Error(
-      'useSystemNotifications must be used within a SystemNotificationsProvider'
+      'useSystemNotifications must be used within a SystemNotificationsProvider',
     );
   }
   return context;

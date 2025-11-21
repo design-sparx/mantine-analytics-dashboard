@@ -98,22 +98,24 @@ export function usePermissionChecker() {
 
   const canAccess = useCallback(
     (permission: Permission) => hasPermission(userPermissions, permission),
-    [userPermissions]
+    [userPermissions],
   );
 
   const canAccessAny = useCallback(
-    (permissions: Permission[]) => hasAnyPermission(userPermissions, permissions),
-    [userPermissions]
+    (permissions: Permission[]) =>
+      hasAnyPermission(userPermissions, permissions),
+    [userPermissions],
   );
 
   const canAccessAll = useCallback(
-    (permissions: Permission[]) => hasAllPermissions(userPermissions, permissions),
-    [userPermissions]
+    (permissions: Permission[]) =>
+      hasAllPermissions(userPermissions, permissions),
+    [userPermissions],
   );
 
   const checkAccess = useCallback(
     (permission: Permission) => checkPermission(userPermissions, permission),
-    [userPermissions]
+    [userPermissions],
   );
 
   return {

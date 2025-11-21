@@ -61,9 +61,7 @@ export async function updateOrder(
   });
 }
 
-export async function deleteOrder(
-  id: string,
-): Promise<ApiResponse<any>> {
+export async function deleteOrder(id: string): Promise<ApiResponse<any>> {
   return apiDelete(ENDPOINTS.delete(id), {
     permission: 'Permissions.Team.Orders', // RBAC permission check
   });

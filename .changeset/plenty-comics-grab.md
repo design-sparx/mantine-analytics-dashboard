@@ -1,5 +1,5 @@
 ---
-"mantine-analytics-dashboard": patch
+'mantine-analytics-dashboard': patch
 ---
 
 Fix for Kanban Board hydration error.

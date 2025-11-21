@@ -5,7 +5,7 @@ import type { Permission, PermissionCheck, UserPermissions } from './types';
  */
 export function hasPermission(
   userPermissions: UserPermissions | null,
-  permission: Permission
+  permission: Permission,
 ): boolean {
   if (!userPermissions) return false;
   return userPermissions.permissions.includes(permission);
@@ -16,10 +16,12 @@ export function hasPermission(
  */
 export function hasAnyPermission(
   userPermissions: UserPermissions | null,
-  permissions: Permission[]
+  permissions: Permission[],
 ): boolean {
   if (!userPermissions) return false;
-  return permissions.some(permission => userPermissions.permissions.includes(permission));
+  return permissions.some((permission) =>
+    userPermissions.permissions.includes(permission),
+  );
 }
 
 /**
@@ -27,10 +29,12 @@ export function hasAnyPermission(
  */
 export function hasAllPermissions(
   userPermissions: UserPermissions | null,
-  permissions: Permission[]
+  permissions: Permission[],
 ): boolean {
   if (!userPermissions) return false;
-  return permissions.every(permission => userPermissions.permissions.includes(permission));
+  return permissions.every((permission) =>
+    userPermissions.permissions.includes(permission),
+  );
 }
 
 /**
@@ -38,12 +42,12 @@ export function hasAllPermissions(
  */
 export function checkPermission(
   userPermissions: UserPermissions | null,
-  permission: Permission
+  permission: Permission,
 ): PermissionCheck {
   if (!userPermissions) {
     return {
       hasPermission: false,
-      reason: 'User not authenticated'
+      reason: 'User not authenticated',
     };
   }
 
@@ -51,7 +55,7 @@ export function checkPermission(
 
   return {
     hasPermission: hasAccess,
-    reason: hasAccess ? undefined : `Missing permission: ${permission}`
+    reason: hasAccess ? undefined : `Missing permission: ${permission}`,
   };
 }
 
@@ -100,11 +104,11 @@ export function isAdmin(userPermissions: UserPermissions | null): boolean {
 export function filterByPermission<T>(
   items: T[],
   userPermissions: UserPermissions | null,
-  getPermission: (item: T) => Permission
+  getPermission: (item: T) => Permission,
 ): T[] {
   if (!userPermissions) return [];
 
-  return items.filter(item => {
+  return items.filter((item) => {
     const permission = getPermission(item);
     return hasPermission(userPermissions, permission);
   });

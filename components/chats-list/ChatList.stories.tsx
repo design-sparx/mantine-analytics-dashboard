@@ -2,7 +2,6 @@ import ChatsList from './ChatsList';
 
 import type { StoryObj } from '@storybook/react';
 
-
 const MOCKS = {
   id: '53ba415c-c210-4aa2-9b46-c6e5eb1075dc',
   first_name: 'Sher',

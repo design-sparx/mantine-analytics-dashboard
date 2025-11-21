@@ -1,4 +1,5 @@
 ## 🔉 Announcements
+
 - 🚀 **MAJOR**: Upgraded to **Next.js 16**! The previous Next.js 14 version is available on the [`next-14`](https://github.com/design-sparx/mantine-analytics-dashboard/tree/next-14) branch for backwards compatibility.
 - ✅ **NEW**: Type-safe API integration with RBAC system now available! See [API Integration Guide](#-api-integration--rbac-system) below.
 - Working on integrating our mock data with actual apis for a more real-world experience. This is the roadmap for implementing our APIs - [Admin Hub Apis roadmap](https://github.com/orgs/design-sparx/projects/6/views/1?filterQuery=&layout=roadmap)
@@ -41,7 +42,7 @@
 - [Live preview](https://mantine-analytics-dashboard.netlify.app/)
 - [Components preview](https://6546507b657a74164abf2db6-oniqlpqtfs.chromatic.com/)
 - [Medium](https://medium.com/stackademic/how-i-built-an-open-source-admin-dashboard-template-with-mantine-and-next-js-4f00a21ce04f)
-- [Product roadmap](https://kelvink96.notion.site/Mantine-analytics-dashboard-Product-roadmap-822fe0c757e647c9b2fd62a50807500a?pvs=74) * **New** *
+- [Product roadmap](https://kelvink96.notion.site/Mantine-analytics-dashboard-Product-roadmap-822fe0c757e647c9b2fd62a50807500a?pvs=74) _ **New** _
 
 # About
 
@@ -55,11 +56,14 @@ and [Storybook](https://storybook.js.org/).
 # Previous releases
 
 ## Next.js 14 (App Router)
+
 The previous release with Next.js 14 and Mantine 7 is available for users who need backwards compatibility or prefer the stable version:
+
 - **Branch**: [`next-14`](https://github.com/design-sparx/mantine-analytics-dashboard/tree/next-14)
 - **Features**: App Router, Mantine 7, React 18, Type-safe API integration, RBAC system
 
 ## Next.js 13 (Pages Router)
+
 The legacy version supports Next 13 with Pages router and Mantine 6. To view the live demo
 use this link - [preview](https://652579e5b7998a00083d022b--mantine-analytics-dashboard.netlify.app/), and to checkout
 fork the repo use this link - [version 1](https://github.com/design-sparx/mantine-analytics-dashboard/tree/v1)
@@ -289,10 +293,12 @@ lib/api/
 ## 🔒 RBAC Overview
 
 ### Roles
+
 - **Admin**: Full system access + user management
 - **User**: Team collaboration + personal data access
 
 ### Permission Categories
+
 - **Admin**: `Permissions.Admin.*` - System administration
 - **Team**: `Permissions.Team.*` - Collaborative resources (shared visibility)
 - **Personal**: `Permissions.Personal.*` - Private user data (owner-only)

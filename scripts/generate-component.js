@@ -24,14 +24,18 @@ const componentType = args[1] || 'basic';
 
 if (!componentName) {
   console.error('❌ Error: Component name is required');
-  console.log('\nUsage: node scripts/generate-component.js <ComponentName> [type]');
+  console.log(
+    '\nUsage: node scripts/generate-component.js <ComponentName> [type]',
+  );
   console.log('\nTypes: basic, interactive, table, card');
   process.exit(1);
 }
 
 // Validate component name (PascalCase)
 if (!/^[A-Z][a-zA-Z0-9]*$/.test(componentName)) {
-  console.error('❌ Error: Component name must be in PascalCase (e.g., MyComponent)');
+  console.error(
+    '❌ Error: Component name must be in PascalCase (e.g., MyComponent)',
+  );
   process.exit(1);
 }
 
@@ -49,7 +53,9 @@ const componentDir = path.join(componentsDir, directoryName);
 
 // Check if component already exists
 if (fs.existsSync(componentDir)) {
-  console.error(`❌ Error: Component "${componentName}" already exists at ${directoryName}/`);
+  console.error(
+    `❌ Error: Component "${componentName}" already exists at ${directoryName}/`,
+  );
   process.exit(1);
 }
 
@@ -250,7 +256,7 @@ if (!template) {
 // Create component file
 fs.writeFileSync(
   path.join(componentDir, `${componentName}.tsx`),
-  template.component.trim()
+  template.component.trim(),
 );
 
 // Create index file
@@ -259,7 +265,7 @@ fs.writeFileSync(path.join(componentDir, 'index.ts'), indexTemplate.trim());
 // Create Storybook story
 fs.writeFileSync(
   path.join(componentDir, `${componentName}.stories.tsx`),
-  storybookTemplate.trim()
+  storybookTemplate.trim(),
 );
 
 console.log(`✅ Component "${componentName}" created successfully!`);
@@ -269,7 +275,13 @@ console.log(`  📄 ${componentName}.tsx`);
 console.log(`  📄 index.ts`);
 console.log(`  📄 ${componentName}.stories.tsx`);
 console.log(`\nNext steps:`);
-console.log(`  1. Edit the component at components/${directoryName}/${componentName}.tsx`);
+console.log(
+  `  1. Edit the component at components/${directoryName}/${componentName}.tsx`,
+);
 console.log(`  2. Add the component to components/index.ts:`);
-console.log(`     export { default as ${componentName} } from './${directoryName}';`);
-console.log(`  3. Use it in your app: import { ${componentName} } from '@/components';`);
+console.log(
+  `     export { default as ${componentName} } from './${directoryName}';`,
+);
+console.log(
+  `  3. Use it in your app: import { ${componentName} } from '@/components';`,
+);

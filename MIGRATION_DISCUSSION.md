@@ -6,13 +6,13 @@ This document outlines the proposed migration of our Mantine Analytics Dashboard
 
 ## Current Stack
 
-| Package | Current Version |
-|---------|-----------------|
-| Next.js | 14.2.26 |
-| React | 18.2.0 |
-| React DOM | 18.2.0 |
-| TypeScript | 5.1.6 |
-| Node.js | 20.x |
+| Package    | Current Version |
+| ---------- | --------------- |
+| Next.js    | 14.2.26         |
+| React      | 18.2.0          |
+| React DOM  | 18.2.0          |
+| TypeScript | 5.1.6           |
+| Node.js    | 20.x            |
 
 ## What's New in Next.js 16
 
@@ -40,6 +40,7 @@ This document outlines the proposed migration of our Mantine Analytics Dashboard
 ### 1. React 18 → React 19 Migration (High Impact)
 
 This is the most significant change. React 19 introduces:
+
 - New hooks and APIs
 - Stricter hydration requirements
 - Changes to ref handling
@@ -50,6 +51,7 @@ This is the most significant change. React 19 introduces:
 ### 2. Middleware → Proxy Migration (High Impact)
 
 Our current `middleware.ts` handles:
+
 - Route protection
 - Authentication redirects
 - Session validation
@@ -60,14 +62,14 @@ Our current `middleware.ts` handles:
 
 Libraries requiring verification:
 
-| Package | Concern |
-|---------|---------|
-| `@mantine/next` (6.0.16) | May need updates for Next.js 16 |
-| `next-auth` (4.24.12) | React 19 / Next.js 16 compatibility |
-| `@storybook/nextjs` (7.5.3) | React 19 compatibility |
-| `mantine-datatable` (7.1.7) | React 19 compatibility |
-| `react-apexcharts` (1.4.1) | React 19 compatibility |
-| `@tiptap/*` packages | React 19 compatibility |
+| Package                     | Concern                             |
+| --------------------------- | ----------------------------------- |
+| `@mantine/next` (6.0.16)    | May need updates for Next.js 16     |
+| `next-auth` (4.24.12)       | React 19 / Next.js 16 compatibility |
+| `@storybook/nextjs` (7.5.3) | React 19 compatibility              |
+| `mantine-datatable` (7.1.7) | React 19 compatibility              |
+| `react-apexcharts` (1.4.1)  | React 19 compatibility              |
+| `@tiptap/*` packages        | React 19 compatibility              |
 
 ### 4. TypeScript & Node.js Requirements
 
@@ -77,16 +79,19 @@ Libraries requiring verification:
 ## Risk Assessment
 
 ### High Risk
+
 - React 19 migration may break third-party component libraries
 - Middleware to proxy conversion could affect authentication flow
 - Storybook may require significant updates for React 19
 
 ### Medium Risk
+
 - Mantine components may have undocumented React 19 issues
 - Build configuration changes with Turbopack default
 - NextAuth session handling changes
 
 ### Low Risk
+
 - TypeScript compatibility (already on 5.x)
 - Node.js compatibility (already on 20.x)
 - Basic routing (App Router unchanged)
@@ -94,23 +99,27 @@ Libraries requiring verification:
 ## Proposed Migration Strategy
 
 ### Phase 1: Preparation
+
 1. Create feature branch for migration
 2. Audit all dependencies for React 19 / Next.js 16 compatibility
 3. Document current middleware functionality
 4. Set up comprehensive testing plan
 
 ### Phase 2: Core Migration
+
 1. Update React to 19.2
 2. Update Next.js to 16.x
 3. Convert `middleware.ts` to `proxy.ts`
 4. Fix TypeScript errors and breaking changes
 
 ### Phase 3: Dependency Updates
+
 1. Update Mantine packages (if new versions available)
 2. Update or replace incompatible libraries
 3. Update Storybook for React 19
 
 ### Phase 4: Testing & Validation
+
 1. Test all authentication flows
 2. Test all dashboard pages and components
 3. Verify Storybook builds

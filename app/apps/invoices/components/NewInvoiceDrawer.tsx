@@ -106,7 +106,9 @@ export const NewInvoiceDrawer = ({
       const result = await onCreate(invoiceData);
 
       if (!result.succeeded) {
-        throw new Error(result.errors?.join(', ') || 'Failed to create invoice');
+        throw new Error(
+          result.errors?.join(', ') || 'Failed to create invoice',
+        );
       }
 
       notifications.show({

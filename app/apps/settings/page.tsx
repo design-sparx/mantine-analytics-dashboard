@@ -22,10 +22,7 @@ import { IconCloudUpload, IconDeviceFloppy } from '@tabler/icons-react';
 
 import { PageHeader, Surface, TextEditor } from '@/components';
 import { useAuth } from '@/hooks/useAuth';
-import {
-  type components,
-  useUserProfileWithMutations,
-} from '@/lib/endpoints';
+import { type components, useUserProfileWithMutations } from '@/lib/endpoints';
 import { PATH_DASHBOARD } from '@/routes';
 
 type UpdateProfileDto = components['schemas']['UpdateProfileDto'];

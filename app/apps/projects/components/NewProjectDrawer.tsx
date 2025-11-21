@@ -64,7 +64,9 @@ export const NewProjectDrawer = ({
       const result = await onCreate(projectData);
 
       if (!result.succeeded) {
-        throw new Error(result.errors?.join(', ') || 'Failed to create project');
+        throw new Error(
+          result.errors?.join(', ') || 'Failed to create project',
+        );
       }
 
       notifications.show({

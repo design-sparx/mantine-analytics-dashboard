@@ -22,7 +22,10 @@ export const CHART_COLOR_SCHEMES = {
 /**
  * Get a color from the default color scheme
  */
-export function getChartColor(index: number, scheme: keyof typeof CHART_COLOR_SCHEMES = 'default'): string {
+export function getChartColor(
+  index: number,
+  scheme: keyof typeof CHART_COLOR_SCHEMES = 'default',
+): string {
   const colors = CHART_COLOR_SCHEMES[scheme];
   return colors[index % colors.length];
 }
@@ -30,7 +33,10 @@ export function getChartColor(index: number, scheme: keyof typeof CHART_COLOR_SC
 /**
  * Get multiple colors from a color scheme
  */
-export function getChartColors(count: number, scheme: keyof typeof CHART_COLOR_SCHEMES = 'default'): string[] {
+export function getChartColors(
+  count: number,
+  scheme: keyof typeof CHART_COLOR_SCHEMES = 'default',
+): string[] {
   const colors = CHART_COLOR_SCHEMES[scheme];
   return Array.from({ length: count }, (_, i) => colors[i % colors.length]);
 }
@@ -54,7 +60,11 @@ export function formatChartNumber(value: number, decimals: number = 1): string {
 /**
  * Format currency for chart display
  */
-export function formatChartCurrency(value: number, currency: string = 'USD', decimals: number = 0): string {
+export function formatChartCurrency(
+  value: number,
+  currency: string = 'USD',
+  decimals: number = 0,
+): string {
   if (value >= 1_000_000) {
     return `$${(value / 1_000_000).toFixed(decimals)}M`;
   }
@@ -72,23 +82,37 @@ export function formatChartCurrency(value: number, currency: string = 'USD', dec
 /**
  * Format percentage for chart display
  */
-export function formatChartPercentage(value: number, decimals: number = 1): string {
+export function formatChartPercentage(
+  value: number,
+  decimals: number = 1,
+): string {
   return `${value.toFixed(decimals)}%`;
 }
 
 /**
  * Format date for chart axis
  */
-export function formatChartDate(date: string | Date, format: 'short' | 'medium' | 'long' = 'short'): string {
+export function formatChartDate(
+  date: string | Date,
+  format: 'short' | 'medium' | 'long' = 'short',
+): string {
   const d = typeof date === 'string' ? new Date(date) : date;
 
   switch (format) {
     case 'short':
       return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
     case 'medium':
-      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      return d.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      });
     case 'long':
-      return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      return d.toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+      });
     default:
       return d.toLocaleDateString();
   }
@@ -97,7 +121,10 @@ export function formatChartDate(date: string | Date, format: 'short' | 'medium' 
 /**
  * Calculate percentage change between two values
  */
-export function calculatePercentageChange(current: number, previous: number): number {
+export function calculatePercentageChange(
+  current: number,
+  previous: number,
+): number {
   if (previous === 0) return 0;
   return ((current - previous) / previous) * 100;
 }
@@ -108,7 +135,7 @@ export function calculatePercentageChange(current: number, previous: number): nu
 export function generateGradient(
   ctx: CanvasRenderingContext2D,
   color: string,
-  height: number
+  height: number,
 ): CanvasGradient {
   const gradient = ctx.createLinearGradient(0, 0, 0, height);
   gradient.addColorStop(0, color);
@@ -119,14 +146,17 @@ export function generateGradient(
 /**
  * Aggregate data by time period
  */
-export function aggregateByPeriod<T extends { date: string | Date; value: number }>(
+export function aggregateByPeriod<
+  T extends { date: string | Date; value: number },
+>(
   data: T[],
-  period: 'day' | 'week' | 'month' | 'year'
+  period: 'day' | 'week' | 'month' | 'year',
 ): Array<{ date: string; value: number }> {
   const grouped = new Map<string, number>();
 
   data.forEach((item) => {
-    const date = typeof item.date === 'string' ? new Date(item.date) : item.date;
+    const date =
+      typeof item.date === 'string' ? new Date(item.date) : item.date;
     let key: string;
 
     switch (period) {
@@ -159,7 +189,10 @@ export function aggregateByPeriod<T extends { date: string | Date; value: number
 /**
  * Calculate moving average
  */
-export function calculateMovingAverage(data: number[], window: number): number[] {
+export function calculateMovingAverage(
+  data: number[],
+  window: number,
+): number[] {
   const result: number[] = [];
 
   for (let i = 0; i < data.length; i++) {
@@ -187,7 +220,10 @@ export function findDataRange(data: number[]): { min: number; max: number } {
 /**
  * Round to nice chart values (e.g., 0, 25, 50, 75, 100)
  */
-export function roundToNiceNumber(value: number, roundUp: boolean = true): number {
+export function roundToNiceNumber(
+  value: number,
+  roundUp: boolean = true,
+): number {
   const exponent = Math.floor(Math.log10(Math.abs(value)));
   const fraction = value / Math.pow(10, exponent);
 

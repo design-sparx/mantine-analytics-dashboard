@@ -17,6 +17,7 @@ import {
   ThemeCustomizerProvider,
   useThemeCustomizer,
 } from '@/contexts/theme-customizer';
+import { DataModeProvider } from '@/contexts/data-mode';
 import { SystemNotificationsProvider } from '@/contexts/system-notifications';
 import { createDynamicTheme } from '@/theme';
 
@@ -149,9 +150,11 @@ export default function RootLayout({
       <body>
         <AuthProvider>
           <SystemNotificationsProvider>
-            <ThemeCustomizerProvider>
-              <ThemeProvider>{children}</ThemeProvider>
-            </ThemeCustomizerProvider>
+            <DataModeProvider>
+              <ThemeCustomizerProvider>
+                <ThemeProvider>{children}</ThemeProvider>
+              </ThemeCustomizerProvider>
+            </DataModeProvider>
           </SystemNotificationsProvider>
         </AuthProvider>
       </body>

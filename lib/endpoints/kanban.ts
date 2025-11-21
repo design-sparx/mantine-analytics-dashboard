@@ -61,9 +61,7 @@ export async function updateKanbanTask(
   });
 }
 
-export async function deleteKanbanTask(
-  id: string,
-): Promise<ApiResponse<any>> {
+export async function deleteKanbanTask(id: string): Promise<ApiResponse<any>> {
   return apiDelete(ENDPOINTS.delete(id), {
     permission: 'Permissions.Team.Projects', // RBAC permission check
   });

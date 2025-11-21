@@ -9,7 +9,8 @@ import {
 // Type aliases from OpenAPI
 type UserProfileDto = components['schemas']['UserProfileDto'];
 type UpdateProfileDto = components['schemas']['UpdateProfileDto'];
-type ChangePasswordRequestDto = components['schemas']['ChangePasswordRequestDto'];
+type ChangePasswordRequestDto =
+  components['schemas']['ChangePasswordRequestDto'];
 
 // Endpoints
 const ENDPOINTS = {

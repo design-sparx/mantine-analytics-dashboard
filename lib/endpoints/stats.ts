@@ -12,9 +12,7 @@ const ENDPOINTS = {
 } as const;
 
 // Hooks
-export function useStats(options?: {
-  enabled?: boolean;
-}) {
+export function useStats(options?: { enabled?: boolean }) {
   const { enabled = true } = options || {};
 
   return useApiGet<StatsData[]>(ENDPOINTS.list, {
@@ -24,9 +22,7 @@ export function useStats(options?: {
   });
 }
 
-export function useAllStats(options?: {
-  enabled?: boolean;
-}) {
+export function useAllStats(options?: { enabled?: boolean }) {
   const { enabled = true } = options || {};
 
   return useApiGet<StatsData>(ENDPOINTS.all, {

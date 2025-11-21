@@ -21,7 +21,6 @@
   This release introduces a fully customizable theme system for Mantine Analytics Dashboard.
 
   ### ✨ What's New
-
   - Full **Theme Customizer Panel** with live preview
   - Adjustable **color schemes**, **spacing**, **border radius**, and **glassmorphism**
   - Redesigned **sidebar**, **header**, and **card components**
@@ -31,7 +30,6 @@
   Developers now have full control over the dashboard’s appearance, enabling personalized or brand-specific UIs with ease.
 
   🧼 Deprecated:
-
   - Removed `floating` and `transparent` variants
   - Removed unused sidebar state logic
 
@@ -155,11 +153,9 @@
 - 354818b: feat: updated landing page
 
   ### Added
-
   - added link to version 1
 
   ### Updated
-
   - updated landing page
   - refined light and dark mixins on home page
   - refactored breadcrumbs on apps pages
@@ -196,7 +192,6 @@
   This major release marks a significant upgrade to the website, transitioning from Next.js 13 to 14 with App Router and from Mantine 6 to 7. This upgrade brings about substantial enhancements in performance, accessibility, user experience, and overall development practices.
 
   # Next.js
-
   - Project Structure: Aligned the project structure with the recommended guidelines for Next.js and App Router, enhancing organization and maintainability.
   - Pages and Layouts: Optimized the pages and layouts structure to align with Next.js and App Router best practices, ensuring a more structured and efficient codebase.
   - Pages Metadata: Updated each page's metadata content to provide more accurate and informative descriptions for search engines.
@@ -204,14 +199,12 @@
   - Navigation Progress Bar: Discontinued the navigation progress bar for in-page transitions and implemented a centralized loading.tsx file to handle all in-page loading animations.
 
   # Mantine
-
   - CreateStyles: Adopted CSS Modules as the preferred method for styling components, replacing the deprecated createStyles function.
   - Sx Prop: Replaced the deprecated sx prop with className or style prop for styling components in Mantine 7.0.
   - Theme and ColorScheme: Refactored the theme and colour scheme usage across the codebase to align with Mantine 7.0 conventions.
   - Dynamic Multicolor Theme: Deprecated the dynamic multicolour theme change feature and centralized theme configuration in the theme/index.tsx file.
 
   # New Features
-
   - Collapsible Side Navigation: Introduced a collapsible side navigation panel for enhanced user interface and navigation experience.
   - Active Link Styles: Implemented logic to dynamically apply active link styles to the side navigation menu, providing clear visual cues for the currently selected page.
   - Dark/Light Theme Switch: Integrated a dark/light theme toggle switch on the navigation header, enabling users to personalize their viewing experience.
@@ -223,7 +216,6 @@
   - Component Documentation Stories: Created component documentation stories using Storybook to provide clear and interactive documentation for each component.
 
   # Bug Fixes
-
   - General Bug Fixes: Addressed a variety of bugs and issues to enhance overall stability and performance.
 
 - 7c9c77d: upgraded to next 14 and mantine 7

@@ -55,7 +55,10 @@ async function refreshAccessToken(token: JWT) {
     try {
       refreshedTokens = responseText ? JSON.parse(responseText) : {};
     } catch (e) {
-      console.error('Failed to parse refresh token response as JSON:', responseText);
+      console.error(
+        'Failed to parse refresh token response as JSON:',
+        responseText,
+      );
       return {
         ...token,
         error: 'RefreshAccessTokenError',
@@ -66,7 +69,10 @@ async function refreshAccessToken(token: JWT) {
 
     // Validate that we received a new token
     if (!refreshedTokens.token && !refreshedTokens.accessToken) {
-      console.error('No token in refresh response. Response keys:', Object.keys(refreshedTokens));
+      console.error(
+        'No token in refresh response. Response keys:',
+        Object.keys(refreshedTokens),
+      );
       return {
         ...token,
         error: 'RefreshAccessTokenError',
@@ -148,7 +154,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           }
 
           const response = await res.json();
-          console.log('✅ Login successful, response keys:', Object.keys(response));
+          console.log(
+            '✅ Login successful, response keys:',
+            Object.keys(response),
+          );
 
           // If your JWT already contains the permissions
           // You can extract the payload portion without validating the signature
@@ -211,7 +220,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
 
       // Return the previous token if the access token has not expired yet
-      if (token.expiration && new Date(token.expiration as string) > new Date()) {
+      if (
+        token.expiration &&
+        new Date(token.expiration as string) > new Date()
+      ) {
         console.log('Token not expired, returning existing token');
         return token;
       }

@@ -7,7 +7,7 @@ import { PATH_AUTH, PATH_DASHBOARD } from '@/routes';
 import {
   usePermissions,
   clearUserPermissions,
-  type Permission
+  type Permission,
 } from '@/lib/api/permissions';
 import type { components } from '@/lib/api';
 
@@ -78,7 +78,8 @@ export const useAuth = () => {
   // Permission helpers - use NextAuth session permissions
   const hasPermission = (permission: Permission): boolean => {
     // Try userPermissions first, then session permissions
-    const permissions = userPermissions?.permissions || session?.permissions || [];
+    const permissions =
+      userPermissions?.permissions || session?.permissions || [];
     return permissions.includes(permission);
   };
 
@@ -88,7 +89,9 @@ export const useAuth = () => {
 
     // Permissions from RBAC system or session
     permissions: userPermissions?.permissions || session?.permissions || [],
-    roles: userPermissions?.role ? [userPermissions.role] : session?.roles || [],
+    roles: userPermissions?.role
+      ? [userPermissions.role]
+      : session?.roles || [],
     userPermissions,
     hasPermission,
 

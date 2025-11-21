@@ -12,10 +12,7 @@ import { IconEdit, IconEye, IconFileText } from '@tabler/icons-react';
 import { Surface } from '@/components';
 import { useAuth } from '@/hooks/useAuth';
 import { type components } from '@/lib/endpoints';
-import {
-  getInvoiceStatusColor,
-  getInvoiceStatusLabel,
-} from '@/types/invoice';
+import { getInvoiceStatusColor, getInvoiceStatusLabel } from '@/types/invoice';
 
 // Use the correct OpenAPI DTO type
 type InvoiceDto = components['schemas']['InvoiceDto'];

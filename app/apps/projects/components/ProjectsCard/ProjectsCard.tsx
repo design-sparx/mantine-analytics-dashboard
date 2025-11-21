@@ -105,20 +105,30 @@ const ProjectsCard = (props: ProjectsCardProps) => {
 
   // Map ProjectDto fields to display values
   const name = data.name || 'Untitled Project';
-  const startDate = data.start_date ? new Date(data.start_date).toLocaleDateString() : 'Not set';
-  const endDate = data.end_date ? new Date(data.end_date).toLocaleDateString() : 'Not set';
+  const startDate = data.start_date
+    ? new Date(data.start_date).toLocaleDateString()
+    : 'Not set';
+  const endDate = data.end_date
+    ? new Date(data.end_date).toLocaleDateString()
+    : 'Not set';
   const assignee = data.assignee || 'Unassigned';
   const state = data.state ?? 0; // ProjectState is a number
 
   // Map state number to status text
   const getStatusText = (stateNum: number) => {
     switch (stateNum) {
-      case 0: return 'pending';
-      case 1: return 'in progress';
-      case 2: return 'completed';
-      case 3: return 'on hold';
-      case 4: return 'cancelled';
-      default: return 'pending';
+      case 0:
+        return 'pending';
+      case 1:
+        return 'in progress';
+      case 2:
+        return 'completed';
+      case 3:
+        return 'on hold';
+      case 4:
+        return 'cancelled';
+      default:
+        return 'pending';
     }
   };
 
@@ -138,10 +148,16 @@ const ProjectsCard = (props: ProjectsCardProps) => {
 
         <Stack gap="xs">
           <Text fz="sm" c="dimmed">
-            <Text span fw={500}>Start:</Text> {startDate}
+            <Text span fw={500}>
+              Start:
+            </Text>{' '}
+            {startDate}
           </Text>
           <Text fz="sm" c="dimmed">
-            <Text span fw={500}>End:</Text> {endDate}
+            <Text span fw={500}>
+              End:
+            </Text>{' '}
+            {endDate}
           </Text>
         </Stack>
 
@@ -152,8 +168,12 @@ const ProjectsCard = (props: ProjectsCardProps) => {
             </Avatar>
           </Tooltip>
           <div>
-            <Text fz="xs" c="dimmed">Assigned to</Text>
-            <Text fz="sm" fw={500}>{assignee}</Text>
+            <Text fz="xs" c="dimmed">
+              Assigned to
+            </Text>
+            <Text fz="sm" fw={500}>
+              {assignee}
+            </Text>
           </div>
         </Flex>
 

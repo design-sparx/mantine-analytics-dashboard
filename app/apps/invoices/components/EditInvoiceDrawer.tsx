@@ -49,7 +49,10 @@ interface EditInvoiceFormValues {
 
 type EditInvoiceDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
   invoice: InvoiceDto | null;
-  onUpdate: (id: string, data: Partial<InvoiceDto>) => Promise<ApiResponse<any>>;
+  onUpdate: (
+    id: string,
+    data: Partial<InvoiceDto>,
+  ) => Promise<ApiResponse<any>>;
   onInvoiceUpdated?: () => void;
 };
 
@@ -113,7 +116,9 @@ export const EditInvoiceDrawer = ({
       const result = await onUpdate(invoice.id!, invoiceData);
 
       if (!result.succeeded) {
-        throw new Error(result.errors?.join(', ') || 'Failed to update invoice');
+        throw new Error(
+          result.errors?.join(', ') || 'Failed to update invoice',
+        );
       }
 
       notifications.show({
@@ -150,7 +155,9 @@ export const EditInvoiceDrawer = ({
         billingAddress: invoice.client_address || '',
         country: invoice.country || '',
         clientCompany: invoice.client_company || '',
-        issueDate: invoice.issue_date ? new Date(invoice.issue_date) : new Date(),
+        issueDate: invoice.issue_date
+          ? new Date(invoice.issue_date)
+          : new Date(),
         status: invoice.status?.toString() || InvoiceStatus.Draft.toString(),
         amount: invoice.amount || 0,
         notes: invoice.description || '',
@@ -224,7 +231,14 @@ export const EditInvoiceDrawer = ({
           </Group>
 
           {/* Amount Display */}
-          <Group justify="space-between" p="md" style={{ backgroundColor: 'var(--mantine-color-blue-0)', borderRadius: '8px' }}>
+          <Group
+            justify="space-between"
+            p="md"
+            style={{
+              backgroundColor: 'var(--mantine-color-blue-0)',
+              borderRadius: '8px',
+            }}
+          >
             <Text fw={600} size="lg">
               Total Amount:
             </Text>
@@ -338,7 +352,12 @@ export const EditInvoiceDrawer = ({
                 disabled={!isCreator}
               />
 
-              <Button type="submit" disabled={!isCreator} loading={loading} mt="md">
+              <Button
+                type="submit"
+                disabled={!isCreator}
+                loading={loading}
+                mt="md"
+              >
                 Update Invoice
               </Button>
             </Stack>

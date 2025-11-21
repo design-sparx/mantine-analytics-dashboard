@@ -1,4 +1,11 @@
-import { type ApiResponse, apiDelete, apiPost, apiPut, type components, useApiGet } from './api-utils';
+import {
+  type ApiResponse,
+  apiDelete,
+  apiPost,
+  apiPut,
+  type components,
+  useApiGet,
+} from './api-utils';
 
 // Type aliases from OpenAPI
 type KanbanTaskDto = components['schemas']['KanbanTaskDto'];
@@ -40,14 +47,19 @@ export function useTask(id: string, options?: { enabled?: boolean }) {
 }
 
 // Mutations
-export async function createTask(data: Partial<KanbanTaskDto>): Promise<ApiResponse<KanbanTaskDto>> {
+export async function createTask(
+  data: Partial<KanbanTaskDto>,
+): Promise<ApiResponse<KanbanTaskDto>> {
   return apiPost<KanbanTaskDto>(ENDPOINTS.create, data, {
     // Add permission when defined in RBAC config
     // permission: 'Permissions.Tasks.Create',
   });
 }
 
-export async function updateTask(id: string, data: Partial<KanbanTaskDto>): Promise<ApiResponse<KanbanTaskDto>> {
+export async function updateTask(
+  id: string,
+  data: Partial<KanbanTaskDto>,
+): Promise<ApiResponse<KanbanTaskDto>> {
   return apiPut<KanbanTaskDto>(ENDPOINTS.update(id), data, {
     // Add permission when defined in RBAC config
     // permission: 'Permissions.Tasks.Update',

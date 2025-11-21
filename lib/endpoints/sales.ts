@@ -1,4 +1,11 @@
-import { type ApiResponse, apiDelete, apiPost, apiPut, type components, useApiGet } from './api-utils';
+import {
+  type ApiResponse,
+  apiDelete,
+  apiPost,
+  apiPut,
+  type components,
+  useApiGet,
+} from './api-utils';
 
 // Type aliases from OpenAPI
 type SalesDto = components['schemas']['SalesDto'];
@@ -39,14 +46,19 @@ export function useSale(id: number, options?: { enabled?: boolean }) {
 }
 
 // Mutations
-export async function createSale(data: Partial<SalesDto>): Promise<ApiResponse<SalesDto>> {
+export async function createSale(
+  data: Partial<SalesDto>,
+): Promise<ApiResponse<SalesDto>> {
   return apiPost<SalesDto>(ENDPOINTS.create, data, {
     // Add permission when defined in RBAC config
     // permission: 'Permissions.Dashboard.Sales',
   });
 }
 
-export async function updateSale(id: number, data: Partial<SalesDto>): Promise<ApiResponse<SalesDto>> {
+export async function updateSale(
+  id: number,
+  data: Partial<SalesDto>,
+): Promise<ApiResponse<SalesDto>> {
   return apiPut<SalesDto>(ENDPOINTS.update(id), data, {
     // Add permission when defined in RBAC config
     // permission: 'Permissions.Dashboard.Sales',

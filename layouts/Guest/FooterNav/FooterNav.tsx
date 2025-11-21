@@ -21,7 +21,6 @@ import {
 
 import { Logo } from '@/components';
 
-
 import classes from './FooterNav.module.css';
 
 const ICON_SIZE = 18;

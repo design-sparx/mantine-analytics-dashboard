@@ -2,7 +2,14 @@
 
 import { useEffect } from 'react';
 
-import { Button, Group, Modal, NumberInput, Stack, Textarea } from '@mantine/core';
+import {
+  Button,
+  Group,
+  Modal,
+  NumberInput,
+  Stack,
+  Textarea,
+} from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 import { type components } from '@/lib/endpoints';

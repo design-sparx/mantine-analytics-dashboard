@@ -2,6 +2,7 @@ import { useFetch } from '@mantine/hooks';
 import { useSession } from 'next-auth/react';
 
 import type { components } from '@/lib/api';
+import { getMockData, hasMockData } from '@/lib/mocks';
 
 // Simple permission checking helper
 function hasPermission(
@@ -38,7 +39,24 @@ export function getAuthHeaders(
   return headers;
 }
 
-// Simple GET hook with NextAuth and RBAC
+// Get data mode from localStorage (client-side only)
+function getDataMode(): 'mock' | 'real' {
+  if (typeof window === 'undefined') return 'real';
+
+  try {
+    const stored = localStorage.getItem('data-mode-config');
+    if (stored) {
+      const config = JSON.parse(stored);
+      return config.mode || 'real';
+    }
+  } catch (error) {
+    console.error('Failed to read data mode:', error);
+  }
+
+  return 'real';
+}
+
+// Simple GET hook with NextAuth, RBAC, and mock data support
 export function useApiGet<T>(
   endpoint: string,
   options?: {
@@ -49,6 +67,10 @@ export function useApiGet<T>(
 ) {
   const { params, enabled = true, permission } = options || {};
   const { data: session } = useSession();
+
+  // Check data mode
+  const dataMode = getDataMode();
+  const useMockData = dataMode === 'mock' && hasMockData(endpoint);
 
   // Build URL with query params
   const url = new URL(endpoint, API_BASE_URL);
@@ -64,6 +86,21 @@ export function useApiGet<T>(
   const hasRequiredPermission = permission
     ? hasPermission(session?.permissions, permission)
     : true;
+
+  // If using mock data, return it immediately
+  if (useMockData && enabled && hasRequiredPermission) {
+    const mockData = getMockData<ApiResponse<T>>(endpoint, 'GET');
+
+    return {
+      loading: false,
+      error: null,
+      data: mockData || undefined,
+      abort: () => {},
+      refetch: () => {},
+      hasPermission: hasRequiredPermission,
+      permissionDenied: false,
+    };
+  }
 
   // Only make request if we have a session, it's enabled, and permissions allow
   const shouldFetch =
@@ -116,80 +153,113 @@ async function withPermissionCheck<T>(
   return operation();
 }
 
-// Simple POST function with NextAuth and optional permission check
+// Simple POST function with NextAuth, optional permission check, and mock data support
 export async function apiPost<T>(
   endpoint: string,
   data?: any,
   options?: { permission?: string },
 ): Promise<ApiResponse<T>> {
-  return withPermissionCheck(
-    async () => {
-      const { token } = await getCurrentTokenAndPermissions();
+  // Check if we should use mock data
+  const dataMode = getDataMode();
+  const useMockData = dataMode === 'mock' && hasMockData(endpoint);
 
-      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-        method: 'POST',
-        headers: getAuthHeaders(token),
-        body: data ? JSON.stringify(data) : undefined,
-      });
+  if (useMockData) {
+    // Simulate API delay for realistic feel
+    await new Promise((resolve) => setTimeout(resolve, 300));
 
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
+    const mockData = getMockData<ApiResponse<T>>(endpoint, 'POST', data);
+    if (mockData) {
+      return mockData;
+    }
+  }
 
-      return response.json();
-    },
-    options?.permission,
-  );
+  return withPermissionCheck(async () => {
+    const { token } = await getCurrentTokenAndPermissions();
+
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: 'POST',
+      headers: getAuthHeaders(token),
+      body: data ? JSON.stringify(data) : undefined,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+
+    return response.json();
+  }, options?.permission);
 }
 
-// Simple PUT function with NextAuth and optional permission check
+// Simple PUT function with NextAuth, optional permission check, and mock data support
 export async function apiPut<T>(
   endpoint: string,
   data?: any,
   options?: { permission?: string },
 ): Promise<ApiResponse<T>> {
-  return withPermissionCheck(
-    async () => {
-      const { token } = await getCurrentTokenAndPermissions();
+  // Check if we should use mock data
+  const dataMode = getDataMode();
+  const useMockData = dataMode === 'mock' && hasMockData(endpoint);
 
-      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-        method: 'PUT',
-        headers: getAuthHeaders(token),
-        body: data ? JSON.stringify(data) : undefined,
-      });
+  if (useMockData) {
+    // Simulate API delay for realistic feel
+    await new Promise((resolve) => setTimeout(resolve, 300));
 
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
+    const mockData = getMockData<ApiResponse<T>>(endpoint, 'PUT', data);
+    if (mockData) {
+      return mockData;
+    }
+  }
 
-      return response.json();
-    },
-    options?.permission,
-  );
+  return withPermissionCheck(async () => {
+    const { token } = await getCurrentTokenAndPermissions();
+
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: 'PUT',
+      headers: getAuthHeaders(token),
+      body: data ? JSON.stringify(data) : undefined,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+
+    return response.json();
+  }, options?.permission);
 }
 
-// Simple DELETE function with NextAuth and optional permission check
+// Simple DELETE function with NextAuth, optional permission check, and mock data support
 export async function apiDelete<T>(
   endpoint: string,
   options?: { permission?: string },
 ): Promise<ApiResponse<T>> {
-  return withPermissionCheck(
-    async () => {
-      const { token } = await getCurrentTokenAndPermissions();
+  // Check if we should use mock data
+  const dataMode = getDataMode();
+  const useMockData = dataMode === 'mock' && hasMockData(endpoint);
 
-      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-        method: 'DELETE',
-        headers: getAuthHeaders(token),
-      });
+  if (useMockData) {
+    // Simulate API delay for realistic feel
+    await new Promise((resolve) => setTimeout(resolve, 300));
 
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
+    const mockData = getMockData<ApiResponse<T>>(endpoint, 'DELETE');
+    if (mockData) {
+      return mockData;
+    }
+  }
 
-      return response.json();
-    },
-    options?.permission,
-  );
+  return withPermissionCheck(async () => {
+    const { token } = await getCurrentTokenAndPermissions();
+
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(token),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+
+    return response.json();
+  }, options?.permission);
 }
 
 // Simple permission hook for components

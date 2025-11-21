@@ -3,7 +3,11 @@ import React from 'react';
 import { Alert, Text } from '@mantine/core';
 import { IconLock } from '@tabler/icons-react';
 
-import { useHasAllPermissions, useHasAnyPermission, useHasPermission } from './hooks';
+import {
+  useHasAllPermissions,
+  useHasAnyPermission,
+  useHasPermission,
+} from './hooks';
 
 import type { Permission } from './types';
 
@@ -36,7 +40,9 @@ export function PermissionGate({
   if (showFallback) {
     return (
       <Alert icon={<IconLock size={16} />} color="yellow" variant="light">
-        <Text size="sm">You don&apos;t have permission to access this feature.</Text>
+        <Text size="sm">
+          You don&apos;t have permission to access this feature.
+        </Text>
       </Alert>
     );
   }
@@ -97,7 +103,11 @@ interface AdminOnlyProps {
 /**
  * Component that only renders for admin users
  */
-export function AdminOnly({ children, fallback, showFallback = false }: AdminOnlyProps) {
+export function AdminOnly({
+  children,
+  fallback,
+  showFallback = false,
+}: AdminOnlyProps) {
   return (
     <MultiPermissionGate
       permissions={[

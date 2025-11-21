@@ -1,4 +1,11 @@
-import { type ApiResponse, apiDelete, apiPost, apiPut, type components, useApiGet } from './api-utils';
+import {
+  type ApiResponse,
+  apiDelete,
+  apiPost,
+  apiPut,
+  type components,
+  useApiGet,
+} from './api-utils';
 
 // Type aliases from OpenAPI
 type ProjectDto = components['schemas']['ProjectDto'];
@@ -35,11 +42,16 @@ export function useProject(id: number, options?: { enabled?: boolean }) {
 }
 
 // Mutations
-export async function createProject(data: Partial<ProjectDto>): Promise<ApiResponse<ProjectDto>> {
+export async function createProject(
+  data: Partial<ProjectDto>,
+): Promise<ApiResponse<ProjectDto>> {
   return apiPost<ProjectDto>(ENDPOINTS.create, data);
 }
 
-export async function updateProject(id: number, data: Partial<ProjectDto>): Promise<ApiResponse<ProjectDto>> {
+export async function updateProject(
+  id: number,
+  data: Partial<ProjectDto>,
+): Promise<ApiResponse<ProjectDto>> {
   return apiPut<ProjectDto>(ENDPOINTS.update(id), data);
 }
 

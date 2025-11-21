@@ -15,6 +15,7 @@ import {
   useMantineColorScheme,
 } from '@mantine/core';
 import {
+  IconDatabase,
   IconDeviceFloppy,
   IconLayout,
   IconPalette,
@@ -26,6 +27,7 @@ import { useThemeCustomizer } from '@/contexts/theme-customizer';
 
 import { ThemePreviewCanvas } from './components/ThemePreviewCanvas';
 import { AppearanceTab } from './tabs/AppearanceTab';
+import { DataTab } from './tabs/DataTab';
 import { LayoutTab } from './tabs/LayoutTab';
 
 interface ThemeCustomizerDrawerProps {
@@ -127,7 +129,12 @@ export default function ThemeCustomizerDrawer({
                   >
                     Appearance
                   </Tabs.Tab>
-                  {/* Add more tabs here */}
+                  <Tabs.Tab
+                    value="data"
+                    leftSection={<IconDatabase size={16} />}
+                  >
+                    Data
+                  </Tabs.Tab>
                 </Tabs.List>
 
                 <Tabs.Panel value="layout" pt="md">
@@ -142,6 +149,10 @@ export default function ThemeCustomizerDrawer({
                     config={previewConfig}
                     onConfigUpdate={updateConfig}
                   />
+                </Tabs.Panel>
+
+                <Tabs.Panel value="data" pt="md">
+                  <DataTab />
                 </Tabs.Panel>
               </Tabs>
             </ScrollArea>

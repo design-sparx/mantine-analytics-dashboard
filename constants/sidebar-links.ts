@@ -9,7 +9,9 @@ import {
   IconExclamationCircle,
   IconFileInvoice,
   IconFiles,
-  IconLayersSubtract, IconLifebuoy, IconList,
+  IconLayersSubtract,
+  IconLifebuoy,
+  IconList,
   IconListDetails,
   IconLogin2,
   IconMessages,
@@ -19,10 +21,17 @@ import {
   IconUserCircle,
   IconUserCode,
   IconUserPlus,
-  IconUserShield
+  IconUserShield,
 } from '@tabler/icons-react';
 
-import { PATH_ABOUT, PATH_APPS, PATH_AUTH, PATH_DASHBOARD, PATH_DOCS, PATH_PAGES } from '@/routes';
+import {
+  PATH_ABOUT,
+  PATH_APPS,
+  PATH_AUTH,
+  PATH_DASHBOARD,
+  PATH_DOCS,
+  PATH_PAGES,
+} from '@/routes';
 
 export const SIDEBAR_LINKS = [
   {

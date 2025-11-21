@@ -9,6 +9,7 @@ A Next.js 14 admin dashboard template built with Mantine 7, TypeScript, React 18
 ## Essential Development Commands
 
 ### Development
+
 ```bash
 npm run dev                  # Start development server at http://localhost:3000
 npm run build               # Build production bundle
@@ -18,6 +19,7 @@ npm run prettier            # Format all files with Prettier
 ```
 
 ### API Integration
+
 ```bash
 npm run generate:types      # Generate TypeScript types from OpenAPI spec
                            # Uses API_URL env var or http://localhost:5080
@@ -25,12 +27,14 @@ API_URL=https://api.example.com npm run generate:types  # Use custom API
 ```
 
 ### Storybook
+
 ```bash
 npm run storybook           # Start Storybook dev server on port 6006
 npm run build-storybook     # Build Storybook for production
 ```
 
 ### Git & Versioning
+
 ```bash
 npm run changeset:add       # Add a new changeset
 npm run changeset:release   # Version packages based on changesets
@@ -40,6 +44,7 @@ npm run commitlint          # Validate commit messages
 ## Architecture Overview
 
 ### Directory Structure
+
 - **`app/`**: Next.js App Router pages and layouts
   - `dashboard/` - Dashboard variants (default, analytics, saas)
   - `apps/` - Feature modules (invoices, projects, chat, etc.)
@@ -61,7 +66,9 @@ npm run commitlint          # Validate commit messages
 - **`scripts/`**: Build and utility scripts
 
 ### Authentication Flow
+
 The app uses NextAuth with custom authentication:
+
 1. **Middleware** (`middleware.ts`): Protects routes, redirects unauthenticated users
 2. **Session Management**: Uses NextAuth JWT tokens with custom session data including permissions
 3. **AuthProvider** (`components/auth/AuthProvider.tsx`): Wraps app with session context
@@ -72,6 +79,7 @@ The app uses NextAuth with custom authentication:
 The project features a **type-safe API integration** with auto-generated types from OpenAPI specs:
 
 #### Key Files
+
 - **`lib/api.d.ts`**: Auto-generated from OpenAPI spec via `generate:types` script
 - **`lib/endpoints/api-utils.ts`**: Core API utilities using Mantine's `useFetch`
   - `useApiGet<T>()` - GET requests with auth and permission checks
@@ -81,7 +89,9 @@ The project features a **type-safe API integration** with auto-generated types f
 - **`lib/endpoints/`**: Feature-specific API hooks (invoices, projects, sales, etc.)
 
 #### API Hook Pattern
+
 All API hooks follow this pattern:
+
 ```typescript
 export function useInvoicesWithMutations() {
   const query = useApiGet<Invoice[]>('/api/invoices', {
@@ -97,6 +107,7 @@ export function useInvoicesWithMutations() {
 ```
 
 #### Working with APIs
+
 1. **Update OpenAPI spec** on backend with proper tags (use `INCLUDE_TAGS` in `scripts/generate-api-types.js`)
 2. **Run `npm run generate:types`** to regenerate `lib/api.d.ts`
 3. **Create endpoint hooks** in `lib/endpoints/` using generated types
@@ -107,16 +118,19 @@ export function useInvoicesWithMutations() {
 Location: `lib/api/permissions/`
 
 #### Permission Types (from `types.ts`)
+
 - **Admin**: `Permissions.Admin.*` - System administration (user management, settings)
 - **Team**: `Permissions.Team.*` - Collaborative resources (projects, orders, analytics)
 - **Personal**: `Permissions.Personal.*` - Private user data (profile, invoices, files)
 - **Users**: `Permissions.Users.ViewDirectory` - User directory access
 
 #### Roles
+
 - **Admin**: Full system access + user management
 - **User**: Team collaboration + personal data
 
 #### Usage in Components
+
 ```typescript
 import { PermissionGate, useHasPermission } from '@/lib/api/permissions';
 
@@ -153,6 +167,7 @@ The app uses a custom theme customizer system with live preview:
 ### Path Management
 
 All routes defined in `routes/index.ts`:
+
 - Use helper functions like `PATH_DASHBOARD.default`, `PATH_APPS.invoices.root`
 - Supports dynamic routes: `PATH_APPS.invoices.invoice_details(id)`
 - Never hardcode paths; always import from `@/routes`
@@ -160,6 +175,7 @@ All routes defined in `routes/index.ts`:
 ## Important Development Patterns
 
 ### Adding New API Endpoints
+
 1. Ensure backend OpenAPI spec includes endpoint with appropriate tag from `INCLUDE_TAGS`
 2. Run `npm run generate:types` to update `lib/api.d.ts`
 3. Create hook in `lib/endpoints/[feature].ts` using `useApiGet`/`useApiPost`/etc.
@@ -167,19 +183,23 @@ All routes defined in `routes/index.ts`:
 5. Export from `lib/endpoints/index.ts`
 
 ### Creating New Components
+
 - Place in `components/[ComponentName]/`
 - Include index file exporting component
 - Add Storybook story if it's a reusable component
 - Use Mantine components as base; import from `@mantine/core`
 
 ### Adding Routes
+
 1. Define path in `routes/index.ts`
 2. Create page in appropriate `app/` directory
 3. Update middleware if route requires special auth handling
 4. Add to navigation/sidebar if needed
 
 ### Path Aliases
+
 Use `@/` prefix for imports (configured in `tsconfig.json`):
+
 ```typescript
 import { Component } from '@/components';
 import { PATH_DASHBOARD } from '@/routes';

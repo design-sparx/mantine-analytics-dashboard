@@ -47,11 +47,11 @@ export const OrderCard = ({
     if (!status) return 'gray';
     // Map numeric status to colors
     const statusMap: Record<number, string> = {
-      1: 'yellow',   // Pending
-      2: 'blue',     // Processing
-      3: 'orange',   // Shipped
-      4: 'green',    // Delivered
-      5: 'red',      // Cancelled
+      1: 'yellow', // Pending
+      2: 'blue', // Processing
+      3: 'orange', // Shipped
+      4: 'green', // Delivered
+      5: 'red', // Cancelled
     };
     return statusMap[status as number] || 'gray';
   };
@@ -92,11 +92,7 @@ export const OrderCard = ({
               {data.date && formatDate(data.date)}
             </Text>
           </div>
-          <Badge
-            color={getStatusColor(data.status)}
-            variant="light"
-            size="sm"
-          >
+          <Badge color={getStatusColor(data.status)} variant="light" size="sm">
             {getStatusLabel(data.status)}
           </Badge>
         </Group>

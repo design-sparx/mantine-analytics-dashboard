@@ -11,9 +11,7 @@ const ENDPOINTS = {
 } as const;
 
 // Hooks
-export function useLanguages(options?: {
-  enabled?: boolean;
-}) {
+export function useLanguages(options?: { enabled?: boolean }) {
   const { enabled = true } = options || {};
 
   return useApiGet<LanguageData[]>(ENDPOINTS.list, {

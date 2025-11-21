@@ -8,7 +8,12 @@ export type ComponentSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 /**
  * Common component variants
  */
-export type ComponentVariant = 'default' | 'filled' | 'outlined' | 'light' | 'subtle';
+export type ComponentVariant =
+  | 'default'
+  | 'filled'
+  | 'outlined'
+  | 'light'
+  | 'subtle';
 
 /**
  * Loading state for components

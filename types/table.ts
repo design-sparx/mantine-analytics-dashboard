@@ -2,7 +2,13 @@ import { ReactNode } from 'react';
 
 import { DataTableColumn } from 'mantine-datatable';
 
-import { FilterState, PaginationProps, EmptyStateProps, SortDirection, SortState } from './components';
+import {
+  FilterState,
+  PaginationProps,
+  EmptyStateProps,
+  SortDirection,
+  SortState,
+} from './components';
 
 /**
  * Column definition for data tables
