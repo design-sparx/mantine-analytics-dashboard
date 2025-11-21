@@ -24,7 +24,7 @@ import {
   IconSearch,
 } from '@tabler/icons-react';
 
-import { LanguagePicker } from '@/components';
+import { DataModeToggle, LanguagePicker } from '@/components';
 import { MESSAGES } from '@/constants/messages';
 import { NOTIFICATIONS } from '@/constants/notifications';
 import { HeaderVariant, useSidebarConfig } from '@/contexts/theme-customizer';
@@ -188,6 +188,11 @@ const HeaderNav = (props: HeaderNavProps) => {
             <IconSearch size={ICON_SIZE} color={textColor} />
           </ActionIcon>
         )}
+        <DataModeToggle
+          iconSize={ICON_SIZE}
+          variant={headerVariant === 'colored' ? 'transparent' : 'default'}
+          textColor={textColor}
+        />
         <LanguagePicker type="collapsed" />
         <Menu shadow="lg" width={320}>
           <Menu.Target>
