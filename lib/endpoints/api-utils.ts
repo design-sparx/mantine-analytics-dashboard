@@ -2,7 +2,12 @@ import { useFetch } from '@mantine/hooks';
 import { useSession } from 'next-auth/react';
 
 import type { components } from '@/lib/api';
-import { getMockData, hasMockData } from '@/lib/mocks';
+import {
+  fetchMockData,
+  getMockFilePath,
+  hasMockFile,
+  mockMutation,
+} from '@/lib/mocks';
 
 // Simple permission checking helper
 function hasPermission(
@@ -70,7 +75,7 @@ export function useApiGet<T>(
 
   // Check data mode
   const dataMode = getDataMode();
-  const useMockData = dataMode === 'mock' && hasMockData(endpoint);
+  const useMockData = dataMode === 'mock' && hasMockFile(endpoint);
 
   // Build URL with query params
   const url = new URL(endpoint, API_BASE_URL);
@@ -87,16 +92,29 @@ export function useApiGet<T>(
     ? hasPermission(session?.permissions, permission)
     : true;
 
-  // If using mock data, return it immediately
+  // If using mock data, fetch from JSON file
   if (useMockData && enabled && hasRequiredPermission) {
-    const mockData = getMockData<ApiResponse<T>>(endpoint, 'GET');
+    const mockFilePath = getMockFilePath(endpoint);
 
+    // Use useFetch to load the mock JSON file
+    const result = useFetch<any>(mockFilePath || '');
+
+    // Transform the result to match ApiResponse format
     return {
-      loading: false,
-      error: null,
-      data: mockData || undefined,
-      abort: () => {},
-      refetch: () => {},
+      loading: result.loading,
+      error: result.error,
+      data: result.data
+        ? ({
+            succeeded: true,
+            data: Array.isArray(result.data)
+              ? result.data
+              : result.data.data || result.data,
+            errors: [],
+            message: 'Mock data loaded successfully',
+          } as ApiResponse<T>)
+        : undefined,
+      abort: result.abort,
+      refetch: result.refetch,
       hasPermission: hasRequiredPermission,
       permissionDenied: false,
     };
@@ -161,16 +179,10 @@ export async function apiPost<T>(
 ): Promise<ApiResponse<T>> {
   // Check if we should use mock data
   const dataMode = getDataMode();
-  const useMockData = dataMode === 'mock' && hasMockData(endpoint);
+  const useMockData = dataMode === 'mock' && hasMockFile(endpoint);
 
   if (useMockData) {
-    // Simulate API delay for realistic feel
-    await new Promise((resolve) => setTimeout(resolve, 300));
-
-    const mockData = getMockData<ApiResponse<T>>(endpoint, 'POST', data);
-    if (mockData) {
-      return mockData;
-    }
+    return mockMutation<T>('POST', endpoint, data);
   }
 
   return withPermissionCheck(async () => {
@@ -198,16 +210,10 @@ export async function apiPut<T>(
 ): Promise<ApiResponse<T>> {
   // Check if we should use mock data
   const dataMode = getDataMode();
-  const useMockData = dataMode === 'mock' && hasMockData(endpoint);
+  const useMockData = dataMode === 'mock' && hasMockFile(endpoint);
 
   if (useMockData) {
-    // Simulate API delay for realistic feel
-    await new Promise((resolve) => setTimeout(resolve, 300));
-
-    const mockData = getMockData<ApiResponse<T>>(endpoint, 'PUT', data);
-    if (mockData) {
-      return mockData;
-    }
+    return mockMutation<T>('PUT', endpoint, data);
   }
 
   return withPermissionCheck(async () => {
@@ -234,16 +240,10 @@ export async function apiDelete<T>(
 ): Promise<ApiResponse<T>> {
   // Check if we should use mock data
   const dataMode = getDataMode();
-  const useMockData = dataMode === 'mock' && hasMockData(endpoint);
+  const useMockData = dataMode === 'mock' && hasMockFile(endpoint);
 
   if (useMockData) {
-    // Simulate API delay for realistic feel
-    await new Promise((resolve) => setTimeout(resolve, 300));
-
-    const mockData = getMockData<ApiResponse<T>>(endpoint, 'DELETE');
-    if (mockData) {
-      return mockData;
-    }
+    return mockMutation<T>('DELETE', endpoint);
   }
 
   return withPermissionCheck(async () => {
