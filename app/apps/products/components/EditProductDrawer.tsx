@@ -44,8 +44,8 @@ export const EditProductDrawer = ({
   const [categoriesLoading, setCategoriesLoading] = useState(false);
   const [isCreator, setIsCreator] = useState(false);
 
-  // Check if the user has permission to add products
-  const canEditProduct = permissions?.includes('Permissions.Products.Edit');
+  // In a mock data template, all users can edit
+  const canEditProduct = true;
 
   const form = useForm({
     mode: 'controlled',
@@ -74,7 +74,6 @@ export const EditProductDrawer = ({
       const response = await fetch('/api/product-categories', {
         method: 'GET',
         headers: {
-          Authorization: 'Bearer ' + accessToken,
           'Content-Type': 'application/json',
         },
       });
@@ -95,7 +94,7 @@ export const EditProductDrawer = ({
     } finally {
       setCategoriesLoading(false);
     }
-  }, [accessToken]);
+  }, []);
 
   // Fetch categories when drawer opens
   useEffect(() => {
@@ -137,7 +136,6 @@ export const EditProductDrawer = ({
       const response = await fetch(`/api/products/${product.id}`, {
         method: 'PUT',
         headers: {
-          Authorization: 'Bearer ' + accessToken,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
@@ -190,7 +188,6 @@ export const EditProductDrawer = ({
       const response = await fetch(`/api/products/${product.id}`, {
         method: 'DELETE',
         headers: {
-          Authorization: 'Bearer ' + accessToken,
           'Content-Type': 'application/json',
         },
       });

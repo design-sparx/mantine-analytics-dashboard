@@ -48,10 +48,10 @@ export const NewTaskModal = ({
   }, [opened]);
 
   const handleSubmit = (values: typeof form.values) => {
-    // Map columnId to status
-    let status: TaskStatus = 1; // todo
-    if (columnId === 'doing') status = 2;
-    else if (columnId === 'done') status = 3;
+    // Map columnId to status string
+    let status: string = '1'; // todo
+    if (columnId === 'doing') status = '2';
+    else if (columnId === 'done') status = '3';
 
     const newTask: Partial<KanbanTaskDto> = {
       title: values.title,

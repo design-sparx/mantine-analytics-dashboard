@@ -1,5 +1,14 @@
 import { useFetch } from '@mantine/hooks';
 import type { IApiResponse } from '@/types/api-response';
+import type {
+  InvoiceDto,
+  ProjectDto,
+  ProductDto,
+  OrderDto,
+  ChatDto,
+  ChatMessageDto,
+  TaskDto,
+} from '@/types';
 
 export type ApiResponse<T> = IApiResponse<T>;
 
@@ -10,60 +19,60 @@ export function useApiGet<T>(endpoint: string) {
 
 // Hook for invoices
 export function useInvoices() {
-  return useApiGet('/api/invoices');
+  return useApiGet<InvoiceDto[]>('/api/invoices');
 }
 
 // Hook for projects
 export function useProjects() {
-  return useApiGet('/api/projects');
+  return useApiGet<ProjectDto[]>('/api/projects');
 }
 
 // Hook for products
 export function useProducts() {
-  return useApiGet('/api/products');
+  return useApiGet<ProductDto[]>('/api/products');
 }
 
 // Hook for orders
 export function useOrders() {
-  return useApiGet('/api/orders');
+  return useApiGet<OrderDto[]>('/api/orders');
 }
 
 // Hook for sales
 export function useSales() {
-  return useApiGet('/api/sales');
+  return useApiGet<any[]>('/api/sales');
 }
 
 // Hook for stats
 export function useStats() {
-  return useApiGet('/api/stats');
+  return useApiGet<any[]>('/api/stats');
 }
 
 // Hook for traffic
 export function useTraffic() {
-  return useApiGet('/api/traffic');
+  return useApiGet<any[]>('/api/traffic');
 }
 
 // Hook for tasks
 export function useTasks() {
-  return useApiGet('/api/tasks');
+  return useApiGet<TaskDto[]>('/api/tasks');
 }
 
 // Hook for chat
 export function useChats() {
-  return useApiGet('/api/chat');
+  return useApiGet<ChatDto[]>('/api/chat');
 }
 
 // Hook for chat messages
 export function useChatMessages() {
-  return useApiGet('/api/chat/messages');
+  return useApiGet<ChatMessageDto[]>('/api/chat/messages');
 }
 
 // Hook for profile
 export function useProfile() {
-  return useApiGet('/api/profile');
+  return useApiGet<any>('/api/profile');
 }
 
 // Hook for languages
 export function useLanguages() {
-  return useApiGet('/api/languages');
+  return useApiGet<any[]>('/api/languages');
 }

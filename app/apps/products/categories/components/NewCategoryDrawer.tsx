@@ -50,7 +50,6 @@ export const NewCategoryDrawer = ({
       const response = await fetch('/api/product-categories', {
         method: 'POST',
         headers: {
-          Authorization: 'Bearer ' + accessToken,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),

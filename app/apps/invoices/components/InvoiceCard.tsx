@@ -32,7 +32,7 @@ export const InvoiceCard = ({
   const { data: session } = useSession();
   const user = session?.user;
 
-  const isCreator = user?.id === data?.created_by_id;
+  const isCreator = user?.id === data?.createdById;
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -61,7 +61,7 @@ export const InvoiceCard = ({
               </Title>
             </Group>
             <Text size="sm" c="dimmed">
-              Issued: {data?.issue_date && formatDate(data?.issue_date)}
+              Issued: {data?.issueDate && formatDate(data?.issueDate)}
             </Text>
           </div>
           <Badge
@@ -75,11 +75,11 @@ export const InvoiceCard = ({
 
         <div>
           <Text size="sm" fw={500}>
-            Customer: {data?.client_name || 'N/A'}
+            Customer: {data?.customerName || 'N/A'}
           </Text>
-          {data?.client_email && (
+          {data?.customerEmail && (
             <Text size="xs" c="dimmed">
-              {data.client_email}
+              {data.customerEmail}
             </Text>
           )}
         </div>
@@ -90,7 +90,7 @@ export const InvoiceCard = ({
               Amount
             </Text>
             <Text size="sm" fw={500}>
-              {data?.amount ? formatCurrency(data?.amount) : 'N/A'}
+              {data?.totalAmount ? formatCurrency(data?.totalAmount) : 'N/A'}
             </Text>
           </div>
         </Group>

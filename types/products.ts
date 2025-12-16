@@ -34,3 +34,7 @@ export interface IProductCategory {
   modifiedBy: any; // Use OpenAPI types for new development
   productCount: number;
 }
+
+// Alias for consistency with other DTOs
+export type ProductDto = IProduct;
+export type ProductCategoryDto = IProductCategory;

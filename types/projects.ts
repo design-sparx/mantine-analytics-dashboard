@@ -14,3 +14,6 @@ export interface IProject {
   statusText: string;
   completionPercentage: number;
 }
+
+// Alias for consistency with other DTOs
+export type ProjectDto = IProject;

@@ -152,7 +152,7 @@ function Settings() {
                       <Image
                         src={
                           profile?.avatar ||
-                          user?.avatar ||
+                          user?.image ||
                           'https://res.cloudinary.com/ddh7hfzso/image/upload/v1700303804/me/ovqjhhs79u3g2fwbl2dd.jpg'
                         }
                         h={128}

@@ -20,6 +20,7 @@ import { IconNewSection, IconPlus } from '@tabler/icons-react';
 import { KanbanCard, KanbanColumn } from '@/components';
 import { useFetch } from '@mantine/hooks';
 import { type IApiResponse } from '@/types/api-response';
+import type { KanbanTaskDto } from '@/types';
 
 import { NewTaskModal } from './NewTaskModal';
 
@@ -29,31 +30,31 @@ type Id = string | number;
 interface IColumn {
   id: Id;
   title: string;
+  content?: string;
 }
 
-// Task type for local UI state
-interface ITask {
+// Extended task type for local UI state (includes columnId for drag-n-drop)
+interface ITask extends Omit<KanbanTaskDto, 'id'> {
   id: string;
   columnId: Id;
   content: string;
-  title?: string;
-  status?: string;
-  comments?: number;
-  users?: number;
 }
 
 const defaultCols: IColumn[] = [
   {
     id: 'todo',
     title: 'Todo',
+    content: 'Todo',
   },
   {
     id: 'doing',
     title: 'Work in progress',
+    content: 'Work in progress',
   },
   {
     id: 'done',
     title: 'Done',
+    content: 'Done',
   },
 ];
 
@@ -62,80 +63,118 @@ const defaultTasks: ITask[] = [
     id: '1',
     columnId: 'todo',
     content: 'List admin APIs for dashboard',
+    title: 'List admin APIs for dashboard',
+    status: '1',
     comments: 0,
+    users: 0,
   },
   {
     id: '2',
     columnId: 'todo',
-    content:
-      'Develop user registration functionality with OTP delivered on SMS after email confirmation and phone number confirmation',
+    content: 'Develop user registration functionality with OTP delivered on SMS after email confirmation and phone number confirmation',
+    title: 'Develop user registration functionality',
+    status: '1',
     comments: 3,
+    users: 0,
   },
   {
     id: '3',
     columnId: 'doing',
     content: 'Conduct security testing',
+    title: 'Conduct security testing',
+    status: '2',
     comments: 2,
+    users: 0,
   },
   {
     id: '4',
     columnId: 'doing',
     content: 'Analyze competitors',
+    title: 'Analyze competitors',
+    status: '2',
     comments: 0,
+    users: 0,
   },
   {
     id: '5',
     columnId: 'done',
     content: 'Create UI kit documentation',
+    title: 'Create UI kit documentation',
+    status: '3',
     comments: 1,
+    users: 0,
   },
   {
     id: '6',
     columnId: 'done',
     content: 'Dev meeting',
+    title: 'Dev meeting',
+    status: '3',
     comments: 4,
+    users: 0,
   },
   {
     id: '7',
     columnId: 'done',
     content: 'Deliver dashboard prototype',
+    title: 'Deliver dashboard prototype',
+    status: '3',
     comments: 15,
+    users: 0,
   },
   {
     id: '8',
     columnId: 'todo',
     content: 'Optimize application performance',
+    title: 'Optimize application performance',
+    status: '1',
     comments: 21,
+    users: 0,
   },
   {
     id: '9',
     columnId: 'todo',
     content: 'Implement data validation',
+    title: 'Implement data validation',
+    status: '1',
     comments: 16,
+    users: 0,
   },
   {
     id: '10',
     columnId: 'todo',
     content: 'Design database schema',
+    title: 'Design database schema',
+    status: '1',
     comments: 56,
+    users: 0,
   },
   {
     id: '11',
     columnId: 'todo',
     content: 'Integrate SSL web certificates into workflow',
+    title: 'Integrate SSL web certificates into workflow',
+    status: '1',
     comments: 99,
+    users: 0,
   },
   {
     id: '12',
     columnId: 'doing',
     content: 'Implement error logging and monitoring',
+    title: 'Implement error logging and monitoring',
+    status: '2',
     comments: 76,
+    users: 0,
   },
   {
     id: '13',
     columnId: 'doing',
     content: 'Design and implement responsive UI',
+    title: 'Design and implement responsive UI',
+    status: '2',
     comments: 45,
+    users: 0,
   },
 ];
 
@@ -152,22 +191,22 @@ const KanbanBoard = () => {
 
   // Map API tasks to local task format
   useEffect(() => {
-    if (apiTasks) {
-      const mappedTasks: ITask[] = apiTasks.data?.map((task) => {
+    if (apiTasks && apiTasks.data) {
+      const mappedTasks: ITask[] = apiTasks.data.map((task) => {
         // Map status to columnId
         let columnId: Id = 'todo';
-        if (task.status === 1) columnId = 'todo';
-        else if (task.status === 2) columnId = 'doing';
-        else if (task.status === 3) columnId = 'done';
+        if (task.status === '1' || task.status === 1) columnId = 'todo';
+        else if (task.status === '2' || task.status === 2) columnId = 'doing';
+        else if (task.status === '3' || task.status === 3) columnId = 'done';
 
         return {
           id: task.id || generateId().toString(),
           columnId,
-          content: task.title || '',
-          title: task.title,
-          status: task.status,
-          comments: task.comments,
-          users: task.users,
+          content: task.title || 'Untitled',
+          title: task.title || 'Untitled',
+          status: task.status || '1',
+          comments: task.comments || 0,
+          users: task.users || 0,
         };
       });
       setTasks(mappedTasks);

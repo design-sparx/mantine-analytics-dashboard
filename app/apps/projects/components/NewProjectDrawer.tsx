@@ -51,11 +51,12 @@ export const NewProjectDrawer = ({
     try {
       // Map form values to ProjectDto format
       const projectData: Partial<ProjectDto> = {
-        name: values.name,
-        assignee: values.assignee || undefined,
-        state: values.state,
-        start_date: values.startDate?.toISOString(),
-        end_date: values.endDate?.toISOString(),
+        title: values.name,
+        description: '',
+        status: Number(values.state),
+        startDate: values.startDate?.toISOString() || null,
+        dueDate: values.endDate?.toISOString() || null,
+        ownerId: '',
       };
 
       // Use the onCreate mutation passed from parent (includes auto-refetch)

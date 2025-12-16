@@ -49,14 +49,12 @@ function Categories() {
     refetch: refetchCategories,
   } = useFetch<IApiResponse<IProductCategory[]>>('/api/product-categories', {
     headers: {
-      Authorization: 'Bearer ' + accessToken,
       'Content-Type': 'application/json',
     },
   });
 
-  const canAddCategory = permissions?.includes(
-    'Permissions.ProductCategories.Create',
-  );
+  // In a mock data template, all users can add categories
+  const canAddCategory = true;
 
   const [newDrawerOpened, { open: newCategoryOpen, close: newCategoryClose }] =
     useDisclosure(false);

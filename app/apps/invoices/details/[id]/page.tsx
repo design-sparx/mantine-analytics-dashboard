@@ -41,19 +41,15 @@ interface InvoiceDetailsProps {
 }
 
 function InvoiceDetails({ params }: InvoiceDetailsProps) {
-  const { accessToken, user } = useAuth();
+  const { data: session } = useSession();
+  const user = session?.user;
   const [invoice, setInvoice] = useState<IInvoice | null>(null);
 
   const {
     data: invoiceData,
     loading: invoiceLoading,
     error: invoiceError,
-  } = useFetch<IApiResponse<IInvoice>>(`/api/invoices/${params.id}`, {
-    headers: {
-      Authorization: 'Bearer ' + accessToken,
-      'Content-Type': 'application/json',
-    },
-  });
+  } = useFetch<IApiResponse<IInvoice>>(`/api/invoices/${params.id}`);
 
   useEffect(() => {
     if (invoiceData?.succeeded && invoiceData.data) {

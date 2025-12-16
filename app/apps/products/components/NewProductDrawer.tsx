@@ -42,7 +42,6 @@ export const NewProductDrawer = ({
       const response = await fetch('/api/product-categories', {
         method: 'GET',
         headers: {
-          Authorization: 'Bearer ' + accessToken,
           'Content-Type': 'application/json',
         },
       });
@@ -63,7 +62,7 @@ export const NewProductDrawer = ({
     } finally {
       setCategoriesLoading(false);
     }
-  }, [accessToken]);
+  }, []);
 
   // Fetch categories when drawer opens
   useEffect(() => {
@@ -103,7 +102,6 @@ export const NewProductDrawer = ({
       const response = await fetch('/api/products', {
         method: 'POST',
         headers: {
-          Authorization: 'Bearer ' + accessToken,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),

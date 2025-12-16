@@ -90,21 +90,16 @@ export const EditInvoiceDrawer = ({
 
     setLoading(true);
     try {
-      // Map form values to OpenAPI DTO format (only send changed fields)
+      // Map form values to Invoice DTO format (only send changed fields)
       const invoiceData: Partial<InvoiceDto> = {
-        full_name: values.customerName,
-        email: values.customerEmail,
-        address: values.customerAddress,
-        country: values.country || undefined,
+        customerName: values.customerName,
+        customerEmail: values.customerEmail,
+        customerAddress: values.customerAddress,
+        billingAddress: values.billingAddress || undefined,
         status: Number(values.status),
-        amount: values.amount,
-        issue_date: values.issueDate?.toISOString(),
-        description: values.notes || undefined,
-        client_email: values.customerEmail,
-        client_address: values.billingAddress || undefined,
-        client_country: values.country || undefined,
-        client_name: values.customerName,
-        client_company: values.clientCompany || undefined,
+        totalAmount: values.amount,
+        issueDate: values.issueDate?.toISOString(),
+        notes: values.notes || undefined,
       };
 
       // Use the onUpdate mutation passed from parent (includes auto-refetch)
@@ -142,20 +137,20 @@ export const EditInvoiceDrawer = ({
   useEffect(() => {
     if (invoice) {
       form.setValues({
-        customerName: invoice.client_name || '',
-        customerEmail: invoice.client_email || '',
-        customerAddress: invoice.address || '',
-        billingAddress: invoice.client_address || '',
-        country: invoice.country || '',
-        clientCompany: invoice.client_company || '',
-        issueDate: invoice.issue_date ? new Date(invoice.issue_date) : new Date(),
+        customerName: invoice.customerName || '',
+        customerEmail: invoice.customerEmail || '',
+        customerAddress: invoice.customerAddress || '',
+        billingAddress: invoice.billingAddress || '',
+        country: '',
+        clientCompany: '',
+        issueDate: invoice.issueDate ? new Date(invoice.issueDate) : new Date(),
         status: invoice.status?.toString() || InvoiceStatus.Draft.toString(),
-        amount: invoice.amount || 0,
-        notes: invoice.description || '',
+        amount: invoice.totalAmount || 0,
+        notes: invoice.notes || '',
       });
 
       // Check if the current user is the creator of the invoice
-      setIsCreator(user?.id === invoice.created_by_id);
+      setIsCreator(user?.id === invoice.createdById);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [invoice, user]);
@@ -204,11 +199,11 @@ export const EditInvoiceDrawer = ({
                 {`INV-${invoice.id?.slice(-6)?.toUpperCase()}`}
               </Title>
               <Text size="sm" c="dimmed">
-                Issued: {invoice.issue_date && formatDate(invoice.issue_date)}
+                Issued: {invoice.issueDate && formatDate(invoice.issueDate)}
               </Text>
-              {invoice.created_by_name && (
+              {invoice.createdBy && (
                 <Text size="sm" c="dimmed">
-                  By: {invoice.created_by_name}
+                  By: {invoice.createdBy}
                 </Text>
               )}
             </div>
@@ -227,7 +222,7 @@ export const EditInvoiceDrawer = ({
               Total Amount:
             </Text>
             <Text fw={600} size="lg">
-              {invoice.amount ? formatCurrency(invoice.amount) : 'N/A'}
+              {invoice.totalAmount ? formatCurrency(invoice.totalAmount) : 'N/A'}
             </Text>
           </Group>
 

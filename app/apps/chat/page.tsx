@@ -88,7 +88,7 @@ function Chat() {
     error: chatsListError,
   } = useChats();
 
-  const chatsListData = useMemo(() => chatsData?.data || [], [chatsData?.data]);
+  const chatsListData = useMemo<ChatDto[]>(() => chatsData?.data || [], [chatsData?.data]);
 
   // Fetch messages for selected chat
   const {
@@ -97,11 +97,11 @@ function Chat() {
     error: chatsItemsError,
   } = useChatMessages();
 
-  const chatItemsData = messagesData?.data || [];
+  const chatItemsData: ChatMessageDto[] = messagesData?.data || [];
 
   // Select first chat by default
   useEffect(() => {
-    if (chatsListData.length > 0 && !selectedChatId) {
+    if (chatsListData?.length > 0 && !selectedChatId) {
       setSelectedChatId(chatsListData[0].id || null);
     }
   }, [chatsListData, selectedChatId]);

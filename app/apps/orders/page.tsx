@@ -119,7 +119,7 @@ function Orders() {
       );
     }
 
-    if (!ordersData?.data.length) {
+    if (!ordersData?.data?.length) {
       return (
         <Surface p="md">
           <Stack align="center">

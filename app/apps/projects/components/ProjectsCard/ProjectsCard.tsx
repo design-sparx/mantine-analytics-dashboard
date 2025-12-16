@@ -101,11 +101,11 @@ const ProjectsCard = (props: ProjectsCardProps) => {
   }
 
   // Map ProjectDto fields to display values
-  const name = data.name || 'Untitled Project';
-  const startDate = data.start_date ? new Date(data.start_date).toLocaleDateString() : 'Not set';
-  const endDate = data.end_date ? new Date(data.end_date).toLocaleDateString() : 'Not set';
-  const assignee = data.assignee || 'Unassigned';
-  const state = data.state ?? 0; // ProjectState is a number
+  const name = data.title || 'Untitled Project';
+  const startDate = data.startDate ? new Date(data.startDate).toLocaleDateString() : 'Not set';
+  const endDate = data.dueDate ? new Date(data.dueDate).toLocaleDateString() : 'Not set';
+  const assignee = data.owner?.userName || data.owner?.email || 'Unassigned';
+  const state = data.status ?? 0; // ProjectState is a number
 
   // Map state number to status text
   const getStatusText = (stateNum: number) => {

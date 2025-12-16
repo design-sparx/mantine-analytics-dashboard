@@ -28,6 +28,7 @@ import { ErrorAlert, PageHeader, Surface } from '@/components';
 import { useFetch } from '@mantine/hooks';
 import { PATH_DASHBOARD } from '@/routes';
 import { type IApiResponse } from '@/types/api-response';
+import { type InvoiceDto } from '@/types';
 
 // Simplified API imports
 
@@ -63,6 +64,30 @@ function Invoices() {
   const [editDrawerOpened, { open: editInvoiceOpen, close: editInvoiceClose }] =
     useDisclosure(false);
 
+  const handleCreateInvoice = useCallback(async (data: Partial<InvoiceDto>) => {
+    // TODO: In a real app, this would call the API to create an invoice
+    // For now, just return a mock success response
+    return {
+      succeeded: true,
+      data: null,
+      errors: [],
+      message: 'Invoice created successfully (mock)',
+      timestamp: new Date().toISOString(),
+    };
+  }, []);
+
+  const handleUpdateInvoice = useCallback(async (id: string, data: Partial<InvoiceDto>) => {
+    // TODO: In a real app, this would call the API to update an invoice
+    // For now, just return a mock success response
+    return {
+      succeeded: true,
+      data: null,
+      errors: [],
+      message: 'Invoice updated successfully (mock)',
+      timestamp: new Date().toISOString(),
+    };
+  }, []);
+
   const handleInvoiceCreated = useCallback(() => {
     // No need to manually refetch - mutations handle this automatically
   }, []);
@@ -71,12 +96,12 @@ function Invoices() {
     // No need to manually refetch - mutations handle this automatically
   }, []);
 
-  const handleEditInvoice = (invoice: components['schemas']['InvoiceDto']) => {
+  const handleEditInvoice = (invoice: InvoiceDto) => {
     setSelectedInvoice(invoice);
     editInvoiceOpen();
   };
 
-  const handleViewInvoice = (invoice: components['schemas']['InvoiceDto']) => {
+  const handleViewInvoice = (invoice: InvoiceDto) => {
     setSelectedInvoice(invoice);
     editInvoiceOpen();
   };
@@ -144,14 +169,12 @@ function Invoices() {
             <Text>
               You don&apos;t have any invoices yet. Create one to get started.
             </Text>
-            {canManageInvoices && (
-              <Button
-                leftSection={<IconPlus size={18} />}
-                onClick={newInvoiceOpen}
-              >
-                New Invoice
-              </Button>
-            )}
+            <Button
+              leftSection={<IconPlus size={18} />}
+              onClick={newInvoiceOpen}
+            >
+              New Invoice
+            </Button>
           </Stack>
         </Surface>
       );
@@ -237,12 +260,14 @@ function Invoices() {
         opened={newDrawerOpened}
         onClose={newInvoiceClose}
         position="right"
+        onCreate={handleCreateInvoice}
         onInvoiceCreated={handleInvoiceCreated}
       />
 
       <EditInvoiceDrawer
         opened={editDrawerOpened}
         onClose={editInvoiceClose}
+        onUpdate={handleUpdateInvoice}
         position="right"
         invoice={selectedInvoice}
         onInvoiceUpdated={handleInvoiceUpdated}

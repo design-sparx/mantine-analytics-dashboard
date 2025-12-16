@@ -1,14 +1,14 @@
-import { components } from '@/lib/api';
+import type { InvoiceDto } from '@/types';
 
 /**
  * Invoice status from API (enum as number)
  */
-export type InvoiceStatusAPI = components['schemas']['InvoiceStatus'];
+export type InvoiceStatusAPI = number;
 
 /**
  * Invoice DTO from API
  */
-export type InvoiceDTO = components['schemas']['InvoiceDto'];
+export type InvoiceDTO = InvoiceDto;
 
 /**
  * Invoice status display values

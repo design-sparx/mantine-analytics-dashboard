@@ -22,6 +22,7 @@ import { ErrorAlert, PageHeader, Surface } from '@/components';
 import { useFetch } from '@mantine/hooks';
 import { PATH_DASHBOARD } from '@/routes';
 import { type IApiResponse } from '@/types/api-response';
+import { type ProjectDto } from '@/types';
 
 // Simplified API imports
 
@@ -53,6 +54,18 @@ function Projects() {
 
   const [newProjectOpened, { open: newProjectOpen, close: newProjectClose }] =
     useDisclosure(false);
+
+  const handleCreateProject = useCallback(async (data: Partial<ProjectDto>) => {
+    // TODO: In a real app, this would call the API to create a project
+    // For now, just return a mock success response
+    return {
+      succeeded: true,
+      data: undefined,
+      errors: [],
+      message: 'Project created successfully (mock)',
+      timestamp: new Date().toISOString(),
+    };
+  }, []);
 
   const handleProjectCreated = useCallback(() => {
     refetchProjects();
@@ -151,6 +164,7 @@ function Projects() {
         opened={newProjectOpened}
         onClose={newProjectClose}
         position="right"
+        onCreate={handleCreateProject}
         onProjectCreated={handleProjectCreated}
       />
     </>

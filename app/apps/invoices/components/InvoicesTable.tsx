@@ -84,10 +84,10 @@ export const InvoicesTable = ({
   const filteredData = data.filter((invoice) => {
     const matchesSearch =
       invoice.id?.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
-      invoice.client_name
+      invoice.customerName
         ?.toLowerCase()
         .includes(debouncedSearch.toLowerCase()) ||
-      invoice.client_email
+      invoice.customerEmail
         ?.toLowerCase()
         .includes(debouncedSearch.toLowerCase());
 
@@ -143,7 +143,7 @@ export const InvoicesTable = ({
   }
 
   const rows = paginatedData.map((invoice) => {
-    const isCreator = user?.id === invoice.created_by_id;
+    const isCreator = user?.id === invoice.createdById;
 
     return (
       <Table.Tr key={invoice.id}>
@@ -155,7 +155,7 @@ export const InvoicesTable = ({
                 {`INV-${invoice.id?.slice(-6)?.toUpperCase()}`}
               </Text>
               <Text size="xs" c="dimmed">
-                {invoice.issue_date && formatDate(invoice.issue_date)}
+                {invoice.issueDate && formatDate(invoice.issueDate)}
               </Text>
             </div>
           </Group>
@@ -164,10 +164,10 @@ export const InvoicesTable = ({
         <Table.Td>
           <div>
             <Text size="sm" fw={500}>
-              {invoice.client_name || 'N/A'}
+              {invoice.customerName || 'N/A'}
             </Text>
             <Text size="xs" c="dimmed">
-              {invoice.client_email || 'N/A'}
+              {invoice.customerEmail || 'N/A'}
             </Text>
           </div>
         </Table.Td>
@@ -189,13 +189,13 @@ export const InvoicesTable = ({
 
         <Table.Td>
           <Text size="sm" fw={500}>
-            {invoice.amount ? formatCurrency(invoice.amount) : 'N/A'}
+            {invoice.totalAmount ? formatCurrency(invoice.totalAmount) : 'N/A'}
           </Text>
         </Table.Td>
 
         <Table.Td>
           <Text size="xs" c="dimmed">
-            {invoice.created_by_name || 'N/A'}
+            {invoice.createdBy || 'N/A'}
           </Text>
         </Table.Td>
 

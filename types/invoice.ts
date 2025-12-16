@@ -105,3 +105,6 @@ export const getInvoiceStatusLabel = (status: number): string => {
 export const getInvoiceStatusColor = (status: number): string => {
   return INVOICE_STATUS_COLORS[status as InvoiceStatus] || 'gray';
 };
+
+// Alias for consistency with other DTOs
+export type InvoiceDto = IInvoice;

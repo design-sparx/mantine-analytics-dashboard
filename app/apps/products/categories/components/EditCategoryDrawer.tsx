@@ -33,10 +33,8 @@ export const EditCategoryDrawer = ({
   const [loading, setLoading] = useState(false);
   const [isCreator, setIsCreator] = useState(false);
 
-  // Check if the user has permission to add products
-  const canEditProductCategory = permissions?.includes(
-    'Permissions.ProductCategories.Edit',
-  );
+  // In a mock data template, all users can edit
+  const canEditProductCategory = true;
 
   const form = useForm({
     mode: 'controlled',
@@ -64,7 +62,6 @@ export const EditCategoryDrawer = ({
         {
           method: 'PUT',
           headers: {
-            Authorization: 'Bearer ' + accessToken,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(payload),
@@ -120,7 +117,6 @@ export const EditCategoryDrawer = ({
         {
           method: 'DELETE',
           headers: {
-            Authorization: 'Bearer ' + accessToken,
             'Content-Type': 'application/json',
           },
         },

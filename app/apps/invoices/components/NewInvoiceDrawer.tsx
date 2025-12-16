@@ -39,7 +39,7 @@ interface NewInvoiceFormValues {
 }
 
 type NewInvoiceDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
-  onCreate: (data: InvoiceDto) => Promise<ApiResponse<any>>;
+  onCreate: (data: Partial<InvoiceDto>) => Promise<ApiResponse<any>>;
   onInvoiceCreated?: () => void;
 };
 
@@ -80,24 +80,20 @@ export const NewInvoiceDrawer = ({
   const handleSubmit = async (values: NewInvoiceFormValues) => {
     setLoading(true);
     try {
-      // Map form values to OpenAPI DTO format
-      const invoiceData: InvoiceDto = {
-        full_name: values.customerName,
-        email: values.customerEmail,
-        address: values.customerAddress,
-        country: values.country || undefined,
+      // Map form values to Invoice DTO format
+      const invoiceData: Partial<InvoiceDto> = {
+        id: '',
+        invoiceNumber: '',
+        customerName: values.customerName,
+        customerEmail: values.customerEmail,
+        customerAddress: values.customerAddress,
+        billingAddress: values.billingAddress || undefined,
         status: Number(values.status),
-        amount: values.amount,
-        issue_date: values.issueDate?.toISOString(),
-        description: values.notes || undefined,
-        client_email: values.customerEmail,
-        client_address: values.billingAddress || undefined,
-        client_country: values.country || undefined,
-        client_name: values.customerName,
-        client_company: values.clientCompany || undefined,
-        created_by_id: user?.id,
-        created_by_email: user?.email,
-        created_by_name: user?.name,
+        totalAmount: values.amount,
+        issueDate: values.issueDate?.toISOString() || '',
+        dueDate: values.issueDate?.toISOString() || '',
+        notes: values.notes || undefined,
+        createdById: user?.id,
       };
 
       // Use the onCreate mutation passed from parent (includes auto-refetch)
