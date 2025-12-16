@@ -1,9 +1,7 @@
 import OrdersTable from './OrdersTable';
 
-import type { components } from '@/lib/endpoints';
+import type { OrderDto } from '@/types';
 import type { StoryObj } from '@storybook/react';
-
-type OrderDto = components['schemas']['OrderDto'];
 
 // Mock data with proper types matching OrderDto
 const MOCK_ORDERS: OrderDto[] = [

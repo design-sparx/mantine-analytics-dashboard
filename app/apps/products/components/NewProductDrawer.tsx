@@ -17,7 +17,7 @@ import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { useAuth } from '@/hooks/useAuth';
+import { useSession } from 'next-auth/react';
 import { IProductCategory } from '@/types/products';
 
 type NewProjectDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
@@ -28,7 +28,8 @@ export const NewProductDrawer = ({
   onProductCreated,
   ...drawerProps
 }: NewProjectDrawerProps) => {
-  const { user, accessToken } = useAuth();
+  const { data: session } = useSession();
+  const user = session?.user;
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState<
     { value: string; label: string }[]

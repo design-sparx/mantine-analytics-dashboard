@@ -19,11 +19,7 @@ import {
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { type components, deleteOrder, updateOrder } from '@/lib/endpoints';
-
-type OrderDto = components['schemas']['OrderDto'];
-type OrderStatus = components['schemas']['OrderStatus'];
-type PaymentMethod = components['schemas']['PaymentMethod'];
+import type { OrderDto, OrderStatus, PaymentMethod } from '@/types';
 
 interface EditOrderFormValues {
   product: string;
@@ -65,18 +61,12 @@ export const EditOrderDrawer = ({
 
     setLoading(true);
     try {
-      const payload = {
-        ...values,
-        status: Number(values.status),
-        payment_method: Number(values.payment_method),
-      };
-
-      await updateOrder(order.id, payload);
-
+      // Note: In this mock template, orders are read-only from JSON files
+      // For a real implementation, you would send a PUT request here
       notifications.show({
-        title: 'Success',
-        message: 'Order updated successfully',
-        color: 'green',
+        title: 'Mock Data System',
+        message: 'This template uses mock data. Order updates are simulated.',
+        color: 'blue',
       });
 
       if (drawerProps.onClose) {
@@ -107,12 +97,12 @@ export const EditOrderDrawer = ({
 
     setLoading(true);
     try {
-      await deleteOrder(order.id);
-
+      // Note: In this mock template, orders are read-only from JSON files
+      // For a real implementation, you would send a DELETE request here
       notifications.show({
-        title: 'Success',
-        message: 'Order deleted successfully',
-        color: 'green',
+        title: 'Mock Data System',
+        message: 'This template uses mock data. Order deletion is simulated.',
+        color: 'blue',
       });
 
       if (drawerProps.onClose) {

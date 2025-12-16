@@ -19,7 +19,6 @@
     "changeset:add": "pnpm changeset",
     "changeset:release": "pnpm changeset version",
     "changeset:publish": "pnpm changeset publish",
-    "generate:types": "node scripts/generate-api-types.js",
     "generate:component": "node scripts/generate-component.js"
   },
   "dependencies": {
@@ -100,6 +99,7 @@
     "@types/lodash": "^4.14.195",
     "@types/react-simple-maps": "^3.0.0",
     "babel-plugin-react-compiler": "^1.0.0",
+    "baseline-browser-mapping": "^2.9.7",
     "chromatic": "^9.1.0",
     "eslint-plugin-import": "^2.31.0",
     "husky": "^8.0.0",

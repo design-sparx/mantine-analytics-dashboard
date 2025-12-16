@@ -24,11 +24,7 @@ import { modals } from '@mantine/modals';
 import { IconDots, IconEdit, IconPlus, IconTrash } from '@tabler/icons-react';
 
 import { KanbanCard } from '@/components';
-import { type components } from '@/lib/endpoints';
-
-type KanbanTaskDto = components['schemas']['KanbanTaskDto'];
-type TaskStatus = components['schemas']['TaskStatus'];
-type Id = string | number;
+import type { KanbanTaskDto, TaskStatus, Id } from '@/types';
 
 // Column type for local UI state
 interface IColumn {

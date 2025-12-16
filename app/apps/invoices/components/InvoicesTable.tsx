@@ -25,16 +25,13 @@ import {
   IconTrash,
 } from '@tabler/icons-react';
 
-import { useAuth } from '@/hooks/useAuth';
-import { type components } from '@/lib/endpoints';
+import { useSession } from 'next-auth/react';
+import type { InvoiceDto } from '@/types';
 import {
   InvoiceStatus,
   getInvoiceStatusColor,
   getInvoiceStatusLabel,
 } from '@/types/invoice';
-
-// Use the correct OpenAPI DTO type
-type InvoiceDto = components['schemas']['InvoiceDto'];
 
 interface InvoicesTableProps {
   data: InvoiceDto[];
@@ -53,7 +50,8 @@ export const InvoicesTable = ({
   onView,
   onDelete,
 }: InvoicesTableProps) => {
-  const { user } = useAuth();
+  const { data: session } = useSession();
+  const user = session?.user;
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [currentPage, setCurrentPage] = useState(1);

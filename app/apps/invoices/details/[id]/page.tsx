@@ -21,7 +21,7 @@ import { useFetch } from '@mantine/hooks';
 import { IconDownload, IconEdit, IconPrinter } from '@tabler/icons-react';
 
 import { PageHeader } from '@/components';
-import { useAuth } from '@/hooks/useAuth';
+import { useSession } from 'next-auth/react';
 import { PATH_DASHBOARD } from '@/routes';
 import { IApiResponse } from '@/types/api-response';
 import {

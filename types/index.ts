@@ -1,9 +1,16 @@
-// Note: Most types should now come from lib/api.d.ts (OpenAPI-generated)
-// Only keep types here that are UI-specific and not related to API endpoints
-
 export type Id = string | number;
 
 // Component Types
 export * from './components';
 export * from './table';
 export * from './chart';
+
+// API Data Types
+export * from './invoice';
+export * from './products';
+export * from './projects';
+export * from './order';
+export * from './task';
+export * from './chat';
+export * from './user';
+export * from './api-response';

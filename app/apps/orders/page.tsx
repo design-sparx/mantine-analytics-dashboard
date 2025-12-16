@@ -22,14 +22,13 @@ import {
 } from '@tabler/icons-react';
 
 import { ErrorAlert, OrdersTable, PageHeader, Surface } from '@/components';
-import { type components, useOrdersWithMutations } from '@/lib/endpoints';
+import type { OrderDto } from '@/types';
+import { useOrders } from '@/lib/hooks/useApi';
 import { PATH_DASHBOARD } from '@/routes';
 
 import { EditOrderDrawer } from './components/EditOrderDrawer';
 import { NewOrderDrawer } from './components/NewOrderDrawer';
 import { OrderCard } from './components/OrderCard';
-
-type OrderDto = components['schemas']['OrderDto'];
 
 type ViewMode = 'grid' | 'table';
 
@@ -52,7 +51,7 @@ function Orders() {
     loading: ordersLoading,
     error: ordersError,
     refetch: refetchOrders,
-  } = useOrdersWithMutations();
+  } = useOrders();
 
   const [newDrawerOpened, { open: newOrderOpen, close: newOrderClose }] =
     useDisclosure(false);

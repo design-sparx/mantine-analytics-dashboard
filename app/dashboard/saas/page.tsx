@@ -21,7 +21,7 @@ import {
   StatsGrid,
   Surface,
 } from '@/components';
-import { useAllStats, useProjects } from '@/lib/endpoints';
+import { useStats, useProjects } from '@/lib/hooks/useApi';
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',
@@ -33,7 +33,7 @@ function Page() {
     data: statsData,
     error: statsError,
     loading: statsLoading,
-  } = useAllStats();
+  } = useStats();
   const {
     data: projectsData,
     error: projectsError,

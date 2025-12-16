@@ -14,11 +14,8 @@ import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { useAuth } from '@/hooks/useAuth';
-import { type ApiResponse, type components } from '@/lib/endpoints';
-
-// Use OpenAPI type
-type ProjectDto = components['schemas']['ProjectDto'];
+import { useSession } from 'next-auth/react';
+import type { ProjectDto, ApiResponse } from '@/types';
 
 type NewProjectDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
   onCreate: (data: Partial<ProjectDto>) => Promise<ApiResponse<ProjectDto>>;
@@ -30,7 +27,8 @@ export const NewProjectDrawer = ({
   onProjectCreated,
   ...drawerProps
 }: NewProjectDrawerProps) => {
-  const { user } = useAuth();
+  const { data: session } = useSession();
+  const user = session?.user;
   const [loading, setLoading] = useState(false);
 
   const form = useForm({

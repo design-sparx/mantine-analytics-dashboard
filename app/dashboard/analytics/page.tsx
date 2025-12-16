@@ -19,7 +19,7 @@ import {
   StatsCard,
   TrafficTable,
 } from '@/components';
-import { useAllStats, useLanguages, useTraffic } from '@/lib/endpoints';
+import { useStats, useLanguages, useTraffic } from '@/lib/hooks/useApi';
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',
@@ -31,7 +31,7 @@ function Page() {
     data: statsData,
     error: statsError,
     loading: statsLoading,
-  } = useAllStats();
+  } = useStats();
   const {
     data: languagesData,
     error: languageError,

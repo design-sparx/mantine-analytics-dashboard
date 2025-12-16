@@ -5,10 +5,7 @@ import { useEffect } from 'react';
 import { Button, Group, Modal, NumberInput, Stack, Textarea } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
-import { type components } from '@/lib/endpoints';
-
-type KanbanTaskDto = components['schemas']['KanbanTaskDto'];
-type TaskStatus = components['schemas']['TaskStatus'];
+import type { KanbanTaskDto, TaskStatus } from '@/types';
 
 type NewTaskModalProps = {
   opened: boolean;

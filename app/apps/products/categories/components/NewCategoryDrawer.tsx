@@ -14,7 +14,7 @@ import {
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { useAuth } from '@/hooks/useAuth';
+import { useSession } from 'next-auth/react';
 
 type NewCategoryDrawer = Omit<DrawerProps, 'title' | 'children'> & {
   onCategoryCreated?: () => void;
@@ -24,7 +24,8 @@ export const NewCategoryDrawer = ({
   onCategoryCreated,
   ...drawerProps
 }: NewCategoryDrawer) => {
-  const { user, accessToken } = useAuth();
+  const { data: session } = useSession();
+  const user = session?.user;
   const [loading, setLoading] = useState(false);
 
   const form = useForm({

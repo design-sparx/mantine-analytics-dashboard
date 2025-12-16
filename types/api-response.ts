@@ -11,3 +11,6 @@ export interface IApiResponse<T> {
   data?: T;
   errors?: IApiError[];
 }
+
+// Alias for compatibility
+export type ApiResponse<T> = IApiResponse<T>;

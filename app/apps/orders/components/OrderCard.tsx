@@ -10,11 +10,7 @@ import {
 import { IconEdit, IconEye } from '@tabler/icons-react';
 
 import { Surface } from '@/components';
-import { type components } from '@/lib/endpoints';
-
-type OrderDto = components['schemas']['OrderDto'];
-type OrderStatus = components['schemas']['OrderStatus'];
-type PaymentMethod = components['schemas']['PaymentMethod'];
+import type { OrderDto, OrderStatus, PaymentMethod } from '@/types';
 
 interface OrderCardProps extends Omit<PaperProps, 'children'> {
   data: OrderDto;

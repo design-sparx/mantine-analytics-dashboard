@@ -15,7 +15,7 @@ import {
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { useAuth } from '@/hooks/useAuth';
+import { useSession } from 'next-auth/react';
 import { IProductCategory } from '@/types/products';
 
 type EditCategoryDrawer = Omit<DrawerProps, 'title' | 'children'> & {
@@ -28,7 +28,8 @@ export const EditCategoryDrawer = ({
   onCategoryUpdated,
   ...drawerProps
 }: EditCategoryDrawer) => {
-  const { user, accessToken, permissions } = useAuth();
+  const { data: session } = useSession();
+  const user = session?.user;
   const [loading, setLoading] = useState(false);
   const [isCreator, setIsCreator] = useState(false);
 

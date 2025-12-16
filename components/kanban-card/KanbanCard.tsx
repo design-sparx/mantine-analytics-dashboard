@@ -26,13 +26,9 @@ import {
 } from '@tabler/icons-react';
 
 import { Surface } from '@/components';
-import { type components } from '@/lib/endpoints';
+import type { KanbanTaskDto, TaskStatus, Id } from '@/types';
 
 import classes from './KanbanCard.module.css';
-
-type KanbanTaskDto = components['schemas']['KanbanTaskDto'];
-type TaskStatus = components['schemas']['TaskStatus'];
-type Id = string | number;
 
 // Extended task type for local UI state (includes columnId for drag-n-drop)
 interface ITask extends Omit<KanbanTaskDto, 'id'> {

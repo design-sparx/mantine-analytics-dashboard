@@ -10,15 +10,12 @@ import {
 import { IconEdit, IconEye, IconFileText } from '@tabler/icons-react';
 
 import { Surface } from '@/components';
-import { useAuth } from '@/hooks/useAuth';
-import { type components } from '@/lib/endpoints';
+import { useSession } from 'next-auth/react';
+import type { InvoiceDto } from '@/types';
 import {
   getInvoiceStatusColor,
   getInvoiceStatusLabel,
 } from '@/types/invoice';
-
-// Use the correct OpenAPI DTO type
-type InvoiceDto = components['schemas']['InvoiceDto'];
 
 interface InvoiceCardProps extends Omit<PaperProps, 'children'> {
   data: InvoiceDto;
@@ -32,7 +29,8 @@ export const InvoiceCard = ({
   onView,
   ...paperProps
 }: InvoiceCardProps) => {
-  const { user } = useAuth();
+  const { data: session } = useSession();
+  const user = session?.user;
 
   const isCreator = user?.id === data?.created_by_id;
 

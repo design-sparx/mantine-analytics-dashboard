@@ -5,9 +5,7 @@ import { useEffect } from 'react';
 import { Button, Group, Modal, Stack, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
-import { type components } from '@/lib/endpoints';
-
-type ChatDto = components['schemas']['ChatDto'];
+import type { ChatDto } from '@/types';
 
 type NewChatModalProps = {
   opened: boolean;

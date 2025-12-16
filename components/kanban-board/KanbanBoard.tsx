@@ -18,12 +18,11 @@ import { useMediaQuery } from '@mantine/hooks';
 import { IconNewSection, IconPlus } from '@tabler/icons-react';
 
 import { KanbanCard, KanbanColumn } from '@/components';
-import { type components, useKanbanTasksWithMutations } from '@/lib/endpoints';
+import { useFetch } from '@mantine/hooks';
+import { type IApiResponse } from '@/types/api-response';
 
 import { NewTaskModal } from './NewTaskModal';
 
-type KanbanTaskDto = components['schemas']['KanbanTaskDto'];
-type TaskStatus = components['schemas']['TaskStatus'];
 type Id = string | number;
 
 // Column type for local UI state
@@ -32,11 +31,15 @@ interface IColumn {
   title: string;
 }
 
-// Extended task type for local UI state (includes columnId for drag-n-drop)
-interface ITask extends Omit<KanbanTaskDto, 'id'> {
+// Task type for local UI state
+interface ITask {
   id: string;
   columnId: Id;
   content: string;
+  title?: string;
+  status?: string;
+  comments?: number;
+  users?: number;
 }
 
 const defaultCols: IColumn[] = [
@@ -137,7 +140,7 @@ const defaultTasks: ITask[] = [
 ];
 
 const KanbanBoard = () => {
-  const { data: apiTasks, loading, mutations } = useKanbanTasksWithMutations();
+  const { data: apiTasks, loading, refetch } = useFetch<IApiResponse<any[]>>('/api/tasks');
   const [columns, setColumns] = useState<IColumn[]>(defaultCols);
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
   const [tasks, setTasks] = useState<ITask[]>([]);
@@ -300,23 +303,34 @@ const KanbanBoard = () => {
     setNewTaskModalOpened(true);
   }
 
-  async function createTask(taskData: Partial<KanbanTaskDto>) {
-    await mutations.create(taskData);
+  async function createTask(taskData: any) {
+    // In a real app, call API to create task
+    await fetch('/api/tasks', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(taskData)
+    });
+    refetch();
   }
 
   async function deleteTask(id: Id) {
     if (typeof id === 'string') {
-      await mutations.delete(id);
+      // In a real app, call API to delete task
+      await fetch(`/api/tasks/${id}`, { method: 'DELETE' });
+      refetch();
     }
   }
 
   async function updateTask(id: Id, content: string) {
     if (typeof id === 'string') {
       const task = tasks.find((t) => t.id === id);
-      await mutations.update(id, {
-        title: content,
-        status: task?.status,
+      // In a real app, call API to update task
+      await fetch(`/api/tasks/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: content, status: task?.status })
       });
+      refetch();
     }
   }
 
@@ -402,21 +416,19 @@ const KanbanBoard = () => {
         const newColumnId = tasks[overIndex].columnId;
         tasks[activeIndex].columnId = newColumnId;
 
-        // Update task status in API based on new column (skip refetch to avoid loading spinner)
+        // Update task status in API based on new column
         const task = tasks[activeIndex];
         if (typeof task.id === 'string') {
-          let newStatus: TaskStatus = 1;
+          let newStatus: number = 1;
           if (newColumnId === 'doing') newStatus = 2;
           else if (newColumnId === 'done') newStatus = 3;
 
-          mutations.update(
-            task.id,
-            {
-              title: task.title,
-              status: newStatus,
-            },
-            { skipRefetch: true },
-          );
+          // Silent update without refetch
+          fetch(`/api/tasks/${task.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title: task.title, status: newStatus })
+          });
         }
 
         return arrayMove(tasks, activeIndex, overIndex);
@@ -432,21 +444,19 @@ const KanbanBoard = () => {
 
         tasks[activeIndex].columnId = overId;
 
-        // Update task status in API based on new column (skip refetch to avoid loading spinner)
+        // Update task status in API based on new column
         const task = tasks[activeIndex];
         if (typeof task.id === 'string') {
-          let newStatus: TaskStatus = 1;
+          let newStatus: number = 1;
           if (overId === 'doing') newStatus = 2;
           else if (overId === 'done') newStatus = 3;
 
-          mutations.update(
-            task.id,
-            {
-              title: task.title,
-              status: newStatus,
-            },
-            { skipRefetch: true },
-          );
+          // Silent update without refetch
+          fetch(`/api/tasks/${task.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title: task.title, status: newStatus })
+          });
         }
 
         return arrayMove(tasks, activeIndex, activeIndex);

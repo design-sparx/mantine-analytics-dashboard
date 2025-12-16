@@ -13,7 +13,8 @@ import { DataTable } from 'mantine-datatable';
 import dynamic from 'next/dynamic';
 
 import { ErrorAlert, Surface } from '@/components';
-import { useSales } from '@/lib/endpoints';
+import { useFetch } from '@mantine/hooks';
+import { type IApiResponse } from '@/types/api-response';
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
@@ -27,7 +28,7 @@ const SalesChart = ({ ...others }: SalesChartProps) => {
     data: salesData,
     error: salesError,
     loading: salesLoading,
-  } = useSales();
+  } = useFetch<IApiResponse<any[]>>('/api/sales');
 
   const options: any = {
     chart: { type: 'donut', fontFamily: 'Open Sans, sans-serif' },

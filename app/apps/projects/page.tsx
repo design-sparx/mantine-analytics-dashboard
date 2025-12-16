@@ -19,9 +19,9 @@ import { IconMoodEmpty, IconPlus } from '@tabler/icons-react';
 import NewProjectDrawer from '@/app/apps/projects/components/NewProjectDrawer';
 import ProjectsCard from '@/app/apps/projects/components/ProjectsCard/ProjectsCard';
 import { ErrorAlert, PageHeader, Surface } from '@/components';
-import { PermissionGate } from '@/lib/api/permissions';
-import { type components, useProjectsWithMutations } from '@/lib/endpoints';
+import { useFetch } from '@mantine/hooks';
 import { PATH_DASHBOARD } from '@/routes';
+import { type IApiResponse } from '@/types/api-response';
 
 // Simplified API imports
 
@@ -42,14 +42,12 @@ const CARD_PROPS: Omit<PaperProps, 'children'> = {
 };
 
 function Projects() {
-  // Use new API hooks with built-in permission checking
   const {
     data: projectsData,
     loading: projectsLoading,
     error: projectsError,
     refetch: refetchProjects,
-    mutations,
-  } = useProjectsWithMutations();
+  } = useFetch<IApiResponse<any[]>>('/api/projects');
 
   console.log('Projects data:', projectsData);
 
@@ -57,14 +55,12 @@ function Projects() {
     useDisclosure(false);
 
   const handleProjectCreated = useCallback(() => {
-    // No need to manually refetch - mutations handle this automatically
-  }, []);
+    refetchProjects();
+  }, [refetchProjects]);
 
-  const projectItems = projectsData?.data?.map(
-    (p: components['schemas']['ProjectDto']) => (
-      <ProjectsCard key={p.id} data={p} {...CARD_PROPS} />
-    ),
-  );
+  const projectItems = projectsData?.data?.map((p: any) => (
+    <ProjectsCard key={p.id} data={p} {...CARD_PROPS} />
+  ));
 
   const renderContent = () => {
     if (projectsLoading) {
@@ -103,14 +99,12 @@ function Projects() {
             <Text>
               You don&apos;t have any projects yet. Create one to get started.
             </Text>
-            <PermissionGate permission="Permissions.Team.Projects">
-              <Button
-                leftSection={<IconPlus size={18} />}
-                onClick={newProjectOpen}
-              >
-                New Project
-              </Button>
-            </PermissionGate>
+            <Button
+              leftSection={<IconPlus size={18} />}
+              onClick={newProjectOpen}
+            >
+              New Project
+            </Button>
           </Stack>
         </Surface>
       );
@@ -141,14 +135,12 @@ function Projects() {
         breadcrumbItems={items}
         actionButton={
           projectsData?.data?.length && (
-            <PermissionGate permission="Permissions.Team.Projects">
-              <Button
-                leftSection={<IconPlus size={18} />}
-                onClick={newProjectOpen}
-              >
-                New Project
-              </Button>
-            </PermissionGate>
+            <Button
+              leftSection={<IconPlus size={18} />}
+              onClick={newProjectOpen}
+            >
+              New Project
+            </Button>
           )
         }
       />
@@ -159,7 +151,6 @@ function Projects() {
         opened={newProjectOpened}
         onClose={newProjectClose}
         position="right"
-        onCreate={mutations.create}
         onProjectCreated={handleProjectCreated}
       />
     </>

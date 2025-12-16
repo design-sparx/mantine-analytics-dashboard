@@ -5,7 +5,7 @@ import { IconX } from '@tabler/icons-react';
 import { Logo, UserButton } from '@/components';
 import { SIDEBAR_LINKS } from '@/constants/sidebar-links';
 import { useSidebarConfig } from '@/contexts/theme-customizer';
-import { useAuth } from '@/hooks/useAuth';
+import { useSession } from 'next-auth/react';
 import UserProfileData from '@/public/mocks/UserProfile.json';
 
 import { LinksGroup } from '../NavLinks';
@@ -19,7 +19,8 @@ type NavigationProps = {
 const SidebarNav = ({ onClose, showCloseButton = false }: NavigationProps) => {
   const tablet_match = useMediaQuery('(max-width: 768px)');
   const sidebarConfig = useSidebarConfig();
-  const { user } = useAuth();
+  const { data: session } = useSession();
+  const user = session?.user;
 
   const links = SIDEBAR_LINKS.map((m) => (
     <Box key={m.title} pl={0} mb="md">

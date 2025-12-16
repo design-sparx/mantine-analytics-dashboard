@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-A Next.js 14 admin dashboard template built with Mantine 7, TypeScript, React 18, and featuring type-safe API integration with RBAC (Role-Based Access Control). The project uses the App Router architecture and includes authentication via NextAuth/Clerk.
+A Next.js 14 admin dashboard template built with Mantine 7, TypeScript, and React 18. This is a **self-contained template** with mock data and authentication, perfect for showcasing UI/UX patterns and as a starting point for admin dashboards.
 
 ## Essential Development Commands
 
@@ -15,13 +15,6 @@ npm run build               # Build production bundle
 npm start                   # Start production server
 npm run lint                # Run ESLint
 npm run prettier            # Format all files with Prettier
-```
-
-### API Integration
-```bash
-npm run generate:types      # Generate TypeScript types from OpenAPI spec
-                           # Uses API_URL env var or http://localhost:5080
-API_URL=https://api.example.com npm run generate:types  # Use custom API
 ```
 
 ### Storybook
@@ -44,12 +37,10 @@ npm run commitlint          # Validate commit messages
   - `dashboard/` - Dashboard variants (default, analytics, saas)
   - `apps/` - Feature modules (invoices, projects, chat, etc.)
   - `auth/` - Authentication pages
-  - `api/` - API routes
+  - `api/` - **API routes serving mock data**
 - **`components/`**: Reusable UI components (organized by feature)
-- **`lib/`**: Core utilities and API integration
-  - `api.d.ts` - Auto-generated OpenAPI types (DO NOT edit manually)
-  - `api/` - API client utilities and permissions
-  - `endpoints/` - API endpoint hooks and helpers
+- **`lib/`**: Core utilities
+  - `hooks/useApi.ts` - Simple API data fetching hooks
 - **`layouts/`**: Layout components (Guest, Main)
 - **`contexts/`**: React contexts (theme customizer, etc.)
 - **`providers/`**: React providers
@@ -58,80 +49,58 @@ npm run commitlint          # Validate commit messages
 - **`utils/`**: Shared utility functions
 - **`hooks/`**: Custom React hooks
 - **`types/`**: TypeScript type definitions
-- **`scripts/`**: Build and utility scripts
+- **`public/mocks/`**: **Mock JSON data files**
 
 ### Authentication Flow
-The app uses NextAuth with custom authentication:
-1. **Middleware** (`middleware.ts`): Protects routes, redirects unauthenticated users
-2. **Session Management**: Uses NextAuth JWT tokens with custom session data including permissions
-3. **AuthProvider** (`components/auth/AuthProvider.tsx`): Wraps app with session context
-4. Protected routes require valid session; auth pages redirect authenticated users to dashboard
 
-### API Integration System
+Uses **NextAuth with mock credentials** for demo purposes:
 
-The project features a **type-safe API integration** with auto-generated types from OpenAPI specs:
+1. **Mock Users** (defined in `auth.ts`):
+   - `demo@example.com` / `demo123` (Admin)
+   - `jane@example.com` / `demo123` (User)
 
-#### Key Files
-- **`lib/api.d.ts`**: Auto-generated from OpenAPI spec via `generate:types` script
-- **`lib/endpoints/api-utils.ts`**: Core API utilities using Mantine's `useFetch`
-  - `useApiGet<T>()` - GET requests with auth and permission checks
-  - `useApiPost<T>()` - POST with automatic data refresh
-  - `useApiPut<T>()` - PUT with automatic data refresh
-  - `useApiDelete<T>()` - DELETE with automatic data refresh
-- **`lib/endpoints/`**: Feature-specific API hooks (invoices, projects, sales, etc.)
+2. **Middleware** (`middleware.ts`): Protects routes, redirects unauthenticated users
+3. **Session Management**: NextAuth JWT tokens with user role
+4. **AuthProvider** (`components/auth/AuthProvider.tsx`): Wraps app with session context
 
-#### API Hook Pattern
-All API hooks follow this pattern:
+Protected routes require valid session; auth pages redirect authenticated users to dashboard.
+
+### API System (Mock Data)
+
+This template uses **local mock data** served through Next.js API routes:
+
+#### API Routes (`app/api/`)
+All routes return data from `public/mocks/*.json`:
+- `/api/products` - Product catalog
+- `/api/invoices` - Invoice management
+- `/api/projects` - Project tracking
+- `/api/orders` - Order management
+- `/api/sales` - Sales analytics
+- `/api/stats` - Dashboard statistics
+- `/api/traffic` - Traffic analytics
+- `/api/tasks` - Task/Kanban board
+- `/api/chat` - Chat messages
+- `/api/profile` - User profile
+
+#### Response Format
 ```typescript
-export function useInvoicesWithMutations() {
-  const query = useApiGet<Invoice[]>('/api/invoices', {
-    permission: 'Permissions.Personal.Invoices'
-  });
-
-  const { mutate: create } = useApiPost<Invoice>('/api/invoices', {
-    onSuccess: () => query.refetch()  // Auto-refresh after mutation
-  });
-
-  return { ...query, mutations: { create, update, delete } };
+{
+  succeeded: boolean;
+  data: T;
+  errors: string[];
+  message: string;
 }
 ```
 
-#### Working with APIs
-1. **Update OpenAPI spec** on backend with proper tags (use `INCLUDE_TAGS` in `scripts/generate-api-types.js`)
-2. **Run `npm run generate:types`** to regenerate `lib/api.d.ts`
-3. **Create endpoint hooks** in `lib/endpoints/` using generated types
-4. **Import and use** in components with full TypeScript autocomplete
-
-### RBAC Permission System
-
-Location: `lib/api/permissions/`
-
-#### Permission Types (from `types.ts`)
-- **Admin**: `Permissions.Admin.*` - System administration (user management, settings)
-- **Team**: `Permissions.Team.*` - Collaborative resources (projects, orders, analytics)
-- **Personal**: `Permissions.Personal.*` - Private user data (profile, invoices, files)
-- **Users**: `Permissions.Users.ViewDirectory` - User directory access
-
-#### Roles
-- **Admin**: Full system access + user management
-- **User**: Team collaboration + personal data
-
-#### Usage in Components
+#### Using API Hooks
 ```typescript
-import { PermissionGate, useHasPermission } from '@/lib/api/permissions';
+import { useFetch } from '@mantine/hooks';
 
-// Declarative - hide/show UI
-<PermissionGate permission="Permissions.Team.Projects">
-  <ProjectManager />
-</PermissionGate>
+// Simple data fetching
+const { data, loading, error, refetch } = useFetch('/api/products');
 
-// Multiple permissions
-<MultiPermissionGate permissions={[...]} mode="any">
-  <Component />
-</MultiPermissionGate>
-
-// Programmatic
-const canEdit = useHasPermission('Permissions.Personal.Invoices');
+// Access data
+const products = data?.data; // Array of products
 ```
 
 ### Theme System
@@ -159,12 +128,49 @@ All routes defined in `routes/index.ts`:
 
 ## Important Development Patterns
 
-### Adding New API Endpoints
-1. Ensure backend OpenAPI spec includes endpoint with appropriate tag from `INCLUDE_TAGS`
-2. Run `npm run generate:types` to update `lib/api.d.ts`
-3. Create hook in `lib/endpoints/[feature].ts` using `useApiGet`/`useApiPost`/etc.
-4. Add permission checks if needed
-5. Export from `lib/endpoints/index.ts`
+### Fetching Data from APIs
+
+```typescript
+import { useFetch } from '@mantine/hooks';
+import { IApiResponse } from '@/types/api-response';
+
+function MyComponent() {
+  const { data, loading, error, refetch } = useFetch<IApiResponse<Product[]>>('/api/products');
+
+  if (loading) return <Skeleton />;
+  if (error) return <ErrorAlert />;
+
+  return (
+    <div>
+      {data?.data?.map(product => (
+        <ProductCard key={product.id} product={product} />
+      ))}
+    </div>
+  );
+}
+```
+
+### Creating New Mock Data
+
+1. Add JSON file to `public/mocks/YourData.json`
+2. Create API route in `app/api/your-endpoint/route.ts`:
+```typescript
+import { NextRequest, NextResponse } from 'next/server';
+import fs from 'fs';
+import path from 'path';
+
+export async function GET(request: NextRequest) {
+  const filePath = path.join(process.cwd(), 'public', 'mocks', 'YourData.json');
+  const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+
+  return NextResponse.json({
+    succeeded: true,
+    data,
+    errors: [],
+    message: 'Data retrieved successfully'
+  });
+}
+```
 
 ### Creating New Components
 - Place in `components/[ComponentName]/`
@@ -183,7 +189,7 @@ Use `@/` prefix for imports (configured in `tsconfig.json`):
 ```typescript
 import { Component } from '@/components';
 import { PATH_DASHBOARD } from '@/routes';
-import { useApiGet } from '@/lib/endpoints/api-utils';
+import { useFetch } from '@mantine/hooks';
 ```
 
 ## Tech Stack Notes
@@ -192,9 +198,8 @@ import { useApiGet } from '@/lib/endpoints/api-utils';
 - **Mantine 7**: UI component library - import from `@mantine/core`, `@mantine/hooks`, etc.
 - **React 18**: Client components need `'use client'` directive
 - **TypeScript**: Strict mode enabled
-- **NextAuth**: Custom auth with JWT tokens and session management
-- **useFetch** (from `@mantine/hooks`): Used for all API calls, NOT fetch/axios
-- **openapi-typescript**: Generates types from OpenAPI spec - never edit `lib/api.d.ts` manually
+- **NextAuth**: Mock credentials-based auth with JWT tokens
+- **useFetch** (from `@mantine/hooks`): Used for all data fetching
 
 ## Code Style
 
@@ -208,8 +213,19 @@ import { useApiGet } from '@/lib/endpoints/api-utils';
 
 No test suite currently configured (test script is empty).
 
-## Documentation References
+## Converting to Real API
 
-- Full API integration guide: `docs/API_INTEGRATION.md`
-- RBAC system documentation: `docs/RBAC_SYSTEM.md`
-- Changelog: `CHANGELOG.md`
+To connect this template to a real backend:
+
+1. **Update API Routes**: Replace file reads with actual API calls in `app/api/*/route.ts`
+2. **Authentication**: Update `auth.ts` to call your auth API instead of checking mock users
+3. **Environment Variables**: Add `NEXT_PUBLIC_API_URL` for your backend URL
+4. **Types**: Update types in `types/` to match your backend DTOs
+5. **Error Handling**: Enhance error handling for network failures, auth errors, etc.
+
+## Demo Credentials
+
+```
+Email: demo@example.com
+Password: demo123
+```

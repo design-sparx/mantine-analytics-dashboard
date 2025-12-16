@@ -20,12 +20,9 @@ import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { useAuth } from '@/hooks/useAuth';
-import { type ApiResponse, type components } from '@/lib/endpoints';
+import { useSession } from 'next-auth/react';
+import type { InvoiceDto, ApiResponse } from '@/types';
 import { InvoiceStatus } from '@/types/invoice';
-
-// Use the correct OpenAPI DTO type
-type InvoiceDto = components['schemas']['InvoiceDto'];
 
 // Simplified form values to match current InvoiceDto schema
 interface NewInvoiceFormValues {
@@ -51,7 +48,8 @@ export const NewInvoiceDrawer = ({
   onInvoiceCreated,
   ...drawerProps
 }: NewInvoiceDrawerProps) => {
-  const { user } = useAuth();
+  const { data: session } = useSession();
+  const user = session?.user;
   const [loading, setLoading] = useState(false);
 
   const form = useForm<NewInvoiceFormValues>({

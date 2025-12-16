@@ -28,7 +28,7 @@ import { LanguagePicker } from '@/components';
 import { MESSAGES } from '@/constants/messages';
 import { NOTIFICATIONS } from '@/constants/notifications';
 import { HeaderVariant, useSidebarConfig } from '@/contexts/theme-customizer';
-import { useAuth } from '@/hooks/useAuth';
+import { signOut, useSession } from 'next-auth/react';
 
 const ICON_SIZE = 20;
 
@@ -55,7 +55,8 @@ const HeaderNav = (props: HeaderNavProps) => {
   const tablet_match = useMediaQuery('(max-width: 768px)');
   const mobile_match = useMediaQuery('(max-width: 425px)');
   const sidebarConfig = useSidebarConfig();
-  const { user, logout } = useAuth();
+  const { data: session } = useSession();
+  const user = session?.user;
 
   // Determine text color based on header variant
   const getTextColor = () => {
@@ -243,7 +244,7 @@ const HeaderNav = (props: HeaderNavProps) => {
         </Menu>
         <Tooltip label="Logout">
           <ActionIcon
-            onClick={logout}
+            onClick={() => signOut({ callbackUrl: '/auth/signin' })}
             variant={headerVariant === 'colored' ? 'transparent' : 'default'}
           >
             <IconPower size={ICON_SIZE} color={textColor} />

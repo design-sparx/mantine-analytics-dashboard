@@ -41,19 +41,13 @@ import {
   PageHeader,
   Surface,
 } from '@/components';
-import { useAuth } from '@/hooks/useAuth';
-import {
-  type components,
-  useChatMessagesWithMutations,
-  useChatsWithMutations,
-} from '@/lib/endpoints';
+import { useSession } from 'next-auth/react';
+import type { ChatDto, ChatMessageDto } from '@/types';
+import { useChats, useChatMessages } from '@/lib/hooks/useApi';
 import { PATH_DASHBOARD } from '@/routes';
 
 import { NewChatModal } from './components/NewChatModal';
 import classes from './page.module.css';
-
-type ChatDto = components['schemas']['ChatDto'];
-type ChatMessageDto = components['schemas']['ChatMessageDto'];
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },
@@ -70,7 +64,8 @@ const PAPER_PROPS: PaperProps = {};
 function Chat() {
   const theme = useMantineTheme();
   const tablet_match = useMediaQuery('(max-width: 768px)');
-  const { user } = useAuth();
+  const { data: session } = useSession();
+  const user = session?.user;
   const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
   const [
     newChatModalOpened,
@@ -91,8 +86,7 @@ function Chat() {
     data: chatsData,
     loading: chatsListLoading,
     error: chatsListError,
-    mutations: chatMutations,
-  } = useChatsWithMutations();
+  } = useChats();
 
   const chatsListData = useMemo(() => chatsData?.data || [], [chatsData?.data]);
 
@@ -101,8 +95,7 @@ function Chat() {
     data: messagesData,
     loading: chatsItemsLoading,
     error: chatsItemsError,
-    mutations: messageMutations,
-  } = useChatMessagesWithMutations(selectedChatId || '');
+  } = useChatMessages();
 
   const chatItemsData = messagesData?.data || [];
 
@@ -114,7 +107,9 @@ function Chat() {
   }, [chatsListData, selectedChatId]);
 
   const handleCreateChat = async (chatData: Partial<ChatDto>) => {
-    await chatMutations.create(chatData);
+    // Note: In this mock template, chats are read-only from JSON files
+    // For a real implementation, you would send a POST request here
+    closeNewChatModal();
   };
 
   const handleSendMessage = async () => {
@@ -123,14 +118,8 @@ function Chat() {
     const content = editor.getText().trim();
     if (!content) return;
 
-    const messageData: Partial<ChatMessageDto> = {
-      chat_id: selectedChatId,
-      sender_id: user?.id,
-      content,
-      message_type: 1, // Text message
-    };
-
-    await messageMutations.send(messageData);
+    // Note: In this mock template, messages are read-only from JSON files
+    // For a real implementation, you would send a POST request here
     editor.commands.clearContent();
   };
 

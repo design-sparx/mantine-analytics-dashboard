@@ -21,14 +21,9 @@ import { notifications } from '@mantine/notifications';
 import { IconCloudUpload, IconDeviceFloppy } from '@tabler/icons-react';
 
 import { PageHeader, Surface, TextEditor } from '@/components';
-import { useAuth } from '@/hooks/useAuth';
-import {
-  type components,
-  useUserProfileWithMutations,
-} from '@/lib/endpoints';
+import { useSession } from 'next-auth/react';
+import { useProfile } from '@/lib/hooks/useApi';
 import { PATH_DASHBOARD } from '@/routes';
-
-type UpdateProfileDto = components['schemas']['UpdateProfileDto'];
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },
@@ -54,13 +49,13 @@ const BIO =
 
 function Settings() {
   const [file, setFile] = useState<File | null>(null);
-  const { user } = useAuth();
+  const { data: session } = useSession();
+  const user = session?.user;
 
   const {
     data: profileData,
     loading: profileLoading,
-    mutations,
-  } = useUserProfileWithMutations();
+  } = useProfile();
 
   const profile = profileData?.data;
 
@@ -71,7 +66,7 @@ function Settings() {
     },
   });
 
-  const accountInfoForm = useForm<UpdateProfileDto>({
+  const accountInfoForm = useForm({
     initialValues: {
       email: profile?.email || user?.email || '',
       phoneNumber: '',
@@ -101,7 +96,8 @@ function Settings() {
 
   const handleSaveAccountInfo = async () => {
     try {
-      await mutations.update(accountInfoForm.values);
+      // Note: In this mock template, profile data is read-only from JSON files
+      // For a real implementation, you would send a PUT request here
       notifications.show({
         title: 'Success',
         message: 'Profile updated successfully',

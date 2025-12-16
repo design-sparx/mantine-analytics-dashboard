@@ -19,7 +19,7 @@ import {
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { useAuth } from '@/hooks/useAuth';
+import { useSession } from 'next-auth/react';
 import { IProduct, IProductCategory } from '@/types/products';
 
 type EditProductDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
@@ -32,7 +32,8 @@ export const EditProductDrawer = ({
   onProductUpdated,
   ...drawerProps
 }: EditProductDrawerProps) => {
-  const { user, accessToken, permissions } = useAuth();
+  const { data: session } = useSession();
+  const user = session?.user;
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState<
     {

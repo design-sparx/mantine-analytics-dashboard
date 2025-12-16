@@ -21,11 +21,7 @@ import {
 } from 'mantine-datatable';
 
 import { ErrorAlert } from '@/components';
-import { type components } from '@/lib/endpoints';
-
-type OrderDto = components['schemas']['OrderDto'];
-type OrderStatus = components['schemas']['OrderStatus'];
-type PaymentMethod = components['schemas']['PaymentMethod'];
+import type { OrderDto, OrderStatus, PaymentMethod } from '@/types';
 
 type StatusBadgeProps = {
   status?: OrderStatus;

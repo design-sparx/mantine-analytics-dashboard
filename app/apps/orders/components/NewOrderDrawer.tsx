@@ -16,9 +16,7 @@ import {
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { type components, createOrder } from '@/lib/endpoints';
-
-type OrderDto = components['schemas']['OrderDto'];
+import type { OrderDto } from '@/types';
 
 interface NewOrderFormValues {
   product: string;
@@ -56,12 +54,12 @@ export const NewOrderDrawer = ({
   const handleSubmit = async (values: NewOrderFormValues) => {
     setLoading(true);
     try {
-      await createOrder(values);
-
+      // Note: In this mock template, orders are read-only from JSON files
+      // For a real implementation, you would send a POST request here
       notifications.show({
-        title: 'Success',
-        message: 'Order created successfully',
-        color: 'green',
+        title: 'Mock Data System',
+        message: 'This template uses mock data. Order creation is simulated.',
+        color: 'blue',
       });
 
       form.reset();

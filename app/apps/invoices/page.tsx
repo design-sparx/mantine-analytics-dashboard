@@ -25,13 +25,9 @@ import {
 } from '@tabler/icons-react';
 
 import { ErrorAlert, PageHeader, Surface } from '@/components';
-import { PermissionGate } from '@/lib/api/permissions';
-import {
-  type components,
-  useInvoicesWithMutations,
-  usePermission,
-} from '@/lib/endpoints';
+import { useFetch } from '@mantine/hooks';
 import { PATH_DASHBOARD } from '@/routes';
+import { type IApiResponse } from '@/types/api-response';
 
 // Simplified API imports
 
@@ -51,26 +47,15 @@ const items = [
 ));
 
 function Invoices() {
-  const [selectedInvoice, setSelectedInvoice] = useState<
-    components['schemas']['InvoiceDto'] | null
-  >(null);
+  const [selectedInvoice, setSelectedInvoice] = useState<any | null>(null);
   const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
 
-  // Use simplified API hooks with built-in RBAC
   const {
     data: invoicesData,
     loading: invoicesLoading,
     error: invoicesError,
     refetch: refetchInvoices,
-    mutations,
-    hasPermission: canViewInvoices,
-    permissionDenied,
-  } = useInvoicesWithMutations();
-
-  // Permission checking for UI components
-  const { hasPermission: canManageInvoices } = usePermission(
-    'Permissions.Personal.Invoices',
-  );
+  } = useFetch<IApiResponse<any[]>>('/api/invoices');
 
   const [newDrawerOpened, { open: newInvoiceOpen, close: newInvoiceClose }] =
     useDisclosure(false);
@@ -96,15 +81,15 @@ function Invoices() {
     editInvoiceOpen();
   };
 
-  const handleDeleteInvoice = async (
-    invoice: components['schemas']['InvoiceDto'],
-  ) => {
+  const handleDeleteInvoice = async (invoice: any) => {
     if (!window.confirm('Are you sure you want to delete this invoice?')) {
       return;
     }
 
     try {
-      await mutations.delete(invoice.id!);
+      // In a real app, call DELETE API endpoint
+      await fetch(`/api/invoices/${invoice.id}`, { method: 'DELETE' });
+      refetchInvoices();
     } catch (error) {
       console.error('Error deleting invoice:', error);
       alert('Failed to delete invoice. Please try again.');
@@ -123,22 +108,6 @@ function Invoices() {
   console.log({ invoicesData });
 
   const renderContent = () => {
-    // Show permission denied message if user doesn't have access
-    if (permissionDenied) {
-      return (
-        <Surface p="md">
-          <Stack align="center">
-            <IconMoodEmpty size={24} />
-            <Title order={4}>Access Denied</Title>
-            <Text>
-              You don&apos;t have permission to view invoices. Contact your
-              administrator for access.
-            </Text>
-          </Stack>
-        </Surface>
-      );
-    }
-
     if (invoicesLoading) {
       return (
         <SimpleGrid
@@ -225,7 +194,7 @@ function Invoices() {
             title="Invoices"
             breadcrumbItems={items}
             actionButton={
-              canManageInvoices && invoicesData?.data?.length ? (
+              invoicesData?.data?.length ? (
                 <Button
                   leftSection={<IconPlus size={18} />}
                   onClick={newInvoiceOpen}
@@ -268,7 +237,6 @@ function Invoices() {
         opened={newDrawerOpened}
         onClose={newInvoiceClose}
         position="right"
-        onCreate={mutations.create}
         onInvoiceCreated={handleInvoiceCreated}
       />
 
@@ -277,7 +245,6 @@ function Invoices() {
         onClose={editInvoiceClose}
         position="right"
         invoice={selectedInvoice}
-        onUpdate={mutations.update}
         onInvoiceUpdated={handleInvoiceUpdated}
       />
     </>

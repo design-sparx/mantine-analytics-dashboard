@@ -21,13 +21,9 @@ import {
   StatsGrid,
   Surface,
 } from '@/components';
-import {
-  useAllStats,
-  useProjects,
-  useSales,
-  useTraffic,
-} from '@/lib/endpoints';
+import { useFetch } from '@mantine/hooks';
 import { PATH_TASKS } from '@/routes';
+import { IApiResponse } from '@/types/api-response';
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',
@@ -35,18 +31,17 @@ const PAPER_PROPS: PaperProps = {
 };
 
 function Page() {
-  // Use new API endpoints with RBAC
   const {
     data: projectsData,
     error: projectsError,
     loading: projectsLoading,
-  } = useProjects({ limit: 6 });
+  } = useFetch<IApiResponse<any[]>>('/api/projects');
 
   const {
     data: statsData,
     error: statsError,
     loading: statsLoading,
-  } = useAllStats();
+  } = useFetch<IApiResponse<any[]>>('/api/stats');
 
   return (
     <>
