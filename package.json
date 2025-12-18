@@ -110,7 +110,7 @@
     "postcss-preset-mantine": "^1.17.0",
     "postcss-simple-vars": "^7.0.1",
     "prettier": "3.1.0",
-    "storybook": "^8.4.0",
+    "storybook": "^8.6.15",
     "storybook-dark-mode": "^4.0.0"
   },
   "lint-staged": {
