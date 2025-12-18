@@ -2,7 +2,13 @@
   "permissions": {
     "allow": [
       "Bash(pnpm dev)",
-      "Bash(pnpm run build)"
+      "Bash(pnpm run build)",
+      "Bash(npm run dev:*)",
+      "Bash(timeout /t 5 /nobreak)",
+      "Bash(nul)",
+      "Bash(ping:*)",
+      "Bash(npm run lint)",
+      "Bash(npx tsc:*)"
     ],
     "deny": [],
     "ask": []

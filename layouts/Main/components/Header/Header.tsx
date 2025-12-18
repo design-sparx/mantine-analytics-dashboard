@@ -17,11 +17,15 @@ import {
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import {
+  IconArrowLeft,
+  IconArrowRight,
   IconBell,
   IconMenu2,
   IconMessageCircle,
   IconPower,
   IconSearch,
+  IconSettings,
+  IconUser,
 } from '@tabler/icons-react';
 
 import { LanguagePicker } from '@/components';
@@ -29,6 +33,8 @@ import { MESSAGES } from '@/constants/messages';
 import { NOTIFICATIONS } from '@/constants/notifications';
 import { HeaderVariant, useSidebarConfig } from '@/contexts/theme-customizer';
 import { signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import UserProfileData from '@/public/mocks/UserProfile.json';
 
 const ICON_SIZE = 20;
 
@@ -57,6 +63,7 @@ const HeaderNav = (props: HeaderNavProps) => {
   const sidebarConfig = useSidebarConfig();
   const { data: session } = useSession();
   const user = session?.user;
+  const router = useRouter();
 
   // Determine text color based on header variant
   const getTextColor = () => {
@@ -169,6 +176,27 @@ const HeaderNav = (props: HeaderNavProps) => {
           </ActionIcon>
         </Tooltip>
 
+        <Group gap={4} ml="sm">
+          <Tooltip label="Go back">
+            <ActionIcon
+              onClick={() => router.back()}
+              variant={headerVariant === 'colored' ? 'transparent' : 'default'}
+              size="lg"
+            >
+              <IconArrowLeft size={ICON_SIZE} color={textColor} />
+            </ActionIcon>
+          </Tooltip>
+          <Tooltip label="Go forward">
+            <ActionIcon
+              onClick={() => router.forward()}
+              variant={headerVariant === 'colored' ? 'transparent' : 'default'}
+              size="lg"
+            >
+              <IconArrowRight size={ICON_SIZE} color={textColor} />
+            </ActionIcon>
+          </Tooltip>
+        </Group>
+
         {!mobile_match && (
           <TextInput
             placeholder="search"
@@ -242,14 +270,50 @@ const HeaderNav = (props: HeaderNavProps) => {
             </Menu.Item>
           </Menu.Dropdown>
         </Menu>
-        <Tooltip label="Logout">
-          <ActionIcon
-            onClick={() => signOut({ callbackUrl: '/auth/signin' })}
-            variant={headerVariant === 'colored' ? 'transparent' : 'default'}
-          >
-            <IconPower size={ICON_SIZE} color={textColor} />
-          </ActionIcon>
-        </Tooltip>
+        <Menu shadow="lg" width={280}>
+          <Menu.Target>
+            <Tooltip label="Account">
+              <ActionIcon
+                size="lg"
+                variant={headerVariant === 'colored' ? 'transparent' : 'default'}
+                style={{ borderRadius: '50%' }}
+              >
+                <Avatar
+                  src={user?.image ?? UserProfileData.avatar}
+                  alt={user?.name ?? UserProfileData.name}
+                  size="sm"
+                />
+              </ActionIcon>
+            </Tooltip>
+          </Menu.Target>
+          <Menu.Dropdown>
+            <Menu.Label>
+              <Stack gap={4}>
+                <Text size="sm" fw={500}>
+                  {user?.name ?? UserProfileData.name}
+                </Text>
+                <Text size="xs" c="dimmed">
+                  {user?.email ?? UserProfileData.email}
+                </Text>
+              </Stack>
+            </Menu.Label>
+            <Menu.Divider />
+            <Menu.Item leftSection={<IconUser size={16} />}>
+              Profile
+            </Menu.Item>
+            <Menu.Item leftSection={<IconSettings size={16} />}>
+              Settings
+            </Menu.Item>
+            <Menu.Divider />
+            <Menu.Item
+              leftSection={<IconPower size={16} />}
+              color="red"
+              onClick={() => signOut({ callbackUrl: '/auth/signin' })}
+            >
+              Logout
+            </Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
       </Group>
     </Group>
   );
