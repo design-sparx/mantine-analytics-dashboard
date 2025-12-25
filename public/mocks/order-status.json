@@ -1,0 +1,37 @@
+[
+  {
+    "status": "Pending",
+    "count": 127,
+    "value": 8543.73,
+    "percentage": 6.9,
+    "color": "yellow"
+  },
+  {
+    "status": "Processing",
+    "count": 342,
+    "value": 23109.88,
+    "percentage": 18.5,
+    "color": "blue"
+  },
+  {
+    "status": "Shipped",
+    "count": 589,
+    "value": 39821.45,
+    "percentage": 31.9,
+    "color": "violet"
+  },
+  {
+    "status": "Delivered",
+    "count": 734,
+    "value": 49638.21,
+    "percentage": 39.7,
+    "color": "teal"
+  },
+  {
+    "status": "Cancelled",
+    "count": 55,
+    "value": 3449.73,
+    "percentage": 3.0,
+    "color": "red"
+  }
+]

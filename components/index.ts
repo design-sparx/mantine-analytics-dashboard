@@ -68,3 +68,18 @@ export { default as ErrorAlert } from './error-alert';
 export { default as Faqs } from './faqs';
 export { default as LanguagePicker } from './language-picker';
 export { default as SystemNotificationBanner } from './system-notification-banner';
+
+// E-commerce Dashboard Components
+export { TopProductsTable } from './ecommerce-dashboard/TopProductsTable';
+export { OrderStatusChart } from './ecommerce-dashboard/OrderStatusChart';
+export { CategoryRevenueChart } from './ecommerce-dashboard/CategoryRevenueChart';
+
+// CRM Dashboard Components
+export { LeadPipelineChart } from './crm-dashboard/LeadPipelineChart';
+export { DealsTable } from './crm-dashboard/DealsTable';
+export { ActivitiesTimeline } from './crm-dashboard/ActivitiesTimeline';
+
+// Finance Dashboard Components
+export { CashflowChart } from './finance-dashboard/CashflowChart';
+export { ExpenseBreakdown } from './finance-dashboard/ExpenseBreakdown';
+export { InvoicesTable as FinanceInvoicesTable } from './finance-dashboard/InvoicesTable';

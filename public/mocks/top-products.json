@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "name": "Wireless Headphones Pro",
+    "sku": "WHP-001",
+    "category": "Electronics",
+    "price": 129.99,
+    "sales": 487,
+    "revenue": 63308.13,
+    "stock": 145,
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&h=100&fit=crop",
+    "trend": "up"
+  },
+  {
+    "id": 2,
+    "name": "Smart Watch Series 5",
+    "sku": "SWT-005",
+    "category": "Electronics",
+    "price": 299.99,
+    "sales": 312,
+    "revenue": 93596.88,
+    "stock": 78,
+    "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100&h=100&fit=crop",
+    "trend": "up"
+  },
+  {
+    "id": 3,
+    "name": "Premium Laptop Bag",
+    "sku": "BAG-012",
+    "category": "Accessories",
+    "price": 79.99,
+    "sales": 256,
+    "revenue": 20477.44,
+    "stock": 203,
+    "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=100&h=100&fit=crop",
+    "trend": "stable"
+  },
+  {
+    "id": 4,
+    "name": "Ergonomic Office Chair",
+    "sku": "CHR-008",
+    "category": "Furniture",
+    "price": 349.99,
+    "sales": 189,
+    "revenue": 66147.11,
+    "stock": 42,
+    "image": "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=100&h=100&fit=crop",
+    "trend": "up"
+  },
+  {
+    "id": 5,
+    "name": "USB-C Charging Cable",
+    "sku": "CBL-023",
+    "category": "Accessories",
+    "price": 19.99,
+    "sales": 523,
+    "revenue": 10454.77,
+    "stock": 567,
+    "image": "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=100&h=100&fit=crop",
+    "trend": "down"
+  },
+  {
+    "id": 6,
+    "name": "Mechanical Keyboard RGB",
+    "sku": "KBD-017",
+    "category": "Electronics",
+    "price": 159.99,
+    "sales": 234,
+    "revenue": 37437.66,
+    "stock": 124,
+    "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=100&h=100&fit=crop",
+    "trend": "stable"
+  },
+  {
+    "id": 7,
+    "name": "Wireless Mouse Pro",
+    "sku": "MOU-009",
+    "category": "Electronics",
+    "price": 49.99,
+    "sales": 412,
+    "revenue": 20595.88,
+    "stock": 289,
+    "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=100&h=100&fit=crop",
+    "trend": "up"
+  },
+  {
+    "id": 8,
+    "name": "4K Webcam",
+    "sku": "WEB-004",
+    "category": "Electronics",
+    "price": 89.99,
+    "sales": 167,
+    "revenue": 15028.33,
+    "stock": 95,
+    "image": "https://images.unsplash.com/photo-1624823183493-ed5832f48f18?w=100&h=100&fit=crop",
+    "trend": "stable"
+  }
+]

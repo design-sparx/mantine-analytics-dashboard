@@ -1,0 +1,51 @@
+[
+  {
+    "stage": "New Lead",
+    "count": 487,
+    "value": 1218750,
+    "percentage": 17.1,
+    "color": "blue"
+  },
+  {
+    "stage": "Contacted",
+    "count": 342,
+    "value": 855000,
+    "percentage": 12.0,
+    "color": "cyan"
+  },
+  {
+    "stage": "Qualified",
+    "count": 256,
+    "value": 640000,
+    "percentage": 9.0,
+    "color": "violet"
+  },
+  {
+    "stage": "Proposal",
+    "count": 189,
+    "value": 472500,
+    "percentage": 6.6,
+    "color": "grape"
+  },
+  {
+    "stage": "Negotiation",
+    "count": 124,
+    "value": 310000,
+    "percentage": 4.4,
+    "color": "pink"
+  },
+  {
+    "stage": "Closed Won",
+    "count": 456,
+    "value": 1140000,
+    "percentage": 16.0,
+    "color": "teal"
+  },
+  {
+    "stage": "Closed Lost",
+    "count": 993,
+    "value": 2482500,
+    "percentage": 34.9,
+    "color": "red"
+  }
+]

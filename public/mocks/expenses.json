@@ -1,0 +1,44 @@
+[
+  {
+    "category": "Salaries & Wages",
+    "amount": 425000,
+    "percentage": 54.2,
+    "color": "blue",
+    "trend": 2.1
+  },
+  {
+    "category": "Office & Facilities",
+    "amount": 125000,
+    "percentage": 15.9,
+    "color": "teal",
+    "trend": -3.4
+  },
+  {
+    "category": "Marketing & Sales",
+    "amount": 98000,
+    "percentage": 12.5,
+    "color": "violet",
+    "trend": 8.7
+  },
+  {
+    "category": "Technology & Software",
+    "amount": 67000,
+    "percentage": 8.5,
+    "color": "orange",
+    "trend": 5.3
+  },
+  {
+    "category": "Professional Services",
+    "amount": 45000,
+    "percentage": 5.7,
+    "color": "pink",
+    "trend": -1.2
+  },
+  {
+    "category": "Other",
+    "amount": 24000,
+    "percentage": 3.1,
+    "color": "gray",
+    "trend": 0.5
+  }
+]

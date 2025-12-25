@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Total Revenue",
+    "value": "$1.24M",
+    "diff": 15.3,
+    "period": "vs last month",
+    "icon": "currency-dollar",
+    "color": "blue"
+  },
+  {
+    "title": "Net Profit",
+    "value": "$456K",
+    "diff": 8.7,
+    "period": "vs last month",
+    "icon": "trending-up",
+    "color": "teal"
+  },
+  {
+    "title": "Expenses",
+    "value": "$784K",
+    "diff": -3.2,
+    "period": "vs last month",
+    "icon": "receipt",
+    "color": "red"
+  },
+  {
+    "title": "Profit Margin",
+    "value": "36.8%",
+    "diff": 2.1,
+    "period": "vs last month",
+    "icon": "percentage",
+    "color": "violet"
+  },
+  {
+    "title": "Accounts Receivable",
+    "value": "$234K",
+    "diff": -12.4,
+    "period": "vs last month",
+    "icon": "arrow-down-circle",
+    "color": "orange"
+  },
+  {
+    "title": "Accounts Payable",
+    "value": "$156K",
+    "diff": -8.9,
+    "period": "vs last month",
+    "icon": "arrow-up-circle",
+    "color": "pink"
+  }
+]

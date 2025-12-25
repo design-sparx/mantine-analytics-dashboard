@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Total Leads",
+    "value": "2,847",
+    "diff": 18.5,
+    "period": "vs last month",
+    "icon": "user-plus",
+    "color": "blue"
+  },
+  {
+    "title": "Conversion Rate",
+    "value": "24.8%",
+    "diff": 3.2,
+    "period": "vs last month",
+    "icon": "chart-line",
+    "color": "teal"
+  },
+  {
+    "title": "Customer Lifetime Value",
+    "value": "$8,450",
+    "diff": 12.1,
+    "period": "vs last month",
+    "icon": "coin",
+    "color": "violet"
+  },
+  {
+    "title": "Customer Acquisition Cost",
+    "value": "$245",
+    "diff": -8.3,
+    "period": "vs last month",
+    "icon": "cash",
+    "color": "orange"
+  },
+  {
+    "title": "Active Deals",
+    "value": "147",
+    "diff": 5.7,
+    "period": "vs last month",
+    "icon": "briefcase",
+    "color": "pink"
+  },
+  {
+    "title": "Customer Satisfaction",
+    "value": "4.7/5",
+    "diff": 2.1,
+    "period": "vs last month",
+    "icon": "star",
+    "color": "yellow"
+  }
+]

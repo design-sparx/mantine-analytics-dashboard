@@ -1,0 +1,1 @@
+export { TopProductsTable } from './TopProductsTable';

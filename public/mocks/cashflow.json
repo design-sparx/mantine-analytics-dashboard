@@ -1,0 +1,74 @@
+[
+  {
+    "month": "Jan",
+    "income": 145000,
+    "expenses": 98000,
+    "netCashflow": 47000
+  },
+  {
+    "month": "Feb",
+    "income": 132000,
+    "expenses": 105000,
+    "netCashflow": 27000
+  },
+  {
+    "month": "Mar",
+    "income": 167000,
+    "expenses": 112000,
+    "netCashflow": 55000
+  },
+  {
+    "month": "Apr",
+    "income": 189000,
+    "expenses": 118000,
+    "netCashflow": 71000
+  },
+  {
+    "month": "May",
+    "income": 201000,
+    "expenses": 125000,
+    "netCashflow": 76000
+  },
+  {
+    "month": "Jun",
+    "income": 234000,
+    "expenses": 132000,
+    "netCashflow": 102000
+  },
+  {
+    "month": "Jul",
+    "income": 218000,
+    "expenses": 128000,
+    "netCashflow": 90000
+  },
+  {
+    "month": "Aug",
+    "income": 245000,
+    "expenses": 135000,
+    "netCashflow": 110000
+  },
+  {
+    "month": "Sep",
+    "income": 223000,
+    "expenses": 140000,
+    "netCashflow": 83000
+  },
+  {
+    "month": "Oct",
+    "income": 256000,
+    "expenses": 145000,
+    "netCashflow": 111000
+  },
+  {
+    "month": "Nov",
+    "income": 289000,
+    "expenses": 152000,
+    "netCashflow": 137000
+  },
+  {
+    "month": "Dec",
+    "income": 312000,
+    "expenses": 159000,
+    "netCashflow": 153000
+  }
+]

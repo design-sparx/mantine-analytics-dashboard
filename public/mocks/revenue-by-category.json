@@ -1,0 +1,37 @@
+[
+  {
+    "category": "Electronics",
+    "revenue": 52840.67,
+    "orders": 1247,
+    "percentage": 42.4,
+    "color": "blue"
+  },
+  {
+    "category": "Accessories",
+    "revenue": 31276.45,
+    "orders": 2134,
+    "percentage": 25.1,
+    "color": "teal"
+  },
+  {
+    "category": "Furniture",
+    "revenue": 24589.32,
+    "orders": 456,
+    "percentage": 19.7,
+    "color": "violet"
+  },
+  {
+    "category": "Clothing",
+    "revenue": 10234.89,
+    "orders": 789,
+    "percentage": 8.2,
+    "color": "pink"
+  },
+  {
+    "category": "Books",
+    "revenue": 5621.67,
+    "orders": 623,
+    "percentage": 4.6,
+    "color": "orange"
+  }
+]

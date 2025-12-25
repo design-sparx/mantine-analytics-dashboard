@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "type": "call",
+    "company": "Acme Corporation",
+    "contact": "John Smith",
+    "description": "Follow-up call regarding contract terms",
+    "assignedTo": "Sarah Johnson",
+    "timestamp": "2025-12-19T10:30:00Z",
+    "status": "completed"
+  },
+  {
+    "id": 2,
+    "type": "email",
+    "company": "TechStart Inc",
+    "contact": "Emily Davis",
+    "description": "Sent proposal document and pricing details",
+    "assignedTo": "Michael Chen",
+    "timestamp": "2025-12-19T09:15:00Z",
+    "status": "completed"
+  },
+  {
+    "id": 3,
+    "type": "meeting",
+    "company": "Enterprise Systems",
+    "contact": "Robert Taylor",
+    "description": "Product demo and Q&A session",
+    "assignedTo": "Michael Chen",
+    "timestamp": "2025-12-19T14:00:00Z",
+    "status": "scheduled"
+  },
+  {
+    "id": 4,
+    "type": "call",
+    "company": "CloudFirst Technologies",
+    "contact": "Amanda Martinez",
+    "description": "Discovery call to understand requirements",
+    "assignedTo": "Michael Chen",
+    "timestamp": "2025-12-18T16:45:00Z",
+    "status": "completed"
+  },
+  {
+    "id": 5,
+    "type": "task",
+    "company": "Innovation Hub",
+    "contact": "Lisa Anderson",
+    "description": "Prepare custom quote for requested features",
+    "assignedTo": "James Wilson",
+    "timestamp": "2025-12-20T10:00:00Z",
+    "status": "pending"
+  },
+  {
+    "id": 6,
+    "type": "meeting",
+    "company": "Global Solutions Ltd",
+    "contact": "David Brown",
+    "description": "Stakeholder presentation meeting",
+    "assignedTo": "Sarah Johnson",
+    "timestamp": "2025-12-20T15:30:00Z",
+    "status": "scheduled"
+  },
+  {
+    "id": 7,
+    "type": "email",
+    "company": "Smart Retail Co",
+    "contact": "Jennifer Lee",
+    "description": "Sent case studies and client testimonials",
+    "assignedTo": "Sarah Johnson",
+    "timestamp": "2025-12-18T11:20:00Z",
+    "status": "completed"
+  },
+  {
+    "id": 8,
+    "type": "call",
+    "company": "Digital Dynamics",
+    "contact": "Mark Williams",
+    "description": "Qualification call to assess fit",
+    "assignedTo": "James Wilson",
+    "timestamp": "2025-12-18T13:00:00Z",
+    "status": "completed"
+  }
+]

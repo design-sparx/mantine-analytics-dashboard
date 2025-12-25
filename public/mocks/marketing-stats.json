@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Campaign ROI",
+    "value": "385%",
+    "diff": 24.5,
+    "period": "vs last month",
+    "icon": "chart-line",
+    "color": "blue"
+  },
+  {
+    "title": "Total Leads Generated",
+    "value": "12,847",
+    "diff": 18.3,
+    "period": "vs last month",
+    "icon": "user-plus",
+    "color": "teal"
+  },
+  {
+    "title": "Email Open Rate",
+    "value": "28.4%",
+    "diff": 3.7,
+    "period": "vs last month",
+    "icon": "mail-opened",
+    "color": "violet"
+  },
+  {
+    "title": "Click-Through Rate",
+    "value": "4.8%",
+    "diff": 1.2,
+    "period": "vs last month",
+    "icon": "click",
+    "color": "orange"
+  },
+  {
+    "title": "Social Engagement",
+    "value": "45.2K",
+    "diff": 32.1,
+    "period": "vs last month",
+    "icon": "heart",
+    "color": "pink"
+  },
+  {
+    "title": "Marketing Spend",
+    "value": "$89.5K",
+    "diff": 5.4,
+    "period": "vs last month",
+    "icon": "coin",
+    "color": "red"
+  }
+]

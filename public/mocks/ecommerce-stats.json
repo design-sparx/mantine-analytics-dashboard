@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Total Revenue",
+    "value": "$124,563",
+    "diff": 12.5,
+    "period": "vs last month",
+    "icon": "currency-dollar",
+    "color": "blue"
+  },
+  {
+    "title": "Orders",
+    "value": "1,847",
+    "diff": 8.3,
+    "period": "vs last month",
+    "icon": "shopping-cart",
+    "color": "teal"
+  },
+  {
+    "title": "Conversion Rate",
+    "value": "3.24%",
+    "diff": -2.1,
+    "period": "vs last month",
+    "icon": "chart-line",
+    "color": "violet"
+  },
+  {
+    "title": "Average Order Value",
+    "value": "$67.45",
+    "diff": 5.7,
+    "period": "vs last month",
+    "icon": "receipt",
+    "color": "orange"
+  },
+  {
+    "title": "Customers",
+    "value": "12,459",
+    "diff": 15.2,
+    "period": "vs last month",
+    "icon": "users",
+    "color": "pink"
+  },
+  {
+    "title": "Cart Abandonment",
+    "value": "68.5%",
+    "diff": -3.4,
+    "period": "vs last month",
+    "icon": "shopping-cart-off",
+    "color": "red"
+  }
+]

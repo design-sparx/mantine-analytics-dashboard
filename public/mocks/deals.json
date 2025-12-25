@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "company": "Acme Corporation",
+    "contact": "John Smith",
+    "email": "john.smith@acme.com",
+    "value": 125000,
+    "stage": "Negotiation",
+    "probability": 75,
+    "expectedCloseDate": "2025-01-15",
+    "assignedTo": "Sarah Johnson",
+    "lastActivity": "2025-12-18"
+  },
+  {
+    "id": 2,
+    "company": "TechStart Inc",
+    "contact": "Emily Davis",
+    "email": "emily@techstart.io",
+    "value": 89500,
+    "stage": "Proposal",
+    "probability": 60,
+    "expectedCloseDate": "2025-01-22",
+    "assignedTo": "Michael Chen",
+    "lastActivity": "2025-12-17"
+  },
+  {
+    "id": 3,
+    "company": "Global Solutions Ltd",
+    "contact": "David Brown",
+    "email": "d.brown@globalsolutions.com",
+    "value": 234000,
+    "stage": "Qualified",
+    "probability": 40,
+    "expectedCloseDate": "2025-02-10",
+    "assignedTo": "Sarah Johnson",
+    "lastActivity": "2025-12-16"
+  },
+  {
+    "id": 4,
+    "company": "Innovation Hub",
+    "contact": "Lisa Anderson",
+    "email": "lisa.a@innovhub.com",
+    "value": 67800,
+    "stage": "Contacted",
+    "probability": 25,
+    "expectedCloseDate": "2025-02-28",
+    "assignedTo": "James Wilson",
+    "lastActivity": "2025-12-18"
+  },
+  {
+    "id": 5,
+    "company": "Enterprise Systems",
+    "contact": "Robert Taylor",
+    "email": "rtaylor@entsystems.com",
+    "value": 456000,
+    "stage": "Negotiation",
+    "probability": 85,
+    "expectedCloseDate": "2025-01-08",
+    "assignedTo": "Michael Chen",
+    "lastActivity": "2025-12-19"
+  },
+  {
+    "id": 6,
+    "company": "Smart Retail Co",
+    "contact": "Jennifer Lee",
+    "email": "jlee@smartretail.com",
+    "value": 123500,
+    "stage": "Proposal",
+    "probability": 55,
+    "expectedCloseDate": "2025-01-30",
+    "assignedTo": "Sarah Johnson",
+    "lastActivity": "2025-12-15"
+  },
+  {
+    "id": 7,
+    "company": "Digital Dynamics",
+    "contact": "Mark Williams",
+    "email": "mwilliams@digitaldyn.com",
+    "value": 78900,
+    "stage": "Qualified",
+    "probability": 35,
+    "expectedCloseDate": "2025-02-15",
+    "assignedTo": "James Wilson",
+    "lastActivity": "2025-12-14"
+  },
+  {
+    "id": 8,
+    "company": "CloudFirst Technologies",
+    "contact": "Amanda Martinez",
+    "email": "amanda@cloudfirst.tech",
+    "value": 189000,
+    "stage": "Proposal",
+    "probability": 70,
+    "expectedCloseDate": "2025-01-20",
+    "assignedTo": "Michael Chen",
+    "lastActivity": "2025-12-18"
+  }
+]

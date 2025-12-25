@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "invoiceNumber": "INV-2025-001",
+    "client": "Acme Corporation",
+    "amount": 45600,
+    "issueDate": "2025-12-01",
+    "dueDate": "2025-12-31",
+    "status": "paid",
+    "paymentDate": "2025-12-28"
+  },
+  {
+    "id": 2,
+    "invoiceNumber": "INV-2025-002",
+    "client": "TechStart Inc",
+    "amount": 32800,
+    "issueDate": "2025-12-05",
+    "dueDate": "2026-01-04",
+    "status": "pending",
+    "paymentDate": null
+  },
+  {
+    "id": 3,
+    "invoiceNumber": "INV-2025-003",
+    "client": "Global Solutions Ltd",
+    "amount": 67200,
+    "issueDate": "2025-12-08",
+    "dueDate": "2026-01-07",
+    "status": "pending",
+    "paymentDate": null
+  },
+  {
+    "id": 4,
+    "invoiceNumber": "INV-2025-004",
+    "client": "Innovation Hub",
+    "amount": 18900,
+    "issueDate": "2025-12-10",
+    "dueDate": "2026-01-09",
+    "status": "overdue",
+    "paymentDate": null
+  },
+  {
+    "id": 5,
+    "invoiceNumber": "INV-2025-005",
+    "client": "Enterprise Systems",
+    "amount": 89400,
+    "issueDate": "2025-12-12",
+    "dueDate": "2025-12-27",
+    "status": "paid",
+    "paymentDate": "2025-12-25"
+  },
+  {
+    "id": 6,
+    "invoiceNumber": "INV-2025-006",
+    "client": "Smart Retail Co",
+    "amount": 54300,
+    "issueDate": "2025-12-15",
+    "dueDate": "2026-01-14",
+    "status": "pending",
+    "paymentDate": null
+  },
+  {
+    "id": 7,
+    "invoiceNumber": "INV-2025-007",
+    "client": "Digital Dynamics",
+    "amount": 23700,
+    "issueDate": "2025-11-28",
+    "dueDate": "2025-12-28",
+    "status": "overdue",
+    "paymentDate": null
+  },
+  {
+    "id": 8,
+    "invoiceNumber": "INV-2025-008",
+    "client": "CloudFirst Technologies",
+    "amount": 76500,
+    "issueDate": "2025-12-18",
+    "dueDate": "2026-01-17",
+    "status": "pending",
+    "paymentDate": null
+  }
+]
