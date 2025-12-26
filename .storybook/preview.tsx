@@ -14,7 +14,7 @@ import { MantineProvider, useMantineColorScheme } from '@mantine/core';
 import { themes } from '@storybook/theming';
 import { Preview } from '@storybook/react';
 // @ts-ignore
-import { myTheme } from '../theme';
+import { myTheme } from '../src/theme';
 
 // theme.ts file from previous step
 

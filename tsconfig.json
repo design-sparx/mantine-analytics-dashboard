@@ -20,7 +20,10 @@
     "incremental": true,
     "paths": {
       "@/*": [
-        "./*"
+        "./src/*"
+      ],
+      "@public/*": [
+        "./public/*"
       ]
     },
     "plugins": [
@@ -30,7 +33,7 @@
     ],
     "typeRoots": [
       "./node_modules/@types",
-      "./types"
+      "./src/types"
     ]
   },
   "include": [
