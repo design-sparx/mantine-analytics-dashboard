@@ -159,8 +159,9 @@ const HeaderNav = (props: HeaderNavProps) => {
   ));
 
   return (
-    <Group justify="space-between" flex={1}>
-      <Group gap={0} justify="space-between">
+    <Group justify="space-between" flex={1} wrap="nowrap">
+      {/* Left Section: Sidebar Toggle */}
+      <Group gap={0} style={{ flex: '0 0 auto' }}>
         <Tooltip label={getSidebarToggleTooltip()}>
           <ActionIcon
             onClick={handleSidebarToggle}
@@ -170,27 +171,28 @@ const HeaderNav = (props: HeaderNavProps) => {
             {getSidebarToggleIcon()}
           </ActionIcon>
         </Tooltip>
+      </Group>
 
-        <Group gap={4}>
-          <Tooltip label="Go back">
-            <ActionIcon
-              onClick={() => router.back()}
-              variant={headerVariant === 'colored' ? 'transparent' : 'default'}
-              size="lg"
-            >
-              <IconArrowLeft size={ICON_SIZE} color={textColor} />
-            </ActionIcon>
-          </Tooltip>
-          <Tooltip label="Go forward">
-            <ActionIcon
-              onClick={() => router.forward()}
-              variant={headerVariant === 'colored' ? 'transparent' : 'default'}
-              size="lg"
-            >
-              <IconArrowRight size={ICON_SIZE} color={textColor} />
-            </ActionIcon>
-          </Tooltip>
-        </Group>
+      {/* Middle Section: Navigation & Search */}
+      <Group gap={4} justify="center" style={{ flex: '1 1 auto' }}>
+        <Tooltip label="Go back">
+          <ActionIcon
+            onClick={() => router.back()}
+            variant={headerVariant === 'colored' ? 'transparent' : 'default'}
+            size="lg"
+          >
+            <IconArrowLeft size={ICON_SIZE} color={textColor} />
+          </ActionIcon>
+        </Tooltip>
+        <Tooltip label="Go forward">
+          <ActionIcon
+            onClick={() => router.forward()}
+            variant={headerVariant === 'colored' ? 'transparent' : 'default'}
+            size="lg"
+          >
+            <IconArrowRight size={ICON_SIZE} color={textColor} />
+          </ActionIcon>
+        </Tooltip>
 
         {!mobile_match && (
           <TextInput
@@ -204,7 +206,9 @@ const HeaderNav = (props: HeaderNavProps) => {
           />
         )}
       </Group>
-      <Group>
+
+      {/* Right Section: Actions & User Menu */}
+      <Group style={{ flex: '0 0 auto' }}>
         {mobile_match && (
           <ActionIcon
             variant={headerVariant === 'colored' ? 'transparent' : 'default'}
