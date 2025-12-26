@@ -72,7 +72,6 @@
     "lodash": "^4.17.21",
     "mantine-datatable": "^7.1.7",
     "next": "16.0.10",
-    "next-auth": "5.0.0-beta.30",
     "react": "^19.0.0",
     "react-apexcharts": "^1.4.1",
     "react-countup": "^6.4.2",

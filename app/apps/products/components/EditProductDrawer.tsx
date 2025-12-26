@@ -19,7 +19,7 @@ import {
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { useSession } from 'next-auth/react';
+
 import { IProduct, IProductCategory } from '@/types/products';
 
 type EditProductDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {

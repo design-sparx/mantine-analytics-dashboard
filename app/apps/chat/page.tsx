@@ -41,10 +41,10 @@ import {
   PageHeader,
   Surface,
 } from '@/components';
-import { useSession } from 'next-auth/react';
 import type { ChatDto, ChatMessageDto } from '@/types';
 import { useChats, useChatMessages } from '@/lib/hooks/useApi';
 import { PATH_DASHBOARD } from '@/routes';
+import UserProfileData from '@/public/mocks/UserProfile.json';
 
 import { NewChatModal } from './components/NewChatModal';
 import classes from './page.module.css';
@@ -64,8 +64,7 @@ const PAPER_PROPS: PaperProps = {};
 function Chat() {
   const theme = useMantineTheme();
   const tablet_match = useMediaQuery('(max-width: 768px)');
-  const { data: session } = useSession();
-  const user = session?.user;
+  const user = UserProfileData;
   const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
   const [
     newChatModalOpened,

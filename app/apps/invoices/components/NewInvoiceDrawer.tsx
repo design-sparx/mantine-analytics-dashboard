@@ -20,9 +20,9 @@ import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { useSession } from 'next-auth/react';
 import type { InvoiceDto, ApiResponse } from '@/types';
 import { InvoiceStatus } from '@/types/invoice';
+import UserProfileData from '@/public/mocks/UserProfile.json';
 
 // Simplified form values to match current InvoiceDto schema
 interface NewInvoiceFormValues {
@@ -48,8 +48,6 @@ export const NewInvoiceDrawer = ({
   onInvoiceCreated,
   ...drawerProps
 }: NewInvoiceDrawerProps) => {
-  const { data: session } = useSession();
-  const user = session?.user;
   const [loading, setLoading] = useState(false);
 
   const form = useForm<NewInvoiceFormValues>({
@@ -93,7 +91,7 @@ export const NewInvoiceDrawer = ({
         issueDate: values.issueDate?.toISOString() || '',
         dueDate: values.issueDate?.toISOString() || '',
         notes: values.notes || undefined,
-        createdById: user?.id,
+        createdById: UserProfileData.id,
       };
 
       // Use the onCreate mutation passed from parent (includes auto-refetch)

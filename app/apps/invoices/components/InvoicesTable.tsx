@@ -25,7 +25,6 @@ import {
   IconTrash,
 } from '@tabler/icons-react';
 
-import { useSession } from 'next-auth/react';
 import type { InvoiceDto } from '@/types';
 import {
   InvoiceStatus,
@@ -50,8 +49,6 @@ export const InvoicesTable = ({
   onView,
   onDelete,
 }: InvoicesTableProps) => {
-  const { data: session } = useSession();
-  const user = session?.user;
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [currentPage, setCurrentPage] = useState(1);
@@ -143,7 +140,7 @@ export const InvoicesTable = ({
   }
 
   const rows = paginatedData.map((invoice) => {
-    const isCreator = user?.id === invoice.createdById;
+    const isCreator = true; // Auth removed - all users can edit for demo purposes
 
     return (
       <Table.Tr key={invoice.id}>

@@ -15,7 +15,7 @@ import {
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { useSession } from 'next-auth/react';
+
 import { IProductCategory } from '@/types/products';
 
 type EditCategoryDrawer = Omit<DrawerProps, 'title' | 'children'> & {

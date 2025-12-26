@@ -17,7 +17,7 @@ import { useColorScheme } from '@mantine/hooks';
 import { IconRefresh } from '@tabler/icons-react';
 
 import { FilterDateMenu, Surface } from '@/components';
-import { useSession } from 'next-auth/react';
+import UserProfileData from '@/public/mocks/UserProfile.json';
 
 type PageHeaderProps = {
   title: string;
@@ -36,8 +36,7 @@ const PageHeader = (props: PageHeaderProps) => {
     actionContent,
     ...others
   } = props;
-  const { data: session } = useSession();
-  const user = session?.user;
+  const user = UserProfileData;
 
   const theme = useMantineTheme();
   const colorScheme = useColorScheme();

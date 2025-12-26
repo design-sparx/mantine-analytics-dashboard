@@ -21,7 +21,6 @@ import { useFetch } from '@mantine/hooks';
 import { IconDownload, IconEdit, IconPrinter } from '@tabler/icons-react';
 
 import { PageHeader } from '@/components';
-import { useSession } from 'next-auth/react';
 import { PATH_DASHBOARD } from '@/routes';
 import { IApiResponse } from '@/types/api-response';
 import {
@@ -41,8 +40,6 @@ interface InvoiceDetailsProps {
 }
 
 function InvoiceDetails({ params }: InvoiceDetailsProps) {
-  const { data: session } = useSession();
-  const user = session?.user;
   const [invoice, setInvoice] = useState<IInvoice | null>(null);
 
   const {

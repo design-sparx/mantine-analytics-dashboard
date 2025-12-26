@@ -32,7 +32,6 @@ import { LanguagePicker } from '@/components';
 import { MESSAGES } from '@/constants/messages';
 import { NOTIFICATIONS } from '@/constants/notifications';
 import { HeaderVariant, useSidebarConfig } from '@/contexts/theme-customizer';
-import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import UserProfileData from '@/public/mocks/UserProfile.json';
 
@@ -61,8 +60,6 @@ const HeaderNav = (props: HeaderNavProps) => {
   const tablet_match = useMediaQuery('(max-width: 768px)');
   const mobile_match = useMediaQuery('(max-width: 425px)');
   const sidebarConfig = useSidebarConfig();
-  const { data: session } = useSession();
-  const user = session?.user;
   const router = useRouter();
 
   // Determine text color based on header variant
@@ -279,8 +276,8 @@ const HeaderNav = (props: HeaderNavProps) => {
                 style={{ borderRadius: '50%' }}
               >
                 <Avatar
-                  src={user?.image ?? UserProfileData.avatar}
-                  alt={user?.name ?? UserProfileData.name}
+                  src={UserProfileData.avatar}
+                  alt={UserProfileData.name}
                   size="sm"
                 />
               </ActionIcon>
@@ -290,10 +287,10 @@ const HeaderNav = (props: HeaderNavProps) => {
             <Menu.Label>
               <Stack gap={4}>
                 <Text size="sm" fw={500}>
-                  {user?.name ?? UserProfileData.name}
+                  {UserProfileData.name}
                 </Text>
                 <Text size="xs" c="dimmed">
-                  {user?.email ?? UserProfileData.email}
+                  {UserProfileData.email}
                 </Text>
               </Stack>
             </Menu.Label>
@@ -308,7 +305,7 @@ const HeaderNav = (props: HeaderNavProps) => {
             <Menu.Item
               leftSection={<IconPower size={16} />}
               color="red"
-              onClick={() => signOut({ callbackUrl: '/auth/signin' })}
+              onClick={() => router.push('/')}
             >
               Logout
             </Menu.Item>

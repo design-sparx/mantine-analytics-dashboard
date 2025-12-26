@@ -10,7 +10,6 @@ import {
 import { IconEdit, IconEye, IconFileText } from '@tabler/icons-react';
 
 import { Surface } from '@/components';
-import { useSession } from 'next-auth/react';
 import type { InvoiceDto } from '@/types';
 import {
   getInvoiceStatusColor,
@@ -29,10 +28,8 @@ export const InvoiceCard = ({
   onView,
   ...paperProps
 }: InvoiceCardProps) => {
-  const { data: session } = useSession();
-  const user = session?.user;
-
-  const isCreator = user?.id === data?.createdById;
+  // Auth removed - all users can edit for demo purposes
+  const isCreator = true;
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {

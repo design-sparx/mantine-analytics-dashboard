@@ -21,7 +21,6 @@ import { notifications } from '@mantine/notifications';
 import { IconCloudUpload, IconDeviceFloppy } from '@tabler/icons-react';
 
 import { PageHeader, Surface, TextEditor } from '@/components';
-import { useSession } from 'next-auth/react';
 import { useProfile } from '@/lib/hooks/useApi';
 import { PATH_DASHBOARD } from '@/routes';
 
@@ -49,8 +48,6 @@ const BIO =
 
 function Settings() {
   const [file, setFile] = useState<File | null>(null);
-  const { data: session } = useSession();
-  const user = session?.user;
 
   const {
     data: profileData,
@@ -61,14 +58,14 @@ function Settings() {
 
   const accountForm = useForm({
     initialValues: {
-      username: profile?.name || user?.name || '',
+      username: profile?.name || '',
       biograghy: BIO,
     },
   });
 
   const accountInfoForm = useForm({
     initialValues: {
-      email: profile?.email || user?.email || '',
+      email: profile?.email || '',
       phoneNumber: '',
     },
     validate: {

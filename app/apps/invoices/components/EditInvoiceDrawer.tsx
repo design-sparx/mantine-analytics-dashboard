@@ -22,7 +22,7 @@ import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { useSession } from 'next-auth/react';
+
 import type { InvoiceDto, ApiResponse } from '@/types';
 import {
   InvoiceStatus,
@@ -56,8 +56,6 @@ export const EditInvoiceDrawer = ({
   onInvoiceUpdated,
   ...drawerProps
 }: EditInvoiceDrawerProps) => {
-  const { data: session } = useSession();
-  const user = session?.user;
   const [loading, setLoading] = useState(false);
   const [isCreator, setIsCreator] = useState(false);
 
@@ -150,10 +148,10 @@ export const EditInvoiceDrawer = ({
       });
 
       // Check if the current user is the creator of the invoice
-      setIsCreator(user?.id === invoice.createdById);
+      setIsCreator(true); // Auth removed - all users can edit for demo purposes
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [invoice, user]);
+  }, [invoice]);
 
   const statusOptions = [
     { value: InvoiceStatus.Draft.toString(), label: 'Draft' },

@@ -14,7 +14,7 @@ import {
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { useSession } from 'next-auth/react';
+
 
 type NewCategoryDrawer = Omit<DrawerProps, 'title' | 'children'> & {
   onCategoryCreated?: () => void;

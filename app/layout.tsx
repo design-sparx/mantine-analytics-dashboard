@@ -11,7 +11,6 @@ import { DatesProvider } from '@mantine/dates';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 
-import { AuthProvider } from '@/components/auth/AuthProvider';
 import {
   COLOR_SCHEMES,
   ThemeCustomizerProvider,
@@ -147,13 +146,11 @@ export default function RootLayout({
         <ColorSchemeScript defaultColorScheme="auto" />
       </head>
       <body>
-        <AuthProvider>
-          <SystemNotificationsProvider>
-            <ThemeCustomizerProvider>
-              <ThemeProvider>{children}</ThemeProvider>
-            </ThemeCustomizerProvider>
-          </SystemNotificationsProvider>
-        </AuthProvider>
+        <SystemNotificationsProvider>
+          <ThemeCustomizerProvider>
+            <ThemeProvider>{children}</ThemeProvider>
+          </ThemeCustomizerProvider>
+        </SystemNotificationsProvider>
       </body>
     </html>
   );

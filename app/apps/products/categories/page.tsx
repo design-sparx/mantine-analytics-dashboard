@@ -17,7 +17,6 @@ import { IconMoodEmpty, IconPlus } from '@tabler/icons-react';
 
 import NewCategoryDrawer from '@/app/apps/products/categories/components/NewCategoryDrawer';
 import { ErrorAlert, PageHeader, Surface } from '@/components';
-import { useSession } from 'next-auth/react';
 import { PATH_DASHBOARD } from '@/routes';
 import { IApiResponse } from '@/types/api-response';
 import { IProductCategory } from '@/types/products';
@@ -37,7 +36,6 @@ const items = [
 ));
 
 function Categories() {
-  const { data: session } = useSession();
   // Note: Mock system doesn't use permissions or access tokens
   const [selectedCategory, setSelectedCategory] =
     useState<IProductCategory | null>(null);

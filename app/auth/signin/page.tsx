@@ -16,10 +16,10 @@ import {
   Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { notifications } from '@mantine/notifications';
 import { IconAlertCircle } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { signIn } from 'next-auth/react';
 
 import { Surface } from '@/components';
 import { PATH_AUTH, PATH_DASHBOARD } from '@/routes';
@@ -54,19 +54,15 @@ function Page() {
       setIsLoading(true);
       setError(null);
 
-      const result = await signIn('credentials', {
-        redirect: false,
-        email: values.email,
-        password: values.password,
-      });
+      // Simple demo login - just redirect to dashboard
+      // In a real application, implement your auth logic here with Clerk or Auth0
 
-      if (!result?.ok) {
-        setError('Invalid email or password');
-        return;
-      }
+      // Simulate a brief loading state
+      await new Promise(resolve => setTimeout(resolve, 500));
 
-      router.push(callbackUrl);
-      router.refresh();
+      // Redirect to dashboard
+      router.push(PATH_DASHBOARD.default);
+
     } catch (error) {
       setError('An unexpected error occurred');
       console.error('Sign in error:', error);

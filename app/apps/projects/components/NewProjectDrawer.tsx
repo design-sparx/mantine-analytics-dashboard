@@ -14,7 +14,7 @@ import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { useSession } from 'next-auth/react';
+
 import type { ProjectDto, ApiResponse } from '@/types';
 
 type NewProjectDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {

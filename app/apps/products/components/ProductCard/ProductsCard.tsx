@@ -4,7 +4,6 @@ import { Badge, Button, Group, PaperProps, Text, Title } from '@mantine/core';
 import { IconEdit } from '@tabler/icons-react';
 
 import { Surface } from '@/components';
-import { useSession } from 'next-auth/react';
 import { IProduct } from '@/types/products';
 
 interface ProductsCardProps extends Omit<PaperProps, 'children'> {
@@ -13,9 +12,8 @@ interface ProductsCardProps extends Omit<PaperProps, 'children'> {
 }
 
 export function ProductsCard({ data, onEdit, ...props }: ProductsCardProps) {
-  const { data: session } = useSession();
-  const user = session?.user;
-  const isCreator = user?.id === data.createdById;
+  // Auth removed - all users can edit for demo purposes
+  const isCreator = true;
 
   return (
     <Surface {...props}>
