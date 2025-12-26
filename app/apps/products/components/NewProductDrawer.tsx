@@ -28,8 +28,6 @@ export const NewProductDrawer = ({
   onProductCreated,
   ...drawerProps
 }: NewProjectDrawerProps) => {
-  const { data: session } = useSession();
-  const user = session?.user;
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState<
     { value: string; label: string }[]
@@ -96,7 +94,7 @@ export const NewProductDrawer = ({
     try {
       const payload = {
         ...values,
-        createdById: user?.id,
+        createdById: 'user-demo-001',
       };
 
       const response = await fetch('/api/products', {

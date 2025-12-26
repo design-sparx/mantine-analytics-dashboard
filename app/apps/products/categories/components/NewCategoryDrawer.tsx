@@ -24,8 +24,6 @@ export const NewCategoryDrawer = ({
   onCategoryCreated,
   ...drawerProps
 }: NewCategoryDrawer) => {
-  const { data: session } = useSession();
-  const user = session?.user;
   const [loading, setLoading] = useState(false);
 
   const form = useForm({
@@ -44,7 +42,7 @@ export const NewCategoryDrawer = ({
     try {
       const payload = {
         ...values,
-        createdById: user?.id,
+        createdById: 'user-demo-001',
       };
 
       const response = await fetch('/api/product-categories', {

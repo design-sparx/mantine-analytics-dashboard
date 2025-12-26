@@ -28,10 +28,8 @@ export const EditCategoryDrawer = ({
   onCategoryUpdated,
   ...drawerProps
 }: EditCategoryDrawer) => {
-  const { data: session } = useSession();
-  const user = session?.user;
   const [loading, setLoading] = useState(false);
-  const [isCreator, setIsCreator] = useState(false);
+  const [isCreator, setIsCreator] = useState(true);
 
   // In a mock data template, all users can edit
   const canEditProductCategory = true;
@@ -54,7 +52,7 @@ export const EditCategoryDrawer = ({
     try {
       const payload = {
         ...values,
-        modifiedById: user?.id,
+        modifiedById: 'user-demo-001',
       };
 
       const response = await fetch(
@@ -164,10 +162,10 @@ export const EditCategoryDrawer = ({
       });
 
       // Check if the current user is the creator of the product
-      setIsCreator(user?.id === productCategory.createdById);
+      setIsCreator(true); // Auth removed - all users can edit for demo purposes
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productCategory, user]);
+  }, [productCategory]);
 
   return (
     <Drawer {...drawerProps} title="Edit product category">

@@ -80,11 +80,11 @@ function Settings() {
   useEffect(() => {
     if (profile) {
       accountForm.setValues({
-        username: profile.name || user?.name || '',
+        username: profile.name || '',
         biograghy: BIO,
       });
       accountInfoForm.setValues({
-        email: profile.email || user?.email || '',
+        email: profile.email || '',
         phoneNumber: '',
       });
     }
@@ -149,7 +149,6 @@ function Settings() {
                       <Image
                         src={
                           profile?.avatar ||
-                          user?.image ||
                           'https://res.cloudinary.com/ddh7hfzso/image/upload/v1700303804/me/ovqjhhs79u3g2fwbl2dd.jpg'
                         }
                         h={128}

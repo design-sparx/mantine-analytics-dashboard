@@ -27,8 +27,6 @@ export const NewProjectDrawer = ({
   onProjectCreated,
   ...drawerProps
 }: NewProjectDrawerProps) => {
-  const { data: session } = useSession();
-  const user = session?.user;
   const [loading, setLoading] = useState(false);
 
   const form = useForm({

@@ -84,7 +84,7 @@ function InvoiceDetails({ params }: InvoiceDetailsProps) {
     return new Date(invoice.dueDate) < new Date() && invoice.status !== 5; // Not paid
   };
 
-  const isCreator = user?.id === invoice?.createdById;
+  const isCreator = true; // Auth removed - all users can edit for demo purposes
 
   if (invoiceLoading) {
     return (

@@ -3,7 +3,6 @@
 import { ReactNode } from 'react';
 
 import { MainLayout } from '@/layouts/Main';
-import { Providers } from '@/providers/session';
 
 type AuthProps = {
   children: ReactNode;
@@ -12,7 +11,7 @@ type AuthProps = {
 function AuthLayout({ children }: AuthProps) {
   return (
     <MainLayout>
-      <Providers>{children}</Providers>
+      {children}
     </MainLayout>
   );
 }

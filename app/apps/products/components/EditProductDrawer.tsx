@@ -32,8 +32,6 @@ export const EditProductDrawer = ({
   onProductUpdated,
   ...drawerProps
 }: EditProductDrawerProps) => {
-  const { data: session } = useSession();
-  const user = session?.user;
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState<
     {
@@ -118,10 +116,10 @@ export const EditProductDrawer = ({
       });
 
       // Check if the current user is the creator of the product
-      setIsCreator(user?.id === product.createdById);
+      setIsCreator(true); // Auth removed - all users can edit for demo purposes
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [product, user]);
+  }, [product]);
 
   const handleSubmit = async (values: typeof form.values) => {
     if (!product || !isCreator || !canEditProduct) return;
@@ -130,7 +128,7 @@ export const EditProductDrawer = ({
     try {
       const payload = {
         ...values,
-        modifiedById: user?.id,
+        modifiedById: 'user-demo-001',
       };
 
       const response = await fetch(`/api/products/${product.id}`, {
