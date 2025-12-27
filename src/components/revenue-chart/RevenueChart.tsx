@@ -5,84 +5,55 @@ import {
   Group,
   PaperProps,
   Text,
-  useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core';
+import { AreaChart } from '@mantine/charts';
 import { IconDotsVertical } from '@tabler/icons-react';
-import dynamic from 'next/dynamic';
 
 import { Surface } from '@/components';
-
-const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 type RevenueChartProps = PaperProps;
 
 const RevenueChart = ({ ...others }: RevenueChartProps) => {
   const theme = useMantineTheme();
-  const { colorScheme } = useMantineColorScheme();
 
-  const series = [
+  const data = [
     {
-      name: 'series1',
-      data: [31, 40, 28, 51, 42, 109, 100],
+      date: '00:00',
+      series1: 31,
+      series2: 11,
     },
     {
-      name: 'series2',
-      data: [11, 32, 45, 32, 34, 52, 41],
+      date: '01:30',
+      series1: 40,
+      series2: 32,
+    },
+    {
+      date: '02:30',
+      series1: 28,
+      series2: 45,
+    },
+    {
+      date: '03:30',
+      series1: 51,
+      series2: 32,
+    },
+    {
+      date: '04:30',
+      series1: 42,
+      series2: 34,
+    },
+    {
+      date: '05:30',
+      series1: 109,
+      series2: 52,
+    },
+    {
+      date: '06:30',
+      series1: 100,
+      series2: 41,
     },
   ];
-
-  const options: any = {
-    chart: {
-      height: 350,
-      type: 'area',
-      fontFamily: 'Open Sans, sans-serif',
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      curve: 'smooth',
-    },
-    xaxis: {
-      type: 'datetime',
-      categories: [
-        '2018-09-19T00:00:00.000Z',
-        '2018-09-19T01:30:00.000Z',
-        '2018-09-19T02:30:00.000Z',
-        '2018-09-19T03:30:00.000Z',
-        '2018-09-19T04:30:00.000Z',
-        '2018-09-19T05:30:00.000Z',
-        '2018-09-19T06:30:00.000Z',
-      ],
-      labels: {
-        style: {
-          colors: colorScheme === 'dark' ? theme.white : theme.black,
-        },
-      },
-    },
-    yaxis: {
-      labels: {
-        style: {
-          colors: colorScheme === 'dark' ? theme.white : theme.black,
-        },
-      },
-    },
-    tooltip: {
-      x: {
-        format: 'dd/MM/yy HH:mm',
-      },
-    },
-    colors: [
-      theme.colors[theme.primaryColor][5],
-      theme.colors[theme.primaryColor][2],
-    ],
-    legend: {
-      labels: {
-        colors: [colorScheme === 'dark' ? theme.white : theme.black],
-      },
-    },
-  };
 
   return (
     <Surface {...others}>
@@ -94,13 +65,17 @@ const RevenueChart = ({ ...others }: RevenueChartProps) => {
           <IconDotsVertical size={16} />
         </ActionIcon>
       </Group>
-      {/*@ts-ignore*/}
-      <Chart
-        options={options}
-        series={series}
-        type="area"
-        height={350}
-        width={'100%'}
+      <AreaChart
+        h={350}
+        data={data}
+        dataKey="date"
+        series={[
+          { name: 'series1', color: theme.colors[theme.primaryColor][5] },
+          { name: 'series2', color: theme.colors[theme.primaryColor][2] },
+        ]}
+        curveType="natural"
+        withLegend
+        legendProps={{ verticalAlign: 'bottom', height: 50 }}
       />
     </Surface>
   );
