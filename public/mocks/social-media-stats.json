@@ -1,0 +1,56 @@
+[
+  {
+    "platform": "Facebook",
+    "followers": 45230,
+    "engagement": 4.8,
+    "posts": 156,
+    "reach": 324500,
+    "trend": "up",
+    "color": "blue"
+  },
+  {
+    "platform": "Instagram",
+    "followers": 38450,
+    "engagement": 6.2,
+    "posts": 203,
+    "reach": 287300,
+    "trend": "up",
+    "color": "pink"
+  },
+  {
+    "platform": "Twitter",
+    "followers": 27680,
+    "engagement": 3.4,
+    "posts": 412,
+    "reach": 198600,
+    "trend": "stable",
+    "color": "cyan"
+  },
+  {
+    "platform": "LinkedIn",
+    "followers": 18920,
+    "engagement": 5.6,
+    "posts": 89,
+    "reach": 145800,
+    "trend": "up",
+    "color": "indigo"
+  },
+  {
+    "platform": "YouTube",
+    "followers": 12340,
+    "engagement": 7.8,
+    "posts": 45,
+    "reach": 234500,
+    "trend": "up",
+    "color": "red"
+  },
+  {
+    "platform": "TikTok",
+    "followers": 52100,
+    "engagement": 9.2,
+    "posts": 178,
+    "reach": 456700,
+    "trend": "up",
+    "color": "grape"
+  }
+]

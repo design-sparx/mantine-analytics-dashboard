@@ -1,0 +1,14 @@
+[
+  { "date": "Jan", "impressions": 125000, "clicks": 4250, "conversions": 340 },
+  { "date": "Feb", "impressions": 142000, "clicks": 5100, "conversions": 408 },
+  { "date": "Mar", "impressions": 138000, "clicks": 4830, "conversions": 386 },
+  { "date": "Apr", "impressions": 165000, "clicks": 5940, "conversions": 475 },
+  { "date": "May", "impressions": 178000, "clicks": 6230, "conversions": 498 },
+  { "date": "Jun", "impressions": 195000, "clicks": 7020, "conversions": 562 },
+  { "date": "Jul", "impressions": 210000, "clicks": 7560, "conversions": 605 },
+  { "date": "Aug", "impressions": 198000, "clicks": 7130, "conversions": 570 },
+  { "date": "Sep", "impressions": 215000, "clicks": 7740, "conversions": 619 },
+  { "date": "Oct", "impressions": 228000, "clicks": 8210, "conversions": 657 },
+  { "date": "Nov", "impressions": 242000, "clicks": 8712, "conversions": 697 },
+  { "date": "Dec", "impressions": 265000, "clicks": 9540, "conversions": 763 }
+]

@@ -9,7 +9,9 @@ import {
   IconExclamationCircle,
   IconFileInvoice,
   IconFiles,
-  IconLayersSubtract, IconLifebuoy, IconList,
+  IconLayersSubtract,
+  IconLifebuoy,
+  IconList,
   IconListDetails,
   IconLogin2,
   IconMessages,
@@ -19,7 +21,13 @@ import {
   IconUserCircle,
   IconUserCode,
   IconUserPlus,
-  IconUserShield
+  IconUserShield,
+  IconShoppingCart,
+  IconUsers,
+  IconCoin,
+  IconSpeakerphone,
+  IconStethoscope,
+  IconSchool,
 } from '@tabler/icons-react';
 
 import { PATH_ABOUT, PATH_APPS, PATH_AUTH, PATH_DASHBOARD, PATH_DOCS, PATH_PAGES } from '@/routes';
@@ -35,6 +43,12 @@ export const SIDEBAR_LINKS = [
         link: PATH_DASHBOARD.analytics,
       },
       { label: 'SaaS', icon: IconChartArcs3, link: PATH_DASHBOARD.saas },
+      { label: 'E-commerce', icon: IconShoppingCart, link: PATH_DASHBOARD.ecommerce },
+      { label: 'CRM', icon: IconUsers, link: PATH_DASHBOARD.crm },
+      { label: 'Finance', icon: IconCoin, link: PATH_DASHBOARD.finance },
+      { label: 'Marketing', icon: IconSpeakerphone, link: PATH_DASHBOARD.marketing },
+      { label: 'Healthcare', icon: IconStethoscope, link: PATH_DASHBOARD.healthcare },
+      { label: 'Education', icon: IconSchool, link: PATH_DASHBOARD.education },
     ],
   },
   {

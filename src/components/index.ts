@@ -83,3 +83,10 @@ export { ActivitiesTimeline } from './crm-dashboard/ActivitiesTimeline';
 export { CashflowChart } from './finance-dashboard/CashflowChart';
 export { ExpenseBreakdown } from './finance-dashboard/ExpenseBreakdown';
 export { InvoicesTable as FinanceInvoicesTable } from './finance-dashboard/InvoicesTable';
+
+// Marketing Dashboard Components
+export { CampaignPerformanceChart } from './marketing-dashboard/campaign-performance-chart';
+export { TrafficSourcesChart } from './marketing-dashboard/traffic-sources-chart';
+export { SocialMediaTable } from './marketing-dashboard/social-media-table';
+export { EmailCampaignsTable } from './marketing-dashboard/email-campaigns-table';
+export { TopCampaignsTable } from './marketing-dashboard/top-campaigns-table';
