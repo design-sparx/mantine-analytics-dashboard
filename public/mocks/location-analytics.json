@@ -1,0 +1,37 @@
+[
+  {
+    "location": "San Francisco, CA",
+    "properties": 156,
+    "avgPrice": 1450000,
+    "growth": 8.5,
+    "occupancy": 94.2
+  },
+  {
+    "location": "New York, NY",
+    "properties": 198,
+    "avgPrice": 1280000,
+    "growth": 6.3,
+    "occupancy": 91.5
+  },
+  {
+    "location": "Los Angeles, CA",
+    "properties": 145,
+    "avgPrice": 1120000,
+    "growth": 7.8,
+    "occupancy": 93.1
+  },
+  {
+    "location": "Miami, FL",
+    "properties": 124,
+    "avgPrice": 685000,
+    "growth": 12.4,
+    "occupancy": 89.7
+  },
+  {
+    "location": "Seattle, WA",
+    "properties": 112,
+    "avgPrice": 895000,
+    "growth": 9.2,
+    "occupancy": 92.8
+  }
+]

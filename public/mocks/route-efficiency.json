@@ -1,0 +1,37 @@
+[
+  {
+    "route": "East Coast",
+    "efficiency": 96.5,
+    "avgTime": "1.8 days",
+    "shipments": 845,
+    "fuelCost": "$12,450"
+  },
+  {
+    "route": "West Coast",
+    "efficiency": 94.2,
+    "avgTime": "2.1 days",
+    "shipments": 723,
+    "fuelCost": "$15,200"
+  },
+  {
+    "route": "Central",
+    "efficiency": 92.8,
+    "avgTime": "2.3 days",
+    "shipments": 612,
+    "fuelCost": "$10,800"
+  },
+  {
+    "route": "North",
+    "efficiency": 91.5,
+    "avgTime": "2.5 days",
+    "shipments": 487,
+    "fuelCost": "$11,350"
+  },
+  {
+    "route": "South",
+    "efficiency": 93.7,
+    "avgTime": "2.0 days",
+    "shipments": 698,
+    "fuelCost": "$13,100"
+  }
+]

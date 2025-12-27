@@ -1,0 +1,42 @@
+[
+  {
+    "model": "GPT-4",
+    "requests": 845000,
+    "tokens": 652000000,
+    "avgLatency": 1.8,
+    "successRate": 98.5,
+    "cost": 12450
+  },
+  {
+    "model": "GPT-3.5 Turbo",
+    "requests": 1256000,
+    "tokens": 892000000,
+    "avgLatency": 0.8,
+    "successRate": 99.2,
+    "cost": 4520
+  },
+  {
+    "model": "Claude 3 Opus",
+    "requests": 234000,
+    "tokens": 187000000,
+    "avgLatency": 1.5,
+    "successRate": 98.8,
+    "cost": 8900
+  },
+  {
+    "model": "Gemini Pro",
+    "requests": 156000,
+    "tokens": 124000000,
+    "avgLatency": 1.2,
+    "successRate": 97.9,
+    "cost": 3200
+  },
+  {
+    "model": "Llama 3",
+    "requests": 89000,
+    "tokens": 68000000,
+    "avgLatency": 0.9,
+    "successRate": 96.5,
+    "cost": 890
+  }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Total Properties",
+    "value": "847",
+    "diff": 8.2,
+    "icon": "IconHome",
+    "color": "blue"
+  },
+  {
+    "title": "Total Value",
+    "value": "$425M",
+    "diff": 15.3,
+    "icon": "IconCurrencyDollar",
+    "color": "green"
+  },
+  {
+    "title": "Occupancy Rate",
+    "value": "92.5%",
+    "diff": 3.1,
+    "icon": "IconKey",
+    "color": "teal"
+  },
+  {
+    "title": "Avg Price/SqFt",
+    "value": "$285",
+    "diff": 6.7,
+    "icon": "IconChartBar",
+    "color": "violet"
+  }
+]

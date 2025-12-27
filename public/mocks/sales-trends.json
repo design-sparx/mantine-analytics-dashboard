@@ -1,0 +1,38 @@
+[
+  {
+    "month": "Jul",
+    "sales": 42,
+    "revenue": 52.5,
+    "avgPrice": 1.25
+  },
+  {
+    "month": "Aug",
+    "sales": 48,
+    "revenue": 61.2,
+    "avgPrice": 1.28
+  },
+  {
+    "month": "Sep",
+    "sales": 45,
+    "revenue": 58.5,
+    "avgPrice": 1.30
+  },
+  {
+    "month": "Oct",
+    "sales": 52,
+    "revenue": 68.4,
+    "avgPrice": 1.32
+  },
+  {
+    "month": "Nov",
+    "sales": 55,
+    "revenue": 74.2,
+    "avgPrice": 1.35
+  },
+  {
+    "month": "Dec",
+    "sales": 38,
+    "revenue": 52.8,
+    "avgPrice": 1.39
+  }
+]

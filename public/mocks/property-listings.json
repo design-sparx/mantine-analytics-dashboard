@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "address": "123 Oak Avenue",
+    "city": "San Francisco",
+    "state": "CA",
+    "price": 1250000,
+    "bedrooms": 4,
+    "bathrooms": 3,
+    "sqft": 2800,
+    "status": "For Sale",
+    "type": "House",
+    "daysOnMarket": 12
+  },
+  {
+    "id": 2,
+    "address": "456 Maple Street",
+    "city": "New York",
+    "state": "NY",
+    "price": 850000,
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "sqft": 1400,
+    "status": "Sold",
+    "type": "Condo",
+    "daysOnMarket": 8
+  },
+  {
+    "id": 3,
+    "address": "789 Pine Boulevard",
+    "city": "Los Angeles",
+    "state": "CA",
+    "price": 2100000,
+    "bedrooms": 5,
+    "bathrooms": 4,
+    "sqft": 3500,
+    "status": "For Sale",
+    "type": "House",
+    "daysOnMarket": 25
+  },
+  {
+    "id": 4,
+    "address": "321 Elm Drive",
+    "city": "Miami",
+    "state": "FL",
+    "price": 625000,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "sqft": 1850,
+    "status": "Pending",
+    "type": "Townhouse",
+    "daysOnMarket": 5
+  },
+  {
+    "id": 5,
+    "address": "567 Cedar Lane",
+    "city": "Seattle",
+    "state": "WA",
+    "price": 975000,
+    "bedrooms": 3,
+    "bathrooms": 2.5,
+    "sqft": 2200,
+    "status": "For Rent",
+    "type": "House",
+    "daysOnMarket": 15
+  }
+]

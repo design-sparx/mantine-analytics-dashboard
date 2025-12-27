@@ -28,6 +28,10 @@ import {
   IconSpeakerphone,
   IconStethoscope,
   IconSchool,
+  IconTruckDelivery,
+  IconUserCog,
+  IconBuilding,
+  IconRobot,
 } from '@tabler/icons-react';
 
 import { PATH_ABOUT, PATH_APPS, PATH_AUTH, PATH_DASHBOARD, PATH_DOCS, PATH_PAGES } from '@/routes';
@@ -49,6 +53,10 @@ export const SIDEBAR_LINKS = [
       { label: 'Marketing', icon: IconSpeakerphone, link: PATH_DASHBOARD.marketing },
       { label: 'Healthcare', icon: IconStethoscope, link: PATH_DASHBOARD.healthcare },
       { label: 'Education', icon: IconSchool, link: PATH_DASHBOARD.education },
+      { label: 'Logistics', icon: IconTruckDelivery, link: PATH_DASHBOARD.logistics },
+      { label: 'HR', icon: IconUserCog, link: PATH_DASHBOARD.hr },
+      { label: 'Real Estate', icon: IconBuilding, link: PATH_DASHBOARD.realEstate },
+      { label: 'LLM/AI', icon: IconRobot, link: PATH_DASHBOARD.llm },
     ],
   },
   {

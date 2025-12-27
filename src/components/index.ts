@@ -104,3 +104,31 @@ export { GradeDistributionChart } from './education-dashboard/grade-distribution
 export { StudentActivityChart } from './education-dashboard/student-activity-chart';
 export { CourseCompletionTable } from './education-dashboard/course-completion-table';
 export { InstructorPerformanceTable } from './education-dashboard/instructor-performance-table';
+
+// Logistics Dashboard Components
+export { ActiveShipmentsTable } from './logistics-dashboard/active-shipments-table';
+export { FleetStatusChart } from './logistics-dashboard/fleet-status-chart';
+export { DeliveryPerformanceChart } from './logistics-dashboard/delivery-performance-chart';
+export { RouteEfficiencyTable } from './logistics-dashboard/route-efficiency-table';
+export { WarehouseInventoryChart } from './logistics-dashboard/warehouse-inventory-chart';
+
+// HR Dashboard Components
+export { EmployeeDistributionChart } from './hr-dashboard/employee-distribution-chart';
+export { RecruitmentPipelineChart } from './hr-dashboard/recruitment-pipeline-chart';
+export { EmployeePerformanceChart } from './hr-dashboard/employee-performance-chart';
+export { OpenPositionsTable } from './hr-dashboard/open-positions-table';
+export { AttendanceChart } from './hr-dashboard/attendance-chart';
+
+// Real Estate Dashboard Components
+export { PropertyListingsTable } from './real-estate-dashboard/property-listings-table';
+export { PropertyTypesChart } from './real-estate-dashboard/property-types-chart';
+export { SalesTrendsChart } from './real-estate-dashboard/sales-trends-chart';
+export { LocationAnalyticsTable } from './real-estate-dashboard/location-analytics-table';
+export { PriceDistributionChart } from './real-estate-dashboard/price-distribution-chart';
+
+// LLM/AI Dashboard Components
+export { ModelUsageTable } from './llm-dashboard/model-usage-table';
+export { TokenUsageChart } from './llm-dashboard/token-usage-chart';
+export { UseCaseChart } from './llm-dashboard/use-case-chart';
+export { PerformanceMetricsChart } from './llm-dashboard/performance-metrics-chart';
+export { CostAnalysisChart } from './llm-dashboard/cost-analysis-chart';

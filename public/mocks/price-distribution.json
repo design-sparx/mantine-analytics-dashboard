@@ -1,0 +1,27 @@
+[
+  {
+    "range": "Under $500K",
+    "count": 145,
+    "color": "blue"
+  },
+  {
+    "range": "$500K-$1M",
+    "count": 298,
+    "color": "green"
+  },
+  {
+    "range": "$1M-$2M",
+    "count": 256,
+    "color": "violet"
+  },
+  {
+    "range": "$2M-$5M",
+    "count": 112,
+    "color": "orange"
+  },
+  {
+    "range": "Over $5M",
+    "count": 36,
+    "color": "red"
+  }
+]

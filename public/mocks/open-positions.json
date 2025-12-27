@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "title": "Senior Frontend Engineer",
+    "department": "Engineering",
+    "location": "Remote",
+    "type": "Full-time",
+    "applicants": 87,
+    "daysOpen": 12,
+    "priority": "High"
+  },
+  {
+    "id": 2,
+    "title": "Product Manager",
+    "department": "Product",
+    "location": "New York, NY",
+    "type": "Full-time",
+    "applicants": 64,
+    "daysOpen": 8,
+    "priority": "High"
+  },
+  {
+    "id": 3,
+    "title": "UX Designer",
+    "department": "Design",
+    "location": "San Francisco, CA",
+    "type": "Full-time",
+    "applicants": 52,
+    "daysOpen": 15,
+    "priority": "Medium"
+  },
+  {
+    "id": 4,
+    "title": "Sales Representative",
+    "department": "Sales",
+    "location": "Chicago, IL",
+    "type": "Full-time",
+    "applicants": 43,
+    "daysOpen": 6,
+    "priority": "Medium"
+  },
+  {
+    "id": 5,
+    "title": "Data Analyst",
+    "department": "Analytics",
+    "location": "Remote",
+    "type": "Contract",
+    "applicants": 38,
+    "daysOpen": 10,
+    "priority": "Low"
+  }
+]

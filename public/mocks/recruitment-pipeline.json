@@ -1,0 +1,32 @@
+[
+  {
+    "stage": "Applied",
+    "count": 342,
+    "color": "gray"
+  },
+  {
+    "stage": "Screening",
+    "count": 156,
+    "color": "blue"
+  },
+  {
+    "stage": "Interview",
+    "count": 78,
+    "color": "cyan"
+  },
+  {
+    "stage": "Assessment",
+    "count": 45,
+    "color": "violet"
+  },
+  {
+    "stage": "Offer",
+    "count": 23,
+    "color": "orange"
+  },
+  {
+    "stage": "Hired",
+    "count": 18,
+    "color": "green"
+  }
+]

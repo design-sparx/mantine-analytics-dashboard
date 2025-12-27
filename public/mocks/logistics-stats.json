@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Active Shipments",
+    "value": "2,847",
+    "diff": 12.5,
+    "icon": "IconTruckDelivery",
+    "color": "blue"
+  },
+  {
+    "title": "Fleet Vehicles",
+    "value": "342",
+    "diff": 3.2,
+    "icon": "IconTruck",
+    "color": "teal"
+  },
+  {
+    "title": "On-Time Delivery",
+    "value": "94.2%",
+    "diff": 2.1,
+    "icon": "IconClock",
+    "color": "green"
+  },
+  {
+    "title": "Avg Delivery Time",
+    "value": "2.3 days",
+    "diff": -8.5,
+    "icon": "IconCalendar",
+    "color": "violet"
+  }
+]

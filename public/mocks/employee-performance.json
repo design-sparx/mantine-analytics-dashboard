@@ -1,0 +1,44 @@
+[
+  {
+    "month": "Jul",
+    "excellent": 42,
+    "good": 35,
+    "average": 18,
+    "poor": 5
+  },
+  {
+    "month": "Aug",
+    "excellent": 45,
+    "good": 33,
+    "average": 17,
+    "poor": 5
+  },
+  {
+    "month": "Sep",
+    "excellent": 48,
+    "good": 34,
+    "average": 14,
+    "poor": 4
+  },
+  {
+    "month": "Oct",
+    "excellent": 51,
+    "good": 32,
+    "average": 13,
+    "poor": 4
+  },
+  {
+    "month": "Nov",
+    "excellent": 53,
+    "good": 31,
+    "average": 12,
+    "poor": 4
+  },
+  {
+    "month": "Dec",
+    "excellent": 55,
+    "good": 30,
+    "average": 12,
+    "poor": 3
+  }
+]

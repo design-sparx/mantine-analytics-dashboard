@@ -29,6 +29,10 @@ export const PATH_DASHBOARD = {
   marketing: path(ROOTS_DASHBOARD, '/marketing'),
   healthcare: path(ROOTS_DASHBOARD, '/healthcare'),
   education: path(ROOTS_DASHBOARD, '/education'),
+  logistics: path(ROOTS_DASHBOARD, '/logistics'),
+  hr: path(ROOTS_DASHBOARD, '/hr'),
+  realEstate: path(ROOTS_DASHBOARD, '/real-estate'),
+  llm: path(ROOTS_DASHBOARD, '/llm'),
 };
 
 export const PATH_APPS = {

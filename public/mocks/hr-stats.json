@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Total Employees",
+    "value": "1,247",
+    "diff": 5.3,
+    "icon": "IconUsers",
+    "color": "blue"
+  },
+  {
+    "title": "New Hires (MTD)",
+    "value": "42",
+    "diff": 12.8,
+    "icon": "IconUserPlus",
+    "color": "green"
+  },
+  {
+    "title": "Turnover Rate",
+    "value": "3.2%",
+    "diff": -1.5,
+    "icon": "IconUserMinus",
+    "color": "red"
+  },
+  {
+    "title": "Avg Satisfaction",
+    "value": "4.3/5",
+    "diff": 0.2,
+    "icon": "IconMoodHappy",
+    "color": "violet"
+  }
+]

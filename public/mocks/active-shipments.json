@@ -1,0 +1,57 @@
+[
+  {
+    "id": "SHP-001",
+    "origin": "New York, NY",
+    "destination": "Los Angeles, CA",
+    "status": "In Transit",
+    "driver": "John Smith",
+    "progress": 65,
+    "eta": "2024-01-15T18:00:00",
+    "weight": "12.5 tons",
+    "type": "Express"
+  },
+  {
+    "id": "SHP-002",
+    "origin": "Chicago, IL",
+    "destination": "Miami, FL",
+    "status": "Loading",
+    "driver": "Sarah Johnson",
+    "progress": 15,
+    "eta": "2024-01-16T10:30:00",
+    "weight": "8.2 tons",
+    "type": "Standard"
+  },
+  {
+    "id": "SHP-003",
+    "origin": "Houston, TX",
+    "destination": "Seattle, WA",
+    "status": "In Transit",
+    "driver": "Mike Davis",
+    "progress": 45,
+    "eta": "2024-01-15T22:00:00",
+    "weight": "15.7 tons",
+    "type": "Express"
+  },
+  {
+    "id": "SHP-004",
+    "origin": "Boston, MA",
+    "destination": "Denver, CO",
+    "status": "Delayed",
+    "driver": "Emily Chen",
+    "progress": 30,
+    "eta": "2024-01-17T14:00:00",
+    "weight": "6.3 tons",
+    "type": "Standard"
+  },
+  {
+    "id": "SHP-005",
+    "origin": "Phoenix, AZ",
+    "destination": "Atlanta, GA",
+    "status": "In Transit",
+    "driver": "Robert Brown",
+    "progress": 80,
+    "eta": "2024-01-15T16:00:00",
+    "weight": "10.1 tons",
+    "type": "Express"
+  }
+]

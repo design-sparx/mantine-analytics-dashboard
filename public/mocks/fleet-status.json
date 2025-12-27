@@ -1,0 +1,20 @@
+[
+  {
+    "category": "Active",
+    "count": 285,
+    "percentage": 83.3,
+    "color": "green"
+  },
+  {
+    "category": "Maintenance",
+    "count": 38,
+    "percentage": 11.1,
+    "color": "yellow"
+  },
+  {
+    "category": "Idle",
+    "count": 19,
+    "percentage": 5.6,
+    "color": "gray"
+  }
+]

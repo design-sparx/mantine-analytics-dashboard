@@ -1,0 +1,38 @@
+[
+  {
+    "month": "Jul",
+    "onTime": 92,
+    "delayed": 8,
+    "total": 450
+  },
+  {
+    "month": "Aug",
+    "onTime": 94,
+    "delayed": 6,
+    "total": 520
+  },
+  {
+    "month": "Sep",
+    "onTime": 91,
+    "delayed": 9,
+    "total": 480
+  },
+  {
+    "month": "Oct",
+    "onTime": 95,
+    "delayed": 5,
+    "total": 550
+  },
+  {
+    "month": "Nov",
+    "onTime": 93,
+    "delayed": 7,
+    "total": 510
+  },
+  {
+    "month": "Dec",
+    "onTime": 94,
+    "delayed": 6,
+    "total": 590
+  }
+]
