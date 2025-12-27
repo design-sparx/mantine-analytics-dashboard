@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Total Patients",
+    "value": "2,847",
+    "diff": 12.5,
+    "period": "vs last month",
+    "icon": "users",
+    "color": "blue"
+  },
+  {
+    "title": "Appointments Today",
+    "value": "156",
+    "diff": 8.3,
+    "period": "vs yesterday",
+    "icon": "calendar",
+    "color": "teal"
+  },
+  {
+    "title": "Bed Occupancy",
+    "value": "87.5%",
+    "diff": 5.2,
+    "period": "vs last week",
+    "icon": "bed",
+    "color": "violet"
+  },
+  {
+    "title": "Available Doctors",
+    "value": "42",
+    "diff": -3.1,
+    "period": "vs last shift",
+    "icon": "stethoscope",
+    "color": "cyan"
+  },
+  {
+    "title": "Avg Wait Time",
+    "value": "18 min",
+    "diff": -12.5,
+    "period": "vs last week",
+    "icon": "clock",
+    "color": "orange"
+  },
+  {
+    "title": "Patient Satisfaction",
+    "value": "4.6/5",
+    "diff": 4.8,
+    "period": "vs last month",
+    "icon": "heart",
+    "color": "pink"
+  }
+]

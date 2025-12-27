@@ -90,3 +90,17 @@ export { TrafficSourcesChart } from './marketing-dashboard/traffic-sources-chart
 export { SocialMediaTable } from './marketing-dashboard/social-media-table';
 export { EmailCampaignsTable } from './marketing-dashboard/email-campaigns-table';
 export { TopCampaignsTable } from './marketing-dashboard/top-campaigns-table';
+
+// Healthcare Dashboard Components
+export { PatientSatisfactionChart } from './healthcare-dashboard/patient-satisfaction-chart';
+export { DepartmentPerformanceChart } from './healthcare-dashboard/department-performance-chart';
+export { BedOccupancyChart } from './healthcare-dashboard/bed-occupancy-chart';
+export { PatientAppointmentsTable } from './healthcare-dashboard/patient-appointments-table';
+export { MedicalInventoryTable } from './healthcare-dashboard/medical-inventory-table';
+
+// Education Dashboard Components
+export { StudentEnrollmentChart } from './education-dashboard/student-enrollment-chart';
+export { GradeDistributionChart } from './education-dashboard/grade-distribution-chart';
+export { StudentActivityChart } from './education-dashboard/student-activity-chart';
+export { CourseCompletionTable } from './education-dashboard/course-completion-table';
+export { InstructorPerformanceTable } from './education-dashboard/instructor-performance-table';

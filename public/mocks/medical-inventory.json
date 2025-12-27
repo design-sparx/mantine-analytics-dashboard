@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "itemName": "Surgical Masks (Box of 50)",
+    "category": "PPE",
+    "currentStock": 450,
+    "minimumStock": 500,
+    "maxStock": 2000,
+    "unitPrice": 15.99,
+    "status": "low",
+    "lastRestocked": "2025-12-20",
+    "supplier": "MedSupply Co."
+  },
+  {
+    "id": 2,
+    "itemName": "Nitrile Gloves (Box of 100)",
+    "category": "PPE",
+    "currentStock": 1250,
+    "minimumStock": 800,
+    "maxStock": 3000,
+    "unitPrice": 12.50,
+    "status": "adequate",
+    "lastRestocked": "2025-12-22",
+    "supplier": "HealthPro Supplies"
+  },
+  {
+    "id": 3,
+    "itemName": "Syringes 5ml (Pack of 100)",
+    "category": "Medical Supplies",
+    "currentStock": 2400,
+    "minimumStock": 1000,
+    "maxStock": 5000,
+    "unitPrice": 8.75,
+    "status": "adequate",
+    "lastRestocked": "2025-12-25",
+    "supplier": "MedEquip Inc."
+  },
+  {
+    "id": 4,
+    "itemName": "IV Fluid - Saline 500ml",
+    "category": "Fluids",
+    "currentStock": 320,
+    "minimumStock": 500,
+    "maxStock": 2000,
+    "unitPrice": 3.20,
+    "status": "critical",
+    "lastRestocked": "2025-12-18",
+    "supplier": "Pharma Distributors"
+  },
+  {
+    "id": 5,
+    "itemName": "Bandages - Sterile 4x4",
+    "category": "Medical Supplies",
+    "currentStock": 1800,
+    "minimumStock": 1000,
+    "maxStock": 4000,
+    "unitPrice": 0.85,
+    "status": "adequate",
+    "lastRestocked": "2025-12-23",
+    "supplier": "MedSupply Co."
+  },
+  {
+    "id": 6,
+    "itemName": "Antibiotics - Amoxicillin 500mg",
+    "category": "Pharmaceuticals",
+    "currentStock": 890,
+    "minimumStock": 500,
+    "maxStock": 2000,
+    "unitPrice": 0.45,
+    "status": "adequate",
+    "lastRestocked": "2025-12-26",
+    "supplier": "Pharma Distributors"
+  },
+  {
+    "id": 7,
+    "itemName": "Oxygen Cylinders",
+    "category": "Equipment",
+    "currentStock": 15,
+    "minimumStock": 20,
+    "maxStock": 50,
+    "unitPrice": 125.00,
+    "status": "low",
+    "lastRestocked": "2025-12-21",
+    "supplier": "MedEquip Inc."
+  },
+  {
+    "id": 8,
+    "itemName": "Thermometer - Digital",
+    "category": "Equipment",
+    "currentStock": 85,
+    "minimumStock": 50,
+    "maxStock": 150,
+    "unitPrice": 12.99,
+    "status": "adequate",
+    "lastRestocked": "2025-12-24",
+    "supplier": "HealthPro Supplies"
+  }
+]

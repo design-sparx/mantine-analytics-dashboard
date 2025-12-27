@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "courseName": "Introduction to Computer Science",
+    "courseCode": "CS101",
+    "instructor": "Dr. Sarah Thompson",
+    "enrolledStudents": 245,
+    "completedStudents": 218,
+    "inProgress": 23,
+    "dropped": 4,
+    "completionRate": 89.0,
+    "averageGrade": "B+",
+    "category": "Computer Science"
+  },
+  {
+    "id": 2,
+    "courseName": "Data Structures and Algorithms",
+    "courseCode": "CS201",
+    "instructor": "Dr. Michael Chen",
+    "enrolledStudents": 189,
+    "completedStudents": 167,
+    "inProgress": 18,
+    "dropped": 4,
+    "completionRate": 88.4,
+    "averageGrade": "B",
+    "category": "Computer Science"
+  },
+  {
+    "id": 3,
+    "courseName": "Web Development Fundamentals",
+    "courseCode": "WEB101",
+    "instructor": "Prof. Emily Parker",
+    "enrolledStudents": 312,
+    "completedStudents": 289,
+    "inProgress": 19,
+    "dropped": 4,
+    "completionRate": 92.6,
+    "averageGrade": "A-",
+    "category": "Web Development"
+  },
+  {
+    "id": 4,
+    "courseName": "Database Management Systems",
+    "courseCode": "DB201",
+    "instructor": "Dr. James Anderson",
+    "enrolledStudents": 156,
+    "completedStudents": 134,
+    "inProgress": 16,
+    "dropped": 6,
+    "completionRate": 85.9,
+    "averageGrade": "B",
+    "category": "Database"
+  },
+  {
+    "id": 5,
+    "courseName": "Machine Learning Basics",
+    "courseCode": "ML101",
+    "instructor": "Dr. Rachel Kim",
+    "enrolledStudents": 198,
+    "completedStudents": 172,
+    "inProgress": 22,
+    "dropped": 4,
+    "completionRate": 86.9,
+    "averageGrade": "B+",
+    "category": "AI/ML"
+  },
+  {
+    "id": 6,
+    "courseName": "Mobile App Development",
+    "courseCode": "MOB201",
+    "instructor": "Prof. David Lee",
+    "enrolledStudents": 234,
+    "completedStudents": 215,
+    "inProgress": 15,
+    "dropped": 4,
+    "completionRate": 91.9,
+    "averageGrade": "A-",
+    "category": "Mobile Development"
+  }
+]

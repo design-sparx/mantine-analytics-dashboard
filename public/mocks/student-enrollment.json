@@ -1,0 +1,14 @@
+[
+  { "month": "Jan", "newStudents": 245, "activeStudents": 2847, "dropouts": 23 },
+  { "month": "Feb", "newStudents": 189, "activeStudents": 2913, "dropouts": 18 },
+  { "month": "Mar", "newStudents": 312, "activeStudents": 3107, "dropouts": 15 },
+  { "month": "Apr", "newStudents": 278, "activeStudents": 3270, "dropouts": 20 },
+  { "month": "May", "newStudents": 198, "activeStudents": 3348, "dropouts": 12 },
+  { "month": "Jun", "newStudents": 156, "activeStudents": 3392, "dropouts": 8 },
+  { "month": "Jul", "newStudents": 423, "activeStudents": 3707, "dropouts": 14 },
+  { "month": "Aug", "newStudents": 512, "activeStudents": 4105, "dropouts": 19 },
+  { "month": "Sep", "newStudents": 387, "activeStudents": 4373, "dropouts": 16 },
+  { "month": "Oct", "newStudents": 234, "activeStudents": 4491, "dropouts": 22 },
+  { "month": "Nov", "newStudents": 198, "activeStudents": 4567, "dropouts": 18 },
+  { "month": "Dec", "newStudents": 145, "activeStudents": 4594, "dropouts": 11 }
+]

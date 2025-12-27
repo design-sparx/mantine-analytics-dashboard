@@ -1,0 +1,56 @@
+[
+  {
+    "department": "ICU",
+    "totalBeds": 20,
+    "occupiedBeds": 18,
+    "availableBeds": 2,
+    "occupancyRate": 90.0,
+    "criticalPatients": 12,
+    "color": "red"
+  },
+  {
+    "department": "General Ward",
+    "totalBeds": 80,
+    "occupiedBeds": 68,
+    "availableBeds": 12,
+    "occupancyRate": 85.0,
+    "criticalPatients": 5,
+    "color": "blue"
+  },
+  {
+    "department": "Pediatrics",
+    "totalBeds": 30,
+    "occupiedBeds": 24,
+    "availableBeds": 6,
+    "occupancyRate": 80.0,
+    "criticalPatients": 3,
+    "color": "cyan"
+  },
+  {
+    "department": "Maternity",
+    "totalBeds": 25,
+    "occupiedBeds": 22,
+    "availableBeds": 3,
+    "occupancyRate": 88.0,
+    "criticalPatients": 2,
+    "color": "pink"
+  },
+  {
+    "department": "Surgery",
+    "totalBeds": 15,
+    "occupiedBeds": 13,
+    "availableBeds": 2,
+    "occupancyRate": 86.7,
+    "criticalPatients": 8,
+    "color": "violet"
+  },
+  {
+    "department": "Emergency",
+    "totalBeds": 12,
+    "occupiedBeds": 11,
+    "availableBeds": 1,
+    "occupancyRate": 91.7,
+    "criticalPatients": 7,
+    "color": "orange"
+  }
+]

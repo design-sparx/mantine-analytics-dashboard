@@ -1,0 +1,9 @@
+[
+  { "day": "Mon", "logins": 2847, "assignmentsSubmitted": 456, "forumPosts": 234 },
+  { "day": "Tue", "logins": 3012, "assignmentsSubmitted": 523, "forumPosts": 289 },
+  { "day": "Wed", "logins": 2934, "assignmentsSubmitted": 478, "forumPosts": 267 },
+  { "day": "Thu", "logins": 3156, "assignmentsSubmitted": 612, "forumPosts": 312 },
+  { "day": "Fri", "logins": 2789, "assignmentsSubmitted": 389, "forumPosts": 198 },
+  { "day": "Sat", "logins": 1456, "assignmentsSubmitted": 178, "forumPosts": 89 },
+  { "day": "Sun", "logins": 1234, "assignmentsSubmitted": 145, "forumPosts": 67 }
+]
