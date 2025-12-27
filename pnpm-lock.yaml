@@ -125,9 +125,6 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.0
         version: 19.2.3(@types/react@19.2.6)
-      apexcharts:
-        specifier: ^4.0.0
-        version: 4.7.0
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -161,9 +158,6 @@ importers:
       react:
         specifier: ^19.0.0
         version: 19.2.0
-      react-apexcharts:
-        specifier: ^1.4.1
-        version: 1.7.0(apexcharts@4.7.0)(react@19.2.0)
       react-countup:
         specifier: ^6.4.2
         version: 6.5.3(react@19.2.0)
@@ -2017,31 +2011,6 @@ packages:
     peerDependencies:
       storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
 
-  '@svgdotjs/svg.draggable.js@3.0.6':
-    resolution: {integrity: sha512-7iJFm9lL3C40HQcqzEfezK2l+dW2CpoVY3b77KQGqc8GXWa6LhhmX5Ckv7alQfUXBuZbjpICZ+Dvq1czlGx7gA==}
-    peerDependencies:
-      '@svgdotjs/svg.js': ^3.2.4
-
-  '@svgdotjs/svg.filter.js@3.0.9':
-    resolution: {integrity: sha512-/69XMRCDoam2HgC4ldHIaDgeQf1ViHIsa0Ld4uWgiXtZ+E24DWHe/9Ib6kbNiZ7WRIdlVokUDR1Fg0kjIpkfbw==}
-    engines: {node: '>= 0.8.0'}
-
-  '@svgdotjs/svg.js@3.2.5':
-    resolution: {integrity: sha512-/VNHWYhNu+BS7ktbYoVGrCmsXDh+chFMaONMwGNdIBcFHrWqk2jY8fNyr3DLdtQUIalvkPfM554ZSFa3dm3nxQ==}
-
-  '@svgdotjs/svg.resize.js@2.0.5':
-    resolution: {integrity: sha512-4heRW4B1QrJeENfi7326lUPYBCevj78FJs8kfeDxn5st0IYPIRXoTtOSYvTzFWgaWWXd3YCDE6ao4fmv91RthA==}
-    engines: {node: '>= 14.18'}
-    peerDependencies:
-      '@svgdotjs/svg.js': ^3.2.4
-      '@svgdotjs/svg.select.js': ^4.0.1
-
-  '@svgdotjs/svg.select.js@4.0.3':
-    resolution: {integrity: sha512-qkMgso1sd2hXKd1FZ1weO7ANq12sNmQJeGDjs46QwDVsxSRcHmvWKL2NDF7Yimpwf3sl5esOLkPqtV2bQ3v/Jg==}
-    engines: {node: '>= 14.18'}
-    peerDependencies:
-      '@svgdotjs/svg.js': ^3.2.4
-
   '@swc/helpers@0.5.15':
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
 
@@ -2518,9 +2487,6 @@ packages:
   '@xtuc/long@4.2.2':
     resolution: {integrity: sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==}
 
-  '@yr/monotone-cubic-spline@1.0.3':
-    resolution: {integrity: sha512-FQXkOta0XBSUPHndIKON2Y9JeQz5ZeMqLYZVVK93FliNBFm7LNMIZmY6FrMEB9XPcDbE2bekMbZD6kzDkxwYjA==}
-
   JSONStream@1.3.5:
     resolution: {integrity: sha512-E+iruNOY8VV9s4JEbe1aNEm6MiszPRr/UfcHMz0TQh1BXSxHK+ASV1R6W4HpjBhSeS+54PIsAMCBmwD06LLsqQ==}
     hasBin: true
@@ -2625,9 +2591,6 @@ packages:
   anymatch@3.1.3:
     resolution: {integrity: sha512-KMReFUr0B4t+D+OBkjR3KYqvocp2XaSzO55UcB6mgQMd3KbcE+mWTyvVV7D/zsdEbNnV6acZUutkiHQXvTr1Rw==}
     engines: {node: '>= 8'}
-
-  apexcharts@4.7.0:
-    resolution: {integrity: sha512-iZSrrBGvVlL+nt2B1NpqfDuBZ9jX61X9I2+XV0hlYXHtTwhwLTHDKGXjNXAgFBDLuvSYCB/rq2nPWVPRv2DrGA==}
 
   argparse@1.0.10:
     resolution: {integrity: sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==}
@@ -5493,12 +5456,6 @@ packages:
   raw-body@2.5.2:
     resolution: {integrity: sha512-8zGqypfENjCIqGhgXToC8aB2r7YrBX+AQAfIPs/Mlk+BtPTztOvTS01NRW/3Eh60J+a48lt8qsCzirQ6loCVfA==}
     engines: {node: '>= 0.8'}
-
-  react-apexcharts@1.7.0:
-    resolution: {integrity: sha512-03oScKJyNLRf0Oe+ihJxFZliBQM9vW3UWwomVn4YVRTN1jsIR58dLWt0v1sb8RwJVHDMbeHiKQueM0KGpn7nOA==}
-    peerDependencies:
-      apexcharts: '>=4.0.0'
-      react: '>=0.13'
 
   react-countup@6.5.3:
     resolution: {integrity: sha512-udnqVQitxC7QWADSPDOxVWULkLvKUWrDapn5i53HE4DPRVgs+Y5rr4bo25qEl8jSh+0l2cToJgGMx+clxPM3+w==}
@@ -8795,25 +8752,6 @@ snapshots:
     dependencies:
       storybook: 8.6.15(prettier@3.1.0)
 
-  '@svgdotjs/svg.draggable.js@3.0.6(@svgdotjs/svg.js@3.2.5)':
-    dependencies:
-      '@svgdotjs/svg.js': 3.2.5
-
-  '@svgdotjs/svg.filter.js@3.0.9':
-    dependencies:
-      '@svgdotjs/svg.js': 3.2.5
-
-  '@svgdotjs/svg.js@3.2.5': {}
-
-  '@svgdotjs/svg.resize.js@2.0.5(@svgdotjs/svg.js@3.2.5)(@svgdotjs/svg.select.js@4.0.3(@svgdotjs/svg.js@3.2.5))':
-    dependencies:
-      '@svgdotjs/svg.js': 3.2.5
-      '@svgdotjs/svg.select.js': 4.0.3(@svgdotjs/svg.js@3.2.5)
-
-  '@svgdotjs/svg.select.js@4.0.3(@svgdotjs/svg.js@3.2.5)':
-    dependencies:
-      '@svgdotjs/svg.js': 3.2.5
-
   '@swc/helpers@0.5.15':
     dependencies:
       tslib: 2.8.1
@@ -9390,8 +9328,6 @@ snapshots:
 
   '@xtuc/long@4.2.2': {}
 
-  '@yr/monotone-cubic-spline@1.0.3': {}
-
   JSONStream@1.3.5:
     dependencies:
       jsonparse: 1.3.1
@@ -9478,15 +9414,6 @@ snapshots:
     dependencies:
       normalize-path: 3.0.0
       picomatch: 2.3.1
-
-  apexcharts@4.7.0:
-    dependencies:
-      '@svgdotjs/svg.draggable.js': 3.0.6(@svgdotjs/svg.js@3.2.5)
-      '@svgdotjs/svg.filter.js': 3.0.9
-      '@svgdotjs/svg.js': 3.2.5
-      '@svgdotjs/svg.resize.js': 2.0.5(@svgdotjs/svg.js@3.2.5)(@svgdotjs/svg.select.js@4.0.3(@svgdotjs/svg.js@3.2.5))
-      '@svgdotjs/svg.select.js': 4.0.3(@svgdotjs/svg.js@3.2.5)
-      '@yr/monotone-cubic-spline': 1.0.3
 
   argparse@1.0.10:
     dependencies:
@@ -12801,12 +12728,6 @@ snapshots:
       http-errors: 2.0.0
       iconv-lite: 0.4.24
       unpipe: 1.0.0
-
-  react-apexcharts@1.7.0(apexcharts@4.7.0)(react@19.2.0):
-    dependencies:
-      apexcharts: 4.7.0
-      prop-types: 15.8.1
-      react: 19.2.0
 
   react-countup@6.5.3(react@19.2.0):
     dependencies:

@@ -5,89 +5,54 @@ import {
   Group,
   PaperProps,
   Text,
-  useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core';
+import { BarChart } from '@mantine/charts';
 import { IconDotsVertical } from '@tabler/icons-react';
-import dynamic from 'next/dynamic';
 
 import { Surface } from '@/components';
-
-const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 type MobileDesktopChartProps = PaperProps;
 const MobileDesktopChart = ({ ...others }: MobileDesktopChartProps) => {
   const theme = useMantineTheme();
-  const { colorScheme } = useMantineColorScheme();
 
-  const series = [
+  const data = [
     {
-      name: 'PRODUCT A',
-      data: [44, 55, 41, 67, 22, 43, 34],
+      month: 'Jan',
+      'Product A': 44,
+      'Product B': 13,
     },
     {
-      name: 'PRODUCT B',
-      data: [13, 23, 20, 8, 13, 27, 10],
+      month: 'Feb',
+      'Product A': 55,
+      'Product B': 23,
+    },
+    {
+      month: 'Mar',
+      'Product A': 41,
+      'Product B': 20,
+    },
+    {
+      month: 'Apr',
+      'Product A': 67,
+      'Product B': 8,
+    },
+    {
+      month: 'May',
+      'Product A': 22,
+      'Product B': 13,
+    },
+    {
+      month: 'Jun',
+      'Product A': 43,
+      'Product B': 27,
+    },
+    {
+      month: 'Jul',
+      'Product A': 34,
+      'Product B': 10,
     },
   ];
-
-  const options: any = {
-    chart: {
-      type: 'bar',
-      height: 300,
-      stacked: true,
-      toolbar: {
-        show: true,
-      },
-      zoom: {
-        enabled: true,
-      },
-      fontFamily: 'Open Sans, sans-serif',
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    plotOptions: {
-      bar: {
-        horizontal: false,
-        borderRadius: 4,
-        columnWidth: '25%',
-        dataLabels: {
-          total: {
-            enabled: false,
-            style: {
-              fontSize: '13px',
-              fontWeight: 900,
-            },
-          },
-        },
-      },
-    },
-    xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-      labels: {
-        style: {
-          colors: colorScheme === 'dark' ? theme.white : theme.black,
-        },
-      },
-    },
-    yaxis: {
-      labels: {
-        style: {
-          colors: colorScheme === 'dark' ? theme.white : theme.black,
-        },
-      },
-    },
-    colors: [
-      theme.colors[theme.primaryColor][8],
-      theme.colors[theme.primaryColor][2],
-    ],
-    legend: {
-      labels: {
-        colors: [colorScheme === 'dark' ? theme.white : theme.black],
-      },
-    },
-  };
 
   return (
     <Surface {...others}>
@@ -99,13 +64,17 @@ const MobileDesktopChart = ({ ...others }: MobileDesktopChartProps) => {
           <IconDotsVertical size={16} />
         </ActionIcon>
       </Group>
-      {/*@ts-ignore*/}
-      <Chart
-        options={options}
-        series={series}
-        type="bar"
-        height={300}
-        width={'100%'}
+      <BarChart
+        h={300}
+        data={data}
+        dataKey="month"
+        type="stacked"
+        series={[
+          { name: 'Product A', color: theme.colors[theme.primaryColor][8] },
+          { name: 'Product B', color: theme.colors[theme.primaryColor][2] },
+        ]}
+        withLegend
+        legendProps={{ verticalAlign: 'bottom', height: 50 }}
       />
     </Surface>
   );

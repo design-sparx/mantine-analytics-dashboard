@@ -13,7 +13,7 @@ export const TECH_STACK = [
     href: 'https://tabler-icons.io/',
   },
   { title: 'tiptap', version: '2.10.3', href: 'https://tiptap.dev/' },
-  { title: 'apexcharts', version: '3.44.0', href: 'https://apexcharts.com/' },
+  { title: 'mantine charts', version: '7.14.3', href: 'https://mantine.dev/charts/getting-started/' },
   { title: 'dayjs', version: '1.11.13', href: 'https://day.js.org/' },
   { title: 'fullcalendar', version: '6.1.8', href: 'https://fullcalendar.io/' },
   { title: 'dnd-kit', version: '6.0.8', href: 'https://dndkit.com/' },
