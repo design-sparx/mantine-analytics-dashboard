@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Organic Search",
+    "value": 42.5,
+    "visitors": 125600,
+    "color": "teal.6"
+  },
+  {
+    "name": "Direct",
+    "value": 23.8,
+    "visitors": 70340,
+    "color": "blue.6"
+  },
+  {
+    "name": "Social Media",
+    "value": 18.3,
+    "visitors": 54090,
+    "color": "pink.6"
+  },
+  {
+    "name": "Paid Ads",
+    "value": 10.2,
+    "visitors": 30150,
+    "color": "violet.6"
+  },
+  {
+    "name": "Email",
+    "value": 3.8,
+    "visitors": 11230,
+    "color": "orange.6"
+  },
+  {
+    "name": "Referral",
+    "value": 1.4,
+    "visitors": 4140,
+    "color": "cyan.6"
+  }
+]

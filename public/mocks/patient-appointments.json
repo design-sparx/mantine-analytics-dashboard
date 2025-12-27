@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "patientName": "Sarah Johnson",
+    "patientId": "P-2024-1234",
+    "age": 34,
+    "appointmentType": "General Checkup",
+    "doctor": "Dr. Michael Chen",
+    "department": "General Medicine",
+    "scheduledTime": "2025-12-27T09:00:00",
+    "status": "completed",
+    "priority": "normal"
+  },
+  {
+    "id": 2,
+    "patientName": "Robert Williams",
+    "patientId": "P-2024-1235",
+    "age": 56,
+    "appointmentType": "Cardiology Consultation",
+    "doctor": "Dr. Emily Parker",
+    "department": "Cardiology",
+    "scheduledTime": "2025-12-27T10:30:00",
+    "status": "in-progress",
+    "priority": "high"
+  },
+  {
+    "id": 3,
+    "patientName": "Maria Garcia",
+    "patientId": "P-2024-1236",
+    "age": 42,
+    "appointmentType": "Follow-up",
+    "doctor": "Dr. James Anderson",
+    "department": "Orthopedics",
+    "scheduledTime": "2025-12-27T11:00:00",
+    "status": "scheduled",
+    "priority": "normal"
+  },
+  {
+    "id": 4,
+    "patientName": "David Lee",
+    "patientId": "P-2024-1237",
+    "age": 28,
+    "appointmentType": "Emergency",
+    "doctor": "Dr. Sarah Thompson",
+    "department": "Emergency",
+    "scheduledTime": "2025-12-27T08:45:00",
+    "status": "completed",
+    "priority": "urgent"
+  },
+  {
+    "id": 5,
+    "patientName": "Jennifer Martinez",
+    "patientId": "P-2024-1238",
+    "age": 45,
+    "appointmentType": "Diabetes Management",
+    "doctor": "Dr. Michael Chen",
+    "department": "Endocrinology",
+    "scheduledTime": "2025-12-27T13:30:00",
+    "status": "scheduled",
+    "priority": "normal"
+  },
+  {
+    "id": 6,
+    "patientName": "Thomas Brown",
+    "patientId": "P-2024-1239",
+    "age": 67,
+    "appointmentType": "Surgery Consultation",
+    "doctor": "Dr. Rachel Kim",
+    "department": "Surgery",
+    "scheduledTime": "2025-12-27T14:00:00",
+    "status": "scheduled",
+    "priority": "high"
+  },
+  {
+    "id": 7,
+    "patientName": "Lisa Anderson",
+    "patientId": "P-2024-1240",
+    "age": 31,
+    "appointmentType": "Prenatal Checkup",
+    "doctor": "Dr. Patricia Davis",
+    "department": "Obstetrics",
+    "scheduledTime": "2025-12-27T15:30:00",
+    "status": "scheduled",
+    "priority": "normal"
+  },
+  {
+    "id": 8,
+    "patientName": "James Wilson",
+    "patientId": "P-2024-1241",
+    "age": 52,
+    "appointmentType": "Physical Therapy",
+    "doctor": "Dr. Mark Roberts",
+    "department": "Physical Therapy",
+    "scheduledTime": "2025-12-27T16:00:00",
+    "status": "cancelled",
+    "priority": "low"
+  }
+]

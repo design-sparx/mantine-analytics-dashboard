@@ -1,0 +1,30 @@
+[
+  {
+    "warehouse": "NYC Warehouse",
+    "capacity": 85,
+    "inbound": 45,
+    "outbound": 62,
+    "location": "New York, NY"
+  },
+  {
+    "warehouse": "LA Distribution",
+    "capacity": 72,
+    "inbound": 38,
+    "outbound": 51,
+    "location": "Los Angeles, CA"
+  },
+  {
+    "warehouse": "Chicago Hub",
+    "capacity": 91,
+    "inbound": 52,
+    "outbound": 68,
+    "location": "Chicago, IL"
+  },
+  {
+    "warehouse": "Miami Center",
+    "capacity": 68,
+    "inbound": 29,
+    "outbound": 43,
+    "location": "Miami, FL"
+  }
+]

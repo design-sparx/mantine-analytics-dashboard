@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Total Students",
+    "value": "3,247",
+    "diff": 8.5,
+    "period": "vs last semester",
+    "icon": "users",
+    "color": "blue"
+  },
+  {
+    "title": "Active Courses",
+    "value": "156",
+    "diff": 12.3,
+    "period": "vs last semester",
+    "icon": "book",
+    "color": "teal"
+  },
+  {
+    "title": "Completion Rate",
+    "value": "87.5%",
+    "diff": 5.2,
+    "period": "vs last semester",
+    "icon": "chart-line",
+    "color": "violet"
+  },
+  {
+    "title": "Average Grade",
+    "value": "B+",
+    "diff": 3.8,
+    "period": "vs last semester",
+    "icon": "medal",
+    "color": "orange"
+  },
+  {
+    "title": "Instructors",
+    "value": "89",
+    "diff": 6.0,
+    "period": "vs last semester",
+    "icon": "user-check",
+    "color": "cyan"
+  },
+  {
+    "title": "Student Satisfaction",
+    "value": "4.5/5",
+    "diff": 4.2,
+    "period": "vs last semester",
+    "icon": "star",
+    "color": "yellow"
+  }
+]

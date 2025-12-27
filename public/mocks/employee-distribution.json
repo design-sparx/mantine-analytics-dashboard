@@ -1,0 +1,44 @@
+[
+  {
+    "department": "Engineering",
+    "count": 385,
+    "percentage": 30.9,
+    "color": "blue"
+  },
+  {
+    "department": "Sales",
+    "count": 247,
+    "percentage": 19.8,
+    "color": "green"
+  },
+  {
+    "department": "Marketing",
+    "count": 156,
+    "percentage": 12.5,
+    "color": "violet"
+  },
+  {
+    "department": "Operations",
+    "count": 198,
+    "percentage": 15.9,
+    "color": "orange"
+  },
+  {
+    "department": "HR",
+    "count": 89,
+    "percentage": 7.1,
+    "color": "cyan"
+  },
+  {
+    "department": "Finance",
+    "count": 112,
+    "percentage": 9.0,
+    "color": "teal"
+  },
+  {
+    "department": "Other",
+    "count": 60,
+    "percentage": 4.8,
+    "color": "gray"
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "month": "Jul",
+    "apiCost": 18.5,
+    "computeCost": 12.3,
+    "storageCost": 2.1,
+    "total": 32.9
+  },
+  {
+    "month": "Aug",
+    "apiCost": 21.2,
+    "computeCost": 14.5,
+    "storageCost": 2.3,
+    "total": 38.0
+  },
+  {
+    "month": "Sep",
+    "apiCost": 24.8,
+    "computeCost": 16.2,
+    "storageCost": 2.5,
+    "total": 43.5
+  },
+  {
+    "month": "Oct",
+    "apiCost": 27.5,
+    "computeCost": 18.1,
+    "storageCost": 2.7,
+    "total": 48.3
+  },
+  {
+    "month": "Nov",
+    "apiCost": 31.2,
+    "computeCost": 20.5,
+    "storageCost": 2.9,
+    "total": 54.6
+  },
+  {
+    "month": "Dec",
+    "apiCost": 34.8,
+    "computeCost": 22.8,
+    "storageCost": 3.1,
+    "total": 60.7
+  }
+]

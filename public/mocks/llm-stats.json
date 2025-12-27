@@ -1,0 +1,30 @@
+[
+  {
+    "title": "API Requests",
+    "value": "2.4M",
+    "diff": 18.5,
+    "icon": "IconApi",
+    "color": "blue"
+  },
+  {
+    "title": "Tokens Processed",
+    "value": "1.8B",
+    "diff": 22.3,
+    "icon": "IconBrain",
+    "color": "violet"
+  },
+  {
+    "title": "Active Models",
+    "value": "12",
+    "diff": 0,
+    "icon": "IconCpu",
+    "color": "green"
+  },
+  {
+    "title": "Avg Response Time",
+    "value": "1.2s",
+    "diff": -8.5,
+    "icon": "IconClock",
+    "color": "orange"
+  }
+]

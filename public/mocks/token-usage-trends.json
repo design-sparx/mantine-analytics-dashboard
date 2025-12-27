@@ -1,0 +1,38 @@
+[
+  {
+    "month": "Jul",
+    "input": 245,
+    "output": 156,
+    "total": 401
+  },
+  {
+    "month": "Aug",
+    "input": 278,
+    "output": 182,
+    "total": 460
+  },
+  {
+    "month": "Sep",
+    "input": 312,
+    "output": 198,
+    "total": 510
+  },
+  {
+    "month": "Oct",
+    "input": 345,
+    "output": 221,
+    "total": 566
+  },
+  {
+    "month": "Nov",
+    "input": 389,
+    "output": 248,
+    "total": 637
+  },
+  {
+    "month": "Dec",
+    "input": 425,
+    "output": 272,
+    "total": 697
+  }
+]

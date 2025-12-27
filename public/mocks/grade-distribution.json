@@ -1,0 +1,32 @@
+[
+  {
+    "name": "A",
+    "value": 23.5,
+    "students": 763,
+    "color": "teal.6"
+  },
+  {
+    "name": "B",
+    "value": 35.2,
+    "students": 1143,
+    "color": "blue.6"
+  },
+  {
+    "name": "C",
+    "value": 28.3,
+    "students": 919,
+    "color": "violet.6"
+  },
+  {
+    "name": "D",
+    "value": 9.8,
+    "students": 318,
+    "color": "orange.6"
+  },
+  {
+    "name": "F",
+    "value": 3.2,
+    "students": 104,
+    "color": "red.6"
+  }
+]

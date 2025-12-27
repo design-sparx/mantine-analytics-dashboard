@@ -1,0 +1,38 @@
+[
+  {
+    "month": "Jul",
+    "present": 96.5,
+    "leave": 2.8,
+    "absent": 0.7
+  },
+  {
+    "month": "Aug",
+    "present": 95.8,
+    "leave": 3.2,
+    "absent": 1.0
+  },
+  {
+    "month": "Sep",
+    "present": 96.2,
+    "leave": 2.9,
+    "absent": 0.9
+  },
+  {
+    "month": "Oct",
+    "present": 96.8,
+    "leave": 2.5,
+    "absent": 0.7
+  },
+  {
+    "month": "Nov",
+    "present": 95.5,
+    "leave": 3.5,
+    "absent": 1.0
+  },
+  {
+    "month": "Dec",
+    "present": 94.2,
+    "leave": 4.8,
+    "absent": 1.0
+  }
+]

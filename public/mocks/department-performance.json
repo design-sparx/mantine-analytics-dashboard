@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Emergency",
+    "value": 22.5,
+    "patients": 456,
+    "color": "red.6"
+  },
+  {
+    "name": "General Medicine",
+    "value": 18.3,
+    "patients": 371,
+    "color": "blue.6"
+  },
+  {
+    "name": "Cardiology",
+    "value": 15.8,
+    "patients": 320,
+    "color": "violet.6"
+  },
+  {
+    "name": "Orthopedics",
+    "value": 12.4,
+    "patients": 251,
+    "color": "teal.6"
+  },
+  {
+    "name": "Pediatrics",
+    "value": 11.2,
+    "patients": 227,
+    "color": "cyan.6"
+  },
+  {
+    "name": "Obstetrics",
+    "value": 10.5,
+    "patients": 213,
+    "color": "pink.6"
+  },
+  {
+    "name": "Surgery",
+    "value": 9.3,
+    "patients": 189,
+    "color": "orange.6"
+  }
+]

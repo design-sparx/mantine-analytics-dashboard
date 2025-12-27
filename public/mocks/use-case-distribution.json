@@ -1,0 +1,32 @@
+[
+  {
+    "useCase": "Chatbot",
+    "percentage": 35.2,
+    "requests": 845000,
+    "color": "blue"
+  },
+  {
+    "useCase": "Code Generation",
+    "percentage": 28.5,
+    "requests": 684000,
+    "color": "violet"
+  },
+  {
+    "useCase": "Content Writing",
+    "percentage": 18.3,
+    "requests": 439000,
+    "color": "green"
+  },
+  {
+    "useCase": "Data Analysis",
+    "percentage": 12.4,
+    "requests": 298000,
+    "color": "orange"
+  },
+  {
+    "useCase": "Translation",
+    "percentage": 5.6,
+    "requests": 134000,
+    "color": "cyan"
+  }
+]

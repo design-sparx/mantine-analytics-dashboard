@@ -83,3 +83,52 @@ export { ActivitiesTimeline } from './crm-dashboard/ActivitiesTimeline';
 export { CashflowChart } from './finance-dashboard/CashflowChart';
 export { ExpenseBreakdown } from './finance-dashboard/ExpenseBreakdown';
 export { InvoicesTable as FinanceInvoicesTable } from './finance-dashboard/InvoicesTable';
+
+// Marketing Dashboard Components
+export { CampaignPerformanceChart } from './marketing-dashboard/campaign-performance-chart';
+export { TrafficSourcesChart } from './marketing-dashboard/traffic-sources-chart';
+export { SocialMediaTable } from './marketing-dashboard/social-media-table';
+export { EmailCampaignsTable } from './marketing-dashboard/email-campaigns-table';
+export { TopCampaignsTable } from './marketing-dashboard/top-campaigns-table';
+
+// Healthcare Dashboard Components
+export { PatientSatisfactionChart } from './healthcare-dashboard/patient-satisfaction-chart';
+export { DepartmentPerformanceChart } from './healthcare-dashboard/department-performance-chart';
+export { BedOccupancyChart } from './healthcare-dashboard/bed-occupancy-chart';
+export { PatientAppointmentsTable } from './healthcare-dashboard/patient-appointments-table';
+export { MedicalInventoryTable } from './healthcare-dashboard/medical-inventory-table';
+
+// Education Dashboard Components
+export { StudentEnrollmentChart } from './education-dashboard/student-enrollment-chart';
+export { GradeDistributionChart } from './education-dashboard/grade-distribution-chart';
+export { StudentActivityChart } from './education-dashboard/student-activity-chart';
+export { CourseCompletionTable } from './education-dashboard/course-completion-table';
+export { InstructorPerformanceTable } from './education-dashboard/instructor-performance-table';
+
+// Logistics Dashboard Components
+export { ActiveShipmentsTable } from './logistics-dashboard/active-shipments-table';
+export { FleetStatusChart } from './logistics-dashboard/fleet-status-chart';
+export { DeliveryPerformanceChart } from './logistics-dashboard/delivery-performance-chart';
+export { RouteEfficiencyTable } from './logistics-dashboard/route-efficiency-table';
+export { WarehouseInventoryChart } from './logistics-dashboard/warehouse-inventory-chart';
+
+// HR Dashboard Components
+export { EmployeeDistributionChart } from './hr-dashboard/employee-distribution-chart';
+export { RecruitmentPipelineChart } from './hr-dashboard/recruitment-pipeline-chart';
+export { EmployeePerformanceChart } from './hr-dashboard/employee-performance-chart';
+export { OpenPositionsTable } from './hr-dashboard/open-positions-table';
+export { AttendanceChart } from './hr-dashboard/attendance-chart';
+
+// Real Estate Dashboard Components
+export { PropertyListingsTable } from './real-estate-dashboard/property-listings-table';
+export { PropertyTypesChart } from './real-estate-dashboard/property-types-chart';
+export { SalesTrendsChart } from './real-estate-dashboard/sales-trends-chart';
+export { LocationAnalyticsTable } from './real-estate-dashboard/location-analytics-table';
+export { PriceDistributionChart } from './real-estate-dashboard/price-distribution-chart';
+
+// LLM/AI Dashboard Components
+export { ModelUsageTable } from './llm-dashboard/model-usage-table';
+export { TokenUsageChart } from './llm-dashboard/token-usage-chart';
+export { UseCaseChart } from './llm-dashboard/use-case-chart';
+export { PerformanceMetricsChart } from './llm-dashboard/performance-metrics-chart';
+export { CostAnalysisChart } from './llm-dashboard/cost-analysis-chart';

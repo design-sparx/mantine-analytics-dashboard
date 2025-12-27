@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import {
+  Badge,
   Box,
   Collapse,
   Group,
@@ -27,6 +28,7 @@ interface LinksGroupProps {
   }[];
   closeSidebar: () => void;
   isMini?: boolean;
+  badge?: string;
 }
 
 export function LinksGroup(props: LinksGroupProps) {
@@ -38,6 +40,7 @@ export function LinksGroup(props: LinksGroupProps) {
     links,
     closeSidebar,
     isMini,
+    badge,
   } = props;
   const router = useRouter();
   const pathname = usePathname();
@@ -148,7 +151,16 @@ export function LinksGroup(props: LinksGroupProps) {
             <Group justify="space-between" gap={0}>
               <Box style={{ display: 'flex', alignItems: 'center' }}>
                 <Icon size={18} />
-                {!isMini && <Box ml="md">{label}</Box>}
+                {!isMini && (
+                  <Group gap="xs" ml="md">
+                    <Box>{label}</Box>
+                    {badge && (
+                      <Badge size="xs" variant="light" color="blue">
+                        {badge}
+                      </Badge>
+                    )}
+                  </Group>
+                )}
               </Box>
               {hasLinks && (
                 <ChevronIcon

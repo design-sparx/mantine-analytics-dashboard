@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "name": "Holiday Season Campaign",
+    "type": "Social Media",
+    "budget": 15000,
+    "spent": 12450,
+    "roi": 285,
+    "impressions": 456700,
+    "conversions": 1247,
+    "status": "active"
+  },
+  {
+    "id": 2,
+    "name": "Product Launch - Q4",
+    "type": "Google Ads",
+    "budget": 25000,
+    "spent": 23800,
+    "roi": 312,
+    "impressions": 678900,
+    "conversions": 2134,
+    "status": "active"
+  },
+  {
+    "id": 3,
+    "name": "Email Nurture Series",
+    "type": "Email Marketing",
+    "budget": 5000,
+    "spent": 4200,
+    "roi": 425,
+    "impressions": 125000,
+    "conversions": 856,
+    "status": "active"
+  },
+  {
+    "id": 4,
+    "name": "Brand Awareness",
+    "type": "Display Ads",
+    "budget": 18000,
+    "spent": 16500,
+    "roi": 198,
+    "impressions": 892300,
+    "conversions": 987,
+    "status": "paused"
+  },
+  {
+    "id": 5,
+    "name": "Retargeting Campaign",
+    "type": "Facebook Ads",
+    "budget": 8000,
+    "spent": 7650,
+    "roi": 356,
+    "impressions": 234500,
+    "conversions": 1098,
+    "status": "active"
+  }
+]

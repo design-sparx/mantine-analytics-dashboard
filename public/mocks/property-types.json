@@ -1,0 +1,30 @@
+[
+  {
+    "type": "House",
+    "count": 342,
+    "percentage": 40.4,
+    "avgPrice": 1350000,
+    "color": "blue"
+  },
+  {
+    "type": "Condo",
+    "count": 256,
+    "percentage": 30.2,
+    "avgPrice": 780000,
+    "color": "green"
+  },
+  {
+    "type": "Townhouse",
+    "count": 145,
+    "percentage": 17.1,
+    "avgPrice": 625000,
+    "color": "violet"
+  },
+  {
+    "type": "Apartment",
+    "count": 104,
+    "percentage": 12.3,
+    "avgPrice": 450000,
+    "color": "orange"
+  }
+]

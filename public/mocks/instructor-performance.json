@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "instructorName": "Dr. Sarah Thompson",
+    "department": "Computer Science",
+    "coursesTeaching": 4,
+    "totalStudents": 567,
+    "averageRating": 4.8,
+    "completionRate": 91.2,
+    "responseTime": "< 2 hours",
+    "status": "active"
+  },
+  {
+    "id": 2,
+    "instructorName": "Dr. Michael Chen",
+    "department": "Computer Science",
+    "coursesTeaching": 3,
+    "totalStudents": 423,
+    "averageRating": 4.6,
+    "completionRate": 88.5,
+    "responseTime": "< 4 hours",
+    "status": "active"
+  },
+  {
+    "id": 3,
+    "instructorName": "Prof. Emily Parker",
+    "department": "Web Development",
+    "coursesTeaching": 5,
+    "totalStudents": 689,
+    "averageRating": 4.9,
+    "completionRate": 93.7,
+    "responseTime": "< 1 hour",
+    "status": "active"
+  },
+  {
+    "id": 4,
+    "instructorName": "Dr. James Anderson",
+    "department": "Database",
+    "coursesTeaching": 2,
+    "totalStudents": 298,
+    "averageRating": 4.4,
+    "completionRate": 85.3,
+    "responseTime": "< 6 hours",
+    "status": "active"
+  },
+  {
+    "id": 5,
+    "instructorName": "Dr. Rachel Kim",
+    "department": "AI/ML",
+    "coursesTeaching": 3,
+    "totalStudents": 456,
+    "averageRating": 4.7,
+    "completionRate": 89.8,
+    "responseTime": "< 3 hours",
+    "status": "active"
+  },
+  {
+    "id": 6,
+    "instructorName": "Prof. David Lee",
+    "department": "Mobile Development",
+    "coursesTeaching": 4,
+    "totalStudents": 534,
+    "averageRating": 4.8,
+    "completionRate": 92.1,
+    "responseTime": "< 2 hours",
+    "status": "active"
+  }
+]

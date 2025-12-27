@@ -1,0 +1,38 @@
+[
+  {
+    "month": "Jul",
+    "latency": 1.5,
+    "errorRate": 1.8,
+    "throughput": 2850
+  },
+  {
+    "month": "Aug",
+    "latency": 1.4,
+    "errorRate": 1.5,
+    "throughput": 3120
+  },
+  {
+    "month": "Sep",
+    "latency": 1.3,
+    "errorRate": 1.2,
+    "throughput": 3450
+  },
+  {
+    "month": "Oct",
+    "latency": 1.2,
+    "errorRate": 1.0,
+    "throughput": 3780
+  },
+  {
+    "month": "Nov",
+    "latency": 1.3,
+    "errorRate": 1.1,
+    "throughput": 4020
+  },
+  {
+    "month": "Dec",
+    "latency": 1.2,
+    "errorRate": 0.9,
+    "throughput": 4350
+  }
+]

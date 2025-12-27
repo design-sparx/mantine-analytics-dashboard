@@ -1,0 +1,14 @@
+[
+  { "month": "Jan", "overall": 4.3, "treatment": 4.5, "staff": 4.2, "facilities": 4.1 },
+  { "month": "Feb", "overall": 4.4, "treatment": 4.6, "staff": 4.3, "facilities": 4.2 },
+  { "month": "Mar", "overall": 4.2, "treatment": 4.4, "staff": 4.1, "facilities": 4.0 },
+  { "month": "Apr", "overall": 4.5, "treatment": 4.7, "staff": 4.4, "facilities": 4.3 },
+  { "month": "May", "overall": 4.6, "treatment": 4.8, "staff": 4.5, "facilities": 4.4 },
+  { "month": "Jun", "overall": 4.5, "treatment": 4.7, "staff": 4.4, "facilities": 4.3 },
+  { "month": "Jul", "overall": 4.7, "treatment": 4.9, "staff": 4.6, "facilities": 4.5 },
+  { "month": "Aug", "overall": 4.6, "treatment": 4.8, "staff": 4.5, "facilities": 4.4 },
+  { "month": "Sep", "overall": 4.7, "treatment": 4.9, "staff": 4.6, "facilities": 4.5 },
+  { "month": "Oct", "overall": 4.8, "treatment": 5.0, "staff": 4.7, "facilities": 4.6 },
+  { "month": "Nov", "overall": 4.7, "treatment": 4.9, "staff": 4.6, "facilities": 4.5 },
+  { "month": "Dec", "overall": 4.6, "treatment": 4.8, "staff": 4.5, "facilities": 4.4 }
+]
