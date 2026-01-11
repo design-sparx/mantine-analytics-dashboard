@@ -67,7 +67,8 @@ export const SIDEBAR_LINKS = [
       { label: 'Chat', icon: IconMessages, link: PATH_APPS.chat },
       { label: 'Projects', icon: IconBriefcase, link: PATH_APPS.projects },
       { label: 'Orders', icon: IconListDetails, link: PATH_APPS.orders },
-      { label: 'Customers', icon: IconUsers, link: PATH_APPS.customers },
+      { label: 'Customers', icon: IconUsers, link: PATH_APPS.customers, badge: 'NEW' },
+      { label: 'Email', icon: IconMessages, link: PATH_APPS.email, badge: 'NEW' },
       {
         label: 'Invoices',
         icon: IconFileInvoice,

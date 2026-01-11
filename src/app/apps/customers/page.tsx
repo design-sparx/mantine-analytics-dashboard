@@ -141,11 +141,12 @@ function Customers() {
         cols={{ base: 1, sm: 2, lg: 3, xl: 4 }}
         spacing={{ base: 10, sm: 'xl' }}
         verticalSpacing={{ base: 'md', sm: 'xl' }}
+        mt="md"
       >
         {customerItems}
       </SimpleGrid>
     ) : (
-      <Surface>
+      <Surface mt="md">
         <CustomersTable
           data={customersData.data}
           loading={false}

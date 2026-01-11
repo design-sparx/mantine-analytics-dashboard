@@ -17,6 +17,11 @@ export const HOME_APPS = [
     link: PATH_APPS.customers,
   },
   {
+    img: '/showcase/apps-chat.png',
+    title: 'email',
+    link: PATH_APPS.email,
+  },
+  {
     img: '/showcase/apps-invoices.png',
     title: 'invoices',
     link: PATH_APPS.invoices.root,
