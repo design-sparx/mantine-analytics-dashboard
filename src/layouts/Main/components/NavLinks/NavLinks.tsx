@@ -174,7 +174,14 @@ export function LinksGroup(props: LinksGroupProps) {
                   <Group gap="xs" ml="md">
                     <Box>{label}</Box>
                     {badge && (
-                      <Badge size="xs" variant="light">
+                      <Badge
+                        size="xs"
+                        variant={
+                          opened && link?.toLowerCase() === pathname
+                            ? 'white'
+                            : 'light'
+                        }
+                      >
                         {badge}
                       </Badge>
                     )}
@@ -203,7 +210,18 @@ export function LinksGroup(props: LinksGroupProps) {
     }
 
     return view;
-  }, [hasLinks, isMini, items, label, link, opened, pathname, theme.colors, theme.primaryColor, badge]);
+  }, [
+    hasLinks,
+    isMini,
+    items,
+    label,
+    link,
+    opened,
+    pathname,
+    theme.colors,
+    theme.primaryColor,
+    badge,
+  ]);
 
   useEffect(() => {
     const paths = pathname.split('/');
