@@ -39,6 +39,7 @@ export const PATH_APPS = {
   root: ROOT_APPS,
   calendar: path(ROOT_APPS, '/calendar'),
   chat: path(ROOT_APPS, '/chat'),
+  customers: path(ROOT_APPS, '/customers'),
   invoices: {
     root: path(ROOT_APPS, ROOTS_INVOICES),
     sample: path(ROOT_APPS, ROOTS_INVOICES + `/details/`),

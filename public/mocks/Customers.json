@@ -1,0 +1,239 @@
+[
+  {
+    "id": "cust-001",
+    "name": "Sarah Johnson",
+    "email": "sarah.johnson@email.com",
+    "phone": "+1 (555) 123-4567",
+    "company": "Tech Solutions Inc",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
+    "address": {
+      "street": "123 Main Street",
+      "city": "New York",
+      "state": "NY",
+      "country": "USA",
+      "zipCode": "10001"
+    },
+    "status": 1,
+    "totalOrders": 24,
+    "totalSpent": 12450.50,
+    "joinedDate": "2023-01-15",
+    "lastOrderDate": "2024-12-20"
+  },
+  {
+    "id": "cust-002",
+    "name": "Michael Chen",
+    "email": "michael.chen@company.com",
+    "phone": "+1 (555) 234-5678",
+    "company": "Digital Dynamics",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Michael",
+    "address": {
+      "street": "456 Oak Avenue",
+      "city": "San Francisco",
+      "state": "CA",
+      "country": "USA",
+      "zipCode": "94102"
+    },
+    "status": 1,
+    "totalOrders": 18,
+    "totalSpent": 8920.75,
+    "joinedDate": "2023-03-22",
+    "lastOrderDate": "2024-12-18"
+  },
+  {
+    "id": "cust-003",
+    "name": "Emily Rodriguez",
+    "email": "emily.r@business.net",
+    "phone": "+1 (555) 345-6789",
+    "company": "Creative Studios",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily",
+    "address": {
+      "street": "789 Pine Road",
+      "city": "Austin",
+      "state": "TX",
+      "country": "USA",
+      "zipCode": "78701"
+    },
+    "status": 1,
+    "totalOrders": 32,
+    "totalSpent": 15680.20,
+    "joinedDate": "2022-11-10",
+    "lastOrderDate": "2024-12-22"
+  },
+  {
+    "id": "cust-004",
+    "name": "David Kim",
+    "email": "david.kim@mail.com",
+    "phone": "+1 (555) 456-7890",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=David",
+    "address": {
+      "street": "321 Elm Street",
+      "city": "Seattle",
+      "state": "WA",
+      "country": "USA",
+      "zipCode": "98101"
+    },
+    "status": 1,
+    "totalOrders": 12,
+    "totalSpent": 5420.00,
+    "joinedDate": "2023-06-05",
+    "lastOrderDate": "2024-11-15"
+  },
+  {
+    "id": "cust-005",
+    "name": "Jessica Martinez",
+    "email": "jessica.m@enterprise.com",
+    "phone": "+1 (555) 567-8901",
+    "company": "Global Commerce",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Jessica",
+    "address": {
+      "street": "654 Maple Drive",
+      "city": "Chicago",
+      "state": "IL",
+      "country": "USA",
+      "zipCode": "60601"
+    },
+    "status": 1,
+    "totalOrders": 45,
+    "totalSpent": 28340.90,
+    "joinedDate": "2022-08-18",
+    "lastOrderDate": "2024-12-21"
+  },
+  {
+    "id": "cust-006",
+    "name": "Robert Taylor",
+    "email": "robert.taylor@company.org",
+    "phone": "+1 (555) 678-9012",
+    "company": "Innovate Corp",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Robert",
+    "address": {
+      "street": "987 Cedar Lane",
+      "city": "Boston",
+      "state": "MA",
+      "country": "USA",
+      "zipCode": "02101"
+    },
+    "status": 2,
+    "totalOrders": 8,
+    "totalSpent": 3250.40,
+    "joinedDate": "2023-09-12",
+    "lastOrderDate": "2024-08-10"
+  },
+  {
+    "id": "cust-007",
+    "name": "Amanda White",
+    "email": "amanda.white@tech.io",
+    "phone": "+1 (555) 789-0123",
+    "company": "NextGen Technologies",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Amanda",
+    "address": {
+      "street": "147 Birch Boulevard",
+      "city": "Denver",
+      "state": "CO",
+      "country": "USA",
+      "zipCode": "80201"
+    },
+    "status": 1,
+    "totalOrders": 21,
+    "totalSpent": 11230.60,
+    "joinedDate": "2023-04-28",
+    "lastOrderDate": "2024-12-19"
+  },
+  {
+    "id": "cust-008",
+    "name": "Christopher Lee",
+    "email": "chris.lee@email.com",
+    "phone": "+1 (555) 890-1234",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Christopher",
+    "address": {
+      "street": "258 Willow Way",
+      "city": "Portland",
+      "state": "OR",
+      "country": "USA",
+      "zipCode": "97201"
+    },
+    "status": 1,
+    "totalOrders": 15,
+    "totalSpent": 7890.25,
+    "joinedDate": "2023-07-14",
+    "lastOrderDate": "2024-12-05"
+  },
+  {
+    "id": "cust-009",
+    "name": "Nicole Brown",
+    "email": "nicole.brown@business.com",
+    "phone": "+1 (555) 901-2345",
+    "company": "Design Collective",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Nicole",
+    "address": {
+      "street": "369 Spruce Circle",
+      "city": "Miami",
+      "state": "FL",
+      "country": "USA",
+      "zipCode": "33101"
+    },
+    "status": 1,
+    "totalOrders": 28,
+    "totalSpent": 14560.80,
+    "joinedDate": "2023-02-08",
+    "lastOrderDate": "2024-12-16"
+  },
+  {
+    "id": "cust-010",
+    "name": "James Wilson",
+    "email": "james.wilson@corp.net",
+    "phone": "+1 (555) 012-3456",
+    "company": "Strategic Solutions",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
+    "address": {
+      "street": "741 Ash Avenue",
+      "city": "Atlanta",
+      "state": "GA",
+      "country": "USA",
+      "zipCode": "30301"
+    },
+    "status": 3,
+    "totalOrders": 5,
+    "totalSpent": 1240.50,
+    "joinedDate": "2023-10-20",
+    "lastOrderDate": "2024-05-12"
+  },
+  {
+    "id": "cust-011",
+    "name": "Sophia Anderson",
+    "email": "sophia.anderson@mail.com",
+    "phone": "+1 (555) 112-3456",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sophia",
+    "address": {
+      "street": "852 Poplar Street",
+      "city": "Phoenix",
+      "state": "AZ",
+      "country": "USA",
+      "zipCode": "85001"
+    },
+    "status": 1,
+    "totalOrders": 19,
+    "totalSpent": 9870.35,
+    "joinedDate": "2023-05-17",
+    "lastOrderDate": "2024-12-14"
+  },
+  {
+    "id": "cust-012",
+    "name": "Daniel Garcia",
+    "email": "daniel.garcia@enterprise.io",
+    "phone": "+1 (555) 223-4567",
+    "company": "Prime Ventures",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Daniel",
+    "address": {
+      "street": "963 Walnut Place",
+      "city": "Philadelphia",
+      "state": "PA",
+      "country": "USA",
+      "zipCode": "19101"
+    },
+    "status": 1,
+    "totalOrders": 36,
+    "totalSpent": 19450.70,
+    "joinedDate": "2022-12-03",
+    "lastOrderDate": "2024-12-23"
+  }
+]

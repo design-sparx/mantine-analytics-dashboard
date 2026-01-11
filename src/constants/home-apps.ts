@@ -12,6 +12,11 @@ export const HOME_APPS = [
     link: PATH_APPS.chat,
   },
   {
+    img: '/showcase/apps-orders.png',
+    title: 'customers',
+    link: PATH_APPS.customers,
+  },
+  {
     img: '/showcase/apps-invoices.png',
     title: 'invoices',
     link: PATH_APPS.invoices.root,
