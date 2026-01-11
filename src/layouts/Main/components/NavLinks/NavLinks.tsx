@@ -9,6 +9,7 @@ import {
   Text,
   Tooltip,
   UnstyledButton,
+  useMantineTheme,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconChevronRight } from '@tabler/icons-react';
@@ -44,13 +45,15 @@ export function LinksGroup(props: LinksGroupProps) {
   } = props;
   const router = useRouter();
   const pathname = usePathname();
+  const theme = useMantineTheme();
   const hasLinks = Array.isArray(links);
   const [opened, setOpened] = useState(initiallyOpened || false);
-  const [currentPath, setCurrentPath] = useState<string | undefined>();
+  const [_currentPath, setCurrentPath] = useState<string | undefined>();
   const ChevronIcon = IconChevronRight;
   const tablet_match = useMediaQuery('(max-width: 768px)');
 
   const LinkItem = ({ link }: { link: { label: string; link: string } }) => {
+    const isActive = link.link.toLowerCase() === pathname;
     return (
       <Text
         className={classes.link}
@@ -61,8 +64,16 @@ export function LinksGroup(props: LinksGroupProps) {
             closeSidebar();
           }
         }}
-        data-active={link.link.toLowerCase() === pathname || undefined}
+        data-active={isActive || undefined}
         data-mini={isMini}
+        style={
+          isActive
+            ? {
+                backgroundColor: theme.colors[theme.primaryColor][6],
+                color: 'white',
+              }
+            : undefined
+        }
       >
         {link.label}
       </Text>
@@ -147,6 +158,14 @@ export function LinksGroup(props: LinksGroupProps) {
             className={classes.control}
             data-active={opened || undefined}
             data-mini={isMini}
+            style={
+              opened && !hasLinks && link?.toLowerCase() === pathname
+                ? {
+                    backgroundColor: theme.colors[theme.primaryColor][6],
+                    color: 'white',
+                  }
+                : undefined
+            }
           >
             <Group justify="space-between" gap={0}>
               <Box style={{ display: 'flex', alignItems: 'center' }}>
@@ -155,7 +174,7 @@ export function LinksGroup(props: LinksGroupProps) {
                   <Group gap="xs" ml="md">
                     <Box>{label}</Box>
                     {badge && (
-                      <Badge size="xs" variant="light" color="blue">
+                      <Badge size="xs" variant="light">
                         {badge}
                       </Badge>
                     )}
@@ -184,18 +203,7 @@ export function LinksGroup(props: LinksGroupProps) {
     }
 
     return view;
-  }, [
-    ChevronIcon,
-    Icon,
-    hasLinks,
-    isMini,
-    items,
-    label,
-    link,
-    opened,
-    handleMainButtonClick,
-    handleMiniButtonClick,
-  ]);
+  }, [hasLinks, isMini, items, label, link, opened, pathname, theme.colors, theme.primaryColor, badge]);
 
   useEffect(() => {
     const paths = pathname.split('/');

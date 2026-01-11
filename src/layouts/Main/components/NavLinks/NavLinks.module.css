@@ -23,13 +23,10 @@
   cursor: pointer;
 
   @mixin hover {
-    background-color: light-dark(var(--mantine-primary-color-9), var(--mantine-primary-color-9));
-    color: var(--mantine-color-white);
-  }
-
-  &[data-active] {
-    background-color: light-dark(var(--mantine-primary-color-9), var(--mantine-primary-color-9));
-    color: var(--mantine-color-white);
+    background-color: light-dark(
+      rgba(0, 0, 0, 0.05),
+      rgba(255, 255, 255, 0.05)
+    );
   }
 
 }
