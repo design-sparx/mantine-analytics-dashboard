@@ -1,11 +1,11 @@
 import {
   Avatar,
   Badge,
+  Box,
   Group,
-  Paper,
-  PaperProps,
   Stack,
   Text,
+  UnstyledButton,
 } from '@mantine/core';
 import {
   IconPaperclip,
@@ -15,7 +15,7 @@ import {
 
 import type { EmailDto } from '@/types';
 
-interface EmailListItemProps extends Omit<PaperProps, 'children'> {
+interface EmailListItemProps {
   email: EmailDto;
   active?: boolean;
   onClick?: () => void;
@@ -27,7 +27,6 @@ export const EmailListItem = ({
   active = false,
   onClick,
   onToggleStar,
-  ...paperProps
 }: EmailListItemProps) => {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -56,93 +55,119 @@ export const EmailListItem = ({
   };
 
   return (
-    <Paper
-      p="md"
-      withBorder
-      style={{
-        cursor: 'pointer',
-        backgroundColor: active
-          ? 'var(--mantine-primary-color-light)'
-          : email.read
-            ? 'transparent'
-            : 'transparent',
-      }}
+    <UnstyledButton
       onClick={onClick}
-      {...paperProps}
+      style={{
+        width: '100%',
+        padding: '12px 16px',
+        borderBottom: '1px solid var(--mantine-color-gray-2)',
+        backgroundColor: active
+          ? 'var(--mantine-color-blue-0)'
+          : email.read
+          ? 'transparent'
+          : 'var(--mantine-color-gray-0)',
+        transition: 'background-color 100ms ease',
+        cursor: 'pointer',
+      }}
+      onMouseEnter={(e) => {
+        if (!active) {
+          e.currentTarget.style.backgroundColor = 'var(--mantine-color-gray-1)';
+        }
+      }}
+      onMouseLeave={(e) => {
+        if (!active) {
+          e.currentTarget.style.backgroundColor = email.read
+            ? 'transparent'
+            : 'var(--mantine-color-gray-0)';
+        }
+      }}
     >
-      <Group justify="space-between" wrap="nowrap" gap="sm">
-        <Group gap="sm" style={{ flex: 1, minWidth: 0 }}>
-          <Avatar
-            src={email.from.avatar}
-            alt={email.from.name}
-            radius="xl"
-            size="md"
-          />
-          <Stack gap={2} style={{ flex: 1, minWidth: 0 }}>
-            <Group gap="xs" justify="space-between" wrap="nowrap">
-              <Text
-                size="sm"
-                fw={email.read ? 400 : 700}
-                style={{
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                {email.from.name}
-              </Text>
-              <Text size="xs" c="dimmed" style={{ whiteSpace: 'nowrap' }}>
-                {formatDate(email.date)}
-              </Text>
-            </Group>
+      <Group wrap="nowrap" gap="sm" align="flex-start">
+        <Avatar
+          src={email.from.avatar}
+          alt={email.from.name}
+          radius="xl"
+          size={32}
+        />
+
+        <Stack gap={4} style={{ flex: 1, minWidth: 0 }}>
+          <Group justify="space-between" wrap="nowrap" gap="xs">
             <Text
               size="sm"
-              fw={email.read ? 400 : 600}
+              fw={email.read ? 500 : 700}
               style={{
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
+                flex: 1,
               }}
             >
-              {email.subject}
+              {email.from.name}
             </Text>
             <Text
               size="xs"
               c="dimmed"
-              lineClamp={1}
-              style={{
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-              }}
+              style={{ whiteSpace: 'nowrap', flexShrink: 0 }}
             >
-              {email.body}
+              {formatDate(email.date)}
             </Text>
-            <Group gap={4} mt={4}>
-              {email.important && (
-                <Badge size="xs" color="red" variant="light">
-                  Important
-                </Badge>
-              )}
-              {email.attachments && email.attachments.length > 0 && (
-                <Group gap={4}>
-                  <IconPaperclip size={12} />
-                  <Text size="xs" c="dimmed">
-                    {email.attachments.length}
-                  </Text>
-                </Group>
-              )}
-            </Group>
-          </Stack>
-        </Group>
-        <div onClick={handleStarClick} style={{ cursor: 'pointer' }}>
+          </Group>
+
+          <Text
+            size="sm"
+            fw={email.read ? 400 : 600}
+            style={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {email.subject}
+          </Text>
+
+          <Text
+            size="xs"
+            c="dimmed"
+            lineClamp={1}
+            style={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {email.body}
+          </Text>
+
+          <Group gap={6} mt={2}>
+            {email.important && (
+              <Badge size="xs" color="red" variant="dot">
+                Important
+              </Badge>
+            )}
+            {email.attachments && email.attachments.length > 0 && (
+              <Group gap={2}>
+                <IconPaperclip size={12} color="gray" />
+                <Text size="xs" c="dimmed">
+                  {email.attachments.length}
+                </Text>
+              </Group>
+            )}
+            {email.labels?.slice(0, 2).map((label) => (
+              <Badge key={label} size="xs" variant="outline">
+                {label}
+              </Badge>
+            ))}
+          </Group>
+        </Stack>
+
+        <Box onClick={handleStarClick} style={{ cursor: 'pointer', padding: 4 }}>
           {email.starred ? (
-            <IconStarFilled size={18} color="gold" />
+            <IconStarFilled size={16} color="gold" />
           ) : (
-            <IconStar size={18} color="gray" />
+            <IconStar size={16} color="gray" style={{ opacity: 0.5 }} />
           )}
-        </div>
+        </Box>
       </Group>
-    </Paper>
+    </UnstyledButton>
   );
 };

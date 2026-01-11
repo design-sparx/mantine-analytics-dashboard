@@ -6,24 +6,29 @@ import {
   ActionIcon,
   Anchor,
   Badge,
+  Box,
   Button,
-  Grid,
+  Divider,
   Group,
   Paper,
+  ScrollArea,
   Skeleton,
   Stack,
   Text,
   TextInput,
   Title,
+  Tooltip,
 } from '@mantine/core';
 import { useDebouncedValue, useDisclosure } from '@mantine/hooks';
 import {
+  IconArchive,
   IconInbox,
   IconMoodEmpty,
   IconPencil,
   IconRefresh,
   IconSearch,
   IconSend,
+  IconSettings,
   IconStar,
   IconTrash,
 } from '@tabler/icons-react';
@@ -70,28 +75,23 @@ function Email() {
   }, [refetchEmails]);
 
   const handleReply = (email: EmailDto) => {
-    // In a real app, this would pre-fill the compose form
     composeOpen();
   };
 
   const handleDelete = (email: EmailDto) => {
-    // In a real app, this would send a DELETE request
     console.log('Delete email:', email.id);
   };
 
   const handleToggleStar = (email: EmailDto) => {
-    // In a real app, this would send a PATCH request
     console.log('Toggle star:', email.id);
   };
 
   const filteredEmails = emailsData?.data?.filter((email: EmailDto) => {
-    // Filter by folder
     if (filter === 'inbox' && email.folder !== 'inbox') return false;
     if (filter === 'starred' && !email.starred) return false;
     if (filter === 'sent' && email.folder !== 'sent') return false;
     if (filter === 'trash' && email.folder !== 'trash') return false;
 
-    // Filter by search query
     if (debouncedQuery) {
       const query = debouncedQuery.toLowerCase();
       return (
@@ -104,12 +104,16 @@ function Email() {
     return true;
   });
 
+  const unreadCount = emailsData?.data?.filter(
+    (e: EmailDto) => e.folder === 'inbox' && !e.read
+  ).length || 0;
+
   const renderEmailList = () => {
     if (emailsLoading) {
       return (
-        <Stack gap="xs">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <Skeleton key={`email-loading-${i}`} height={100} />
+        <Stack gap={0}>
+          {Array.from({ length: 8 }).map((_, i) => (
+            <Skeleton key={`email-loading-${i}`} height={80} radius={0} />
           ))}
         </Stack>
       );
@@ -117,31 +121,35 @@ function Email() {
 
     if (emailsError) {
       return (
-        <ErrorAlert
-          title="Error loading emails"
-          message={emailsError?.message || 'Failed to load emails'}
-        />
+        <Box p="xl">
+          <ErrorAlert
+            title="Error loading emails"
+            message={emailsError?.message || 'Failed to load emails'}
+          />
+        </Box>
       );
     }
 
     if (!filteredEmails?.length) {
       return (
-        <Paper p="xl" withBorder>
-          <Stack align="center">
-            <IconMoodEmpty size={48} color="gray" />
-            <Title order={4}>No emails found</Title>
-            <Text c="dimmed">
-              {debouncedQuery
-                ? 'Try adjusting your search'
-                : 'Your mailbox is empty'}
-            </Text>
+        <Box p="xl">
+          <Stack align="center" gap="md">
+            <IconMoodEmpty size={64} color="gray" opacity={0.3} />
+            <div style={{ textAlign: 'center' }}>
+              <Title order={4} c="dimmed">No emails found</Title>
+              <Text size="sm" c="dimmed">
+                {debouncedQuery
+                  ? 'Try adjusting your search'
+                  : 'Your mailbox is empty'}
+              </Text>
+            </div>
           </Stack>
-        </Paper>
+        </Box>
       );
     }
 
     return (
-      <Stack gap="xs">
+      <Stack gap={0}>
         {filteredEmails.map((email: EmailDto) => (
           <EmailListItem
             key={email.id}
@@ -157,123 +165,156 @@ function Email() {
 
   return (
     <>
-      <>
-        <title>Email | DesignSparx</title>
-        <meta name="description" content="Manage your emails" />
-      </>
+      <title>Email | DesignSparx</title>
+      <meta name="description" content="Manage your emails" />
+
       <PageHeader
         title="Email"
         breadcrumbItems={items}
         actionButton={
           <Group gap="sm">
-            <ActionIcon variant="subtle" onClick={() => refetchEmails()}>
-              <IconRefresh size={18} />
-            </ActionIcon>
-            <Button
-              leftSection={<IconPencil size={18} />}
-              onClick={composeOpen}
-            >
-              Compose
-            </Button>
+            <Tooltip label="Refresh">
+              <ActionIcon variant="subtle" onClick={() => refetchEmails()}>
+                <IconRefresh size={18} />
+              </ActionIcon>
+            </Tooltip>
+            <Tooltip label="Settings">
+              <ActionIcon variant="subtle">
+                <IconSettings size={18} />
+              </ActionIcon>
+            </Tooltip>
           </Group>
         }
       />
 
-      <Grid gutter="md" mt="md">
-        <Grid.Col span={{ base: 12, md: 4, lg: 3 }}>
-          <Paper p="md" withBorder>
-            <Stack>
+      <Box mt="md" style={{ display: 'flex', gap: 0, height: 'calc(100vh - 200px)' }}>
+        {/* Left Sidebar - Folders */}
+        <Paper
+          withBorder
+          style={{
+            width: 240,
+            borderRadius: 0,
+            borderRight: '1px solid var(--mantine-color-gray-3)',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <Box p="md">
+            <Button
+              leftSection={<IconPencil size={18} />}
+              onClick={composeOpen}
+              fullWidth
+              size="md"
+            >
+              New message
+            </Button>
+          </Box>
+
+          <Divider />
+
+          <ScrollArea style={{ flex: 1 }}>
+            <Stack gap={2} p="xs">
               <Button
-                leftSection={<IconPencil size={18} />}
-                onClick={composeOpen}
+                variant={filter === 'inbox' ? 'light' : 'subtle'}
+                leftSection={<IconInbox size={18} />}
+                justify="flex-start"
+                onClick={() => setFilter('inbox')}
                 fullWidth
+                rightSection={
+                  unreadCount > 0 && (
+                    <Badge size="sm" circle>
+                      {unreadCount}
+                    </Badge>
+                  )
+                }
               >
-                Compose
+                Inbox
               </Button>
 
-              <Stack gap="xs">
-                <Button
-                  variant={filter === 'inbox' ? 'light' : 'subtle'}
-                  leftSection={<IconInbox size={18} />}
-                  justify="flex-start"
-                  onClick={() => setFilter('inbox')}
-                  fullWidth
-                  rightSection={
-                    emailsData?.data?.length &&
-                    emailsData?.data?.filter(
-                      (e: EmailDto) => e.folder === 'inbox' && !e.read,
-                    ).length > 0 && (
-                      <Badge ml="auto">
-                        {
-                          emailsData?.data?.filter(
-                            (e: EmailDto) => e.folder === 'inbox' && !e.read,
-                          ).length
-                        }
-                      </Badge>
-                    )
-                  }
-                >
-                  Inbox
-                </Button>
+              <Button
+                variant={filter === 'starred' ? 'light' : 'subtle'}
+                leftSection={<IconStar size={18} />}
+                justify="flex-start"
+                onClick={() => setFilter('starred')}
+                fullWidth
+              >
+                Starred
+              </Button>
 
-                <Button
-                  variant={filter === 'starred' ? 'light' : 'subtle'}
-                  leftSection={<IconStar size={18} />}
-                  justify="flex-start"
-                  onClick={() => setFilter('starred')}
-                  fullWidth
-                >
-                  Starred
-                </Button>
+              <Button
+                variant={filter === 'sent' ? 'light' : 'subtle'}
+                leftSection={<IconSend size={18} />}
+                justify="flex-start"
+                onClick={() => setFilter('sent')}
+                fullWidth
+              >
+                Sent
+              </Button>
 
-                <Button
-                  variant={filter === 'sent' ? 'light' : 'subtle'}
-                  leftSection={<IconSend size={18} />}
-                  justify="flex-start"
-                  onClick={() => setFilter('sent')}
-                  fullWidth
-                >
-                  Sent
-                </Button>
+              <Button
+                variant="subtle"
+                leftSection={<IconArchive size={18} />}
+                justify="flex-start"
+                fullWidth
+                disabled
+              >
+                Archive
+              </Button>
 
-                <Button
-                  variant={filter === 'trash' ? 'light' : 'subtle'}
-                  leftSection={<IconTrash size={18} />}
-                  justify="flex-start"
-                  onClick={() => setFilter('trash')}
-                  fullWidth
-                >
-                  Trash
-                </Button>
-              </Stack>
+              <Button
+                variant={filter === 'trash' ? 'light' : 'subtle'}
+                leftSection={<IconTrash size={18} />}
+                justify="flex-start"
+                onClick={() => setFilter('trash')}
+                fullWidth
+              >
+                Trash
+              </Button>
             </Stack>
-          </Paper>
-        </Grid.Col>
+          </ScrollArea>
+        </Paper>
 
-        <Grid.Col span={{ base: 12, md: 8, lg: 4 }}>
-          <Stack>
+        {/* Middle - Email List */}
+        <Paper
+          withBorder
+          style={{
+            width: 380,
+            borderRadius: 0,
+            borderRight: '1px solid var(--mantine-color-gray-3)',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <Box p="md">
             <TextInput
-              placeholder="Search emails..."
+              placeholder="Search in mail..."
               leftSection={<IconSearch size={16} />}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.currentTarget.value)}
+              size="sm"
             />
-            {renderEmailList()}
-          </Stack>
-        </Grid.Col>
+          </Box>
 
-        {selectedEmail && (
-          <Grid.Col span={{ base: 12, lg: 5 }} visibleFrom="lg">
-            <EmailDetail
-              email={selectedEmail}
-              onBack={() => setSelectedEmail(null)}
-              onReply={handleReply}
-              onDelete={handleDelete}
-              onToggleStar={handleToggleStar}
-            />
-          </Grid.Col>
-        )}
-      </Grid>
+          <Divider />
+
+          <Box style={{ flex: 1, position: 'relative' }}>
+            <ScrollArea style={{ position: 'absolute', inset: 0 }}>
+              {renderEmailList()}
+            </ScrollArea>
+          </Box>
+        </Paper>
+
+        {/* Right - Email Detail */}
+        <Box style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+          <EmailDetail
+            email={selectedEmail}
+            onBack={() => setSelectedEmail(null)}
+            onReply={handleReply}
+            onDelete={handleDelete}
+            onToggleStar={handleToggleStar}
+          />
+        </Box>
+      </Box>
 
       <ComposeEmail
         opened={composeOpened}
