@@ -32,7 +32,7 @@
 
   /* Colored variant */
   &[data-variant="colored"] {
-    background-color: var(--mantine-primary-color-7);
+    background-color: var(--mantine-primary-color-filled);
     color: white;
 
     .linkHeader, .linkLabel, .logo {
@@ -42,25 +42,15 @@
 
   /* Gradient variant */
   &[data-variant="gradient"] {
-    @mixin light {
-      background: linear-gradient(
-        180deg,
-        var(--mantine-primary-color-filled) 0%,
-        var(--mantine-primary-color-5) 100%
-      );
-      color: white;
+    background: linear-gradient(
+      180deg,
+      var(--mantine-primary-color-filled) 0%,
+      var(--mantine-primary-color-light) 100%
+    );
+    color: white;
 
-      .linkHeader, .linkLabel, .logo {
-        color: white !important;
-      }
-    }
-
-    @mixin dark {
-      background: linear-gradient(
-        180deg,
-        var(--mantine-color-dark-6) 0%,
-        var(--mantine-color-dark-8) 100%
-      );
+    .linkHeader, .linkLabel, .logo {
+      color: white !important;
     }
   }
 
@@ -116,11 +106,9 @@
 }
 
 .links {
-  flex: 1;
   margin-left: calc(var(--mantine-spacing-md) * -1);
   margin-right: calc(var(--mantine-spacing-md) * -1);
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .linksInner {

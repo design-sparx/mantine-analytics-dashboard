@@ -32,6 +32,7 @@ export { default as MapChart } from './map-chart';
 // Tables
 export { default as InvoicesTable } from './invoices-table';
 export { default as OrdersTable } from './orders-table';
+export { default as CustomersTable } from './customers-table';
 export { default as ProjectsTable } from './projects-table';
 export { default as TrafficTable } from './traffic-table';
 export { default as LanguageTable } from './language-table';

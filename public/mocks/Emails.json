@@ -1,0 +1,247 @@
+[
+  {
+    "id": "email-001",
+    "from": {
+      "name": "Sarah Johnson",
+      "email": "sarah.johnson@techcorp.com",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
+    },
+    "to": ["demo@example.com"],
+    "subject": "Q4 Project Update - Action Required",
+    "body": "Hi Team,\n\nI hope this email finds you well. I wanted to provide an update on the Q4 project milestones.\n\nWe've successfully completed Phase 1 and are now moving into Phase 2. Please review the attached documentation and provide your feedback by end of week.\n\nKey Points:\n- Phase 1: Complete ✓\n- Phase 2: In Progress\n- Budget: On Track\n- Timeline: Slightly ahead\n\nLooking forward to your input.\n\nBest regards,\nSarah",
+    "date": "2024-12-22T10:30:00Z",
+    "read": false,
+    "starred": true,
+    "important": true,
+    "folder": "inbox",
+    "labels": ["work", "urgent"],
+    "attachments": [
+      {
+        "id": "att-001",
+        "name": "Q4_Project_Report.pdf",
+        "size": 2457600,
+        "type": "application/pdf"
+      }
+    ]
+  },
+  {
+    "id": "email-002",
+    "from": {
+      "name": "Michael Chen",
+      "email": "m.chen@digitalagency.io",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Michael"
+    },
+    "to": ["demo@example.com"],
+    "cc": ["team@example.com"],
+    "subject": "Meeting Rescheduled: Design Review",
+    "body": "Hello,\n\nDue to scheduling conflicts, I need to reschedule our design review meeting originally planned for tomorrow.\n\nNew proposed times:\n- Wednesday, 2 PM EST\n- Thursday, 10 AM EST\n- Friday, 3 PM EST\n\nPlease let me know which works best for you.\n\nThanks,\nMichael",
+    "date": "2024-12-22T09:15:00Z",
+    "read": true,
+    "starred": false,
+    "important": false,
+    "folder": "inbox",
+    "labels": ["meetings"]
+  },
+  {
+    "id": "email-003",
+    "from": {
+      "name": "Emily Rodriguez",
+      "email": "emily@creativestudio.com",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily"
+    },
+    "to": ["demo@example.com"],
+    "subject": "New Design Mockups Ready for Review",
+    "body": "Hi there!\n\nExcited to share that the new design mockups are ready for your review. I've incorporated all the feedback from our last meeting.\n\nYou can access them here:\n- Homepage redesign\n- Dashboard updates\n- Mobile responsive views\n\nI'm available for a call this week if you'd like to discuss any changes.\n\nCheers,\nEmily",
+    "date": "2024-12-21T16:45:00Z",
+    "read": true,
+    "starred": true,
+    "important": false,
+    "folder": "inbox",
+    "labels": ["design", "review"],
+    "attachments": [
+      {
+        "id": "att-002",
+        "name": "mockups_v2.fig",
+        "size": 15728640,
+        "type": "application/octet-stream"
+      }
+    ]
+  },
+  {
+    "id": "email-004",
+    "from": {
+      "name": "LinkedIn",
+      "email": "messages-noreply@linkedin.com",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=LinkedIn"
+    },
+    "to": ["demo@example.com"],
+    "subject": "You have 3 new connection requests",
+    "body": "Hi,\n\nYou have new connection requests waiting for you on LinkedIn.\n\nView your invitations and expand your professional network.\n\nBest,\nThe LinkedIn Team",
+    "date": "2024-12-21T14:20:00Z",
+    "read": false,
+    "starred": false,
+    "important": false,
+    "folder": "inbox",
+    "labels": ["social", "notifications"]
+  },
+  {
+    "id": "email-005",
+    "from": {
+      "name": "David Kim",
+      "email": "david.kim@startup.tech",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=David"
+    },
+    "to": ["demo@example.com"],
+    "subject": "Invoice #INV-2024-089",
+    "body": "Dear Customer,\n\nPlease find attached the invoice for December 2024 services.\n\nInvoice Details:\n- Invoice Number: INV-2024-089\n- Amount Due: $2,450.00\n- Due Date: January 15, 2025\n\nPayment can be made via bank transfer or credit card through our payment portal.\n\nThank you for your business!\n\nBest regards,\nDavid Kim\nAccounting Department",
+    "date": "2024-12-20T11:30:00Z",
+    "read": true,
+    "starred": false,
+    "important": true,
+    "folder": "inbox",
+    "labels": ["billing", "invoices"],
+    "attachments": [
+      {
+        "id": "att-003",
+        "name": "Invoice_2024_089.pdf",
+        "size": 524288,
+        "type": "application/pdf"
+      }
+    ]
+  },
+  {
+    "id": "email-006",
+    "from": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=GitHub"
+    },
+    "to": ["demo@example.com"],
+    "subject": "[Repository] New pull request #42",
+    "body": "A new pull request has been opened in your repository.\n\nPull Request: Feature/add-dark-mode\nAuthor: @developer123\nReviewers: @you\n\nDescription:\nThis PR adds dark mode support to the application with theme toggle functionality.\n\nView Pull Request: https://github.com/...",
+    "date": "2024-12-20T08:45:00Z",
+    "read": true,
+    "starred": false,
+    "important": false,
+    "folder": "inbox",
+    "labels": ["github", "development"]
+  },
+  {
+    "id": "email-007",
+    "from": {
+      "name": "Jessica Martinez",
+      "email": "jessica@marketing.pro",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Jessica"
+    },
+    "to": ["demo@example.com"],
+    "subject": "Campaign Performance Report - November",
+    "body": "Hi,\n\nAttached is the performance report for our November marketing campaigns.\n\nHighlights:\n- Email Open Rate: 28.5% (↑ 3.2%)\n- Click-through Rate: 4.8% (↑ 1.1%)\n- Conversion Rate: 2.3% (↑ 0.5%)\n- ROI: 320%\n\nOverall, we're seeing strong growth across all metrics. Let's schedule a call to discuss December strategy.\n\nBest,\nJessica",
+    "date": "2024-12-19T15:00:00Z",
+    "read": true,
+    "starred": true,
+    "important": false,
+    "folder": "inbox",
+    "labels": ["marketing", "reports"],
+    "attachments": [
+      {
+        "id": "att-004",
+        "name": "November_Campaign_Report.xlsx",
+        "size": 1048576,
+        "type": "application/vnd.ms-excel"
+      }
+    ]
+  },
+  {
+    "id": "email-008",
+    "from": {
+      "name": "Robert Taylor",
+      "email": "r.taylor@consultancy.com",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Robert"
+    },
+    "to": ["demo@example.com"],
+    "subject": "Re: Partnership Proposal",
+    "body": "Thanks for reaching out with the partnership proposal.\n\nAfter reviewing with our team, we're definitely interested in exploring this further. The synergies between our organizations look promising.\n\nCould we set up a call next week to discuss:\n- Partnership structure\n- Revenue sharing model\n- Timeline and milestones\n\nLooking forward to this collaboration.\n\nRegards,\nRobert",
+    "date": "2024-12-19T10:20:00Z",
+    "read": false,
+    "starred": false,
+    "important": true,
+    "folder": "inbox",
+    "labels": ["business", "partnerships"]
+  },
+  {
+    "id": "email-009",
+    "from": {
+      "name": "Amanda White",
+      "email": "amanda@support.help",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Amanda"
+    },
+    "to": ["demo@example.com"],
+    "subject": "Your Support Ticket #12345 Has Been Resolved",
+    "body": "Hello,\n\nGreat news! Your support ticket #12345 regarding login issues has been resolved.\n\nSolution:\nWe've reset your authentication tokens and updated the security settings on your account. You should now be able to log in without any issues.\n\nIf you continue to experience problems, please don't hesitate to reach out.\n\nBest regards,\nAmanda\nCustomer Support Team",
+    "date": "2024-12-18T17:30:00Z",
+    "read": true,
+    "starred": false,
+    "important": false,
+    "folder": "inbox",
+    "labels": ["support"]
+  },
+  {
+    "id": "email-010",
+    "from": {
+      "name": "Christopher Lee",
+      "email": "chris@events.co",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Christopher"
+    },
+    "to": ["demo@example.com"],
+    "subject": "Save the Date: Annual Tech Conference 2025",
+    "body": "You're Invited!\n\nJoin us for the Annual Tech Conference 2025\n\nDate: March 15-17, 2025\nLocation: Convention Center, San Francisco\nTheme: \"Innovation in the Digital Age\"\n\nEarly bird registration opens January 1st with 30% discount.\n\nFeatured speakers, workshops, and networking opportunities await.\n\nRegister now at: www.techconf2025.com\n\nSee you there!\nChristopher Lee\nEvent Coordinator",
+    "date": "2024-12-18T09:00:00Z",
+    "read": true,
+    "starred": false,
+    "important": false,
+    "folder": "inbox",
+    "labels": ["events"]
+  },
+  {
+    "id": "email-011",
+    "from": {
+      "name": "You",
+      "email": "demo@example.com",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Demo"
+    },
+    "to": ["client@company.com"],
+    "subject": "Project Proposal - Web Application Development",
+    "body": "Dear Client,\n\nThank you for considering our services for your web application development project.\n\nAttached is our detailed proposal including:\n- Project scope and deliverables\n- Timeline and milestones\n- Cost breakdown\n- Team composition\n\nWe're excited about the opportunity to work with you.\n\nPlease let me know if you have any questions.\n\nBest regards,\nYour Name",
+    "date": "2024-12-17T14:00:00Z",
+    "read": true,
+    "starred": false,
+    "important": false,
+    "folder": "sent",
+    "labels": ["sent"],
+    "attachments": [
+      {
+        "id": "att-005",
+        "name": "Project_Proposal.pdf",
+        "size": 3145728,
+        "type": "application/pdf"
+      }
+    ]
+  },
+  {
+    "id": "email-012",
+    "from": {
+      "name": "Newsletter Bot",
+      "email": "newsletter@tech.news",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Newsletter"
+    },
+    "to": ["demo@example.com"],
+    "subject": "Weekly Tech Digest - Top Stories",
+    "body": "Your Weekly Tech Update\n\nTop Stories This Week:\n1. AI Breakthrough in Natural Language Processing\n2. New Framework Released: NextJS 15\n3. Cybersecurity Trends for 2025\n4. Startup Funding Reaches Record High\n5. Cloud Computing Cost Optimization Tips\n\nRead full stories at tech.news\n\nUnsubscribe | Manage Preferences",
+    "date": "2024-12-17T06:00:00Z",
+    "read": false,
+    "starred": false,
+    "important": false,
+    "folder": "inbox",
+    "labels": ["newsletters"]
+  }
+]

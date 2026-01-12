@@ -25,7 +25,7 @@ type PageHeaderProps = {
   breadcrumbItems?: any;
   actionButton?: React.ReactNode;
   actionContent?: React.ReactNode;
-} & PaperProps;
+} & PaperProps
 
 const PageHeader = (props: PageHeaderProps) => {
   const {
