@@ -1,7 +1,9 @@
 ## 🔉 Announcements
-- 🚀 **MAJOR**: Upgraded to **Next.js 16**! The previous Next.js 14 version is available on the [`next-14`](https://github.com/design-sparx/mantine-analytics-dashboard/tree/next-14) branch for backwards compatibility.
-- ✅ **NEW**: Type-safe API integration with RBAC system now available! See [API Integration Guide](#-api-integration--rbac-system) below.
-- Working on integrating our mock data with actual apis for a more real-world experience. This is the roadmap for implementing our APIs - [Admin Hub Apis roadmap](https://github.com/orgs/design-sparx/projects/6/views/1?filterQuery=&layout=roadmap)
+- **MAJOR**: Upgraded to **Next.js 16**! The previous Next.js 14 version is available on the [`next-14`](https://github.com/design-sparx/mantine-analytics-dashboard/tree/next-14) branch for backwards compatibility.
+- **NEW**: Enhanced mock data system with Next.js API routes for a more realistic development experience
+- **NEW**: Comprehensive theme customization system with live preview and persistence
+- **NEW**: Multiple app modules added - Email, Notifications, Customer Management, Projects, Invoices, Chat, and more
+- Working on integrating our mock data with actual APIs for a more real-world experience - [Admin Hub APIs roadmap](https://github.com/orgs/design-sparx/projects/6/views/1?filterQuery=&layout=roadmap)
 
 ---
 
@@ -57,7 +59,7 @@ and [Storybook](https://storybook.js.org/).
 ## Next.js 14 (App Router)
 The previous release with Next.js 14 and Mantine 7 is available for users who need backwards compatibility or prefer the stable version:
 - **Branch**: [`next-14`](https://github.com/design-sparx/mantine-analytics-dashboard/tree/next-14)
-- **Features**: App Router, Mantine 7, React 18, Type-safe API integration, RBAC system
+- **Features**: App Router, Mantine 7, React 18, Mock API integration
 
 ## Next.js 13 (Pages Router)
 The legacy version supports Next 13 with Pages router and Mantine 6. To view the live demo
@@ -66,18 +68,16 @@ fork the repo use this link - [version 1](https://github.com/design-sparx/mantin
 
 # Features
 
-- **Type-Safe API Integration:** Auto-generated TypeScript types from OpenAPI specs with zero boilerplate
-- **Advanced RBAC System:** Role-Based Access Control with permission-aware UI components
-- **Customizable:** You don't need to be an expert to customize the template. Our code is very readable and
-  well-documented.
-- **Fully Responsive:** With mobile, tablet & desktop support it doesn't matter what device you're using. Dashboard
-  is responsive in all browsers.
-- **Cross-Browser:** Our themes are working perfectly with Chrome, Firefox, Opera, and Edge. We're working hard to
-  support them.
-- **Clean Code:** We strictly follow best practices to make your integration as easy as possible. All code is
-  handwritten.
-- **Regular Updates:** From time to time you'll receive an update containing new components, improvements, and bug
-  fixes.
+- **Mock API System:** Complete Next.js API routes with mock data for realistic development experience
+- **Theme Customization:** Live theme customizer with support for colors, layouts, and dark mode with localStorage persistence
+- **Multiple App Modules:** Pre-built modules including Email, Notifications, Projects, Invoices, Chat, Kanban, Calendar, and more
+- **Type-Safe:** Built with TypeScript for enhanced developer experience and fewer runtime errors
+- **Authentication:** NextAuth integration with mock credentials for demo purposes
+- **Customizable:** Clean, readable, and well-documented code that's easy to modify and extend
+- **Fully Responsive:** Mobile, tablet, and desktop support with consistent experience across all devices
+- **Cross-Browser:** Optimized for Chrome, Firefox, Opera, Edge, and other modern browsers
+- **Clean Code:** Follows best practices and coding standards for easy integration and maintenance
+- **Regular Updates:** Ongoing improvements, new components, and bug fixes
 
 # Tech stack
 
@@ -99,7 +99,6 @@ To make this template awesome, I used the following packages:
 - **Changeset CLI v2:** Changeset is a package that helps in managing my versions and changelogs.
 - **NextAuth v4:** NextAuth.js is a flexible and secure authentication library that can be used for client-side
   authentication in Next.js.
-- **OpenAPI TypeScript:** Auto-generates TypeScript types from OpenAPI specifications for type-safe API integration.
 - **Tabler icons v2:** Tabler Icons is a free, open-source icon library with over 4,700 icons. The icons are designed
   with a modern aesthetic and are suitable for a wide range of applications.
 - **Mantine datatable v7:** Mantine DataTable is a React component that can be used to create data-rich user interfaces.
@@ -159,14 +158,71 @@ Compile, optimize, minify and uglify all source files to build/
 npm run build
 ```
 
-## API Integration Setup
+## Mock Data System
 
-Generate type-safe API types from your backend:
+This template includes a comprehensive mock data system using Next.js API routes. All data is served from `public/mocks/*.json` files through API endpoints in `src/app/api/`.
 
-```bash copy
-# Generate types from development backend
-npm run generate:types
+### Using Mock APIs
+
+```typescript
+import { useFetch } from '@mantine/hooks';
+import { IApiResponse } from '@/types/api-response';
+
+function MyComponent() {
+  const { data, loading, error, refetch } = useFetch<IApiResponse<Product[]>>('/api/products');
+
+  if (loading) return <Skeleton />;
+  if (error) return <ErrorAlert />;
+
+  return (
+    <div>
+      {data?.data?.map(product => (
+        <ProductCard key={product.id} product={product} />
+      ))}
+    </div>
+  );
+}
 ```
+
+### Creating New Mock Data
+
+1. **Add JSON file** to `public/mocks/YourData.json`
+2. **Create API route** in `src/app/api/your-endpoint/route.ts`:
+
+```typescript
+import { NextRequest, NextResponse } from 'next/server';
+import fs from 'fs';
+import path from 'path';
+
+export async function GET(request: NextRequest) {
+  const filePath = path.join(process.cwd(), 'public', 'mocks', 'YourData.json');
+  const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+
+  return NextResponse.json({
+    succeeded: true,
+    data,
+    errors: [],
+    message: 'Data retrieved successfully'
+  });
+}
+```
+
+3. **Use in components** with `useFetch('/api/your-endpoint')`
+
+### Available API Endpoints
+
+- `/api/products` - Product catalog
+- `/api/invoices` - Invoice management
+- `/api/projects` - Project tracking
+- `/api/orders` - Order management
+- `/api/sales` - Sales analytics
+- `/api/stats` - Dashboard statistics
+- `/api/traffic` - Traffic analytics
+- `/api/tasks` - Task/Kanban board
+- `/api/chat` - Chat messages
+- `/api/profile` - User profile
+
+For more details, see [CLAUDE.md](./CLAUDE.md).
 
 # File structure
 
@@ -197,13 +253,11 @@ mantine-analytics-dashboard/
 │   ├── _redirects
 │   ├── favicon.ico
 ├── src/
-│   ├── .changeset/
-│   ├── .github/
-│   ├── .husty/
-│   ├── .storybook/
-│   ├── .yarn/
 │   ├── app/
-├────── api/
+├────── api/              # Next.js API routes (mock data)
+├────── auth/             # Authentication pages
+├────── apps/             # App modules (Email, Chat, Projects, etc.)
+├────── dashboard/        # Dashboard variants
 ├────── error.tsx
 ├────── error.module.css
 ├────── global.css
@@ -212,138 +266,89 @@ mantine-analytics-dashboard/
 ├────── not-found.tsx
 ├────── page.module.css
 ├────── page.tsx
-│   ├── components/
-│   ├── hooks/
-│   ├── layout/
-│   ├── lib/
-│   ├────── api.d.ts           # Auto-generated API types
-│   ├────── api-client.ts      # Type-safe API client
-│   ├────── api/
-│   ├──────── hooks/           # API hooks
-│   ├──────── permissions/     # RBAC system
-│   ├── providers/
-│   ├── public/
-│   ├── routes/
-│   ├── scripts/
-│   ├────── generate-api-types.js  # Type generation script
-│   ├── styles/
-│   ├── theme/
-│   ├── types/
-│   ├── utils/
-│   ├── docs/
-│   ├────── API_INTEGRATION.md     # Complete API guide
-│   ├────── RBAC_SYSTEM.md         # RBAC documentation
+│   ├── components/       # Reusable UI components
+│   ├── contexts/         # React contexts (theme, etc.)
+│   ├── hooks/            # Custom React hooks
+│   ├── layouts/          # Layout components
+│   ├── lib/              # Core utilities
+│   ├── providers/        # React providers
+│   ├── routes/           # Route definitions
+│   ├── theme/            # Mantine theme configuration
+│   ├── types/            # TypeScript type definitions
+│   ├── utils/            # Utility functions
 └──
 ```
 
-# 🚀 API Integration & RBAC System
+# 🚀 Mock API System
 
-This template now features a comprehensive type-safe API integration system with Role-Based Access Control (RBAC).
+This template features a comprehensive mock API system for realistic development without a backend.
 
 ## ⚡ Quick Start
 
-```bash
-# 1. Generate API types from your backend
-npm run generate:types
-
-# 2. Use type-safe hooks in your components
-import { useInvoicesWithMutations, PermissionGate } from '@/lib/api';
+```typescript
+// Use Mantine's useFetch hook to fetch data from mock API
+import { useFetch } from '@mantine/hooks';
 
 function MyComponent() {
-  const { data, mutations } = useInvoicesWithMutations();
+  const { data, loading, error } = useFetch('/api/invoices');
 
-  return (
-    <PermissionGate permission="Permissions.Personal.Invoices">
-      <InvoiceManager data={data} onCreate={mutations.create} />
-    </PermissionGate>
-  );
+  if (loading) return <Skeleton />;
+  if (error) return <ErrorAlert />;
+
+  return <InvoiceList invoices={data?.data} />;
 }
 ```
 
 ## 🎯 Key Features
 
-- **🤖 Auto-generated TypeScript types** from OpenAPI spec
-- **🔒 Permission-based access control** with React components
-- **⚡ Zero-boilerplate API calls** with Mantine hooks
-- **🔄 Automatic data refreshing** after mutations
-- **🛡️ Type-safe throughout** the entire data flow
-- **📱 Mantine-native** integration (no extra dependencies)
+- **📦 Mock Data:** JSON files in `public/mocks/` for easy customization
+- **🛣️ API Routes:** Next.js API routes in `src/app/api/` serving mock data
+- **🔐 Authentication:** NextAuth with mock credentials (demo@example.com / demo123)
+- **🎨 Theme System:** Live customizer with color schemes, layouts, and persistence
+- **📱 Pre-built Modules:** Email, Chat, Projects, Invoices, Kanban, Calendar, and more
 
 ## 🏗️ System Overview
 
 ```
-lib/api/
-├── 🤖 api.d.ts              # Auto-generated OpenAPI types
-├── 🔧 api-client.ts         # Mantine useFetch + auth wrapper
-├── hooks/                   # Type-safe API hooks
-│   ├── auth.ts             # Authentication & profiles
-│   ├── projects.ts         # Team collaboration
-│   └── invoices.ts         # Personal data
-└── permissions/            # RBAC system
-    ├── types.ts           # Permission definitions
-    ├── hooks.ts           # Permission React hooks
-    ├── components.tsx     # Permission UI components
-    └── utils.ts           # Permission utilities
+public/mocks/          # Mock JSON data files
+├── Invoices.json
+├── Projects.json
+├── Products.json
+└── ...
+
+src/app/api/           # Next.js API routes
+├── invoices/
+├── projects/
+├── products/
+└── ...
 ```
 
-## 🔒 RBAC Overview
+## 🔐 Demo Authentication
 
-### Roles
-- **Admin**: Full system access + user management
-- **User**: Team collaboration + personal data access
+Mock users for testing:
+- **Admin:** demo@example.com / demo123
+- **User:** jane@example.com / demo123
 
-### Permission Categories
-- **Admin**: `Permissions.Admin.*` - System administration
-- **Team**: `Permissions.Team.*` - Collaborative resources (shared visibility)
-- **Personal**: `Permissions.Personal.*` - Private user data (owner-only)
-- **Users**: `Permissions.Users.*` - User directory access
-
-### Usage Examples
-
-```typescript
-// Permission-based UI rendering
-<PermissionGate permission="Permissions.Team.Projects">
-  <ProjectManager />
-</PermissionGate>
-
-// Multiple permission checks
-<MultiPermissionGate
-  permissions={['Permissions.Team.Projects', 'Permissions.Team.Orders']}
-  mode="any"
->
-  <TeamDashboard />
-</MultiPermissionGate>
-
-// Admin-only content
-<AdminOnly>
-  <UserManagementPanel />
-</AdminOnly>
-
-// Permission hooks
-const canCreateInvoices = useHasPermission('Permissions.Personal.Invoices');
-const isAdmin = useIsAdmin();
-```
+Authentication is handled by NextAuth with JWT tokens. See [CLAUDE.md](./CLAUDE.md) for implementation details.
 
 ## 📚 Complete Documentation
 
-- **📖 [API Integration Guide](./docs/API_INTEGRATION.md)** - Complete usage guide, adding endpoints, troubleshooting
-- **🔐 [RBAC System Documentation](./docs/RBAC_SYSTEM.md)** - Permission system, components, patterns
+- **📖 [CLAUDE.md](./CLAUDE.md)** - Complete development guide, mock API usage, and architecture overview
 
 ## 🚀 Development Workflow
 
-1. **Update Backend**: Add endpoints to OpenAPI spec with proper tags
-2. **Generate Types**: `npm run generate:types`
-3. **Create Hooks**: Add API hooks in `lib/api/hooks/`
-4. **Add Permissions**: Update permission types if needed
-5. **Use in Components**: Import type-safe hooks and permission gates
+1. **Modify Mock Data:** Edit JSON files in `public/mocks/`
+2. **Create API Routes:** Add endpoints in `src/app/api/`
+3. **Use in Components:** Fetch data with `useFetch` from `@mantine/hooks`
+4. **Customize Theme:** Use the built-in theme customizer in the app
 
 ## ✨ Benefits
 
-- **Developer Experience**: Full TypeScript autocomplete and error checking
-- **Security**: Permission checks prevent unauthorized access
-- **Performance**: Built-in caching and automatic data invalidation
-- **Maintainability**: Single source of truth from OpenAPI spec
-- **Scalability**: Automatically grows with your backend API
+- **Zero Backend Required:** Start developing immediately with mock data
+- **Realistic Experience:** API routes mimic real backend behavior
+- **Easy Migration:** Simple to swap mock APIs for real endpoints later
+- **Type Safety:** Full TypeScript support throughout
+- **Developer Friendly:** Clean, documented code with best practices
 
 ---
 
