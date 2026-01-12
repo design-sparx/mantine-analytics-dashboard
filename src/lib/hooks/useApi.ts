@@ -7,6 +7,7 @@ import type {
   OrderDto,
   CustomerDto,
   EmailDto,
+  NotificationDto,
   ChatDto,
   ChatMessageDto,
   TaskDto,
@@ -47,6 +48,11 @@ export function useCustomers() {
 // Hook for emails
 export function useEmails() {
   return useApiGet<EmailDto[]>('/api/emails');
+}
+
+// Hook for notifications
+export function useNotifications() {
+  return useApiGet<NotificationDto[]>('/api/notifications');
 }
 
 // Hook for sales

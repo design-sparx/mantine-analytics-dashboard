@@ -1,0 +1,316 @@
+[
+  {
+    "id": "notif-001",
+    "type": "mention",
+    "title": "Sarah Johnson mentioned you",
+    "message": "Sarah mentioned you in \"Q4 Marketing Strategy\"",
+    "timestamp": "2024-12-23T10:30:00Z",
+    "read": false,
+    "actor": {
+      "name": "Sarah Johnson",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
+    },
+    "target": {
+      "type": "page",
+      "title": "Q4 Marketing Strategy",
+      "url": "/workspace/marketing/q4-strategy"
+    },
+    "metadata": {
+      "workspace": "Marketing",
+      "pageIcon": "📊"
+    },
+    "action": {
+      "label": "View page",
+      "url": "/workspace/marketing/q4-strategy",
+      "type": "primary"
+    }
+  },
+  {
+    "id": "notif-002",
+    "type": "comment",
+    "title": "New comment on your page",
+    "message": "Michael Chen commented on \"Product Roadmap 2025\"",
+    "timestamp": "2024-12-23T09:15:00Z",
+    "read": false,
+    "actor": {
+      "name": "Michael Chen",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Michael"
+    },
+    "target": {
+      "type": "comment",
+      "title": "Product Roadmap 2025",
+      "url": "/workspace/product/roadmap-2025"
+    },
+    "metadata": {
+      "workspace": "Product",
+      "pageIcon": "🚀"
+    },
+    "action": {
+      "label": "View comment",
+      "url": "/workspace/product/roadmap-2025#comment-123"
+    }
+  },
+  {
+    "id": "notif-003",
+    "type": "assignment",
+    "title": "Task assigned to you",
+    "message": "Emily Rodriguez assigned you a task in \"Website Redesign\"",
+    "timestamp": "2024-12-22T16:45:00Z",
+    "read": true,
+    "actor": {
+      "name": "Emily Rodriguez",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily"
+    },
+    "target": {
+      "type": "task",
+      "title": "Review new homepage mockups",
+      "url": "/tasks/456"
+    },
+    "metadata": {
+      "workspace": "Design",
+      "pageIcon": "✅"
+    },
+    "action": {
+      "label": "View task",
+      "url": "/tasks/456"
+    }
+  },
+  {
+    "id": "notif-004",
+    "type": "update",
+    "title": "Page updated",
+    "message": "David Kim updated \"API Documentation\"",
+    "timestamp": "2024-12-22T14:20:00Z",
+    "read": true,
+    "actor": {
+      "name": "David Kim",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=David"
+    },
+    "target": {
+      "type": "page",
+      "title": "API Documentation",
+      "url": "/workspace/engineering/api-docs"
+    },
+    "metadata": {
+      "workspace": "Engineering",
+      "pageIcon": "📖"
+    }
+  },
+  {
+    "id": "notif-005",
+    "type": "share",
+    "title": "Page shared with you",
+    "message": "Jessica Martinez shared \"Budget Planning\" with you",
+    "timestamp": "2024-12-22T11:30:00Z",
+    "read": false,
+    "actor": {
+      "name": "Jessica Martinez",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Jessica"
+    },
+    "target": {
+      "type": "page",
+      "title": "Budget Planning",
+      "url": "/shared/budget-planning"
+    },
+    "metadata": {
+      "workspace": "Finance",
+      "pageIcon": "💰"
+    },
+    "action": {
+      "label": "Open page",
+      "url": "/shared/budget-planning",
+      "type": "primary"
+    }
+  },
+  {
+    "id": "notif-006",
+    "type": "reminder",
+    "title": "Reminder: Team meeting",
+    "message": "Your meeting \"Design Review\" starts in 15 minutes",
+    "timestamp": "2024-12-22T09:45:00Z",
+    "read": true,
+    "target": {
+      "type": "page",
+      "title": "Design Review Meeting",
+      "url": "/calendar/event/789"
+    },
+    "metadata": {
+      "workspace": "Calendar",
+      "pageIcon": "📅"
+    },
+    "action": {
+      "label": "Join meeting",
+      "url": "/calendar/event/789"
+    }
+  },
+  {
+    "id": "notif-007",
+    "type": "mention",
+    "title": "Robert Taylor mentioned you",
+    "message": "Robert mentioned you in a comment on \"Partnership Proposal\"",
+    "timestamp": "2024-12-21T17:30:00Z",
+    "read": true,
+    "actor": {
+      "name": "Robert Taylor",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Robert"
+    },
+    "target": {
+      "type": "comment",
+      "title": "Partnership Proposal",
+      "url": "/workspace/business/partnership#comment-456"
+    },
+    "metadata": {
+      "workspace": "Business",
+      "pageIcon": "🤝"
+    }
+  },
+  {
+    "id": "notif-008",
+    "type": "system",
+    "title": "Workspace storage limit",
+    "message": "Your workspace is using 85% of available storage",
+    "timestamp": "2024-12-21T15:00:00Z",
+    "read": true,
+    "metadata": {
+      "workspace": "System"
+    },
+    "action": {
+      "label": "Manage storage",
+      "url": "/settings/storage"
+    }
+  },
+  {
+    "id": "notif-009",
+    "type": "invite",
+    "title": "Workspace invitation",
+    "message": "Amanda White invited you to join \"Marketing Team\" workspace",
+    "timestamp": "2024-12-21T10:20:00Z",
+    "read": false,
+    "actor": {
+      "name": "Amanda White",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Amanda"
+    },
+    "metadata": {
+      "workspace": "Invitations"
+    },
+    "action": {
+      "label": "Accept invitation",
+      "url": "/invites/accept/marketing-team",
+      "type": "primary"
+    }
+  },
+  {
+    "id": "notif-010",
+    "type": "comment",
+    "title": "New reply to your comment",
+    "message": "Christopher Lee replied to your comment in \"Feature Requests\"",
+    "timestamp": "2024-12-20T14:15:00Z",
+    "read": true,
+    "actor": {
+      "name": "Christopher Lee",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Christopher"
+    },
+    "target": {
+      "type": "comment",
+      "title": "Feature Requests",
+      "url": "/workspace/product/feature-requests#comment-789"
+    },
+    "metadata": {
+      "workspace": "Product",
+      "pageIcon": "💡"
+    }
+  },
+  {
+    "id": "notif-011",
+    "type": "security",
+    "title": "New login detected",
+    "message": "A new login to your account from Chrome on Windows",
+    "timestamp": "2024-12-20T08:30:00Z",
+    "read": true,
+    "metadata": {
+      "workspace": "Security"
+    },
+    "action": {
+      "label": "Review activity",
+      "url": "/settings/security"
+    }
+  },
+  {
+    "id": "notif-012",
+    "type": "update",
+    "title": "Page moved",
+    "message": "Nicole Brown moved \"Meeting Notes\" to \"Archive\"",
+    "timestamp": "2024-12-19T16:45:00Z",
+    "read": true,
+    "actor": {
+      "name": "Nicole Brown",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Nicole"
+    },
+    "target": {
+      "type": "page",
+      "title": "Meeting Notes",
+      "url": "/archive/meeting-notes"
+    },
+    "metadata": {
+      "workspace": "General",
+      "pageIcon": "📝"
+    }
+  },
+  {
+    "id": "notif-013",
+    "type": "assignment",
+    "title": "Task due soon",
+    "message": "Your task \"Update documentation\" is due tomorrow",
+    "timestamp": "2024-12-19T12:00:00Z",
+    "read": true,
+    "target": {
+      "type": "task",
+      "title": "Update documentation",
+      "url": "/tasks/789"
+    },
+    "metadata": {
+      "workspace": "Tasks",
+      "pageIcon": "⏰"
+    },
+    "action": {
+      "label": "View task",
+      "url": "/tasks/789"
+    }
+  },
+  {
+    "id": "notif-014",
+    "type": "mention",
+    "title": "James Wilson mentioned you",
+    "message": "James mentioned you in \"Sprint Planning\"",
+    "timestamp": "2024-12-18T11:30:00Z",
+    "read": true,
+    "actor": {
+      "name": "James Wilson",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=James"
+    },
+    "target": {
+      "type": "page",
+      "title": "Sprint Planning",
+      "url": "/workspace/agile/sprint-planning"
+    },
+    "metadata": {
+      "workspace": "Agile",
+      "pageIcon": "🏃"
+    }
+  },
+  {
+    "id": "notif-015",
+    "type": "system",
+    "title": "Weekly summary ready",
+    "message": "Your weekly activity summary for Dec 16-22 is available",
+    "timestamp": "2024-12-18T06:00:00Z",
+    "read": true,
+    "metadata": {
+      "workspace": "System"
+    },
+    "action": {
+      "label": "View summary",
+      "url": "/insights/weekly"
+    }
+  }
+]

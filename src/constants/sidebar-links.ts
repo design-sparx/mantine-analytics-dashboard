@@ -32,6 +32,7 @@ import {
   IconUserCog,
   IconBuilding,
   IconRobot,
+  IconBell,
 } from '@tabler/icons-react';
 
 import { PATH_ABOUT, PATH_APPS, PATH_AUTH, PATH_DASHBOARD, PATH_DOCS, PATH_PAGES } from '@/routes';
@@ -69,6 +70,7 @@ export const SIDEBAR_LINKS = [
       { label: 'Orders', icon: IconListDetails, link: PATH_APPS.orders },
       { label: 'Customers', icon: IconUsers, link: PATH_APPS.customers, badge: 'NEW' },
       { label: 'Email', icon: IconMessages, link: PATH_APPS.email, badge: 'NEW' },
+      { label: 'Notifications', icon: IconBell, link: PATH_APPS.notifications, badge: 'NEW' },
       {
         label: 'Invoices',
         icon: IconFileInvoice,
