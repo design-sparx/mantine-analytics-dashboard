@@ -15,6 +15,7 @@ export type ContentLayout = 'boxed' | 'full-width' | 'centered' | 'fluid';
 export type SpacingSize = 'compact' | 'comfortable' | 'spacious';
 export type ColorScheme = 'light' | 'dark' | 'auto';
 export type CardFeel = 'flat' | 'elevated' | 'bordered' | 'glassmorphism';
+export type Direction = 'ltr' | 'rtl';
 
 // Predefined color schemes
 export const COLOR_SCHEMES = {
@@ -53,6 +54,7 @@ export interface ThemeConfig {
       layout: ContentLayout;
       padding: SpacingSize;
     };
+    dir: Direction;
   };
   appearance: {
     colorScheme: ColorScheme;
@@ -82,6 +84,7 @@ export const defaultThemeConfig: ThemeConfig = {
       layout: 'full-width',
       padding: 'comfortable',
     },
+    dir: 'ltr',
   },
   appearance: {
     colorScheme: 'auto',

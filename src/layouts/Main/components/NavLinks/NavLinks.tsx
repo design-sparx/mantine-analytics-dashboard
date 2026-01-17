@@ -171,7 +171,7 @@ export function LinksGroup(props: LinksGroupProps) {
               <Box style={{ display: 'flex', alignItems: 'center' }}>
                 <Icon size={18} />
                 {!isMini && (
-                  <Group gap="xs" ml="md">
+                  <Group gap="xs" ms="md">
                     <Box>{label}</Box>
                     {badge && (
                       <Badge
