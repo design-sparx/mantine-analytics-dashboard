@@ -198,7 +198,7 @@ const HeaderNav = (props: HeaderNavProps) => {
           <TextInput
             placeholder="search"
             rightSection={<IconSearch size={ICON_SIZE} />}
-            ml="md"
+            ms="md"
             style={{
               width: tablet_match ? 'auto' : rem(400),
               '--input-color': textColor || undefined,

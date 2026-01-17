@@ -67,6 +67,9 @@ export const ThemeCSS = {
         COLOR_SCHEMES[config.appearance.primaryColor].color;
       root.style.setProperty('--theme-primary-color', primaryColorValue);
 
+      //Set direction
+      root.dir = config.layout.dir;
+
       // Set border radius
       const radiusMap = {
         xs: '0.125rem',
@@ -115,7 +118,7 @@ export function generateSidebarStyles(
     color-mix(in srgb, var(--theme-primary-color) 5%, rgba(255, 255, 255, 0.05)) 100%)`;
       styles.backdropFilter = 'blur(24px) saturate(180%)';
       styles.WebkitBackdropFilter = 'blur(24px) saturate(180%)';
-      styles.borderRight = '1px solid rgba(255, 255, 255, 0.25)';
+      styles.borderInlineEnd = '1px solid rgba(255, 255, 255, 0.25)';
       styles.boxShadow =
         '2px 0 20px rgba(0, 0, 0, 0.1), inset 1px 0 0 rgba(255, 255, 255, 0.3)';
       break;

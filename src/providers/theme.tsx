@@ -47,6 +47,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const spacingScale = config.appearance.compact ? '0.8' : '1';
     root.style.setProperty('--theme-spacing-scale', spacingScale);
 
+    //Set direction
+    root.dir = config.layout.dir;
+    
     // Set compact mode flag
     root.style.setProperty(
       '--theme-compact',
