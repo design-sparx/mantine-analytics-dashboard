@@ -50,7 +50,7 @@ function Page() {
                 stroke={1.5}
                 style={{ width: rem(14), height: rem(14) }}
               />
-              <Text size="sm" ml={5}>
+              <Text size="sm" ms={5}>
                 Back to the login page
               </Text>
             </Group>

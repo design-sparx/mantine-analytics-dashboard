@@ -152,6 +152,8 @@ export function MainLayout({ children }: Props) {
             width: config.layout.sidebar.width,
             [config.layout.sidebar.position]: 0,
             zIndex: shouldOverlay ? 102 : 101,
+            direction:
+              config.layout.sidebar.position === 'left' ? 'ltr' : 'rtl',
             transform:
               mobile_match && !mobileOpened
                 ? `translateX(${
