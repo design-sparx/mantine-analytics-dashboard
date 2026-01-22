@@ -68,7 +68,7 @@
     "dayjs": "^1.11.13",
     "embla-carousel-react": "^8.5.0",
     "eslint-config-next": "^16.0.0",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "mantine-datatable": "^7.1.7",
     "next": "16.0.10",
     "react": "^19.0.0",
