@@ -17,6 +17,7 @@ import {
   IconLayoutSidebar,
   IconRectangle,
   IconSquare,
+  IconTextDirectionLtr,
 } from '@tabler/icons-react';
 
 import { ThemeConfig } from '@/contexts/theme-customizer';
@@ -243,6 +244,30 @@ export const LayoutTab = ({ config, onConfigUpdate }: LayoutTabProps) => {
               onChange={(value) =>
                 onConfigUpdate(['layout', 'content', 'padding'], value)
               }
+            />
+          </Box>
+        </Stack>
+      </Paper>
+
+      {/* Layout direction */}
+      <Paper p="sm" withBorder>
+        <Group mb="sm">
+          <IconTextDirectionLtr size={20} />
+          <Text fw={600}>Layout Direction</Text>
+        </Group>
+
+        <Stack gap="md">
+          <Box>
+            <Text size="sm" fw={500} mb={4}>
+              Direction
+            </Text>
+            <SegmentedControl
+              data={[
+                { value: 'ltr', label: 'LTR' },
+                { value: 'rtl', label: 'RTL' },
+              ]}
+              value={config.layout.dir}
+              onChange={(value) => onConfigUpdate(['layout', 'dir'], value)}
             />
           </Box>
         </Stack>
