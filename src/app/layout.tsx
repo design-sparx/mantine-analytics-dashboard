@@ -1,6 +1,7 @@
 'use client';
 
 import { ColorSchemeScript } from '@mantine/core';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { Providers } from '@/providers';
 
 import '@mantine/core/styles.css';
@@ -54,6 +55,9 @@ export default function RootLayout({
       <body>
         <Providers>{children}</Providers>
       </body>
+      {process.env.NEXT_PUBLIC_GA_ID && (
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+      )}
     </html>
   );
 }
