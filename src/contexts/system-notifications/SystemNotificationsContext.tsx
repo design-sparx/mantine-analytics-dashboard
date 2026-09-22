@@ -93,7 +93,7 @@ export function SystemNotificationsProvider({
   useEffect(() => {
     if (!announcementsUrl) return;
 
-    const fetchAnnouncements = async () => {
+    const loadAnnouncements = async () => {
       try {
         const response = await fetch(announcementsUrl);
         if (!response.ok) {
@@ -101,19 +101,34 @@ export function SystemNotificationsProvider({
           return;
         }
         const announcements: SystemNotification[] = await response.json();
-        if (Array.isArray(announcements) && announcements.length > 0) {
-          // Only show the first (most recent) announcement
-          setConfig((prev) => ({
-            ...prev,
-            notifications: [announcements[0]],
-          }));
+        if (!Array.isArray(announcements) || announcements.length === 0) {
+          return;
         }
+
+        const latest = announcements[0];
+        const uniqueIds = [...new Set(announcements.map((a) => a.id))];
+
+        // If announcements are present but every loaded ID is already dismissed,
+        // clear old dismissals and retry so genuinely new announcements surface.
+        if (
+          uniqueIds.length > 0 &&
+          uniqueIds.every((id) => config.dismissedIds.includes(id))
+        ) {
+          setConfig((prev) => ({ ...prev, dismissedIds: [] }));
+          await new Promise((resolve) => setTimeout(resolve, 50));
+          return loadAnnouncements();
+        }
+
+        setConfig((prev) => ({
+          ...prev,
+          notifications: [latest],
+        }));
       } catch (error) {
         console.warn('Failed to fetch system announcements:', error);
       }
     };
 
-    fetchAnnouncements();
+    loadAnnouncements();
   }, [announcementsUrl]);
 
   // Save dismissed IDs to localStorage whenever they change

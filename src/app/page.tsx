@@ -38,6 +38,7 @@ import { HOME_FEATURES } from '@/constants/home-features';
 import { TECH_STACK } from '@/constants/tech-stack';
 import GuestLayout from '@/layouts/Guest';
 import { PATH_AUTH, PATH_GITHUB } from '@/routes';
+import { SystemNotificationBanner } from '@/components';
 
 import classes from './page.module.css';
 
@@ -70,6 +71,7 @@ export default function Home() {
       </>
       <GuestLayout>
         <Box className={classes.hero}>
+          <SystemNotificationBanner layout="guest" mb="md" />
           <Grid>
             <Grid.Col span={{ base: 12, md: 6 }} order={{ base: 2, md: 1 }}>
               <Stack>
