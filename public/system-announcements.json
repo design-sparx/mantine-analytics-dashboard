@@ -1,5 +1,16 @@
 [
   {
+    "id": "upgrade-plans-nextjs-mantine-tabler",
+    "type": "info",
+    "message": "Planned: upgrade major packages to their next stable versions — Next.js, Mantine, and Tabler icons.",
+    "dismissible": true,
+    "showOn": ["main", "guest"],
+    "action": {
+      "label": "View announcements",
+      "href": "/announcements"
+    }
+  },
+  {
     "id": "next-16-migration",
     "type": "success",
     "message": "We've upgraded to Next.js 16! The previous Next.js 14 version is available on the 'next-14' branch.",
