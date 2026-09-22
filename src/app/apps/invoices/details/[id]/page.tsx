@@ -102,7 +102,7 @@ function InvoiceDetails({ params }: InvoiceDetailsProps) {
       <Container fluid>
         <Stack gap="lg">
           <PageHeader title="Invoice Not Found" breadcrumbItems={items} />
-          <Text color="red">Failed to load invoice details.</Text>
+          <Text c="red">Failed to load invoice details.</Text>
         </Stack>
       </Container>
     );

@@ -124,7 +124,7 @@ export const InvoicesTable = ({
   if (error) {
     return (
       <Stack>
-        <Text color="red">Error loading invoices: {error}</Text>
+        <Text c="red">Error loading invoices: {error}</Text>
       </Stack>
     );
   }

@@ -31,7 +31,8 @@ import {
   IconSend,
 } from '@tabler/icons-react';
 import Placeholder from '@tiptap/extension-placeholder';
-import { BubbleMenu, useEditor } from '@tiptap/react';
+import { BubbleMenu } from '@tiptap/react/menus';
+import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 
 import {
@@ -73,7 +74,7 @@ function Chat() {
 
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({ link: false }),
       Link,
       Placeholder.configure({ placeholder: 'Type your message' }),
     ],
@@ -153,7 +154,7 @@ function Chat() {
             {...PAPER_PROPS}
             style={{ height: tablet_match ? 'auto' : rem(565) }}
           >
-            <Grid gutter={0}>
+            <Grid gap={0}>
               <Grid.Col span={{ base: 12, sm: 3, md: 4, lg: 3 }}>
                 <Stack py="md" style={{ height: '100%' }}>
                   <Box px="sm">
@@ -167,8 +168,7 @@ function Chat() {
                     <>
                       <Carousel
                         height="100%"
-                        align="start"
-                        slidesToScroll={1}
+                        emblaOptions={{ align: 'start', slidesToScroll: 1 }}
                         px={32}
                         slideSize={{
                           base: '27.5%',

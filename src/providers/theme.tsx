@@ -76,10 +76,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         settings={{
           firstDayOfWeek: 0,
           weekendDays: [0],
-          timezone: 'UTC',
         }}
       >
-        <Notifications position="bottom-right" zIndex={1000} />
+        <Notifications position="bottom-right" zIndex={1000} pauseResetOnHover="notification" />
         <ModalsProvider>{children}</ModalsProvider>
       </DatesProvider>
     </MantineProvider>

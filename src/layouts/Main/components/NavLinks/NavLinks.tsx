@@ -201,7 +201,7 @@ export function LinksGroup(props: LinksGroupProps) {
             </Group>
           </UnstyledButton>
           {hasLinks ? (
-            <Collapse in={opened} className={classes.linksInner}>
+            <Collapse expanded={opened} className={classes.linksInner}>
               {items}
             </Collapse>
           ) : null}

@@ -19,7 +19,7 @@ import {
   ThemeIcon,
   Timeline,
   Title,
-  TypographyStylesProvider,
+  Typography,
   rem,
 } from '@mantine/core';
 import {
@@ -257,7 +257,7 @@ export default function ClientChangelog() {
                 <Stack gap="md">
                   {/* Release Description */}
                   {release.description && (
-                    <Box component={TypographyStylesProvider}>
+                    <Box component={Typography}>
                       <Text fz="lg" fw={600}>
                         {release.description}
                       </Text>
