@@ -62,6 +62,6 @@ pnpm generate:component Foo [basic|interactive|table|card]
 
 ## Known inconsistencies to avoid
 
-- README/package.json description claim Mantine 8 / React 18; actual deps are Mantine 7.14.x and React 19.
+- README description claims Mantine 7 / React 18; actual deps are Mantine 9.6.x and React 19.2.
 - README file tree lists `yarn.lock`; actual file is `pnpm-lock.yaml`.
 - `IApiResponse<T>` type includes `timestamp` and typed `errors`; mock API routes omit `timestamp` and return `errors: string[]`. Use the actual response shape when typing fetches.

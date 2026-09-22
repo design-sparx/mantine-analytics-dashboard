@@ -61,7 +61,7 @@ function Page() {
             error={statsError}
             paperProps={PAPER_PROPS}
           />
-          <Grid gutter={{ base: 5, xs: 'md', md: 'md', lg: 'lg', xl: 'xl' }}>
+          <Grid gap={{ base: 5, xs: 'md', md: 'md', lg: 'lg', xl: 'xl' }}>
             <Grid.Col span={8}>
               <RevenueChart {...PAPER_PROPS} />
             </Grid.Col>

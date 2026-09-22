@@ -14,7 +14,7 @@ type GuestLayoutProps = {
 
 function GuestLayout({ children }: GuestLayoutProps) {
   const theme = useMantineTheme();
-  const pinned = useHeadroom({ fixedAt: 120 });
+  const { pinned } = useHeadroom({ fixedAt: 120 });
 
   return (
     <AppShell header={{ height: 60, collapsed: !pinned, offset: false }}>
