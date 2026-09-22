@@ -22,7 +22,7 @@ type TextEditorProps = {
 const TextEditor = ({ content, label, width, ...others }: TextEditorProps) => {
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({ link: false }),
       Underline,
       Link,
       Superscript,

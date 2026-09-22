@@ -1,5 +1,16 @@
 [
   {
+    "id": "mantine-9-upgrade",
+    "type": "success",
+    "message": "We've upgraded to Mantine 9, Next.js 16.3, Tiptap 3, Tabler Icons 3.47, and Recharts 3.",
+    "dismissible": true,
+    "showOn": ["main", "guest"],
+    "action": {
+      "label": "View announcements",
+      "href": "/announcements"
+    }
+  },
+  {
     "id": "upgrade-plans-nextjs-mantine-tabler",
     "type": "info",
     "message": "Planned: upgrade major packages to their next stable versions — Next.js, Mantine, and Tabler icons.",
@@ -15,6 +26,7 @@
     "type": "success",
     "message": "We've upgraded to Next.js 16! The previous Next.js 14 version is available on the 'next-14' branch.",
     "dismissible": true,
+    "showOn": ["main", "guest"],
     "action": {
       "label": "View announcements",
       "href": "/announcements"
@@ -25,6 +37,7 @@
     "type": "info",
     "message": "Type-safe API integration with RBAC system now available.",
     "dismissible": true,
+    "showOn": ["main", "guest"],
     "action": {
       "label": "Read more",
       "href": "https://github.com/design-sparx/mantine-analytics-dashboard/discussions/69"

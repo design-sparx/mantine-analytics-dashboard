@@ -127,7 +127,7 @@ function Settings() {
                 <Text size="lg" fw={600} mb="md">
                   User information
                 </Text>
-                <Grid gutter={{ base: 5, xs: 'md', md: 'md', lg: 'lg' }}>
+                <Grid gap={{ base: 5, xs: 'md', md: 'md', lg: 'lg' }}>
                   <Grid.Col span={{ base: 12, md: 6, lg: 9, xl: 9 }}>
                     <Stack>
                       <TextInput

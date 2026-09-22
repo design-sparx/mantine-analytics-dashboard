@@ -228,7 +228,7 @@ export const EditProductDrawer = ({
     <Drawer {...drawerProps} title="Edit product">
       <LoadingOverlay visible={loading} />
       {!isCreator && (
-        <Text color="red" mb="md">
+        <Text c="red" mb="md">
           You can only edit products that you created.
         </Text>
       )}
