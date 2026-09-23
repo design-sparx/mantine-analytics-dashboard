@@ -82,8 +82,12 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
   const [selectedRecords, setSelectedRecords] = useState<InvoiceTableRow[]>([]);
-  const [records, setRecords] = useState<InvoiceTableRow[]>(data.slice(0, pageSize));
-  const [sortStatus, setSortStatus] = useState<DataTableSortStatus<InvoiceTableRow>>({
+  const [records, setRecords] = useState<InvoiceTableRow[]>(
+    data.slice(0, pageSize),
+  );
+  const [sortStatus, setSortStatus] = useState<
+    DataTableSortStatus<InvoiceTableRow>
+  >({
     columnAccessor: 'full_name',
     direction: 'asc',
   });
@@ -209,7 +213,8 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
     const from = (page - 1) * pageSize;
     const to = from + pageSize;
     const sorted = sortBy(data, sortStatus.columnAccessor) as InvoiceTableRow[];
-    const sortedData = sortStatus.direction === 'desc' ? sorted.reverse() : sorted;
+    const sortedData =
+      sortStatus.direction === 'desc' ? sorted.reverse() : sorted;
     let filtered = sortedData.slice(from, to);
 
     if (debouncedQuery || selectedStatuses.length) {

@@ -86,9 +86,15 @@ export const ExpenseBreakdown: React.FC<ExpenseBreakdownProps> = ({
               </Group>
               <Group gap={4}>
                 {expense.trend >= 0 ? (
-                  <IconTrendingUp size={14} color="var(--mantine-color-red-6)" />
+                  <IconTrendingUp
+                    size={14}
+                    color="var(--mantine-color-red-6)"
+                  />
                 ) : (
-                  <IconTrendingDown size={14} color="var(--mantine-color-teal-6)" />
+                  <IconTrendingDown
+                    size={14}
+                    color="var(--mantine-color-teal-6)"
+                  />
                 )}
                 <Text size="xs" c={expense.trend >= 0 ? 'red' : 'teal'}>
                   {Math.abs(expense.trend)}%

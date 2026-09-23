@@ -16,11 +16,9 @@ interface WarehouseInventoryChartProps {
   error?: Error | null;
 }
 
-export const WarehouseInventoryChart: React.FC<WarehouseInventoryChartProps> = ({
-  data = [],
-  loading = false,
-  error = null,
-}) => {
+export const WarehouseInventoryChart: React.FC<
+  WarehouseInventoryChartProps
+> = ({ data = [], loading = false, error = null }) => {
   if (error) {
     return (
       <ErrorAlert

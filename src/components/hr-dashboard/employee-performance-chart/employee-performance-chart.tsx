@@ -16,11 +16,9 @@ interface EmployeePerformanceChartProps {
   error?: Error | null;
 }
 
-export const EmployeePerformanceChart: React.FC<EmployeePerformanceChartProps> = ({
-  data = [],
-  loading = false,
-  error = null,
-}) => {
+export const EmployeePerformanceChart: React.FC<
+  EmployeePerformanceChartProps
+> = ({ data = [], loading = false, error = null }) => {
   if (error) {
     return (
       <ErrorAlert

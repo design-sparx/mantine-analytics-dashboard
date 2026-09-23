@@ -71,37 +71,40 @@ function Notifications() {
       if (filter === 'comments') return notification.type === 'comment';
       if (filter === 'updates') return notification.type === 'update';
       return true;
-    }
+    },
   );
 
-  const unreadCount = notificationsData?.data?.filter(
-    (n: NotificationDto) => !n.read
-  ).length || 0;
+  const unreadCount =
+    notificationsData?.data?.filter((n: NotificationDto) => !n.read).length ||
+    0;
 
   // Group notifications by date
-  const groupedNotifications = filteredNotifications?.reduce((groups: any, notification: NotificationDto) => {
-    const date = new Date(notification.timestamp);
-    const today = new Date();
-    const yesterday = new Date(today);
-    yesterday.setDate(yesterday.getDate() - 1);
+  const groupedNotifications = filteredNotifications?.reduce(
+    (groups: any, notification: NotificationDto) => {
+      const date = new Date(notification.timestamp);
+      const today = new Date();
+      const yesterday = new Date(today);
+      yesterday.setDate(yesterday.getDate() - 1);
 
-    let groupKey: string;
-    if (date.toDateString() === today.toDateString()) {
-      groupKey = 'Today';
-    } else if (date.toDateString() === yesterday.toDateString()) {
-      groupKey = 'Yesterday';
-    } else if (date > new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)) {
-      groupKey = 'This Week';
-    } else {
-      groupKey = 'Older';
-    }
+      let groupKey: string;
+      if (date.toDateString() === today.toDateString()) {
+        groupKey = 'Today';
+      } else if (date.toDateString() === yesterday.toDateString()) {
+        groupKey = 'Yesterday';
+      } else if (date > new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)) {
+        groupKey = 'This Week';
+      } else {
+        groupKey = 'Older';
+      }
 
-    if (!groups[groupKey]) {
-      groups[groupKey] = [];
-    }
-    groups[groupKey].push(notification);
-    return groups;
-  }, {});
+      if (!groups[groupKey]) {
+        groups[groupKey] = [];
+      }
+      groups[groupKey].push(notification);
+      return groups;
+    },
+    {},
+  );
 
   const renderContent = () => {
     if (notificationsLoading) {
@@ -119,7 +122,9 @@ function Notifications() {
         <Box p="xl">
           <ErrorAlert
             title="Error loading notifications"
-            message={notificationsError?.message || 'Failed to load notifications'}
+            message={
+              notificationsError?.message || 'Failed to load notifications'
+            }
           />
         </Box>
       );
@@ -147,22 +152,31 @@ function Notifications() {
 
     return (
       <Stack gap="xl">
-        {Object.entries(groupedNotifications || {}).map(([groupKey, notifications]: [string, any]) => (
-          <div key={groupKey}>
-            <Text size="xs" fw={700} tt="uppercase" c="dimmed" mb="sm" px="md">
-              {groupKey}
-            </Text>
-            <Stack gap={2}>
-              {notifications.map((notification: NotificationDto) => (
-                <NotificationItem
-                  key={notification.id}
-                  notification={notification}
-                  onMarkAsRead={handleMarkAsRead}
-                />
-              ))}
-            </Stack>
-          </div>
-        ))}
+        {Object.entries(groupedNotifications || {}).map(
+          ([groupKey, notifications]: [string, any]) => (
+            <div key={groupKey}>
+              <Text
+                size="xs"
+                fw={700}
+                tt="uppercase"
+                c="dimmed"
+                mb="sm"
+                px="md"
+              >
+                {groupKey}
+              </Text>
+              <Stack gap={2}>
+                {notifications.map((notification: NotificationDto) => (
+                  <NotificationItem
+                    key={notification.id}
+                    notification={notification}
+                    onMarkAsRead={handleMarkAsRead}
+                  />
+                ))}
+              </Stack>
+            </div>
+          ),
+        )}
       </Stack>
     );
   };
@@ -178,7 +192,10 @@ function Notifications() {
         actionButton={
           <Group gap="sm">
             <Tooltip label="Refresh">
-              <ActionIcon variant="subtle" onClick={() => refetchNotifications()}>
+              <ActionIcon
+                variant="subtle"
+                onClick={() => refetchNotifications()}
+              >
                 <IconRefresh size={18} />
               </ActionIcon>
             </Tooltip>
@@ -193,27 +210,29 @@ function Notifications() {
 
       <Box mt="md">
         <Paper withBorder radius="md">
-          <Tabs value={filter} onChange={(value) => setFilter(value as FilterType)}>
+          <Tabs
+            value={filter}
+            onChange={(value) => setFilter(value as FilterType)}
+          >
             <Box px="md" pt="md">
               <Group justify="space-between" mb="xs">
                 <Tabs.List>
                   <Tabs.Tab value="all">
                     <Group gap={6}>
                       All
-                      {notificationsData?.data && notificationsData?.data?.length > 0 && (
-                        <Badge size="sm">
-                          {notificationsData.data.length}
-                        </Badge>
-                      )}
+                      {notificationsData?.data &&
+                        notificationsData?.data?.length > 0 && (
+                          <Badge size="sm">
+                            {notificationsData.data.length}
+                          </Badge>
+                        )}
                     </Group>
                   </Tabs.Tab>
                   <Tabs.Tab value="unread">
                     <Group gap={6}>
                       Unread
                       {unreadCount > 0 && (
-                        <Badge size="sm">
-                          {unreadCount}
-                        </Badge>
+                        <Badge size="sm">{unreadCount}</Badge>
                       )}
                     </Group>
                   </Tabs.Tab>

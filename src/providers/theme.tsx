@@ -49,7 +49,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     //Set direction
     root.dir = config.layout.dir;
-    
+
     // Set compact mode flag
     root.style.setProperty(
       '--theme-compact',
@@ -78,7 +78,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
           weekendDays: [0],
         }}
       >
-        <Notifications position="bottom-right" zIndex={1000} pauseResetOnHover="notification" />
+        <Notifications
+          position="bottom-right"
+          zIndex={1000}
+          pauseResetOnHover="notification"
+        />
         <ModalsProvider>{children}</ModalsProvider>
       </DatesProvider>
     </MantineProvider>

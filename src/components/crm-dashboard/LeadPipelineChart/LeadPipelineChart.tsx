@@ -46,7 +46,8 @@ export const LeadPipelineChart: React.FC<LeadPipelineChartProps> = ({
           </Text>
           <Text size="sm" c="dimmed">
             {totalLeads.toLocaleString()} total leads • $
-            {totalValue.toLocaleString('en-US', { minimumFractionDigits: 2 })} total value
+            {totalValue.toLocaleString('en-US', { minimumFractionDigits: 2 })}{' '}
+            total value
           </Text>
         </div>
       </Group>
@@ -64,7 +65,10 @@ export const LeadPipelineChart: React.FC<LeadPipelineChartProps> = ({
                 </Text>
               </Group>
               <Text size="sm" fw={600}>
-                ${stage.value.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                $
+                {stage.value.toLocaleString('en-US', {
+                  minimumFractionDigits: 2,
+                })}
               </Text>
             </Group>
             <Progress

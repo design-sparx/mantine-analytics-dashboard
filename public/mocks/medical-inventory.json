@@ -18,7 +18,7 @@
     "currentStock": 1250,
     "minimumStock": 800,
     "maxStock": 3000,
-    "unitPrice": 12.50,
+    "unitPrice": 12.5,
     "status": "adequate",
     "lastRestocked": "2025-12-22",
     "supplier": "HealthPro Supplies"
@@ -42,7 +42,7 @@
     "currentStock": 320,
     "minimumStock": 500,
     "maxStock": 2000,
-    "unitPrice": 3.20,
+    "unitPrice": 3.2,
     "status": "critical",
     "lastRestocked": "2025-12-18",
     "supplier": "Pharma Distributors"
@@ -78,7 +78,7 @@
     "currentStock": 15,
     "minimumStock": 20,
     "maxStock": 50,
-    "unitPrice": 125.00,
+    "unitPrice": 125.0,
     "status": "low",
     "lastRestocked": "2025-12-21",
     "supplier": "MedEquip Inc."

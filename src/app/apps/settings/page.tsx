@@ -49,10 +49,7 @@ const BIO =
 function Settings() {
   const [file, setFile] = useState<File | null>(null);
 
-  const {
-    data: profileData,
-    loading: profileLoading,
-  } = useProfile();
+  const { data: profileData, loading: profileLoading } = useProfile();
 
   const profile = profileData?.data;
 

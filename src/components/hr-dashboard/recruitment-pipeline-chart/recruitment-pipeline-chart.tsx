@@ -14,11 +14,9 @@ interface RecruitmentPipelineChartProps {
   error?: Error | null;
 }
 
-export const RecruitmentPipelineChart: React.FC<RecruitmentPipelineChartProps> = ({
-  data = [],
-  loading = false,
-  error = null,
-}) => {
+export const RecruitmentPipelineChart: React.FC<
+  RecruitmentPipelineChartProps
+> = ({ data = [], loading = false, error = null }) => {
   if (error) {
     return (
       <ErrorAlert

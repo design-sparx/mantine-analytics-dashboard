@@ -88,7 +88,10 @@ function Chat() {
     error: chatsListError,
   } = useChats();
 
-  const chatsListData = useMemo<ChatDto[]>(() => chatsData?.data || [], [chatsData?.data]);
+  const chatsListData = useMemo<ChatDto[]>(
+    () => chatsData?.data || [],
+    [chatsData?.data],
+  );
 
   // Fetch messages for selected chat
   const {

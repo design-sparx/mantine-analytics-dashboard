@@ -4,7 +4,12 @@ import path from 'path';
 
 export async function GET(request: NextRequest) {
   try {
-    const filePath = path.join(process.cwd(), 'public', 'mocks', 'UserProfile.json');
+    const filePath = path.join(
+      process.cwd(),
+      'public',
+      'mocks',
+      'UserProfile.json',
+    );
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const profile = JSON.parse(fileContents);
 
@@ -13,9 +18,9 @@ export async function GET(request: NextRequest) {
         succeeded: true,
         data: profile,
         errors: [],
-        message: 'Profile retrieved successfully'
+        message: 'Profile retrieved successfully',
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error('API error:', error);
@@ -24,9 +29,9 @@ export async function GET(request: NextRequest) {
         succeeded: false,
         data: null,
         errors: ['Failed to fetch profile'],
-        message: 'Failed to fetch profile'
+        message: 'Failed to fetch profile',
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -40,9 +45,9 @@ export async function PUT(request: NextRequest) {
         succeeded: true,
         data: body,
         errors: [],
-        message: 'Profile updated successfully'
+        message: 'Profile updated successfully',
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error('API error:', error);
@@ -51,9 +56,9 @@ export async function PUT(request: NextRequest) {
         succeeded: false,
         data: null,
         errors: ['Failed to update profile'],
-        message: 'Failed to update profile'
+        message: 'Failed to update profile',
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

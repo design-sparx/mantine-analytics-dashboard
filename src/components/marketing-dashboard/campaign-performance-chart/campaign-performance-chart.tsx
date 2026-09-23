@@ -15,11 +15,9 @@ interface CampaignPerformanceChartProps {
   error?: Error | null;
 }
 
-export const CampaignPerformanceChart: React.FC<CampaignPerformanceChartProps> = ({
-  data = [],
-  loading = false,
-  error = null,
-}) => {
+export const CampaignPerformanceChart: React.FC<
+  CampaignPerformanceChartProps
+> = ({ data = [], loading = false, error = null }) => {
   if (error) {
     return (
       <ErrorAlert

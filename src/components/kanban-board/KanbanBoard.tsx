@@ -71,7 +71,8 @@ const defaultTasks: ITask[] = [
   {
     id: '2',
     columnId: 'todo',
-    content: 'Develop user registration functionality with OTP delivered on SMS after email confirmation and phone number confirmation',
+    content:
+      'Develop user registration functionality with OTP delivered on SMS after email confirmation and phone number confirmation',
     title: 'Develop user registration functionality',
     status: '1',
     comments: 3,
@@ -179,7 +180,11 @@ const defaultTasks: ITask[] = [
 ];
 
 const KanbanBoard = () => {
-  const { data: apiTasks, loading, refetch } = useFetch<IApiResponse<any[]>>('/api/tasks');
+  const {
+    data: apiTasks,
+    loading,
+    refetch,
+  } = useFetch<IApiResponse<any[]>>('/api/tasks');
   const [columns, setColumns] = useState<IColumn[]>(defaultCols);
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
   const [tasks, setTasks] = useState<ITask[]>([]);
@@ -347,7 +352,7 @@ const KanbanBoard = () => {
     await fetch('/api/tasks', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(taskData)
+      body: JSON.stringify(taskData),
     });
     refetch();
   }
@@ -367,7 +372,7 @@ const KanbanBoard = () => {
       await fetch(`/api/tasks/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: content, status: task?.status })
+        body: JSON.stringify({ title: content, status: task?.status }),
       });
       refetch();
     }
@@ -466,7 +471,7 @@ const KanbanBoard = () => {
           fetch(`/api/tasks/${task.id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title: task.title, status: newStatus })
+            body: JSON.stringify({ title: task.title, status: newStatus }),
           });
         }
 
@@ -494,7 +499,7 @@ const KanbanBoard = () => {
           fetch(`/api/tasks/${task.id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title: task.title, status: newStatus })
+            body: JSON.stringify({ title: task.title, status: newStatus }),
           });
         }
 

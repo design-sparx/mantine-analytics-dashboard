@@ -25,22 +25,22 @@
   z-index: 100;
   transition: all 0.3s ease;
 
-  &[data-position="sticky"] {
+  &[data-position='sticky'] {
     position: sticky;
   }
 
-  &[data-position="static"] {
+  &[data-position='static'] {
     position: static;
   }
 
   /* Header Variants */
 
-  &[data-variant="default"] {
+  &[data-variant='default'] {
     background-color: light-dark(white, var(--mantine-color-dark-7));
     color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
   }
 
-  &[data-variant="colored"] {
+  &[data-variant='colored'] {
     background-color: var(--mantine-primary-color-filled);
     color: white;
   }
@@ -56,7 +56,7 @@
   overflow: hidden;
 
   /* When in overlay mode, increase z-index */
-  &[data-overlay="true"] {
+  &[data-overlay='true'] {
     z-index: 102;
     box-shadow: var(--mantine-shadow-xl);
   }
@@ -74,12 +74,12 @@
   position: relative;
   z-index: 1;
 
-  &[data-header-position="static"] {
+  &[data-header-position='static'] {
     padding-top: 0 !important;
   }
 
   /* When sidebar is in overlay mode, ensure main content starts from edge */
-  &[data-overlay="true"] {
+  &[data-overlay='true'] {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
@@ -100,43 +100,43 @@
     /*box-shadow: 0 0 0 1px var(--mantine-color-dark-6);*/
   }
 
-  &[data-layout="boxed"] {
+  &[data-layout='boxed'] {
     max-width: rem(1400px);
     margin: 0 auto;
   }
 
-  &[data-layout="centered"] {
+  &[data-layout='centered'] {
     max-width: rem(1200px);
     margin: 0 auto;
     padding-left: rem(32);
     padding-right: rem(32);
   }
 
-  &[data-layout="full-width"] {
+  &[data-layout='full-width'] {
     width: 100%;
   }
 
-  &[data-layout="fluid"] {
+  &[data-layout='fluid'] {
     width: 100%;
     max-width: 100%;
   }
 
   /* Padding variations */
 
-  &[data-padding="compact"] {
+  &[data-padding='compact'] {
     padding: rem(8);
   }
 
-  &[data-padding="comfortable"] {
+  &[data-padding='comfortable'] {
     padding: rem(16);
   }
 
-  &[data-padding="spacious"] {
+  &[data-padding='spacious'] {
     padding: rem(32);
   }
 
   @media (max-width: 767px) {
-    &[data-padding="spacious"] {
+    &[data-padding='spacious'] {
       padding: rem(16);
     }
   }

@@ -44,7 +44,7 @@ function BaseTable<T extends Record<string, unknown>>({
       title: 'No data available',
       description: 'There are no records to display.',
     }),
-    []
+    [],
   );
 
   const effectiveEmptyState = emptyState || defaultEmptyState;
@@ -133,7 +133,8 @@ function BaseTable<T extends Record<string, unknown>>({
 
   // Handle row click
   const handleRowClick = onRowClick
-    ? ({ record, index }: { record: T; index: number }) => onRowClick(record, index)
+    ? ({ record, index }: { record: T; index: number }) =>
+        onRowClick(record, index)
     : undefined;
 
   return (

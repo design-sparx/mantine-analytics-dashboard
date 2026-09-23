@@ -1,13 +1,6 @@
 'use client';
 
-import {
-  Container,
-  Grid,
-  PaperProps,
-  Stack,
-  Text,
-  Group,
-} from '@mantine/core';
+import { Container, Grid, PaperProps, Stack, Text, Group } from '@mantine/core';
 
 import {
   PageHeader,

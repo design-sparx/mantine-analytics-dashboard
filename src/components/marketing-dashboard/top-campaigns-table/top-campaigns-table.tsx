@@ -90,14 +90,22 @@ export const TopCampaignsTable: React.FC<TopCampaignsTableProps> = ({
             <Progress
               value={budgetUsed}
               size="xs"
-              color={budgetUsed > 90 ? 'red' : budgetUsed > 75 ? 'orange' : 'teal'}
+              color={
+                budgetUsed > 90 ? 'red' : budgetUsed > 75 ? 'orange' : 'teal'
+              }
             />
           </Stack>
         </Table.Td>
         <Table.Td>
           <Badge
             variant="light"
-            color={campaign.roi > 300 ? 'teal' : campaign.roi > 200 ? 'blue' : 'violet'}
+            color={
+              campaign.roi > 300
+                ? 'teal'
+                : campaign.roi > 200
+                  ? 'blue'
+                  : 'violet'
+            }
           >
             {campaign.roi}%
           </Badge>

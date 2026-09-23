@@ -26,11 +26,31 @@ const SalesChart = ({ ...others }: SalesChartProps) => {
   } = useFetch<IApiResponse<any[]>>('/api/sales');
 
   const data = [
-    { name: 'Category 1', value: 44, color: theme.colors[theme.primaryColor][9] },
-    { name: 'Category 2', value: 55, color: theme.colors[theme.primaryColor][5] },
-    { name: 'Category 3', value: 41, color: theme.colors[theme.primaryColor][3] },
-    { name: 'Category 4', value: 17, color: theme.colors[theme.primaryColor][2] },
-    { name: 'Category 5', value: 15, color: theme.colors[theme.primaryColor][1] },
+    {
+      name: 'Category 1',
+      value: 44,
+      color: theme.colors[theme.primaryColor][9],
+    },
+    {
+      name: 'Category 2',
+      value: 55,
+      color: theme.colors[theme.primaryColor][5],
+    },
+    {
+      name: 'Category 3',
+      value: 41,
+      color: theme.colors[theme.primaryColor][3],
+    },
+    {
+      name: 'Category 4',
+      value: 17,
+      color: theme.colors[theme.primaryColor][2],
+    },
+    {
+      name: 'Category 5',
+      value: 15,
+      color: theme.colors[theme.primaryColor][1],
+    },
   ];
 
   return (
