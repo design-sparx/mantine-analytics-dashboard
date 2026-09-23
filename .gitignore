@@ -62,9 +62,4 @@ storybook-static/
 yarn.lock
 
 nul
-
-.claude
-
-.kilo
-
 # End of https://www.toptal.com/developers/gitignore/api/yarn
