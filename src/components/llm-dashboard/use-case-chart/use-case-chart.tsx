@@ -43,7 +43,7 @@ export const UseCaseChart: React.FC<UseCaseChartProps> = ({
 
   return (
     <PieChart
-      data={data.map(item => ({
+      data={data.map((item) => ({
         name: item.useCase,
         value: item.percentage,
         color: item.color,

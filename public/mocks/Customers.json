@@ -15,7 +15,7 @@
     },
     "status": 1,
     "totalOrders": 24,
-    "totalSpent": 12450.50,
+    "totalSpent": 12450.5,
     "joinedDate": "2023-01-15",
     "lastOrderDate": "2024-12-20"
   },
@@ -55,7 +55,7 @@
     },
     "status": 1,
     "totalOrders": 32,
-    "totalSpent": 15680.20,
+    "totalSpent": 15680.2,
     "joinedDate": "2022-11-10",
     "lastOrderDate": "2024-12-22"
   },
@@ -74,7 +74,7 @@
     },
     "status": 1,
     "totalOrders": 12,
-    "totalSpent": 5420.00,
+    "totalSpent": 5420.0,
     "joinedDate": "2023-06-05",
     "lastOrderDate": "2024-11-15"
   },
@@ -94,7 +94,7 @@
     },
     "status": 1,
     "totalOrders": 45,
-    "totalSpent": 28340.90,
+    "totalSpent": 28340.9,
     "joinedDate": "2022-08-18",
     "lastOrderDate": "2024-12-21"
   },
@@ -114,7 +114,7 @@
     },
     "status": 2,
     "totalOrders": 8,
-    "totalSpent": 3250.40,
+    "totalSpent": 3250.4,
     "joinedDate": "2023-09-12",
     "lastOrderDate": "2024-08-10"
   },
@@ -134,7 +134,7 @@
     },
     "status": 1,
     "totalOrders": 21,
-    "totalSpent": 11230.60,
+    "totalSpent": 11230.6,
     "joinedDate": "2023-04-28",
     "lastOrderDate": "2024-12-19"
   },
@@ -173,7 +173,7 @@
     },
     "status": 1,
     "totalOrders": 28,
-    "totalSpent": 14560.80,
+    "totalSpent": 14560.8,
     "joinedDate": "2023-02-08",
     "lastOrderDate": "2024-12-16"
   },
@@ -193,7 +193,7 @@
     },
     "status": 3,
     "totalOrders": 5,
-    "totalSpent": 1240.50,
+    "totalSpent": 1240.5,
     "joinedDate": "2023-10-20",
     "lastOrderDate": "2024-05-12"
   },
@@ -232,7 +232,7 @@
     },
     "status": 1,
     "totalOrders": 36,
-    "totalSpent": 19450.70,
+    "totalSpent": 19450.7,
     "joinedDate": "2022-12-03",
     "lastOrderDate": "2024-12-23"
   }

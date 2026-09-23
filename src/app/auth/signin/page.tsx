@@ -58,11 +58,10 @@ function Page() {
       // In a real application, implement your auth logic here with Clerk or Auth0
 
       // Simulate a brief loading state
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
       // Redirect to dashboard
       router.push(PATH_DASHBOARD.default);
-
     } catch (error) {
       setError('An unexpected error occurred');
       console.error('Sign in error:', error);

@@ -43,7 +43,9 @@ const items = [
 ));
 
 function Customers() {
-  const [selectedCustomer, setSelectedCustomer] = useState<CustomerDto | null>(null);
+  const [selectedCustomer, setSelectedCustomer] = useState<CustomerDto | null>(
+    null,
+  );
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
 
   const {
@@ -56,8 +58,10 @@ function Customers() {
   const [newDrawerOpened, { open: newCustomerOpen, close: newCustomerClose }] =
     useDisclosure(false);
 
-  const [editDrawerOpened, { open: editCustomerOpen, close: editCustomerClose }] =
-    useDisclosure(false);
+  const [
+    editDrawerOpened,
+    { open: editCustomerOpen, close: editCustomerClose },
+  ] = useDisclosure(false);
 
   const handleCustomerCreated = useCallback(() => {
     refetchCustomers();
@@ -95,7 +99,11 @@ function Customers() {
           verticalSpacing={{ base: 'md', sm: 'xl' }}
         >
           {Array.from({ length: 8 }).map((_, i) => (
-            <Skeleton key={`customer-loading-${i}`} visible={true} height={200} />
+            <Skeleton
+              key={`customer-loading-${i}`}
+              visible={true}
+              height={200}
+            />
           ))}
         </SimpleGrid>
       ) : (
@@ -128,7 +136,10 @@ function Customers() {
             <Text>
               You don&apos;t have any customers yet. Create one to get started.
             </Text>
-            <Button leftSection={<IconPlus size={18} />} onClick={newCustomerOpen}>
+            <Button
+              leftSection={<IconPlus size={18} />}
+              onClick={newCustomerOpen}
+            >
               New Customer
             </Button>
           </Stack>

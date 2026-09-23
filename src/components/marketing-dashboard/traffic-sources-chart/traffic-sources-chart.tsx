@@ -38,12 +38,6 @@ export const TrafficSourcesChart: React.FC<TrafficSourcesChartProps> = ({
   }
 
   return (
-    <DonutChart
-      data={data}
-      withLabels
-      withTooltip
-      size={200}
-      thickness={35}
-    />
+    <DonutChart data={data} withLabels withTooltip size={200} thickness={35} />
   );
 };

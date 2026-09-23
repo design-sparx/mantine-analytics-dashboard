@@ -135,7 +135,12 @@ export const NotificationItem = ({
         />
       )}
 
-      <Group wrap="nowrap" align="flex-start" gap="md" style={{ paddingLeft: notification.read ? 0 : 8 }}>
+      <Group
+        wrap="nowrap"
+        align="flex-start"
+        gap="md"
+        style={{ paddingLeft: notification.read ? 0 : 8 }}
+      >
         {/* Icon or Avatar */}
         {notification.actor?.avatar ? (
           <Avatar
@@ -185,7 +190,9 @@ export const NotificationItem = ({
             </Text>
             {notification.metadata?.workspace && (
               <>
-                <Text size="xs" c="dimmed">•</Text>
+                <Text size="xs" c="dimmed">
+                  •
+                </Text>
                 <Text size="xs" c="dimmed">
                   {notification.metadata.workspace}
                 </Text>
@@ -198,7 +205,9 @@ export const NotificationItem = ({
             <Box mt={8}>
               <Button
                 size="xs"
-                variant={notification.action.type === 'primary' ? 'filled' : 'light'}
+                variant={
+                  notification.action.type === 'primary' ? 'filled' : 'light'
+                }
                 onClick={(e) => {
                   e.stopPropagation();
                   // Handle action click

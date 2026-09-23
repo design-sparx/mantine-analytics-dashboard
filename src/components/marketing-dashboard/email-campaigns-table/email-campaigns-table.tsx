@@ -77,7 +77,13 @@ export const EmailCampaignsTable: React.FC<EmailCampaignsTableProps> = ({
           <Progress
             value={campaign.openRate}
             size="xs"
-            color={campaign.openRate > 30 ? 'teal' : campaign.openRate > 20 ? 'blue' : 'orange'}
+            color={
+              campaign.openRate > 30
+                ? 'teal'
+                : campaign.openRate > 20
+                  ? 'blue'
+                  : 'orange'
+            }
           />
         </Stack>
       </Table.Td>
@@ -92,14 +98,26 @@ export const EmailCampaignsTable: React.FC<EmailCampaignsTableProps> = ({
           <Progress
             value={campaign.clickRate}
             size="xs"
-            color={campaign.clickRate > 10 ? 'violet' : campaign.clickRate > 5 ? 'grape' : 'pink'}
+            color={
+              campaign.clickRate > 10
+                ? 'violet'
+                : campaign.clickRate > 5
+                  ? 'grape'
+                  : 'pink'
+            }
           />
         </Stack>
       </Table.Td>
       <Table.Td>
         <Badge
           variant="light"
-          color={campaign.conversions > 150 ? 'teal' : campaign.conversions > 75 ? 'blue' : 'gray'}
+          color={
+            campaign.conversions > 150
+              ? 'teal'
+              : campaign.conversions > 75
+                ? 'blue'
+                : 'gray'
+          }
         >
           {campaign.conversions}
         </Badge>

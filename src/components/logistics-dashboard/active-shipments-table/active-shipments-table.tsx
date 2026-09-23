@@ -113,7 +113,11 @@ export const ActiveShipmentsTable: React.FC<ActiveShipmentsTableProps> = ({
       </Table.Td>
       <Table.Td>
         <Group gap="xs">
-          <Badge variant="outline" size="sm" color={getTypeColor(shipment.type)}>
+          <Badge
+            variant="outline"
+            size="sm"
+            color={getTypeColor(shipment.type)}
+          >
             {shipment.type}
           </Badge>
           <Text size="xs" c="dimmed">

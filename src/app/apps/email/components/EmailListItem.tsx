@@ -7,11 +7,7 @@ import {
   Text,
   UnstyledButton,
 } from '@mantine/core';
-import {
-  IconPaperclip,
-  IconStar,
-  IconStarFilled,
-} from '@tabler/icons-react';
+import { IconPaperclip, IconStar, IconStarFilled } from '@tabler/icons-react';
 
 import type { EmailDto } from '@/types';
 
@@ -64,8 +60,8 @@ export const EmailListItem = ({
         backgroundColor: active
           ? 'var(--mantine-color-blue-0)'
           : email.read
-          ? 'transparent'
-          : 'var(--mantine-color-gray-0)',
+            ? 'transparent'
+            : 'var(--mantine-color-gray-0)',
         transition: 'background-color 100ms ease',
         cursor: 'pointer',
       }}
@@ -160,7 +156,10 @@ export const EmailListItem = ({
           </Group>
         </Stack>
 
-        <Box onClick={handleStarClick} style={{ cursor: 'pointer', padding: 4 }}>
+        <Box
+          onClick={handleStarClick}
+          style={{ cursor: 'pointer', padding: 4 }}
+        >
           {email.starred ? (
             <IconStarFilled size={16} color="gold" />
           ) : (

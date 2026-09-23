@@ -15,11 +15,9 @@ interface PerformanceMetricsChartProps {
   error?: Error | null;
 }
 
-export const PerformanceMetricsChart: React.FC<PerformanceMetricsChartProps> = ({
-  data = [],
-  loading = false,
-  error = null,
-}) => {
+export const PerformanceMetricsChart: React.FC<
+  PerformanceMetricsChartProps
+> = ({ data = [], loading = false, error = null }) => {
   if (error) {
     return (
       <ErrorAlert
@@ -49,8 +47,18 @@ export const PerformanceMetricsChart: React.FC<PerformanceMetricsChartProps> = (
       maxBarWidth={30}
       series={[
         { name: 'latency', color: 'blue', label: 'Latency (s)', type: 'line' },
-        { name: 'errorRate', color: 'red', label: 'Error Rate (%)', type: 'line' },
-        { name: 'throughput', color: 'green', label: 'Throughput (req/s)', type: 'bar' },
+        {
+          name: 'errorRate',
+          color: 'red',
+          label: 'Error Rate (%)',
+          type: 'line',
+        },
+        {
+          name: 'throughput',
+          color: 'green',
+          label: 'Throughput (req/s)',
+          type: 'bar',
+        },
       ]}
       curveType="linear"
       tickLine="y"

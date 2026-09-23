@@ -15,11 +15,9 @@ interface EmployeeDistributionChartProps {
   error?: Error | null;
 }
 
-export const EmployeeDistributionChart: React.FC<EmployeeDistributionChartProps> = ({
-  data = [],
-  loading = false,
-  error = null,
-}) => {
+export const EmployeeDistributionChart: React.FC<
+  EmployeeDistributionChartProps
+> = ({ data = [], loading = false, error = null }) => {
   if (error) {
     return (
       <ErrorAlert
@@ -43,7 +41,7 @@ export const EmployeeDistributionChart: React.FC<EmployeeDistributionChartProps>
 
   return (
     <PieChart
-      data={data.map(item => ({
+      data={data.map((item) => ({
         name: item.department,
         value: item.count,
         color: item.color,

@@ -44,7 +44,7 @@ export const PropertyTypesChart: React.FC<PropertyTypesChartProps> = ({
 
   return (
     <PieChart
-      data={data.map(item => ({
+      data={data.map((item) => ({
         name: item.type,
         value: item.count,
         color: item.color,

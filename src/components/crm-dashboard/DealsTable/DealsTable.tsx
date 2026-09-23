@@ -32,10 +32,10 @@ interface DealsTableProps {
 const getStageColor = (stage: string) => {
   const colors: Record<string, string> = {
     'New Lead': 'blue',
-    'Contacted': 'cyan',
-    'Qualified': 'violet',
-    'Proposal': 'grape',
-    'Negotiation': 'pink',
+    Contacted: 'cyan',
+    Qualified: 'violet',
+    Proposal: 'grape',
+    Negotiation: 'pink',
     'Closed Won': 'teal',
     'Closed Lost': 'red',
   };
@@ -111,7 +111,9 @@ export const DealsTable: React.FC<DealsTableProps> = ({
         </Stack>
       </Table.Td>
       <Table.Td>
-        <Text size="sm">{new Date(deal.expectedCloseDate).toLocaleDateString()}</Text>
+        <Text size="sm">
+          {new Date(deal.expectedCloseDate).toLocaleDateString()}
+        </Text>
       </Table.Td>
       <Table.Td>
         <Group gap="xs">

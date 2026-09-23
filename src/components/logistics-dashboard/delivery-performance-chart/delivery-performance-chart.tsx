@@ -15,11 +15,9 @@ interface DeliveryPerformanceChartProps {
   error?: Error | null;
 }
 
-export const DeliveryPerformanceChart: React.FC<DeliveryPerformanceChartProps> = ({
-  data = [],
-  loading = false,
-  error = null,
-}) => {
+export const DeliveryPerformanceChart: React.FC<
+  DeliveryPerformanceChartProps
+> = ({ data = [], loading = false, error = null }) => {
   if (error) {
     return (
       <ErrorAlert

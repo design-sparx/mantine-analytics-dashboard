@@ -15,11 +15,9 @@ interface DepartmentPerformanceChartProps {
   error?: Error | null;
 }
 
-export const DepartmentPerformanceChart: React.FC<DepartmentPerformanceChartProps> = ({
-  data = [],
-  loading = false,
-  error = null,
-}) => {
+export const DepartmentPerformanceChart: React.FC<
+  DepartmentPerformanceChartProps
+> = ({ data = [], loading = false, error = null }) => {
   if (error) {
     return (
       <ErrorAlert
@@ -38,12 +36,6 @@ export const DepartmentPerformanceChart: React.FC<DepartmentPerformanceChartProp
   }
 
   return (
-    <DonutChart
-      data={data}
-      withLabels
-      withTooltip
-      size={200}
-      thickness={35}
-    />
+    <DonutChart data={data} withLabels withTooltip size={200} thickness={35} />
   );
 };

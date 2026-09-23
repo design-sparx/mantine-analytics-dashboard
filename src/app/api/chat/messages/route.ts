@@ -4,7 +4,12 @@ import path from 'path';
 
 export async function GET(request: NextRequest) {
   try {
-    const filePath = path.join(process.cwd(), 'public', 'mocks', 'ChatItems.json');
+    const filePath = path.join(
+      process.cwd(),
+      'public',
+      'mocks',
+      'ChatItems.json',
+    );
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const messages = JSON.parse(fileContents);
 
@@ -13,9 +18,9 @@ export async function GET(request: NextRequest) {
         succeeded: true,
         data: messages,
         errors: [],
-        message: 'Chat messages retrieved successfully'
+        message: 'Chat messages retrieved successfully',
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error('API error:', error);
@@ -24,9 +29,9 @@ export async function GET(request: NextRequest) {
         succeeded: false,
         data: null,
         errors: ['Failed to fetch chat messages'],
-        message: 'Failed to fetch chat messages'
+        message: 'Failed to fetch chat messages',
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

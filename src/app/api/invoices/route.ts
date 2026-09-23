@@ -4,7 +4,12 @@ import path from 'path';
 
 export async function GET(request: NextRequest) {
   try {
-    const filePath = path.join(process.cwd(), 'public', 'mocks', 'Invoices.json');
+    const filePath = path.join(
+      process.cwd(),
+      'public',
+      'mocks',
+      'Invoices.json',
+    );
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const invoices = JSON.parse(fileContents);
 
@@ -13,9 +18,9 @@ export async function GET(request: NextRequest) {
         succeeded: true,
         data: invoices,
         errors: [],
-        message: 'Invoices retrieved successfully'
+        message: 'Invoices retrieved successfully',
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error('API error:', error);
@@ -24,9 +29,9 @@ export async function GET(request: NextRequest) {
         succeeded: false,
         data: null,
         errors: ['Failed to fetch invoices'],
-        message: 'Failed to fetch invoices'
+        message: 'Failed to fetch invoices',
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -46,9 +51,9 @@ export async function POST(request: NextRequest) {
           created: new Date().toISOString(),
         },
         errors: [],
-        message: 'Invoice created successfully'
+        message: 'Invoice created successfully',
       },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     console.error('API error:', error);
@@ -57,9 +62,9 @@ export async function POST(request: NextRequest) {
         succeeded: false,
         data: null,
         errors: ['Failed to create invoice'],
-        message: 'Failed to create invoice'
+        message: 'Failed to create invoice',
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

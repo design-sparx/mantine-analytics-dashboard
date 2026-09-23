@@ -4,7 +4,12 @@ import path from 'path';
 
 export async function GET(request: NextRequest) {
   try {
-    const filePath = path.join(process.cwd(), 'public', 'mocks', 'active-shipments.json');
+    const filePath = path.join(
+      process.cwd(),
+      'public',
+      'mocks',
+      'active-shipments.json',
+    );
     const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
     return NextResponse.json({
@@ -21,7 +26,7 @@ export async function GET(request: NextRequest) {
         errors: ['Failed to fetch shipments'],
         message: 'Error retrieving data',
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

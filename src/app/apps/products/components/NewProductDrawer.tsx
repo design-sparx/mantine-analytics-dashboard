@@ -17,7 +17,6 @@ import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-
 import { IProductCategory } from '@/types/products';
 
 type NewProjectDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {

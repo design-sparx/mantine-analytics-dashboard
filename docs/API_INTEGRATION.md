@@ -94,12 +94,12 @@ lib/
 
 ### Permission Categories
 
-| Category | Description | Example Permissions |
-|----------|-------------|-------------------|
-| **Admin** | System administration | `Permissions.Admin.UserManagement` |
-| **Team** | Collaborative resources | `Permissions.Team.Projects` |
-| **Personal** | User's private data | `Permissions.Personal.Invoices` |
-| **Users** | User directory access | `Permissions.Users.ViewDirectory` |
+| Category     | Description             | Example Permissions                |
+| ------------ | ----------------------- | ---------------------------------- |
+| **Admin**    | System administration   | `Permissions.Admin.UserManagement` |
+| **Team**     | Collaborative resources | `Permissions.Team.Projects`        |
+| **Personal** | User's private data     | `Permissions.Personal.Invoices`    |
+| **Users**    | User directory access   | `Permissions.Users.ViewDirectory`  |
 
 ### Data Visibility Patterns
 
@@ -116,6 +116,7 @@ lib/
 ## 🛠️ Available API Hooks
 
 ### Authentication
+
 ```typescript
 import { useAuth } from '@/lib/api/hooks/auth';
 
@@ -135,6 +136,7 @@ mutations.logout();
 ```
 
 ### Projects (Team Collaboration)
+
 ```typescript
 import { useProjectsWithMutations } from '@/lib/api/hooks/projects';
 
@@ -144,13 +146,14 @@ const { data, loading, error, mutations } = useProjectsWithMutations();
 await mutations.create({ name, description });
 
 // Update project
-await mutations.update(id, { name: "Updated" });
+await mutations.update(id, { name: 'Updated' });
 
 // Delete project
 await mutations.delete(id);
 ```
 
 ### Invoices (Personal Data)
+
 ```typescript
 import { useInvoicesWithMutations } from '@/lib/api/hooks/invoices';
 
@@ -158,19 +161,20 @@ const { data, loading, error, mutations } = useInvoicesWithMutations();
 
 // All mutations automatically refresh data
 await mutations.create({ title, amount, clientId });
-await mutations.update(id, { title: "Updated" });
+await mutations.update(id, { title: 'Updated' });
 await mutations.delete(id);
 ```
 
 ## 🎯 Permission System
 
 ### Permission Hooks
+
 ```typescript
 import {
   useHasPermission,
   useHasAnyPermission,
   useHasAllPermissions,
-  useIsAdmin
+  useIsAdmin,
 } from '@/lib/api/permissions';
 
 // Single permission check
@@ -179,13 +183,13 @@ const canCreateInvoices = useHasPermission('Permissions.Personal.Invoices');
 // Multiple permissions (any)
 const canAccessTeamFeatures = useHasAnyPermission([
   'Permissions.Team.Projects',
-  'Permissions.Team.Orders'
+  'Permissions.Team.Orders',
 ]);
 
 // Multiple permissions (all required)
 const canManageSystem = useHasAllPermissions([
   'Permissions.Admin.UserManagement',
-  'Permissions.Admin.SystemSettings'
+  'Permissions.Admin.SystemSettings',
 ]);
 
 // Admin check
@@ -193,6 +197,7 @@ const isAdmin = useIsAdmin();
 ```
 
 ### Permission Components
+
 ```typescript
 import { PermissionGate, AdminOnly, MultiPermissionGate } from '@/lib/api/permissions';
 
@@ -227,17 +232,21 @@ import { PermissionGate, AdminOnly, MultiPermissionGate } from '@/lib/api/permis
 ## 🔧 Adding New API Endpoints
 
 ### 1. Update Backend OpenAPI Spec
+
 Add your new endpoints with proper tags:
+
 - `Authentication` - Auth endpoints
 - `Mantine - [Feature]` - Feature-specific endpoints
 - Common/shared endpoints for general use
 
 ### 2. Regenerate Types
+
 ```bash
 npm run generate:types:dev
 ```
 
 ### 3. Create API Hook
+
 ```typescript
 // lib/api/hooks/new-feature.ts
 import { useApiGet, apiPost, apiPut, apiDelete } from '../../api-client';
@@ -247,7 +256,7 @@ type FeatureDto = components['schemas']['FeatureDto'];
 
 export function useFeatures() {
   return useApiGet('/api/v1/mantine/features', {
-    permission: 'Permissions.Team.Features' // Auto-disables without permission
+    permission: 'Permissions.Team.Features', // Auto-disables without permission
   });
 }
 
@@ -268,12 +277,12 @@ export function useFeatureWithMutations() {
 ```
 
 ### 4. Update Permissions (if needed)
+
 ```typescript
 // lib/api/permissions/types.ts
 export type Permission =
   // ... existing permissions
-  | 'Permissions.Team.Features'
-  | 'Permissions.Personal.NewFeature';
+  'Permissions.Team.Features' | 'Permissions.Personal.NewFeature';
 ```
 
 ## 🏗️ Development Workflow
@@ -287,6 +296,7 @@ export type Permission =
 ## 🐛 Troubleshooting
 
 ### Type Generation Issues
+
 ```bash
 # Check if your backend is running
 curl http://localhost:5080/swagger/v1/swagger.json
@@ -296,6 +306,7 @@ cat lib/api.d.ts | head -20
 ```
 
 ### Permission Issues
+
 ```typescript
 // Debug current user permissions
 import { usePermissions } from '@/lib/api/permissions';
@@ -308,6 +319,7 @@ function DebugPermissions() {
 ```
 
 ### API Errors
+
 ```typescript
 // All hooks include error handling
 const { data, loading, error } = useProjects();
@@ -321,12 +333,14 @@ if (error) {
 ## 📚 Examples
 
 See the migrated components for real-world usage:
+
 - `app/apps/invoices/page.tsx` - Personal data with owner-only access
 - `app/apps/projects/page.tsx` - Team collaboration with shared access
 
 ## 🤝 Contributing
 
 When adding new features:
+
 1. Follow the established patterns in existing hooks
 2. Add proper TypeScript types using OpenAPI schemas
 3. Include permission checks for RBAC

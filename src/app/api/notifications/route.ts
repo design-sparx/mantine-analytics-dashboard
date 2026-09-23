@@ -4,7 +4,12 @@ import path from 'path';
 
 export async function GET(request: NextRequest) {
   try {
-    const filePath = path.join(process.cwd(), 'public', 'mocks', 'Notifications.json');
+    const filePath = path.join(
+      process.cwd(),
+      'public',
+      'mocks',
+      'Notifications.json',
+    );
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const notifications = JSON.parse(fileContents);
 
@@ -13,9 +18,9 @@ export async function GET(request: NextRequest) {
         succeeded: true,
         data: notifications,
         errors: [],
-        message: 'Notifications retrieved successfully'
+        message: 'Notifications retrieved successfully',
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error('API error:', error);
@@ -24,9 +29,9 @@ export async function GET(request: NextRequest) {
         succeeded: false,
         data: null,
         errors: ['Failed to fetch notifications'],
-        message: 'Failed to fetch notifications'
+        message: 'Failed to fetch notifications',
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

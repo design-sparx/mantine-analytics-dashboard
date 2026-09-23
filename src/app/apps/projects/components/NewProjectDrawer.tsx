@@ -14,7 +14,6 @@ import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-
 import type { ProjectDto, ApiResponse } from '@/types';
 
 type NewProjectDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
@@ -61,7 +60,9 @@ export const NewProjectDrawer = ({
       const result = await onCreate(projectData);
 
       if (!result.succeeded) {
-        throw new Error(result.errors?.join(', ') || 'Failed to create project');
+        throw new Error(
+          result.errors?.join(', ') || 'Failed to create project',
+        );
       }
 
       notifications.show({

@@ -1,5 +1,4 @@
 .card {
-
   @mixin dark {
     background-color: var(--mantine-color-dark-6);
   }

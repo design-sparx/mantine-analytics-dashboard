@@ -75,8 +75,12 @@ const CustomersTable = ({
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
   const [selectedRecords, setSelectedRecords] = useState<CustomerDto[]>([]);
-  const [records, setRecords] = useState<CustomerDto[]>(data.slice(0, pageSize));
-  const [sortStatus, setSortStatus] = useState<DataTableSortStatus<CustomerDto>>({
+  const [records, setRecords] = useState<CustomerDto[]>(
+    data.slice(0, pageSize),
+  );
+  const [sortStatus, setSortStatus] = useState<
+    DataTableSortStatus<CustomerDto>
+  >({
     columnAccessor: 'name',
     direction: 'asc',
   });
