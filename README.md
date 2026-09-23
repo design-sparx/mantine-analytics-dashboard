@@ -1,4 +1,6 @@
 ## 🔉 Announcements
+
+- **MAJOR**: Upgraded to **Mantine 9**, **Next.js 16.3**, **Tiptap 3**, **Tabler Icons 3.47**, and **Recharts 3**!
 - **MAJOR**: Upgraded to **Next.js 16**! The previous Next.js 14 version is available on the [`next-14`](https://github.com/design-sparx/mantine-analytics-dashboard/tree/next-14) branch for backwards compatibility.
 - **NEW**: Enhanced mock data system with Next.js API routes for a more realistic development experience
 - **NEW**: Comprehensive theme customization system with live preview and persistence
@@ -43,13 +45,13 @@
 - [Live preview](https://mantine-analytics-dashboard.netlify.app/)
 - [Components preview](https://6546507b657a74164abf2db6-oniqlpqtfs.chromatic.com/)
 - [Medium](https://medium.com/stackademic/how-i-built-an-open-source-admin-dashboard-template-with-mantine-and-next-js-4f00a21ce04f)
-- [Product roadmap](https://kelvink96.notion.site/Mantine-analytics-dashboard-Product-roadmap-822fe0c757e647c9b2fd62a50807500a?pvs=74) * **New** *
+- [Product roadmap](https://kelvink96.notion.site/Mantine-analytics-dashboard-Product-roadmap-822fe0c757e647c9b2fd62a50807500a?pvs=74) _ **New** _
 
 # About
 
-A professional admin & dashboard template built using on [Mantine 7](https://mantine.dev/) that comes with hundreds of
+A professional admin & dashboard template built using on [Mantine 9](https://mantine.dev/) that comes with hundreds of
 UI components, forms, tables, charts, pages and icons. This template is built
-using [Next.js 16](https://nextjs.org/), [React](https://react.dev/), [Apex Charts](https://apexcharts.com/),[Mantine DataTable](https://icflorescu.github.io/mantine-datatable/)
+using [Next.js 16](https://nextjs.org/), [React 19](https://react.dev/), [Recharts](https://recharts.org/),[Mantine DataTable](https://icflorescu.github.io/mantine-datatable/)
 and [Storybook](https://storybook.js.org/).
 
 ![preview image](public/dashboard.png)
@@ -57,11 +59,14 @@ and [Storybook](https://storybook.js.org/).
 # Previous releases
 
 ## Next.js 14 (App Router)
+
 The previous release with Next.js 14 and Mantine 7 is available for users who need backwards compatibility or prefer the stable version:
+
 - **Branch**: [`next-14`](https://github.com/design-sparx/mantine-analytics-dashboard/tree/next-14)
 - **Features**: App Router, Mantine 7, React 18, Mock API integration
 
 ## Next.js 13 (Pages Router)
+
 The legacy version supports Next 13 with Pages router and Mantine 6. To view the live demo
 use this link - [preview](https://652579e5b7998a00083d022b--mantine-analytics-dashboard.netlify.app/), and to checkout
 fork the repo use this link - [version 1](https://github.com/design-sparx/mantine-analytics-dashboard/tree/v1)
@@ -87,10 +92,10 @@ To make this template awesome, I used the following packages:
 
 - **Next.js v16:** Next.js is an open-source web development framework created by the private company Vercel providing
   React-based web applications with server-side rendering and static website generation.
-- **Mantine v7:** Mantine is a React UI components library. It's built on top of React and TypeScript, and provides a
+- **Mantine v9:** Mantine is a React UI components library. It's built on top of React and TypeScript, and provides a
   variety of
   components and hooks for building high-performance web applications.
-- **React v18:** React is a free and open-source front-end JavaScript library for building user interfaces based on
+- **React v19:** React is a free and open-source front-end JavaScript library for building user interfaces based on
   components.
 - **Typescript v5:** TypeScript is a free and open-source high-level programming language developed by Microsoft that
   adds static typing with optional type annotations to JavaScript.
@@ -99,15 +104,15 @@ To make this template awesome, I used the following packages:
 - **Changeset CLI v2:** Changeset is a package that helps in managing my versions and changelogs.
 - **NextAuth v4:** NextAuth.js is a flexible and secure authentication library that can be used for client-side
   authentication in Next.js.
-- **Tabler icons v2:** Tabler Icons is a free, open-source icon library with over 4,700 icons. The icons are designed
+- **Tabler icons v3:** Tabler Icons is a free, open-source icon library with over 4,700 icons. The icons are designed
   with a modern aesthetic and are suitable for a wide range of applications.
-- **Mantine datatable v7:** Mantine DataTable is a React component that can be used to create data-rich user interfaces.
+- **Mantine datatable v9:** Mantine DataTable is a React component that can be used to create data-rich user interfaces.
   It is a table component that is aware of dark themes and is designed for Mantine UI.
 - **Lodash v4:** A JavaScript utility library delivering consistency, modularity, performance, & extras.
 - **Apex chart v3:s** ApexCharts is a free, open-source JavaScript charting library that allows developers to create
   interactive data visualizations for web pages. It can be used for both commercial and non-commercial projects.
 - **Dayjs v1:** Day.js is a JavaScript library that handles dates and times.
-- **Tiptap v2:** A headless, framework-agnostic and extendable rich text editor, based on ProseMirror.
+- **Tiptap v3:** A headless, framework-agnostic and extendable rich text editor, based on ProseMirror.
 - **Fullcalendar v6**: FullCalendar is a JavaScript event calendar with over 300 settings. It's open source and has a
   free core.
 - **Dnd-Kit v6:** Dnd-kit is a lightweight, modular, and extensible drag-and-drop toolkit for React. It is also
@@ -202,7 +207,7 @@ export async function GET(request: NextRequest) {
     succeeded: true,
     data,
     errors: [],
-    message: 'Data retrieved successfully'
+    message: 'Data retrieved successfully',
   });
 }
 ```
@@ -247,7 +252,7 @@ mantine-analytics-dashboard/
 ├── next.config.js
 ├── postcss.config.cjs
 ├── clerkMiddleware.ts
-├── yarn.lock
+├── pnpm-lock.yaml
 ├── public/
 │   ├── mocks/
 │   ├── _redirects
@@ -326,6 +331,7 @@ src/app/api/           # Next.js API routes
 ## 🔐 Demo Authentication
 
 Mock users for testing:
+
 - **Admin:** demo@example.com / demo123
 - **User:** jane@example.com / demo123
 

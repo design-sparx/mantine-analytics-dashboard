@@ -53,7 +53,9 @@ export const EmailDetail = ({
         }}
       >
         <Stack align="center" gap="md">
-          <Title order={3} c="dimmed">Select a message</Title>
+          <Title order={3} c="dimmed">
+            Select a message
+          </Title>
           <Text size="sm" c="dimmed">
             Choose an email from the list to view its contents
           </Text>
@@ -167,7 +169,9 @@ export const EmailDetail = ({
                   size={48}
                 />
                 <Stack gap={2}>
-                  <Text fw={600} size="sm">{email.from.name}</Text>
+                  <Text fw={600} size="sm">
+                    {email.from.name}
+                  </Text>
                   <Text size="xs" c="dimmed">
                     {email.from.email}
                   </Text>

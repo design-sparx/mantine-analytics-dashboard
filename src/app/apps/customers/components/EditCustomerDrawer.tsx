@@ -77,7 +77,8 @@ export const EditCustomerDrawer = ({
       // For a real implementation, you would send a PUT request here
       notifications.show({
         title: 'Mock Data System',
-        message: 'This template uses mock data. Customer updates are simulated.',
+        message:
+          'This template uses mock data. Customer updates are simulated.',
         color: 'blue',
       });
 
@@ -113,7 +114,8 @@ export const EditCustomerDrawer = ({
       // For a real implementation, you would send a DELETE request here
       notifications.show({
         title: 'Mock Data System',
-        message: 'This template uses mock data. Customer deletion is simulated.',
+        message:
+          'This template uses mock data. Customer deletion is simulated.',
         color: 'blue',
       });
 
@@ -195,7 +197,12 @@ export const EditCustomerDrawer = ({
         <Stack>
           <Group justify="space-between" align="flex-start">
             <Group gap="sm">
-              <Avatar src={customer.avatar} alt={customer.name} radius="xl" size="lg" />
+              <Avatar
+                src={customer.avatar}
+                alt={customer.name}
+                radius="xl"
+                size="lg"
+              />
               <div>
                 <Title order={4}>{customer.name}</Title>
                 <Text size="sm" c="dimmed">

@@ -75,14 +75,17 @@ components/
 ### File Naming
 
 - **Component files**: Use PascalCase matching the component name
+
   - ✅ `StatsCard.tsx`
   - ❌ `stats-card.tsx`, `StatsCard.component.tsx`
 
 - **CSS Modules**: Match the component name exactly
+
   - ✅ `StatsCard.module.css`
   - ❌ `Stats.module.css`, `stats-card.module.css`
 
 - **Stories**: Match the component name with `.stories.tsx` suffix
+
   - ✅ `StatsCard.stories.tsx`
   - ❌ `StatsCard.story.tsx`, `stats-card.stories.tsx`
 
@@ -106,6 +109,7 @@ components/
   - ❌ `StatsCard/`, `userButton/`, `stats_card/`
 
 **Examples:**
+
 - Component: `StatsCard` → Directory: `stats-card/`
 - Component: `UserProfileCard` → Directory: `user-profile-card/`
 - Component: `InvoicesTable` → Directory: `invoices-table/`
@@ -119,6 +123,7 @@ components/
 **Rule**: Never use `any` types without explicit justification and TSLint disable comment.
 
 ❌ **Bad**:
+
 ```typescript
 type TableProps = {
   data: any[];
@@ -127,6 +132,7 @@ type TableProps = {
 ```
 
 ✅ **Good**:
+
 ```typescript
 type TableProps<T> = {
   data: T[];
@@ -139,12 +145,14 @@ type TableProps<T> = {
 **Rule**: Avoid `@ts-ignore`. Use proper types or `@ts-expect-error` with explanation.
 
 ❌ **Bad**:
+
 ```typescript
 // @ts-ignore
 const result = someFunction();
 ```
 
 ✅ **Good**:
+
 ```typescript
 // @ts-expect-error - Legacy API returns unknown type, tracked in JIRA-123
 const result = someFunction() as ExpectedType;
@@ -158,6 +166,7 @@ const result = someFunction() as ExpectedType;
 - Extend Mantine types properly
 
 ✅ **Example**:
+
 ```typescript
 import { PaperProps } from '@mantine/core';
 import { components } from '@/lib/api';
@@ -179,6 +188,7 @@ type InvoiceCardProps = {
 - Document complex types with JSDoc
 
 ✅ **Example**:
+
 ```typescript
 // types.ts
 export type Variant = 'default' | 'outlined' | 'filled';
@@ -209,6 +219,7 @@ export type StatsCardProps = {
 **Rule**: Every component directory MUST have an `index.ts` file.
 
 ✅ **Single Export**:
+
 ```typescript
 // components/StatsCard/index.ts
 export { default } from './StatsCard';
@@ -216,6 +227,7 @@ export * from './types';
 ```
 
 ✅ **Multiple Exports**:
+
 ```typescript
 // components/Buttons/index.ts
 export { default as ActionButton } from './ActionButton';
@@ -228,6 +240,7 @@ export * from './types';
 **Rule**: Use consistent barrel exports in `components/index.ts`.
 
 ✅ **Good**:
+
 ```typescript
 // components/index.ts
 export { default as Logo } from './Logo';
@@ -243,6 +256,7 @@ export * from './UserButton/types';
 ### Default vs Named Exports
 
 **Guideline**:
+
 - Use **default export** for primary component
 - Use **named exports** for:
   - Types
@@ -307,12 +321,14 @@ export type { ComponentNameProps };
 **Rule**: Use `'use client'` only when necessary.
 
 **Required for**:
+
 - Interactive components (onClick, onChange, etc.)
 - Components using React hooks (useState, useEffect, etc.)
 - Components using browser APIs
 - Components using Mantine interactive components (Modal, Menu, etc.)
 
 **Not required for**:
+
 - Purely presentational components
 - Server components
 - Static content
@@ -433,12 +449,13 @@ Use CSS custom properties for themeable values:
 ### JSDoc Comments
 
 **Required for**:
+
 - All exported components
 - All exported types
 - Complex functions
 - Props with non-obvious purpose
 
-```typescript
+````typescript
 /**
  * StatsCard - Displays a statistic with title, value, and trend indicator
  *
@@ -470,7 +487,7 @@ type StatsCardProps = {
     period?: string;
   };
 } & PaperProps;
-```
+````
 
 ### README Files (Optional but Recommended)
 
@@ -497,11 +514,13 @@ import { ComponentName } from '@/components';
 ## Examples
 
 ### Basic Example
+
 \`\`\`tsx
 <ComponentName prop1="simple" />
 \`\`\`
 
 ### Advanced Example
+
 \`\`\`tsx
 <ComponentName
   prop1="advanced"

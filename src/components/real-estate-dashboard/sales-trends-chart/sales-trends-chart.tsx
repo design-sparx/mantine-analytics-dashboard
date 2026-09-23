@@ -49,7 +49,12 @@ export const SalesTrendsChart: React.FC<SalesTrendsChartProps> = ({
       maxBarWidth={30}
       series={[
         { name: 'sales', color: 'blue', label: 'Sales', type: 'bar' },
-        { name: 'revenue', color: 'green', label: 'Revenue ($M)', type: 'line' },
+        {
+          name: 'revenue',
+          color: 'green',
+          label: 'Revenue ($M)',
+          type: 'line',
+        },
       ]}
       curveType="linear"
       tickLine="y"

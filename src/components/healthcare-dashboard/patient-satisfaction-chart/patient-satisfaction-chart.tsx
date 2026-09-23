@@ -16,11 +16,9 @@ interface PatientSatisfactionChartProps {
   error?: Error | null;
 }
 
-export const PatientSatisfactionChart: React.FC<PatientSatisfactionChartProps> = ({
-  data = [],
-  loading = false,
-  error = null,
-}) => {
+export const PatientSatisfactionChart: React.FC<
+  PatientSatisfactionChartProps
+> = ({ data = [], loading = false, error = null }) => {
   if (error) {
     return (
       <ErrorAlert

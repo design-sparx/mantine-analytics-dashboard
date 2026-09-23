@@ -7,7 +7,11 @@ import {
   Table,
   Text,
 } from '@mantine/core';
-import { IconTrendingUp, IconTrendingDown, IconMinus } from '@tabler/icons-react';
+import {
+  IconTrendingUp,
+  IconTrendingDown,
+  IconMinus,
+} from '@tabler/icons-react';
 import { ErrorAlert } from '@/components';
 
 interface SocialMedia {

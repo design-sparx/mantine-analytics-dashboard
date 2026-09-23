@@ -14,8 +14,6 @@ import {
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-
-
 type NewCategoryDrawer = Omit<DrawerProps, 'title' | 'children'> & {
   onCategoryCreated?: () => void;
 };

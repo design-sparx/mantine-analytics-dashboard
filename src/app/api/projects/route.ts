@@ -4,7 +4,12 @@ import path from 'path';
 
 export async function GET(request: NextRequest) {
   try {
-    const filePath = path.join(process.cwd(), 'public', 'mocks', 'Projects.json');
+    const filePath = path.join(
+      process.cwd(),
+      'public',
+      'mocks',
+      'Projects.json',
+    );
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const projects = JSON.parse(fileContents);
 
@@ -13,9 +18,9 @@ export async function GET(request: NextRequest) {
         succeeded: true,
         data: projects,
         errors: [],
-        message: 'Projects retrieved successfully'
+        message: 'Projects retrieved successfully',
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error('API error:', error);
@@ -24,9 +29,9 @@ export async function GET(request: NextRequest) {
         succeeded: false,
         data: null,
         errors: ['Failed to fetch projects'],
-        message: 'Failed to fetch projects'
+        message: 'Failed to fetch projects',
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -44,9 +49,9 @@ export async function POST(request: NextRequest) {
           start_date: new Date().toLocaleDateString('en-US'),
         },
         errors: [],
-        message: 'Project created successfully'
+        message: 'Project created successfully',
       },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     console.error('API error:', error);
@@ -55,9 +60,9 @@ export async function POST(request: NextRequest) {
         succeeded: false,
         data: null,
         errors: ['Failed to create project'],
-        message: 'Failed to create project'
+        message: 'Failed to create project',
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

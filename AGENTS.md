@@ -62,6 +62,49 @@ pnpm generate:component Foo [basic|interactive|table|card]
 
 ## Known inconsistencies to avoid
 
-- README/package.json description claim Mantine 8 / React 18; actual deps are Mantine 7.14.x and React 19.
+- README description claims Mantine 7 / React 18; actual deps are Mantine 9.6.x and React 19.2.
 - README file tree lists `yarn.lock`; actual file is `pnpm-lock.yaml`.
 - `IApiResponse<T>` type includes `timestamp` and typed `errors`; mock API routes omit `timestamp` and return `errors: string[]`. Use the actual response shape when typing fetches.
+
+## ECC Integration
+
+This project uses ECC-inspired standards for AI-assisted development across Claude Code, OpenCode, Codex, and Kilo.
+
+### Universal standards
+
+- Prefer immutable updates; never mutate existing state or props.
+- Keep functions small and files focused; treat 800 lines as a soft ceiling.
+- Handle errors explicitly; never silently swallow failures.
+- Validate inputs at system boundaries; never trust external data.
+- Before commit: no hardcoded secrets, no debug statements, no unsafe HTML/URL handling.
+- Aim for 80% test coverage on new code; write tests before implementation when practical.
+- Run `pnpm lint` and `pnpm prettier` before pushing.
+
+### Agent-specific guidance
+
+- Claude Code: additional always-loaded rules live in `.claude/rules/ecc/`. Workflow skills live in `.claude/skills/`. Project memory lives in `.claude/memory/`.
+- Kilo: workflow skills live in `.kilo/skills/`. Project memory lives in `.kilo/memory/`.
+- OpenCode: lightweight mirrored rules live in `.opencode/rules/ecc/`. Mirrored skills live in `.opencode/skills/`. Project memory lives in `.opencode/memory/`.
+- Codex: lightweight mirrored rules live in `.codex/rules/ecc/`. Mirrored skills live in `.codex/skills/`. Project memory lives in `.codex/memory/`.
+
+### Skills
+
+Recommended skill stubs:
+
+- `tdd-workflow` — test-driven development workflow
+- `security-review` — security checklist for commits and PRs
+- `react-testing` — React Testing Library guidance
+- `react-performance` — React/Next.js performance optimization
+- `frontend-patterns` — general frontend architecture
+- `react-patterns` — React 19 / App Router patterns
+- `design-system` — Mantine design system consistency
+
+### Memory
+
+Use the memory files to preserve learnings, decisions, and patterns across sessions:
+
+- Read the relevant memory files at the start of a session when continuing prior work.
+- Append new learnings, decisions, and patterns after meaningful work.
+- Do not rewrite history; treat memory files as append-only logs.
+
+Source of truth for standards: `AGENTS.md` first, then `.claude/rules/ecc/`. The OpenCode and Codex rule directories are mirrors; update `.claude/rules/ecc/` first, then mirror.

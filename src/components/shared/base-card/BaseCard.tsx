@@ -1,6 +1,14 @@
 import { ReactNode } from 'react';
 
-import { Divider, Group, Paper, PaperProps, Stack, Text, Title } from '@mantine/core';
+import {
+  Divider,
+  Group,
+  Paper,
+  PaperProps,
+  Stack,
+  Text,
+  Title,
+} from '@mantine/core';
 
 import { CardBaseProps } from '@/types/components';
 

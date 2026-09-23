@@ -35,7 +35,14 @@ import {
   IconBell,
 } from '@tabler/icons-react';
 
-import { PATH_ABOUT, PATH_APPS, PATH_AUTH, PATH_DASHBOARD, PATH_DOCS, PATH_PAGES } from '@/routes';
+import {
+  PATH_ABOUT,
+  PATH_APPS,
+  PATH_AUTH,
+  PATH_DASHBOARD,
+  PATH_DOCS,
+  PATH_PAGES,
+} from '@/routes';
 
 export const SIDEBAR_LINKS = [
   {
@@ -48,16 +55,50 @@ export const SIDEBAR_LINKS = [
         link: PATH_DASHBOARD.analytics,
       },
       { label: 'SaaS', icon: IconChartArcs3, link: PATH_DASHBOARD.saas },
-      { label: 'E-commerce', icon: IconShoppingCart, link: PATH_DASHBOARD.ecommerce },
+      {
+        label: 'E-commerce',
+        icon: IconShoppingCart,
+        link: PATH_DASHBOARD.ecommerce,
+      },
       { label: 'CRM', icon: IconUsers, link: PATH_DASHBOARD.crm },
       { label: 'Finance', icon: IconCoin, link: PATH_DASHBOARD.finance },
-      { label: 'Marketing', icon: IconSpeakerphone, link: PATH_DASHBOARD.marketing, badge: 'NEW' },
-      { label: 'Healthcare', icon: IconStethoscope, link: PATH_DASHBOARD.healthcare, badge: 'NEW' },
-      { label: 'Education', icon: IconSchool, link: PATH_DASHBOARD.education, badge: 'NEW' },
-      { label: 'Logistics', icon: IconTruckDelivery, link: PATH_DASHBOARD.logistics, badge: 'NEW' },
+      {
+        label: 'Marketing',
+        icon: IconSpeakerphone,
+        link: PATH_DASHBOARD.marketing,
+        badge: 'NEW',
+      },
+      {
+        label: 'Healthcare',
+        icon: IconStethoscope,
+        link: PATH_DASHBOARD.healthcare,
+        badge: 'NEW',
+      },
+      {
+        label: 'Education',
+        icon: IconSchool,
+        link: PATH_DASHBOARD.education,
+        badge: 'NEW',
+      },
+      {
+        label: 'Logistics',
+        icon: IconTruckDelivery,
+        link: PATH_DASHBOARD.logistics,
+        badge: 'NEW',
+      },
       { label: 'HR', icon: IconUserCog, link: PATH_DASHBOARD.hr, badge: 'NEW' },
-      { label: 'Real Estate', icon: IconBuilding, link: PATH_DASHBOARD.realEstate, badge: 'NEW' },
-      { label: 'LLM/AI', icon: IconRobot, link: PATH_DASHBOARD.llm, badge: 'NEW' },
+      {
+        label: 'Real Estate',
+        icon: IconBuilding,
+        link: PATH_DASHBOARD.realEstate,
+        badge: 'NEW',
+      },
+      {
+        label: 'LLM/AI',
+        icon: IconRobot,
+        link: PATH_DASHBOARD.llm,
+        badge: 'NEW',
+      },
     ],
   },
   {
@@ -68,9 +109,24 @@ export const SIDEBAR_LINKS = [
       { label: 'Chat', icon: IconMessages, link: PATH_APPS.chat },
       { label: 'Projects', icon: IconBriefcase, link: PATH_APPS.projects },
       { label: 'Orders', icon: IconListDetails, link: PATH_APPS.orders },
-      { label: 'Customers', icon: IconUsers, link: PATH_APPS.customers, badge: 'NEW' },
-      { label: 'Email', icon: IconMessages, link: PATH_APPS.email, badge: 'NEW' },
-      { label: 'Notifications', icon: IconBell, link: PATH_APPS.notifications, badge: 'NEW' },
+      {
+        label: 'Customers',
+        icon: IconUsers,
+        link: PATH_APPS.customers,
+        badge: 'NEW',
+      },
+      {
+        label: 'Email',
+        icon: IconMessages,
+        link: PATH_APPS.email,
+        badge: 'NEW',
+      },
+      {
+        label: 'Notifications',
+        icon: IconBell,
+        link: PATH_APPS.notifications,
+        badge: 'NEW',
+      },
       {
         label: 'Invoices',
         icon: IconFileInvoice,

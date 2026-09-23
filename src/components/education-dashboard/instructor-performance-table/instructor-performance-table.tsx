@@ -27,11 +27,9 @@ interface InstructorPerformanceTableProps {
   error?: Error | null;
 }
 
-export const InstructorPerformanceTable: React.FC<InstructorPerformanceTableProps> = ({
-  data = [],
-  loading = false,
-  error = null,
-}) => {
+export const InstructorPerformanceTable: React.FC<
+  InstructorPerformanceTableProps
+> = ({ data = [], loading = false, error = null }) => {
   if (error) {
     return (
       <ErrorAlert

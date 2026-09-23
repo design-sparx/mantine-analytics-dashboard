@@ -74,7 +74,8 @@ export const LocationAnalyticsTable: React.FC<LocationAnalyticsTableProps> = ({
       <Table.Td>
         <Group gap="xs">
           <Badge variant="light" color={getGrowthColor(location.growth)}>
-            {location.growth > 0 ? '+' : ''}{location.growth}%
+            {location.growth > 0 ? '+' : ''}
+            {location.growth}%
           </Badge>
         </Group>
       </Table.Td>

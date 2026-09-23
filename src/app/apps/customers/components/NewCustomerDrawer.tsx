@@ -67,7 +67,8 @@ export const NewCustomerDrawer = ({
       // For a real implementation, you would send a POST request here
       notifications.show({
         title: 'Mock Data System',
-        message: 'This template uses mock data. Customer creation is simulated.',
+        message:
+          'This template uses mock data. Customer creation is simulated.',
         color: 'blue',
       });
 

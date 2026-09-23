@@ -1,4 +1,12 @@
-import { Timeline, Text, Badge, Group, Skeleton, Stack, Avatar } from '@mantine/core';
+import {
+  Timeline,
+  Text,
+  Badge,
+  Group,
+  Skeleton,
+  Stack,
+  Avatar,
+} from '@mantine/core';
 import {
   IconPhone,
   IconMail,
@@ -80,10 +88,14 @@ export const ActivitiesTimeline: React.FC<ActivitiesTimelineProps> = ({
   const formatTime = (timestamp: string) => {
     const date = new Date(timestamp);
     const now = new Date();
-    const diffHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
+    const diffHours = Math.floor(
+      (now.getTime() - date.getTime()) / (1000 * 60 * 60),
+    );
 
     if (diffHours < 1) {
-      const diffMins = Math.floor((now.getTime() - date.getTime()) / (1000 * 60));
+      const diffMins = Math.floor(
+        (now.getTime() - date.getTime()) / (1000 * 60),
+      );
       return `${diffMins} min${diffMins !== 1 ? 's' : ''} ago`;
     }
     if (diffHours < 24) {
@@ -106,7 +118,11 @@ export const ActivitiesTimeline: React.FC<ActivitiesTimelineProps> = ({
                 <Text size="sm" fw={500}>
                   {activity.company}
                 </Text>
-                <Badge size="sm" variant="light" color={getStatusColor(activity.status)}>
+                <Badge
+                  size="sm"
+                  variant="light"
+                  color={getStatusColor(activity.status)}
+                >
                   {activity.status}
                 </Badge>
               </Group>

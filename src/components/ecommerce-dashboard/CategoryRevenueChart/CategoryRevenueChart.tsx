@@ -50,7 +50,8 @@ export const CategoryRevenueChart: React.FC<CategoryRevenueChartProps> = ({
             Revenue by Category
           </Text>
           <Text size="sm" c="dimmed">
-            Total: ${totalRevenue.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+            Total: $
+            {totalRevenue.toLocaleString('en-US', { minimumFractionDigits: 2 })}
           </Text>
         </div>
       </Group>
@@ -59,14 +60,14 @@ export const CategoryRevenueChart: React.FC<CategoryRevenueChartProps> = ({
         h={280}
         data={chartData}
         dataKey="category"
-        series={[
-          { name: 'revenue', label: 'Revenue', color: 'blue.6' },
-        ]}
+        series={[{ name: 'revenue', label: 'Revenue', color: 'blue.6' }]}
         tickLine="y"
         gridAxis="y"
         withLegend
         legendProps={{ verticalAlign: 'bottom', height: 50 }}
-        valueFormatter={(value) => `$${value.toLocaleString('en-US', { minimumFractionDigits: 2 })}`}
+        valueFormatter={(value) =>
+          `$${value.toLocaleString('en-US', { minimumFractionDigits: 2 })}`
+        }
       />
 
       <Group gap="md" justify="center">

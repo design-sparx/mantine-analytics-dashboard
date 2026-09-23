@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
         errors: ['Failed to fetch deals'],
         message: 'Error retrieving data',
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

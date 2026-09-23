@@ -37,12 +37,5 @@ export const GradeDistributionChart: React.FC<GradeDistributionChartProps> = ({
     );
   }
 
-  return (
-    <PieChart
-      data={data}
-      withLabels
-      withTooltip
-      size={200}
-    />
-  );
+  return <PieChart data={data} withLabels withTooltip size={200} />;
 };

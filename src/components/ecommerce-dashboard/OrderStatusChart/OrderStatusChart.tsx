@@ -1,4 +1,11 @@
-import { Group, RingProgress, Stack, Text, SimpleGrid, Skeleton } from '@mantine/core';
+import {
+  Group,
+  RingProgress,
+  Stack,
+  Text,
+  SimpleGrid,
+  Skeleton,
+} from '@mantine/core';
 import { ErrorAlert } from '@/components';
 
 interface OrderStatus {
@@ -85,7 +92,10 @@ export const OrderStatusChart: React.FC<OrderStatusChartProps> = ({
             </Group>
             <div style={{ textAlign: 'right' }}>
               <Text size="sm" fw={600}>
-                ${item.value.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                $
+                {item.value.toLocaleString('en-US', {
+                  minimumFractionDigits: 2,
+                })}
               </Text>
               <Text size="xs" c="dimmed">
                 {item.percentage.toFixed(1)}%
@@ -95,7 +105,11 @@ export const OrderStatusChart: React.FC<OrderStatusChartProps> = ({
         ))}
       </SimpleGrid>
 
-      <Group justify="center" pt="md" style={{ borderTop: '1px solid var(--mantine-color-gray-3)' }}>
+      <Group
+        justify="center"
+        pt="md"
+        style={{ borderTop: '1px solid var(--mantine-color-gray-3)' }}
+      >
         <div style={{ textAlign: 'center' }}>
           <Text size="xs" c="dimmed" mb={4}>
             Total Value

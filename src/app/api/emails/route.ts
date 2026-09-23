@@ -13,9 +13,9 @@ export async function GET(request: NextRequest) {
         succeeded: true,
         data: emails,
         errors: [],
-        message: 'Emails retrieved successfully'
+        message: 'Emails retrieved successfully',
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error('API error:', error);
@@ -24,9 +24,9 @@ export async function GET(request: NextRequest) {
         succeeded: false,
         data: null,
         errors: ['Failed to fetch emails'],
-        message: 'Failed to fetch emails'
+        message: 'Failed to fetch emails',
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

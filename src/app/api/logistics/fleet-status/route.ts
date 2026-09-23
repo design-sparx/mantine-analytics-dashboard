@@ -4,7 +4,12 @@ import path from 'path';
 
 export async function GET(request: NextRequest) {
   try {
-    const filePath = path.join(process.cwd(), 'public', 'mocks', 'fleet-status.json');
+    const filePath = path.join(
+      process.cwd(),
+      'public',
+      'mocks',
+      'fleet-status.json',
+    );
     const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
     return NextResponse.json({
@@ -21,7 +26,7 @@ export async function GET(request: NextRequest) {
         errors: ['Failed to fetch fleet status'],
         message: 'Error retrieving data',
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

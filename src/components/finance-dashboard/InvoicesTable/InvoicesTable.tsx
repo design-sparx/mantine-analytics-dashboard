@@ -1,10 +1,4 @@
-import {
-  Badge,
-  Skeleton,
-  Stack,
-  Table,
-  Text,
-} from '@mantine/core';
+import { Badge, Skeleton, Stack, Table, Text } from '@mantine/core';
 import { ErrorAlert } from '@/components';
 
 interface Invoice {
@@ -73,7 +67,9 @@ export const InvoicesTable: React.FC<InvoicesTableProps> = ({
         </Text>
       </Table.Td>
       <Table.Td>
-        <Text size="sm">{new Date(invoice.issueDate).toLocaleDateString()}</Text>
+        <Text size="sm">
+          {new Date(invoice.issueDate).toLocaleDateString()}
+        </Text>
       </Table.Td>
       <Table.Td>
         <Text size="sm">{new Date(invoice.dueDate).toLocaleDateString()}</Text>

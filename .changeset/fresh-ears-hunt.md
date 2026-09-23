@@ -1,5 +1,5 @@
 ---
-"mantine-analytics-dashboard": minor
+'mantine-analytics-dashboard': minor
 ---
 
 chore: removed unused dashboard links and icons

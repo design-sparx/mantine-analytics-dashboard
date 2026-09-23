@@ -35,9 +35,9 @@ export const CustomerCard = ({
   const getStatusColor = (status?: CustomerStatus): string => {
     if (!status) return 'gray';
     const statusMap: Record<number, string> = {
-      1: 'green',  // Active
-      2: 'gray',   // Inactive
-      3: 'red',    // Blocked
+      1: 'green', // Active
+      2: 'gray', // Inactive
+      3: 'red', // Blocked
     };
     return statusMap[status as number] || 'gray';
   };
@@ -69,11 +69,7 @@ export const CustomerCard = ({
               )}
             </div>
           </Group>
-          <Badge
-            color={getStatusColor(data.status)}
-            variant="light"
-            size="sm"
-          >
+          <Badge color={getStatusColor(data.status)} variant="light" size="sm">
             {getStatusLabel(data.status)}
           </Badge>
         </Group>

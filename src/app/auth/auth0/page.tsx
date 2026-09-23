@@ -35,17 +35,19 @@ export default function Page() {
             >
               <Stack gap="sm">
                 <Text size="sm">
-                  This page is a placeholder for Auth0 authentication integration.
-                  NextAuth has been removed from this template.
+                  This page is a placeholder for Auth0 authentication
+                  integration. NextAuth has been removed from this template.
                 </Text>
                 <Text size="sm" fw={500}>
                   To implement Auth0:
                 </Text>
                 <Text size="sm">
-                  1. Install the Auth0 SDK: <code>npm install @auth0/nextjs-auth0</code>
+                  1. Install the Auth0 SDK:{' '}
+                  <code>npm install @auth0/nextjs-auth0</code>
                 </Text>
                 <Text size="sm">
-                  2. Configure your Auth0 application credentials in <code>.env.local</code>
+                  2. Configure your Auth0 application credentials in{' '}
+                  <code>.env.local</code>
                 </Text>
                 <Text size="sm">
                   3. Follow the{' '}

@@ -104,9 +104,9 @@ function Email() {
     return true;
   });
 
-  const unreadCount = emailsData?.data?.filter(
-    (e: EmailDto) => e.folder === 'inbox' && !e.read
-  ).length || 0;
+  const unreadCount =
+    emailsData?.data?.filter((e: EmailDto) => e.folder === 'inbox' && !e.read)
+      .length || 0;
 
   const renderEmailList = () => {
     if (emailsLoading) {
@@ -136,7 +136,9 @@ function Email() {
           <Stack align="center" gap="md">
             <IconMoodEmpty size={64} color="gray" opacity={0.3} />
             <div style={{ textAlign: 'center' }}>
-              <Title order={4} c="dimmed">No emails found</Title>
+              <Title order={4} c="dimmed">
+                No emails found
+              </Title>
               <Text size="sm" c="dimmed">
                 {debouncedQuery
                   ? 'Try adjusting your search'
@@ -187,7 +189,10 @@ function Email() {
         }
       />
 
-      <Box mt="md" style={{ display: 'flex', gap: 0, height: 'calc(100vh - 200px)' }}>
+      <Box
+        mt="md"
+        style={{ display: 'flex', gap: 0, height: 'calc(100vh - 200px)' }}
+      >
         {/* Left Sidebar - Folders */}
         <Paper
           withBorder

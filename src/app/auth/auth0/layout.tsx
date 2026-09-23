@@ -9,11 +9,7 @@ type AuthProps = {
 };
 
 function AuthLayout({ children }: AuthProps) {
-  return (
-    <MainLayout>
-      {children}
-    </MainLayout>
-  );
+  return <MainLayout>{children}</MainLayout>;
 }
 
 export default AuthLayout;
