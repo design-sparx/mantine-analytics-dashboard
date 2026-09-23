@@ -76,17 +76,20 @@ function Invoices() {
     };
   }, []);
 
-  const handleUpdateInvoice = useCallback(async (id: string, data: Partial<InvoiceDto>) => {
-    // TODO: In a real app, this would call the API to update an invoice
-    // For now, just return a mock success response
-    return {
-      succeeded: true,
-      data: null,
-      errors: [],
-      message: 'Invoice updated successfully (mock)',
-      timestamp: new Date().toISOString(),
-    };
-  }, []);
+  const handleUpdateInvoice = useCallback(
+    async (id: string, data: Partial<InvoiceDto>) => {
+      // TODO: In a real app, this would call the API to update an invoice
+      // For now, just return a mock success response
+      return {
+        succeeded: true,
+        data: null,
+        errors: [],
+        message: 'Invoice updated successfully (mock)',
+        timestamp: new Date().toISOString(),
+      };
+    },
+    [],
+  );
 
   const handleInvoiceCreated = useCallback(() => {
     // No need to manually refetch - mutations handle this automatically

@@ -11,15 +11,8 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
-import { IconPalette } from '@tabler/icons-react';
 
-import { SystemNotificationBanner, ThemeCustomizer } from '@/components';
-import {
-  generateContentStyles,
-  generateHeaderStyles,
-  generateSidebarStyles,
-  useThemeCustomizer,
-} from '@/contexts/theme-customizer';
+import { SystemNotificationBanner } from '@/components';
 
 import FooterNav from './components/Footer';
 import HeaderNav from './components/Header';
@@ -30,6 +23,9 @@ type Props = {
   children: ReactNode;
 };
 
+const SIDEBAR_WIDTH = 300;
+const HEADER_HEIGHT = 60;
+
 export function MainLayout({ children }: Props) {
   const theme = useMantineTheme();
   const tablet_match = useMediaQuery('(max-width: 768px)');
@@ -37,47 +33,47 @@ export function MainLayout({ children }: Props) {
   const [mobileOpened, { toggle: toggleMobile, close: closeMobile }] =
     useDisclosure();
 
-  const {
-    config,
-    isCustomizerOpen,
-    openCustomizer,
-    closeCustomizer,
-    toggleSidebarVisibility,
-    showSidebar,
-    hideSidebar,
-  } = useThemeCustomizer();
+  const headerVariant: 'default' | 'colored' | 'gradient' | 'glassmorphism' = 'default';
+  const headerPosition: 'fixed' | 'sticky' | 'static' = 'fixed';
+  const sidebarVariant: 'default' | 'colored' | 'gradient' | 'glassmorphism' = 'default';
+  const sidebarPosition: 'left' | 'right' = 'left';
+  const sidebarPositionValue = sidebarPosition as 'left' | 'right';
+  const sidebarOverlay = false;
+  const sidebarVisible = true;
+  const contentLayout = 'full-width';
+  const contentPadding = 'comfortable';
+  const showShadow = true;
 
-  // Generate dynamic styles based on theme config
-  const sidebarStyles = generateSidebarStyles(config.layout.sidebar);
-  const headerStyles = generateHeaderStyles(config.layout.header);
-  const contentStyles = generateContentStyles(config.layout.content);
+  // Generate dynamic styles based on static layout config
+  const sidebarStyles = {
+    '--sidebar-width': `${SIDEBAR_WIDTH}px`,
+  } as React.CSSProperties;
+
+  const headerStyles = {
+    '--header-height': `${HEADER_HEIGHT}px`,
+  } as React.CSSProperties;
+
+  const contentStyles = {
+    '--content-padding': contentPadding,
+  } as React.CSSProperties;
 
   // Determine if sidebar should overlay (mobile or overlay setting enabled)
-  const shouldOverlay = mobile_match || config.layout.sidebar.overlay;
+  const shouldOverlay = mobile_match || sidebarOverlay;
 
   // Calculate main content margin based on sidebar
   const getMainMargin = () => {
-    // If overlay mode or mobile, don't apply margin
     if (shouldOverlay) return 0;
-
-    // If sidebar is hidden, no margin needed
-    if (!config.layout.sidebar.visible) return 0;
-
-    const width = config.layout.sidebar.width;
-    return config.layout.sidebar.position === 'right'
+    if (!sidebarVisible) return 0;
+    const width = SIDEBAR_WIDTH;
+    return sidebarPositionValue === 'right'
       ? { marginRight: width }
       : { marginLeft: width };
   };
 
   // Determine if sidebar should be visible
   const isSidebarVisible = () => {
-    // If sidebar is set to hidden in config, don't show
-    if (!config.layout.sidebar.visible) return false;
-
-    // On mobile with overlay, only show if mobile menu is opened
+    if (!sidebarVisible) return false;
     if (mobile_match) return mobileOpened;
-
-    // On desktop, show if visible in config
     return true;
   };
 
@@ -86,19 +82,13 @@ export function MainLayout({ children }: Props) {
 
   const handleSidebarToggle = () => {
     if (mobile_match) {
-      // Mobile: toggle mobile menu
       toggleMobile();
-    } else {
-      // Desktop: toggle sidebar visibility in theme config
-      toggleSidebarVisibility();
     }
   };
 
   const handleSidebarClose = () => {
     if (mobile_match) {
       closeMobile();
-    } else {
-      hideSidebar();
     }
   };
 
@@ -117,12 +107,12 @@ export function MainLayout({ children }: Props) {
       {/* Header */}
       <Box
         className={layoutClasses.header}
-        data-variant={config.layout.header.variant}
-        data-position={config.layout.header.position}
+        data-variant={headerVariant}
+        data-position={headerPosition}
         style={{
           ...headerStyles,
           ...getMainMargin(),
-          boxShadow: config.layout.header.showShadow
+          boxShadow: showShadow
             ? tablet_match
               ? theme.shadows.md
               : theme.shadows.sm
@@ -132,10 +122,10 @@ export function MainLayout({ children }: Props) {
         <Container fluid py="sm" px="lg">
           <HeaderNav
             toggleMobile={toggleMobile}
-            sidebarVisible={config.layout.sidebar.visible}
+            sidebarVisible={sidebarVisible}
             onSidebarToggle={handleSidebarToggle}
-            onSidebarShow={showSidebar}
-            headerVariant={config.layout.header.variant}
+            onSidebarShow={() => {}}
+            headerVariant={headerVariant}
           />
         </Container>
       </Box>
@@ -144,29 +134,26 @@ export function MainLayout({ children }: Props) {
       {isSidebarVisible() && (
         <Box
           className={layoutClasses.sidebar}
-          data-variant={config.layout.sidebar.variant}
-          data-position={config.layout.sidebar.position}
+          data-variant={sidebarVariant}
+          data-position={sidebarPosition}
           data-overlay={shouldOverlay}
           style={{
             ...sidebarStyles,
-            width: config.layout.sidebar.width,
-            [config.layout.sidebar.position]: 0,
+            width: SIDEBAR_WIDTH,
+            [sidebarPosition]: 0,
             zIndex: shouldOverlay ? 102 : 101,
-            direction:
-              config.layout.sidebar.position === 'left' ? 'ltr' : 'rtl',
+            direction: sidebarPosition === 'left' ? 'ltr' : 'rtl',
             transform:
               mobile_match && !mobileOpened
                 ? `translateX(${
-                    config.layout.sidebar.position === 'right'
-                      ? '100%'
-                      : '-100%'
+                    sidebarPositionValue === 'right' ? '100%' : '-100%'
                   })`
                 : 'translateX(0)',
           }}
         >
           <SidebarNav
             onClose={handleSidebarClose}
-            showCloseButton={config.layout.sidebar.overlay || mobile_match}
+            showCloseButton={sidebarOverlay || mobile_match}
           />
         </Box>
       )}
@@ -174,22 +161,22 @@ export function MainLayout({ children }: Props) {
       {/* Main Content */}
       <Box
         className={layoutClasses.main}
-        data-sidebar-position={config.layout.sidebar.position}
-        data-header-position={config.layout.header.position}
+        data-sidebar-position={sidebarPosition}
+        data-header-position={headerPosition}
         data-overlay={shouldOverlay}
         style={{
           ...getMainMargin(),
           paddingTop:
-            config.layout.header.position === 'fixed'
-              ? config.layout.header.height
+            headerPosition === 'fixed'
+              ? HEADER_HEIGHT
               : 0,
           minHeight: `calc(100vh - ${rem(60)})`, // Account for footer
         }}
       >
         <Box
           className={layoutClasses.content}
-          data-layout={config.layout.content.layout}
-          data-padding={config.layout.content.padding}
+          data-layout={contentLayout}
+          data-padding={contentPadding}
           style={contentStyles}
         >
           {/* System Notification Banner */}
@@ -201,30 +188,13 @@ export function MainLayout({ children }: Props) {
       {/* Footer */}
       <Box
         className={layoutClasses.footer}
-        data-position={config.layout.sidebar.position}
+        data-position={sidebarPosition}
         style={{ ...getMainMargin() }}
       >
         <Container fluid px="lg">
           <FooterNav />
         </Container>
       </Box>
-
-      {/* Theme Customizer Drawer */}
-      <ThemeCustomizer opened={isCustomizerOpen} onClose={closeCustomizer} />
-
-      {/* Floating Action Button for Theme Customizer */}
-      {!isCustomizerOpen && (
-        <Affix position={{ bottom: 80, right: 20 }}>
-          <ActionIcon
-            size="xl"
-            radius="xl"
-            variant="filled"
-            onClick={openCustomizer}
-          >
-            <IconPalette size={24} />
-          </ActionIcon>
-        </Affix>
-      )}
     </Box>
   );
 }

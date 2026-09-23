@@ -6,13 +6,8 @@ export { default as BaseCard } from './shared/base-card';
 export { default as Logo } from './logo';
 export { default as PageHeader } from './page-header';
 export { default as Surface } from './surface';
-export { default as ThemeDrawer } from './theme-drawer';
-export { default as ToggleTheme } from './toggle-theme';
 export { default as RouterTransition } from './router-transition';
 export { default as AsideBar } from './aside-bar';
-
-// Theme Customizer
-export { default as ThemeCustomizer } from './theme-customizer';
 
 // User Components
 export { default as UserButton } from './user-button';

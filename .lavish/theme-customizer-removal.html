@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="luxury">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Theme Customizer Removal — Lavish Review</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@5.5.19/daisyui.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@5.5.19/themes.css">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.2.4/dist/index.global.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+:where(.grid, .flex, .layout-grid, .layout-flex) > *,
+:where([style*="display: grid"], [style*="display:grid"], [style*="display: flex"], [style*="display:flex"]) > * {
+min-width: 0;
+}
+:where(p, h1, h2, h3, h4, h5, h6, li, dd, blocksumary th, td, .badge, .label) {
+overflow-wrap: anywhere;
+}
+:where(img, svg, video, canvas, iframe) {
+max-width: 100%;
+height: auto;
+}
+.lavish-question {
+border: 1px solid rgba(0,0,0,0.08);
+}
+.lavish-queued {
+outline: 2px solid rgba(0,0,0,0.15);
+}
+</style>
+</head>
+<body class="min-h-screen bg-base-100 text-base-content">
+
+<main class="mx-auto max-w-6xl p-6 lg:p-10">
+<section class="hero bg-base-200 rounded-box mb-6">
+<div class="hero-content text-center">
+<h1 class="text-3xl font-bold mb-1">Theme Customizer Removal</h1>
+<p class="text-base mb-2">Decisions received. Implementing code changes now.</p>
+<span class="badge badge-soft badge-success">Decisions Received</span>
+</div>
+</section>
+
+<section class="card bg-base-100 border border-base-content/5 mb-6">
+<div class="card-body">
+<h2 class="card-title mb-3">Plan</h2>
+<ol class="list-decimal pl-5 space-y-1 text-base mb-3">
+<li>Remove ThemeCustomizerProvider from src/providers/index.tsx</li>
+<li>Delete or inert src/contexts/theme-customizer/ and its index.ts export</li>
+<li>Strip useThemeCustomizer / ThemeCustomizer from MainLayout, providers/theme, Sidebar, Header, Surface, and components/index</li>
+<li>Simplify providers/theme.tsx to static theme values</li>
+<li>Decide ToggleTheme / ThemeDrawer fate</li>
+<li>Verify no remaining imports or runtime references</li>
+</ol>
+<div class="alert alert-success mb-0">
+<span>Decisions made: delete ThemeDrawer, remove CSS custom properties, delete ToggleTheme, delete theme-customizer component files, remove re-export.</span>
+</div>
+</div>
+</section>
+
+<section class="card bg-base-100 border border-base-content/5 mb-6">
+<div class="card-body">
+<h2 class="card-title mb-3">File Footprint</h2>
+<div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
+<table class="table table-zebra">
+<thead>
+<tr>
+<th>File</th>
+<th>Role</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>src/contexts/theme-customizer/ThemeCustomizerContext.tsx</td><td>Context</td><td>Remove</td></tr>
+<tr><td>src/contexts/theme-customizer/index.ts</td><td>Export</td><td>Remove</td></tr>
+<tr><td>src/providers/index.tsx</td><td>Provider</td><td>Remove</td></tr>
+<tr><td>src/providers/theme.tsx</td><td>Theme</td><td>Simplify</td></tr>
+<tr><td>src/components/theme-customizer/*</td><td>UI</td><td>Remove or keep</td></tr>
+<tr><td>src/components/theme-drawer/ThemeDrawer.tsx</td><td>UI</td><td>Remove or keep</td></tr>
+<tr><td>src/components/toggle-theme/*</td><td>UI</td><td>Keep light/dark</td></tr>
+<tr><td>src/layouts/Main/MainLayout.tsx</td><td>Layout</td><td>Strip usage</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+
+<section class="card bg-base-100 border border-base-content/5 mb-6">
+<div class="card-body">
+<h2 class="card-title mb-3">Decisions</h2>
+<p class="text-base mb-3">Queue one answer per question.</p>
+
+<div class="space-y-3" data-lavish-question="decisions">
+
+<div class="lavish-question rounded-box p-4 bg-base-100">
+<h3 class="text-base font-semibold mb-1">1. ThemeDrawer.tsx</h3>
+<p class="text-sm mb-2">ThemeDrawer only exists for the customizer drawer. Should we delete the file or keep it as a placeholder?</p>
+<label class="label cursor-pointer">
+<input type="radio" name="drawer" value="delete" class="radio radio-sm mr-2" checked>
+<span class="text-sm">Delete</span>
+</label>
+<label class="label cursor-pointer">
+<input type="radio" name="drawer" value="keep" class="radio radio-sm mr-2">
+<span class="text-sm">Keep as placeholder</span>
+</label>
+</div>
+
+<div class="lavish-question rounded-box p-4 bg-base-100">
+<h3 class="text-base font-semibold mb-1">2. CSS custom properties</h3>
+<p class="text-sm mb-2">Should we keep --theme-primary-color and related properties, or hardcode values?</p>
+<label class="label cursor-pointer">
+<input type="radio" name="css" value="keep" class="radio radio-sm mr-2" checked>
+<span class="text-sm">Keep</span>
+</label>
+<label class="label cursor-pointer">
+<input type="radio" name="css" value="remove" class="radio radio-sm mr-2">
+<span class="text-sm">Remove</span>
+</label>
+</div>
+
+<div class="lavish-question rounded-box p-4 bg-base-100">
+<h3 class="text-base font-semibold mb-1">3. ToggleTheme.tsx</h3>
+<p class="text-sm mb-2">Should we keep ToggleTheme but remove customizer-specific controls?</p>
+<label class="label cursor-pointer">
+<input type="radio" name="toggle" value="simplify" class="radio radio-sm mr-2" checked>
+<span class="text-sm">Simplify</span>
+</label>
+<label class="label cursor-pointer">
+<input type="radio" name="toggle" value="delete" class="radio radio-sm mr-2">
+<span class="text-sm">Delete</span>
+</label>
+</div>
+
+<div class="lavish-question rounded-box p-4 bg-base-100">
+<h3 class="text-base font-semibold mb-1">4. ThemeCustomizer component files</h3>
+<p class="text-sm mb-2">Should we delete theme-customizer/ or keep it in src/components/?</p>
+<label class="label cursor-pointer">
+<input type="radio" name="customizer" value="delete" class="radio radio-sm mr-2" checked>
+<span class="text-sm">Delete</span>
+</label>
+<label class="label cursor-pointer">
+<input type="radio" name="customizer" value="keep" class="radio radio-sm mr-2">
+<span class="text-sm">Keep</span>
+</label>
+</div>
+
+<div class="lavish-question rounded-box p-4 bg-base-100">
+<h3 class="text-base font-semibold mb-1">5. ThemeCustomizer.tsx from components/index.ts</h3>
+<p class="text-sm mb-2">Should we remove the re-export?</p>
+<label class="label cursor-pointer">
+<input type="radio" name="reexport" value="remove" class="radio radio-sm mr-2" checked>
+<span class="text-sm">Remove</span>
+</label>
+<label class="label cursor-pointer">
+<input type="radio" name="reexport" value="keep" class="radio radio-sm mr-2">
+<span class="text-sm">Keep</span>
+</label>
+</div>
+
+</div>
+
+<div class="mt-4">
+<button class="btn btn-primary btn-sm">Queue decisions</button>
+</div>
+
+</div>
+</section>
+
+<section class="card bg-base-100 border border-base-content/5 mb-6">
+<div class="card-body">
+<h2 class="card-title mb-3">Open Questions</h2>
+<div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
+<table class="table table-zebra">
+<thead>
+<tr><th>Question</th><th>Status</th></tr>
+</thead>
+<tbody>
+<tr><td>Should we delete ThemeDrawer.tsx?</td><td class="text-base-content/80">Needs decision</td></tr>
+<tr><td>Should we keep --theme-primary-color?</td><td class="text-base-content/80">Needs decision</td></tr>
+<tr><td>Should ToggleTheme simplify or go?</td><td class="text-base-content/80">Needs decision</td></tr>
+<tr><td>Keep or delete theme-customizer/ files?</td><td class="text-base-content/80">Needs decision</td></tr>
+<tr><td>Remove components/index.ts re-export?</td><td class="text-base-content/80">Needs decision</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+
+</main>
+
+</body>
+</html>

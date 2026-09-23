@@ -4,7 +4,6 @@ import { IconX } from '@tabler/icons-react';
 
 import { Logo } from '@/components';
 import { SIDEBAR_LINKS } from '@/constants/sidebar-links';
-import { useSidebarConfig } from '@/contexts/theme-customizer';
 
 import { LinksGroup } from '../NavLinks';
 import classes from './Sidebar.module.css';
@@ -16,7 +15,8 @@ type NavigationProps = {
 
 const SidebarNav = ({ onClose, showCloseButton = false }: NavigationProps) => {
   const tablet_match = useMediaQuery('(max-width: 768px)');
-  const sidebarConfig = useSidebarConfig();
+  const sidebarVariant: 'default' | 'colored' | 'gradient' | 'glassmorphism' = 'default';
+  const sidebarPosition: 'left' | 'right' = 'left';
 
   const links = SIDEBAR_LINKS.map((m) => (
     <Box key={m.title} pl={0} mb="md">
@@ -44,9 +44,12 @@ const SidebarNav = ({ onClose, showCloseButton = false }: NavigationProps) => {
     </Box>
   ));
 
+  const sidebarVariantValue = sidebarVariant as 'default' | 'colored' | 'gradient' | 'glassmorphism';
+  const sidebarPositionValue = sidebarPosition as 'left' | 'right';
+
   // Determine close button color based on sidebar variant
   const getCloseButtonColor = () => {
-    if (sidebarConfig.variant === 'colored') {
+    if (sidebarVariantValue === 'colored') {
       return 'white';
     }
     return undefined; // Use default color
@@ -55,8 +58,8 @@ const SidebarNav = ({ onClose, showCloseButton = false }: NavigationProps) => {
   return (
     <div
       className={classes.navbar}
-      data-variant={sidebarConfig.variant}
-      data-position={sidebarConfig.position}
+      data-variant={sidebarVariantValue}
+      data-position={sidebarPositionValue}
     >
       <div className={classes.header}>
         <Flex justify="space-between" align="center" gap="sm">

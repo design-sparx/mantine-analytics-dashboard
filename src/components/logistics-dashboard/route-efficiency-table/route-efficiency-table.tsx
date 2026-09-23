@@ -1,11 +1,4 @@
-import {
-  Badge,
-  Progress,
-  Skeleton,
-  Stack,
-  Table,
-  Text,
-} from '@mantine/core';
+import { Badge, Progress, Skeleton, Stack, Table, Text } from '@mantine/core';
 import { ErrorAlert } from '@/components';
 
 interface RouteEfficiency {

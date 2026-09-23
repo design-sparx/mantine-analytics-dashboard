@@ -199,7 +199,9 @@ export type PieChartProps = BaseChartProps & {
 /**
  * Chart data transformation utilities type
  */
-export type ChartDataTransformer<TInput, TOutput> = (data: TInput[]) => TOutput[];
+export type ChartDataTransformer<TInput, TOutput> = (
+  data: TInput[],
+) => TOutput[];
 
 /**
  * Chart export options

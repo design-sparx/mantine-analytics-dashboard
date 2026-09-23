@@ -15,7 +15,6 @@ import {
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-
 import { IProductCategory } from '@/types/products';
 
 type EditCategoryDrawer = Omit<DrawerProps, 'title' | 'children'> & {

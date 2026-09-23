@@ -2,7 +2,6 @@ import ProjectsCard from './ProjectsCard';
 
 import type { StoryObj } from '@storybook/react';
 
-
 const MOCKS = {
   id: 'fe2c25c6-2cbc-4c73-9edc-8477af0000a8',
   title: 'Gembucket',

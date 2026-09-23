@@ -2,7 +2,6 @@ import StatsCard from './StatsCard';
 
 import type { StoryObj } from '@storybook/react';
 
-
 const MOCKS = {
   title: 'Sales Today',
   value: '13,456',

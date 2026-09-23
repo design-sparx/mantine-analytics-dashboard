@@ -31,7 +31,6 @@ import {
 import { LanguagePicker } from '@/components';
 import { MESSAGES } from '@/constants/messages';
 import { NOTIFICATIONS } from '@/constants/notifications';
-import { HeaderVariant, useSidebarConfig } from '@/contexts/theme-customizer';
 import { useRouter } from 'next/navigation';
 import UserProfileData from '@public/mocks/UserProfile.json';
 
@@ -42,7 +41,7 @@ type HeaderNavProps = {
   sidebarVisible: boolean;
   onSidebarToggle: () => void;
   onSidebarShow?: () => void;
-  headerVariant: HeaderVariant;
+  headerVariant: 'default' | 'colored' | 'gradient' | 'glassmorphism';
 };
 
 const HeaderNav = (props: HeaderNavProps) => {
@@ -57,8 +56,9 @@ const HeaderNav = (props: HeaderNavProps) => {
   const { colorScheme } = useMantineColorScheme();
   const tablet_match = useMediaQuery('(max-width: 768px)');
   const mobile_match = useMediaQuery('(max-width: 425px)');
-  const sidebarConfig = useSidebarConfig();
   const router = useRouter();
+  const sidebarOverlay = false;
+  const sidebarPosition: 'left' | 'right' = 'left';
 
   // Determine text color based on header variant
   const getTextColor = () => {
@@ -74,7 +74,7 @@ const HeaderNav = (props: HeaderNavProps) => {
     if (mobile_match) {
       // Mobile: toggle mobile menu
       toggleMobile?.();
-    } else if (sidebarConfig.overlay && !sidebarVisible) {
+    } else if (sidebarOverlay && !sidebarVisible) {
       // Desktop overlay mode: show sidebar if hidden
       onSidebarShow?.();
     } else {
@@ -89,7 +89,7 @@ const HeaderNav = (props: HeaderNavProps) => {
     }
 
     // Desktop: use menu icon for overlay mode or when sidebar is hidden
-    if (sidebarConfig.overlay || !sidebarVisible) {
+    if (sidebarOverlay || !sidebarVisible) {
       return <IconMenu2 size={ICON_SIZE} color={textColor} />;
     }
 

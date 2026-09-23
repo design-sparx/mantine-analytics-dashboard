@@ -8,7 +8,11 @@ import {
   Table,
   Text,
 } from '@mantine/core';
-import { IconTrendingDown, IconTrendingUp, IconMinus } from '@tabler/icons-react';
+import {
+  IconTrendingDown,
+  IconTrendingUp,
+  IconMinus,
+} from '@tabler/icons-react';
 import { ErrorAlert } from '@/components';
 
 interface Product {
@@ -110,7 +114,10 @@ export const TopProductsTable: React.FC<TopProductsTableProps> = ({
       <Table.Td>
         <Stack gap={4}>
           <Text size="sm" fw={500}>
-            ${product.revenue.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+            $
+            {product.revenue.toLocaleString('en-US', {
+              minimumFractionDigits: 2,
+            })}
           </Text>
           <Progress
             value={(product.revenue / maxRevenue) * 100}
@@ -122,7 +129,9 @@ export const TopProductsTable: React.FC<TopProductsTableProps> = ({
       <Table.Td>
         <Badge
           variant="light"
-          color={product.stock > 100 ? 'teal' : product.stock > 50 ? 'yellow' : 'red'}
+          color={
+            product.stock > 100 ? 'teal' : product.stock > 50 ? 'yellow' : 'red'
+          }
         >
           {product.stock} units
         </Badge>

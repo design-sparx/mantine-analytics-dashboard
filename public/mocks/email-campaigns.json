@@ -24,7 +24,7 @@
     "unsubscribed": 23,
     "openRate": 35.98,
     "clickRate": 13.81,
-    "bounceRate": 1.00,
+    "bounceRate": 1.0,
     "conversions": 189
   },
   {
@@ -80,7 +80,7 @@
     "unsubscribed": 56,
     "openRate": 26.81,
     "clickRate": 6.03,
-    "bounceRate": 1.00,
+    "bounceRate": 1.0,
     "conversions": 78
   }
 ]

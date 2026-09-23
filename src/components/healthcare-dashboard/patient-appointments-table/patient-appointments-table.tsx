@@ -1,11 +1,4 @@
-import {
-  Badge,
-  Group,
-  Skeleton,
-  Stack,
-  Table,
-  Text,
-} from '@mantine/core';
+import { Badge, Group, Skeleton, Stack, Table, Text } from '@mantine/core';
 import { ErrorAlert } from '@/components';
 
 interface Appointment {
@@ -57,11 +50,9 @@ const getPriorityColor = (priority: string) => {
   }
 };
 
-export const PatientAppointmentsTable: React.FC<PatientAppointmentsTableProps> = ({
-  data = [],
-  loading = false,
-  error = null,
-}) => {
+export const PatientAppointmentsTable: React.FC<
+  PatientAppointmentsTableProps
+> = ({ data = [], loading = false, error = null }) => {
   if (error) {
     return (
       <ErrorAlert

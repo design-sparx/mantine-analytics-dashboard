@@ -22,7 +22,6 @@ import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-
 import type { InvoiceDto, ApiResponse } from '@/types';
 import {
   InvoiceStatus,
@@ -46,7 +45,10 @@ interface EditInvoiceFormValues {
 
 type EditInvoiceDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
   invoice: InvoiceDto | null;
-  onUpdate: (id: string, data: Partial<InvoiceDto>) => Promise<ApiResponse<any>>;
+  onUpdate: (
+    id: string,
+    data: Partial<InvoiceDto>,
+  ) => Promise<ApiResponse<any>>;
   onInvoiceUpdated?: () => void;
 };
 
@@ -104,7 +106,9 @@ export const EditInvoiceDrawer = ({
       const result = await onUpdate(invoice.id!, invoiceData);
 
       if (!result.succeeded) {
-        throw new Error(result.errors?.join(', ') || 'Failed to update invoice');
+        throw new Error(
+          result.errors?.join(', ') || 'Failed to update invoice',
+        );
       }
 
       notifications.show({
@@ -215,12 +219,21 @@ export const EditInvoiceDrawer = ({
           </Group>
 
           {/* Amount Display */}
-          <Group justify="space-between" p="md" style={{ backgroundColor: 'var(--mantine-color-blue-0)', borderRadius: '8px' }}>
+          <Group
+            justify="space-between"
+            p="md"
+            style={{
+              backgroundColor: 'var(--mantine-color-blue-0)',
+              borderRadius: '8px',
+            }}
+          >
             <Text fw={600} size="lg">
               Total Amount:
             </Text>
             <Text fw={600} size="lg">
-              {invoice.totalAmount ? formatCurrency(invoice.totalAmount) : 'N/A'}
+              {invoice.totalAmount
+                ? formatCurrency(invoice.totalAmount)
+                : 'N/A'}
             </Text>
           </Group>
 
@@ -329,7 +342,12 @@ export const EditInvoiceDrawer = ({
                 disabled={!isCreator}
               />
 
-              <Button type="submit" disabled={!isCreator} loading={loading} mt="md">
+              <Button
+                type="submit"
+                disabled={!isCreator}
+                loading={loading}
+                mt="md"
+              >
                 Update Invoice
               </Button>
             </Stack>

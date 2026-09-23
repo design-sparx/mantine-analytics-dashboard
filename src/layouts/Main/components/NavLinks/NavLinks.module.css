@@ -18,8 +18,9 @@
   text-align: left;
 }
 
-.control, .link {
-  transition: all ease .15;
+.control,
+.link {
+  transition: all ease 0.15;
   cursor: pointer;
 
   @mixin hover {
@@ -28,11 +29,13 @@
       rgba(255, 255, 255, 0.05)
     );
   }
-
 }
 
 .linksInner {
-  background-color: light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-6));
+  background-color: light-dark(
+    var(--mantine-color-gray-4),
+    var(--mantine-color-dark-6)
+  );
   padding-left: var(--mantine-spacing-md);
 }
 
