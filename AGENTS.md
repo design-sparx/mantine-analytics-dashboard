@@ -28,9 +28,9 @@ pnpm generate:component Foo [basic|interactive|table|card]
 - Mock API routes in `src/app/api/*/route.ts` read JSON from `public/mocks/*.json` and return:
   `{ succeeded, data, errors: string[], message }` (no `timestamp`; `errors` is `string[]`, not the `IApiError[]` in `src/types/api-response.ts`).
 - `middleware.ts` is at the project root (not `src/app/`). It is a no-op — all routes are public.
-- Provider nesting: `SystemNotificationsProvider` → `ThemeCustomizerProvider` → `ThemeProvider`.
+- Provider nesting: `SystemNotificationsProvider` → `ThemeProvider`.
 - `SystemNotificationsProvider` loads the latest announcement from `public/system-announcements.json` and persists dismissed IDs in `localStorage` (`system-notifications`). If every loaded announcement is already dismissed, it clears old dismissals and retries so genuinely new announcements surface.
-- Theme config persists in `localStorage` via `ThemeCustomizerContext`; layout vars are injected as CSS custom properties on `documentElement` (`--sidebar-width`, `--header-height`, `--theme-primary-color`, etc.).
+- Theme is static: layout defaults are fixed in `src/layouts/Main/MainLayout.tsx`; no dynamic theme customizer or localStorage theme persistence.
 
 ## Paths & imports
 
@@ -50,6 +50,7 @@ pnpm generate:component Foo [basic|interactive|table|card]
 - Prettier: `semi: true`, `singleQuote: true`, 2-space indent (`.editorconfig` matches).
 - PostCSS: `postcss-preset-mantine` + `postcss-simple-vars` with custom breakpoint overrides.
 - `next.config.js`: `reactCompiler: true`, `trailingSlash: false`.
+- `src/app/globals.css` no longer contains theme-customizer CSS variables, theme transition animations, compact-mode utilities, or gradient-primary variants. Base `.surface-*` classes now rely on Mantine CSS variables instead of custom theme customizer properties.
 
 ## Auth
 
