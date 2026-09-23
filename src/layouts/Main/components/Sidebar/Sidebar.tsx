@@ -44,9 +44,12 @@ const SidebarNav = ({ onClose, showCloseButton = false }: NavigationProps) => {
     </Box>
   ));
 
+  const sidebarVariantValue = sidebarVariant as 'default' | 'colored' | 'gradient' | 'glassmorphism';
+  const sidebarPositionValue = sidebarPosition as 'left' | 'right';
+
   // Determine close button color based on sidebar variant
   const getCloseButtonColor = () => {
-    if (sidebarVariant === 'colored') {
+    if (sidebarVariantValue === 'colored') {
       return 'white';
     }
     return undefined; // Use default color
@@ -55,8 +58,8 @@ const SidebarNav = ({ onClose, showCloseButton = false }: NavigationProps) => {
   return (
     <div
       className={classes.navbar}
-      data-variant={sidebarVariant}
-      data-position={sidebarPosition}
+      data-variant={sidebarVariantValue}
+      data-position={sidebarPositionValue}
     >
       <div className={classes.header}>
         <Flex justify="space-between" align="center" gap="sm">

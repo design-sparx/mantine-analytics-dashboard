@@ -9,7 +9,7 @@ import {
   createPolymorphicComponent,
 } from '@mantine/core';
 
-export type CardFeel = 'flat' | 'elevated' | 'bordered';
+export type CardFeel = 'flat' | 'elevated' | 'bordered' | 'glassmorphism';
 
 type SurfaceProps = {
   children: ReactNode;

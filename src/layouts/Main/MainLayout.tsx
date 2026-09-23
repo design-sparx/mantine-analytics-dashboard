@@ -37,6 +37,7 @@ export function MainLayout({ children }: Props) {
   const headerPosition: 'fixed' | 'sticky' | 'static' = 'fixed';
   const sidebarVariant: 'default' | 'colored' | 'gradient' | 'glassmorphism' = 'default';
   const sidebarPosition: 'left' | 'right' = 'left';
+  const sidebarPositionValue = sidebarPosition as 'left' | 'right';
   const sidebarOverlay = false;
   const sidebarVisible = true;
   const contentLayout = 'full-width';
@@ -64,7 +65,7 @@ export function MainLayout({ children }: Props) {
     if (shouldOverlay) return 0;
     if (!sidebarVisible) return 0;
     const width = SIDEBAR_WIDTH;
-    return sidebarPosition === 'right'
+    return sidebarPositionValue === 'right'
       ? { marginRight: width }
       : { marginLeft: width };
   };
@@ -145,7 +146,7 @@ export function MainLayout({ children }: Props) {
             transform:
               mobile_match && !mobileOpened
                 ? `translateX(${
-                    sidebarPosition === 'right' ? '100%' : '-100%'
+                    sidebarPositionValue === 'right' ? '100%' : '-100%'
                   })`
                 : 'translateX(0)',
           }}
