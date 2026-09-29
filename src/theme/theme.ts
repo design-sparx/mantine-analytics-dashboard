@@ -11,9 +11,9 @@ export const createDynamicTheme = (config: {
   return createTheme({
     primaryColor: config.primaryColor,
 
-    // Preserve the font family
+    // Inter is loaded via next/font in src/app/layout.tsx and exposed as --font-inter
     fontFamily:
-      'Open Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji',
+      'var(--font-inter), -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji',
     fontFamilyMonospace:
       'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace',
 

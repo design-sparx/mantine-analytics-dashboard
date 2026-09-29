@@ -2,6 +2,7 @@
 
 import { ColorSchemeScript } from '@mantine/core';
 import { GoogleAnalytics } from '@next/third-parties/google';
+import { Inter } from 'next/font/google';
 import { Providers } from '@/providers';
 
 import '@mantine/core/styles.css';
@@ -14,14 +15,19 @@ import '@mantine/dropzone/styles.css';
 import '@mantine/charts/styles.css';
 import './globals.css';
 
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      {/* className={openSans.className} */}
+    <html lang="en" className={inter.variable}>
       <head>
         <title>DesignSparx - Nextjs Mantine Admin Dashboard Template</title>
         <link
