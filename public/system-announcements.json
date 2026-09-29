@@ -6,7 +6,7 @@
     "dismissible": true,
     "showOn": ["main", "guest"],
     "action": {
-      "label": "View announcements",
+      "label": "Read more",
       "href": "/announcements"
     }
   },
@@ -17,7 +17,7 @@
     "dismissible": true,
     "showOn": ["main", "guest"],
     "action": {
-      "label": "View announcements",
+      "label": "Read more",
       "href": "/announcements"
     }
   },
@@ -28,7 +28,7 @@
     "dismissible": true,
     "showOn": ["main", "guest"],
     "action": {
-      "label": "View announcements",
+      "label": "Read more",
       "href": "/announcements"
     }
   },
