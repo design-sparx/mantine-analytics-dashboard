@@ -1,6 +1,6 @@
 'use client';
 
-import { Alert, Anchor, Group, Stack, StackProps } from '@mantine/core';
+import { Alert, Anchor, Group, Stack, StackProps, Text } from '@mantine/core';
 import {
   IconAlertTriangle,
   IconCircleCheck,
@@ -25,19 +25,19 @@ const notificationConfig: Record<
 > = {
   info: {
     color: 'blue',
-    icon: <IconInfoCircle size={16} />,
+    icon: <IconInfoCircle size={20} />,
   },
   warning: {
     color: 'yellow',
-    icon: <IconAlertTriangle size={16} />,
+    icon: <IconAlertTriangle size={20} />,
   },
   error: {
     color: 'red',
-    icon: <IconX size={16} />,
+    icon: <IconX size={20} />,
   },
   success: {
     color: 'green',
-    icon: <IconCircleCheck size={16} />,
+    icon: <IconCircleCheck size={20} />,
   },
 };
 
@@ -61,22 +61,20 @@ const SystemNotificationBanner = ({
         return (
           <Alert
             key={notification.id}
-            bg={`var(--mantine-color-${config.color}-filled)`}
-            c="white"
-            py="xs"
-            px="md"
+            color={config.color}
             icon={config.icon}
             withCloseButton={notification.dismissible !== false}
             onClose={() => dismissNotification(notification.id)}
+            variant="outline"
           >
             <Group gap="xs" wrap="nowrap">
-              {notification.message}
+              <Text c={config.color}>{notification.message}</Text>
               {notification.action?.href && (
                 <Anchor
                   href={notification.action.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  c="white"
+                  c={config.color}
                   underline="always"
                   style={{ flexShrink: 0 }}
                 >
