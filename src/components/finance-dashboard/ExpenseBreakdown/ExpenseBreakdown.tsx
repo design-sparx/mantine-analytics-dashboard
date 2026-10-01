@@ -1,6 +1,7 @@
 import { DonutChart } from '@mantine/charts';
-import { Skeleton, Stack, Group, Text, Badge, SimpleGrid } from '@mantine/core';
-import { IconTrendingUp, IconTrendingDown } from '@tabler/icons-react';
+import { Badge, Group, SimpleGrid, Skeleton, Stack, Text } from '@mantine/core';
+import { IconTrendingDown, IconTrendingUp } from '@tabler/icons-react';
+
 import { ErrorAlert } from '@/components';
 
 interface Expense {

@@ -1,4 +1,5 @@
-import { Skeleton, Stack, Text, Progress, Group, Badge } from '@mantine/core';
+import { Badge, Group, Progress, Skeleton, Stack, Text } from '@mantine/core';
+
 import { ErrorAlert } from '@/components';
 
 interface LeadStage {

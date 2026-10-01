@@ -9,6 +9,7 @@ import {
   Stack,
   Text,
 } from '@mantine/core';
+import { useFetch } from '@mantine/hooks';
 import { IconChevronRight } from '@tabler/icons-react';
 import Link from 'next/link';
 
@@ -21,7 +22,6 @@ import {
   StatsGrid,
   Surface,
 } from '@/components';
-import { useFetch } from '@mantine/hooks';
 import { PATH_TASKS } from '@/routes';
 import { IApiResponse } from '@/types/api-response';
 

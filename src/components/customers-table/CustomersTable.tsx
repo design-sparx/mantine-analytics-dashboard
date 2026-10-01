@@ -23,6 +23,7 @@ import {
 } from 'mantine-datatable';
 
 import { ErrorAlert } from '@/components';
+
 import type { CustomerDto, CustomerStatus } from '@/types';
 
 type StatusBadgeProps = {

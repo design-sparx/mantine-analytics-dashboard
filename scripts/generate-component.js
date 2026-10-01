@@ -47,14 +47,14 @@ function toKebabCase(str) {
     .toLowerCase();
 }
 
-const componentsDir = path.join(process.cwd(), 'components');
+const componentsDir = path.join(process.cwd(), 'src', 'components');
 const directoryName = toKebabCase(componentName);
 const componentDir = path.join(componentsDir, directoryName);
 
 // Check if component already exists
 if (fs.existsSync(componentDir)) {
   console.error(
-    `❌ Error: Component "${componentName}" already exists at ${directoryName}/`,
+    `❌ Error: Component "${componentName}" already exists at src/components/${directoryName}/`,
   );
   process.exit(1);
 }
@@ -135,8 +135,10 @@ export type { ${componentName}Props };
   table: {
     component: `'use client';
 
-import BaseTable from '@/components/shared/BaseTable';
-import { BaseTableProps } from '@/types/table';
+import type { DataTableColumn } from 'mantine-datatable';
+
+import { BaseTable } from '@/components';
+import type { BaseTableProps } from '@/types';
 
 /**
  * ${componentName} - [Brief description of what data this table displays]
@@ -155,12 +157,10 @@ type ${componentName}Row = {
   // Add more fields as needed
 };
 
-type ${componentName}Props = Omit<BaseTableProps<${componentName}Row>, 'columns'> & {
-  // Add any additional props specific to this table
-};
+type ${componentName}Props = Omit<BaseTableProps<${componentName}Row>, 'columns'>;
 
 const ${componentName} = ({ data, ...others }: ${componentName}Props) => {
-  const columns = [
+  const columns: DataTableColumn<${componentName}Row>[] = [
     {
       accessor: 'id',
       title: 'ID',
@@ -181,7 +181,8 @@ export type { ${componentName}Props, ${componentName}Row };
   },
   card: {
     component: `import { ReactNode } from 'react';
-import BaseCard from '@/components/shared/BaseCard';
+
+import { BaseCard } from '@/components';
 
 /**
  * ${componentName} - [Brief description]
@@ -189,23 +190,31 @@ import BaseCard from '@/components/shared/BaseCard';
  * @component
  * @example
  * \`\`\`tsx
- * <${componentName} title="Title" data={data} />
+ * <${componentName} title="Title">Card content</${componentName}>
  * \`\`\`
  */
 type ${componentName}Props = {
   /** Card title */
   title?: ReactNode;
-  /** Data to display */
-  data?: unknown;
-  /** Optional icon */
+  /** Optional supporting text under the title */
+  description?: ReactNode;
+  /** Optional icon shown beside the title */
   icon?: ReactNode;
+  /** Optional footer content */
+  footer?: ReactNode;
+  children?: ReactNode;
 };
 
-const ${componentName} = ({ title, data, icon }: ${componentName}Props) => {
+const ${componentName} = ({
+  title,
+  description,
+  icon,
+  footer,
+  children,
+}: ${componentName}Props) => {
   return (
-    <BaseCard title={title} icon={icon}>
-      <p>Card content goes here</p>
-      {/* Add your card content */}
+    <BaseCard title={title} description={description} icon={icon} footer={footer}>
+      {children}
     </BaseCard>
   );
 };
@@ -270,15 +279,15 @@ fs.writeFileSync(
 
 console.log(`✅ Component "${componentName}" created successfully!`);
 console.log(`\nFiles created:`);
-console.log(`  📁 components/${directoryName}/`);
+console.log(`  📁 src/components/${directoryName}/`);
 console.log(`  📄 ${componentName}.tsx`);
 console.log(`  📄 index.ts`);
 console.log(`  📄 ${componentName}.stories.tsx`);
 console.log(`\nNext steps:`);
 console.log(
-  `  1. Edit the component at components/${directoryName}/${componentName}.tsx`,
+  `  1. Edit the component at src/components/${directoryName}/${componentName}.tsx`,
 );
-console.log(`  2. Add the component to components/index.ts:`);
+console.log(`  2. Add the component to src/components/index.ts:`);
 console.log(
   `     export { default as ${componentName} } from './${directoryName}';`,
 );

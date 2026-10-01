@@ -1,18 +1,18 @@
 'use client';
 
 import { Container, Grid, PaperProps, Stack, Text } from '@mantine/core';
+import { useFetch } from '@mantine/hooks';
 
 import {
+  CampaignPerformanceChart,
+  EmailCampaignsTable,
   PageHeader,
+  SocialMediaTable,
   StatsGrid,
   Surface,
-  CampaignPerformanceChart,
-  SocialMediaTable,
-  EmailCampaignsTable,
-  TrafficSourcesChart,
   TopCampaignsTable,
+  TrafficSourcesChart,
 } from '@/components';
-import { useFetch } from '@mantine/hooks';
 import { IApiResponse } from '@/types/api-response';
 
 const PAPER_PROPS: PaperProps = {

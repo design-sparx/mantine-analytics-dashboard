@@ -22,13 +22,14 @@ import {
 } from '@tabler/icons-react';
 
 import { CustomersTable, ErrorAlert, PageHeader, Surface } from '@/components';
-import type { CustomerDto } from '@/types';
 import { useCustomers } from '@/lib/hooks/useApi';
 import { PATH_DASHBOARD } from '@/routes';
 
+import { CustomerCard } from './components/CustomerCard';
 import { EditCustomerDrawer } from './components/EditCustomerDrawer';
 import { NewCustomerDrawer } from './components/NewCustomerDrawer';
-import { CustomerCard } from './components/CustomerCard';
+
+import type { CustomerDto } from '@/types';
 
 type ViewMode = 'grid' | 'table';
 

@@ -1,9 +1,12 @@
+import { useMemo } from 'react';
+
 import { MantineProvider, MantineTheme } from '@mantine/core';
 import { DatesProvider } from '@mantine/dates';
-import { Notifications } from '@mantine/notifications';
-import { useMemo } from 'react';
-import { createDynamicTheme } from '@/theme';
 import { ModalsProvider } from '@mantine/modals';
+import { Notifications } from '@mantine/notifications';
+
+import { createDynamicTheme } from '@/theme';
+
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const dynamicTheme: MantineTheme = useMemo(() => {

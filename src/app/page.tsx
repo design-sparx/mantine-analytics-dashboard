@@ -32,13 +32,13 @@ import {
 } from '@tabler/icons-react';
 import Link from 'next/link';
 
+import { SystemNotificationBanner } from '@/components';
 import { HOME_APPS } from '@/constants/home-apps';
 import { HOME_DASHBOARDS } from '@/constants/home-dashboard';
 import { HOME_FEATURES } from '@/constants/home-features';
 import { TECH_STACK } from '@/constants/tech-stack';
 import GuestLayout from '@/layouts/Guest';
 import { PATH_AUTH, PATH_GITHUB } from '@/routes';
-import { SystemNotificationBanner } from '@/components';
 
 import classes from './page.module.css';
 

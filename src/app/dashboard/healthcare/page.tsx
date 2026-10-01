@@ -1,18 +1,18 @@
 'use client';
 
 import { Container, Grid, PaperProps, Stack, Text } from '@mantine/core';
+import { useFetch } from '@mantine/hooks';
 
 import {
+  BedOccupancyChart,
+  DepartmentPerformanceChart,
+  MedicalInventoryTable,
   PageHeader,
+  PatientAppointmentsTable,
+  PatientSatisfactionChart,
   StatsGrid,
   Surface,
-  PatientAppointmentsTable,
-  BedOccupancyChart,
-  MedicalInventoryTable,
-  PatientSatisfactionChart,
-  DepartmentPerformanceChart,
 } from '@/components';
-import { useFetch } from '@mantine/hooks';
 import { IApiResponse } from '@/types/api-response';
 
 const PAPER_PROPS: PaperProps = {

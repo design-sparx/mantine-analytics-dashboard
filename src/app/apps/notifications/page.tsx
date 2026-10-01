@@ -26,11 +26,12 @@ import {
 } from '@tabler/icons-react';
 
 import { ErrorAlert, PageHeader } from '@/components';
-import type { NotificationDto } from '@/types';
 import { useNotifications } from '@/lib/hooks/useApi';
 import { PATH_DASHBOARD } from '@/routes';
 
 import { NotificationItem } from './components/NotificationItem';
+
+import type { NotificationDto } from '@/types';
 
 type FilterType = 'all' | 'unread' | 'mentions' | 'comments' | 'updates';
 

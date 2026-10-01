@@ -1,18 +1,19 @@
 import {
-  Timeline,
-  Text,
+  Avatar,
   Badge,
   Group,
   Skeleton,
   Stack,
-  Avatar,
+  Text,
+  Timeline,
 } from '@mantine/core';
 import {
-  IconPhone,
-  IconMail,
-  IconUsers,
   IconChecklist,
+  IconMail,
+  IconPhone,
+  IconUsers,
 } from '@tabler/icons-react';
+
 import { ErrorAlert } from '@/components';
 
 interface Activity {

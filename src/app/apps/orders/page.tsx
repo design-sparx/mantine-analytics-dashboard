@@ -22,13 +22,14 @@ import {
 } from '@tabler/icons-react';
 
 import { ErrorAlert, OrdersTable, PageHeader, Surface } from '@/components';
-import type { OrderDto } from '@/types';
 import { useOrders } from '@/lib/hooks/useApi';
 import { PATH_DASHBOARD } from '@/routes';
 
 import { EditOrderDrawer } from './components/EditOrderDrawer';
 import { NewOrderDrawer } from './components/NewOrderDrawer';
 import { OrderCard } from './components/OrderCard';
+
+import type { OrderDto } from '@/types';
 
 type ViewMode = 'grid' | 'table';
 

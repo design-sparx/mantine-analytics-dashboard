@@ -21,6 +21,7 @@ import {
 } from 'mantine-datatable';
 
 import { ErrorAlert } from '@/components';
+
 import type { OrderDto, OrderStatus, PaymentMethod } from '@/types';
 
 type StatusBadgeProps = {

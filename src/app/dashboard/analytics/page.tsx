@@ -19,7 +19,7 @@ import {
   StatsCard,
   TrafficTable,
 } from '@/components';
-import { useStats, useLanguages, useTraffic } from '@/lib/hooks/useApi';
+import { useLanguages, useStats, useTraffic } from '@/lib/hooks/useApi';
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',

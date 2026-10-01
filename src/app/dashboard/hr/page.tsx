@@ -1,18 +1,18 @@
 'use client';
 
 import { Container, Grid, PaperProps, Stack, Text } from '@mantine/core';
+import { useFetch } from '@mantine/hooks';
 
 import {
-  PageHeader,
-  StatsGrid,
-  Surface,
+  AttendanceChart,
   EmployeeDistributionChart,
-  RecruitmentPipelineChart,
   EmployeePerformanceChart,
   OpenPositionsTable,
-  AttendanceChart,
+  PageHeader,
+  RecruitmentPipelineChart,
+  StatsGrid,
+  Surface,
 } from '@/components';
-import { useFetch } from '@mantine/hooks';
 import { IApiResponse } from '@/types/api-response';
 
 const PAPER_PROPS: PaperProps = {

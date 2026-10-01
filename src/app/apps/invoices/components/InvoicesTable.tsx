@@ -25,12 +25,13 @@ import {
   IconTrash,
 } from '@tabler/icons-react';
 
-import type { InvoiceDto } from '@/types';
 import {
   InvoiceStatus,
   getInvoiceStatusColor,
   getInvoiceStatusLabel,
 } from '@/types/invoice';
+
+import type { InvoiceDto } from '@/types';
 
 interface InvoicesTableProps {
   data: InvoiceDto[];
