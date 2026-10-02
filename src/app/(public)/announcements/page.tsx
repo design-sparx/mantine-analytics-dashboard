@@ -29,8 +29,8 @@ import {
   IconExternalLink,
   IconGitBranch,
   IconInfoCircle,
-  IconSpeakerphone,
   IconRocket,
+  IconSpeakerphone,
   IconVersions,
 } from '@tabler/icons-react';
 

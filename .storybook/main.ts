@@ -1,6 +1,7 @@
-import type { StorybookConfig } from '@storybook/nextjs';
 import { resolve } from 'node:path';
 import path from 'path';
+
+import type { StorybookConfig } from '@storybook/nextjs';
 
 const config: StorybookConfig = {
   stories: [

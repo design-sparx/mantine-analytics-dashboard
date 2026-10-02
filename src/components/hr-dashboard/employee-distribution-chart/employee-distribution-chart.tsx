@@ -1,5 +1,6 @@
 import { PieChart } from '@mantine/charts';
 import { Skeleton, Text } from '@mantine/core';
+
 import { ErrorAlert } from '@/components';
 
 interface EmployeeDistribution {

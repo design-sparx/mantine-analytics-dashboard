@@ -27,11 +27,11 @@ import {
   IconSettings,
   IconUser,
 } from '@tabler/icons-react';
+import { useRouter } from 'next/navigation';
 
 import { LanguagePicker } from '@/components';
 import { MESSAGES } from '@/constants/messages';
 import { NOTIFICATIONS } from '@/constants/notifications';
-import { useRouter } from 'next/navigation';
 import UserProfileData from '@public/mocks/UserProfile.json';
 
 const ICON_SIZE = 20;

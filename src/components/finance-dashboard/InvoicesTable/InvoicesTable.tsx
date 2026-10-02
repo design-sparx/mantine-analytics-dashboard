@@ -1,4 +1,5 @@
 import { Badge, Skeleton, Stack, Table, Text } from '@mantine/core';
+
 import { ErrorAlert } from '@/components';
 
 interface Invoice {

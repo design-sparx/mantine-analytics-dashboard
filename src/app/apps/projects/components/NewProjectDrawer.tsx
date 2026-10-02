@@ -14,7 +14,7 @@ import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import type { ProjectDto, ApiResponse } from '@/types';
+import type { ApiResponse, ProjectDto } from '@/types';
 
 type NewProjectDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
   onCreate: (data: Partial<ProjectDto>) => Promise<ApiResponse<ProjectDto>>;

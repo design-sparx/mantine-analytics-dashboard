@@ -1,17 +1,17 @@
 'use client';
 
-import { Container, Grid, PaperProps, Stack, Text, Group } from '@mantine/core';
+import { Container, Grid, Group, PaperProps, Stack, Text } from '@mantine/core';
+import { useFetch } from '@mantine/hooks';
 
 import {
+  CategoryRevenueChart,
+  OrderStatusChart,
   PageHeader,
+  RevenueChart,
   StatsGrid,
   Surface,
   TopProductsTable,
-  OrderStatusChart,
-  CategoryRevenueChart,
-  RevenueChart,
 } from '@/components';
-import { useFetch } from '@mantine/hooks';
 import { IApiResponse } from '@/types/api-response';
 
 const PAPER_PROPS: PaperProps = {

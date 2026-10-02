@@ -14,15 +14,15 @@ import {
   Title,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { useFetch } from '@mantine/hooks';
 import { IconMoodEmpty, IconPlus } from '@tabler/icons-react';
 
 import NewProjectDrawer from '@/app/apps/projects/components/NewProjectDrawer';
 import ProjectsCard from '@/app/apps/projects/components/ProjectsCard/ProjectsCard';
 import { ErrorAlert, PageHeader, Surface } from '@/components';
-import { useFetch } from '@mantine/hooks';
 import { PATH_DASHBOARD } from '@/routes';
-import { type IApiResponse } from '@/types/api-response';
 import { type ProjectDto } from '@/types';
+import { type IApiResponse } from '@/types/api-response';
 
 // Simplified API imports
 

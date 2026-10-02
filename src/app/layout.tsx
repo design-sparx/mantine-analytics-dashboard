@@ -3,6 +3,7 @@
 import { ColorSchemeScript } from '@mantine/core';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Inter } from 'next/font/google';
+
 import { Providers } from '@/providers';
 
 import '@mantine/core/styles.css';

@@ -34,13 +34,14 @@ import {
 } from '@tabler/icons-react';
 
 import { ErrorAlert, PageHeader } from '@/components';
-import type { EmailDto } from '@/types';
 import { useEmails } from '@/lib/hooks/useApi';
 import { PATH_DASHBOARD } from '@/routes';
 
 import { ComposeEmail } from './components/ComposeEmail';
 import { EmailDetail } from './components/EmailDetail';
 import { EmailListItem } from './components/EmailListItem';
+
+import type { EmailDto } from '@/types';
 
 type EmailFilter = 'inbox' | 'starred' | 'sent' | 'trash';
 

@@ -31,8 +31,8 @@ import {
   IconSend,
 } from '@tabler/icons-react';
 import Placeholder from '@tiptap/extension-placeholder';
-import { BubbleMenu } from '@tiptap/react/menus';
 import { useEditor } from '@tiptap/react';
+import { BubbleMenu } from '@tiptap/react/menus';
 import StarterKit from '@tiptap/starter-kit';
 
 import {
@@ -42,13 +42,14 @@ import {
   PageHeader,
   Surface,
 } from '@/components';
-import type { ChatDto, ChatMessageDto } from '@/types';
-import { useChats, useChatMessages } from '@/lib/hooks/useApi';
+import { useChatMessages, useChats } from '@/lib/hooks/useApi';
 import { PATH_DASHBOARD } from '@/routes';
 import UserProfileData from '@public/mocks/UserProfile.json';
 
 import { NewChatModal } from './components/NewChatModal';
 import classes from './page.module.css';
+
+import type { ChatDto, ChatMessageDto } from '@/types';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },

@@ -15,14 +15,16 @@ import {
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import { Box, Button, LoadingOverlay, Portal, ScrollArea } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+import { useFetch } from '@mantine/hooks';
 import { IconNewSection, IconPlus } from '@tabler/icons-react';
 
 import { KanbanCard, KanbanColumn } from '@/components';
-import { useFetch } from '@mantine/hooks';
 import { type IApiResponse } from '@/types/api-response';
-import type { KanbanTaskDto } from '@/types';
 
 import { NewTaskModal } from './NewTaskModal';
+
+import type { KanbanTaskDto } from '@/types';
+
 
 type Id = string | number;
 

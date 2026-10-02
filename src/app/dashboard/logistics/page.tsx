@@ -1,18 +1,18 @@
 'use client';
 
 import { Container, Grid, PaperProps, Stack, Text } from '@mantine/core';
+import { useFetch } from '@mantine/hooks';
 
 import {
+  ActiveShipmentsTable,
+  DeliveryPerformanceChart,
+  FleetStatusChart,
   PageHeader,
+  RouteEfficiencyTable,
   StatsGrid,
   Surface,
-  ActiveShipmentsTable,
-  FleetStatusChart,
-  DeliveryPerformanceChart,
-  RouteEfficiencyTable,
   WarehouseInventoryChart,
 } from '@/components';
-import { useFetch } from '@mantine/hooks';
 import { IApiResponse } from '@/types/api-response';
 
 const PAPER_PROPS: PaperProps = {

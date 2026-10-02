@@ -21,7 +21,7 @@ import {
   StatsGrid,
   Surface,
 } from '@/components';
-import { useStats, useProjects } from '@/lib/hooks/useApi';
+import { useProjects, useStats } from '@/lib/hooks/useApi';
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',

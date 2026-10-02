@@ -1,18 +1,18 @@
 'use client';
 
 import { Container, Grid, PaperProps, Stack, Text } from '@mantine/core';
+import { useFetch } from '@mantine/hooks';
 
 import {
+  LocationAnalyticsTable,
   PageHeader,
-  StatsGrid,
-  Surface,
+  PriceDistributionChart,
   PropertyListingsTable,
   PropertyTypesChart,
   SalesTrendsChart,
-  LocationAnalyticsTable,
-  PriceDistributionChart,
+  StatsGrid,
+  Surface,
 } from '@/components';
-import { useFetch } from '@mantine/hooks';
 import { IApiResponse } from '@/types/api-response';
 
 const PAPER_PROPS: PaperProps = {

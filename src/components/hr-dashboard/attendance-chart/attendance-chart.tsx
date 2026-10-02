@@ -1,5 +1,6 @@
 import { LineChart } from '@mantine/charts';
 import { Skeleton, Text } from '@mantine/core';
+
 import { ErrorAlert } from '@/components';
 
 interface AttendanceData {

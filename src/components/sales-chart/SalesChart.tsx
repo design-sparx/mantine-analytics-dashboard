@@ -1,5 +1,6 @@
 'use client';
 
+import { DonutChart } from '@mantine/charts';
 import {
   ActionIcon,
   Group,
@@ -7,12 +8,11 @@ import {
   Text,
   useMantineTheme,
 } from '@mantine/core';
-import { DonutChart } from '@mantine/charts';
+import { useFetch } from '@mantine/hooks';
 import { IconDotsVertical } from '@tabler/icons-react';
 import { DataTable } from 'mantine-datatable';
 
 import { ErrorAlert, Surface } from '@/components';
-import { useFetch } from '@mantine/hooks';
 import { type IApiResponse } from '@/types/api-response';
 
 type SalesChartProps = PaperProps;

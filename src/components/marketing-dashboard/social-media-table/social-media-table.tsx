@@ -8,10 +8,11 @@ import {
   Text,
 } from '@mantine/core';
 import {
-  IconTrendingUp,
-  IconTrendingDown,
   IconMinus,
+  IconTrendingDown,
+  IconTrendingUp,
 } from '@tabler/icons-react';
+
 import { ErrorAlert } from '@/components';
 
 interface SocialMedia {

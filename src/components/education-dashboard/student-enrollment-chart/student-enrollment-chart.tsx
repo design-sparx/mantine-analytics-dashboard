@@ -1,5 +1,6 @@
-import { Text, Skeleton, Stack } from '@mantine/core';
 import { AreaChart } from '@mantine/charts';
+import { Skeleton, Stack, Text } from '@mantine/core';
+
 import { ErrorAlert } from '@/components';
 
 interface EnrollmentData {

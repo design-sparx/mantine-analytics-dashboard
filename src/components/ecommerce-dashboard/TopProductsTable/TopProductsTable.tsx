@@ -9,10 +9,11 @@ import {
   Text,
 } from '@mantine/core';
 import {
+  IconMinus,
   IconTrendingDown,
   IconTrendingUp,
-  IconMinus,
 } from '@tabler/icons-react';
+
 import { ErrorAlert } from '@/components';
 
 interface Product {

@@ -8,11 +8,13 @@ import '@mantine/notifications/styles.css';
 import 'mantine-datatable/styles.layer.css';
 
 import React, { useEffect } from 'react';
-import { addons } from '@storybook/preview-api';
-import { DARK_MODE_EVENT_NAME } from 'storybook-dark-mode';
+
 import { MantineProvider, useMantineColorScheme } from '@mantine/core';
-import { themes } from '@storybook/theming';
+import { addons } from '@storybook/preview-api';
 import { Preview } from '@storybook/react';
+import { themes } from '@storybook/theming';
+import { DARK_MODE_EVENT_NAME } from 'storybook-dark-mode';
+
 // @ts-ignore
 import { myTheme } from '../src/theme';
 
