@@ -143,24 +143,24 @@ To make this template awesome, I used the following packages:
 ## Build tools
 
 You'll need to install Node.js.
-Once Node.js is installed, run npm install to install the rest of the template's dependencies. All dependencies will be
+Once Node.js is installed, run pnpm install to install the rest of the template's dependencies. All dependencies will be
 downloaded to the node_modules directory.
 
 ```bash copy
-npm install
+pnpm install
 ```
 
 Now you're ready to modify the source files and generate new files. To automatically detect file changes and start a
 local webserver at http://localhost:3000, run the following command.
 
 ```bash copy
-npm run dev
+pnpm dev
 ```
 
 Compile, optimize, minify and uglify all source files to build/
 
 ```bash copy
-npm run build
+pnpm build
 ```
 
 ## Mock Data System
