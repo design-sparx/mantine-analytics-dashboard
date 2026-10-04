@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useEffect, useState } from 'react';
 
@@ -28,7 +28,7 @@ import {
   getInvoiceStatusLabel,
 } from '@/types/invoice';
 
-import type { ApiResponse, InvoiceDto } from '@/types';
+import type { IApiResponse, InvoiceDto } from '@/types';
 
 // Simplified form values to match current InvoiceDto schema
 interface EditInvoiceFormValues {
@@ -49,7 +49,7 @@ type EditInvoiceDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
   onUpdate: (
     id: string,
     data: Partial<InvoiceDto>,
-  ) => Promise<ApiResponse<any>>;
+  ) => Promise<IApiResponse<any>>;
   onInvoiceUpdated?: () => void;
 };
 
