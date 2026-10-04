@@ -16,6 +16,8 @@ import {
 
 import { ErrorAlert } from '@/components';
 
+import type { TopProductsDto } from '@/types/generated-fixtures';
+
 interface Product {
   id: number;
   name: string;
@@ -30,7 +32,7 @@ interface Product {
 }
 
 interface TopProductsTableProps {
-  data?: Product[];
+  data?: TopProductsDto[];
   loading?: boolean;
   error?: Error | null;
 }

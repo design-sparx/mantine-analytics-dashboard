@@ -585,8 +585,14 @@ export interface DashboardEndpointPayloads {
 /** Every fixture-backed dashboard endpoint path. */
 export type DashboardEndpoint = keyof DashboardEndpointPayloads;
 
+/** Array-backed dashboard endpoints only; `/api/stats` is an object payload. */
+export type ArrayBackedDashboardEndpoint = Exclude<
+  DashboardEndpoint,
+  '/api/stats'
+>;
+
 /**
- * The mock fixture each dashboard endpoint serves, at runtime.
+ * The mock fixture each array-backed dashboard endpoint serves, at runtime.
  *
  * `src/test/generated-dto.test.ts` reads this to check every generated type
  * against the rows it describes, which is what stops the two drifting apart.
@@ -643,4 +649,4 @@ export const DASHBOARD_ENDPOINT_FIXTURES = {
   '/api/real-estate/sales-trends': 'sales-trends.json',
   '/api/real-estate/stats': 'real-estate-stats.json',
   '/api/traffic': 'Traffic.json',
-} as const satisfies Record<DashboardEndpoint, string>;
+} as const satisfies Record<ArrayBackedDashboardEndpoint, string>;
