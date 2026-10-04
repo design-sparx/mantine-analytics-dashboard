@@ -5,10 +5,10 @@
  * API endpoints. Import from here instead of writing an `/api/...` string, so a
  * route rename is a compiler error rather than a search-and-replace.
  *
- * Every entry here corresponds to a handler under `src/app/api/**\/route.ts`.
- * Two references in the product pages point at endpoints that do not exist yet
- * (`/api/product-categories` and the `.../${id}` detail paths); those are marked
- * `MISSING` and are ticket 06's job to create.
+ * Every collection entry here corresponds to a handler under
+ * `src/app/api/**\/route.ts`. Detail paths are not registered: they are built
+ * from a collection and an id with `apiDetailPath`, matching the `[id]`
+ * dynamic segments Next.js serves them from.
  */
 
 /**
@@ -140,21 +140,30 @@ export const API_REAL_ESTATE = {
   stats: api('/real-estate/stats'),
 } as const;
 
-/**
- * Endpoints referenced by the product pages but not yet implemented.
- *
- * Nothing under `src/app/api` serves these, so a call to them 404s today. They
- * are declared here so the call sites are honest about what they want, and so
- * ticket 06 has an obvious place to fill in. Until then a hook built on one of
- * these will surface a fetch error rather than data.
- */
-export const API_PENDING = {
-  productCategories: api('/product-categories'),
-} as const;
-
 /** Detail paths, for the endpoints that are expected to grow one. */
 export const apiDetailPath = (collection: string, id: string): string =>
   api(`/${collection}/${id}`);
+
+/**
+ * Collections whose handlers accept writes, plus a helper for each detail path.
+ *
+ * The collection paths are the same ones their read-only counterparts use; they
+ * are redeclared here so a write call site names the write-enabled surface
+ * rather than reaching into `API_CORE`. Detail paths are functions because the
+ * id is only known at the call site, which is also why they are absent from
+ * `API_ENDPOINTS` below — that map is a closed set of static paths.
+ */
+export const API_WRITE = {
+  products: api('/products'),
+  productDetail: (id: string) => apiDetailPath('products', id),
+  productCategories: api('/product-categories'),
+  productCategoryDetail: (id: string) =>
+    apiDetailPath('product-categories', id),
+  tasks: api('/tasks'),
+  taskDetail: (id: string) => apiDetailPath('tasks', id),
+  invoices: api('/invoices'),
+  invoiceDetail: (id: string) => apiDetailPath('invoices', id),
+} as const;
 
 /** Flat map of every endpoint, keyed by a stable dotted id. */
 export const API_ENDPOINTS = {
@@ -167,6 +176,7 @@ export const API_ENDPOINTS = {
   languages: API_CORE.languages,
   notifications: API_CORE.notifications,
   orders: API_CORE.orders,
+  productCategories: API_WRITE.productCategories,
   products: API_CORE.products,
   profile: API_CORE.profile,
   projects: API_CORE.projects,

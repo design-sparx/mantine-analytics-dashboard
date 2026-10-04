@@ -36,7 +36,10 @@ const mockRoutes = (): { endpoint: string; routeFile: string }[] => {
       'route.ts',
     );
 
-    if (fs.existsSync(routeFile) && fs.readFileSync(routeFile, 'utf8').includes('serveMock')) {
+    if (
+      fs.existsSync(routeFile) &&
+      fs.readFileSync(routeFile, 'utf8').includes('serveMock')
+    ) {
       entries.push({ endpoint, routeFile });
     }
   }
@@ -59,7 +62,7 @@ describe('mock routes', () => {
       (endpoint) => !routes.some((r) => r.endpoint === endpoint),
     );
 
-    expect(unconverted).toEqual(['/api/changelog']);
+    expect(unconverted).toEqual(['/api/changelog', '/api/product-categories']);
   });
 
   it.each(routes)(
@@ -83,15 +86,18 @@ describe('mock routes', () => {
     },
   );
 
-  it.each(routes)('$endpoint returns the envelope shape', async ({ routeFile }) => {
-    const { GET } = (await import(routeFile)) as {
-      GET: () => Promise<Response>;
-    };
+  it.each(routes)(
+    '$endpoint returns the envelope shape',
+    async ({ routeFile }) => {
+      const { GET } = (await import(routeFile)) as {
+        GET: () => Promise<Response>;
+      };
 
-    const body = (await GET().then((r) => r.json())) as unknown;
+      const body = (await GET().then((r) => r.json())) as unknown;
 
-    expect(isEnvelope(body)).toBe(true);
-  });
+      expect(isEnvelope(body)).toBe(true);
+    },
+  );
 
   it.each(routes)(
     '$endpoint derives its message from a resource label',
