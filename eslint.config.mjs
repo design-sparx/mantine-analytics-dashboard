@@ -1,7 +1,7 @@
-import next from 'eslint-config-next';
+﻿import next from 'eslint-config-next';
 import globals from 'globals';
 
-export default [
+const config = [
   ...next,
   {
     name: 'project/import-order',
@@ -76,3 +76,5 @@ export default [
     ],
   },
 ];
+
+export default config;

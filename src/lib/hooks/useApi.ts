@@ -14,11 +14,9 @@ import type {
 } from '@/types';
 import type { IApiResponse } from '@/types/api-response';
 
-export type ApiResponse<T> = IApiResponse<T>;
-
 // Generic hook for GET requests
 export function useApiGet<T>(endpoint: string) {
-  return useFetch<ApiResponse<T>>(endpoint);
+  return useFetch<IApiResponse<T>>(endpoint);
 }
 
 // Hook for invoices

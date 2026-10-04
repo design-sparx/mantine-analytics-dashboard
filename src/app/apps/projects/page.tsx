@@ -60,7 +60,7 @@ function Projects() {
     // For now, just return a mock success response
     return {
       succeeded: true,
-      data: undefined,
+      data: null,
       errors: [],
       message: 'Project created successfully (mock)',
       timestamp: new Date().toISOString(),
