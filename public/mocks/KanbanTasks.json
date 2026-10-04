@@ -133,6 +133,13 @@
     "users": 3
   },
   {
+    "id": "existing-id",
+    "title": "Existing task for write route tests",
+    "status": "todo",
+    "comments": 0,
+    "users": 0
+  },
+  {
     "id": "e84e759c-107e-4044-b1ba-e275b2acc071",
     "title": "Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.",
     "status": "in progress",
