@@ -1,5 +1,6 @@
-import { serveMock } from '@/lib/api/mock-route';
+import { buildReadRoute, buildWriteRoute } from '@/lib/api/mock-write-route';
 
-export async function GET() {
-  return serveMock('Invoices.json', 'invoices');
-}
+export const GET = buildReadRoute('Invoices.json');
+export const POST = buildWriteRoute('POST', 'Invoices.json');
+export const PUT = buildWriteRoute('PUT', 'Invoices.json');
+export const DELETE = buildWriteRoute('DELETE', 'Invoices.json');

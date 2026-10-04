@@ -52,9 +52,9 @@ const routes = mockRoutes();
 describe('mock routes', () => {
   it('discovers every mock route routeFile', () => {
     // Guards the discovery logic: if this is empty, the checks below would pass
-    // without testing anything. 69 of 70 registered routes read a mock file;
+    // without testing anything. 66 of 72 registered routes read a mock file;
     // `/api/changelog` is the exception and is asserted separately below.
-    expect(routes).toHaveLength(69);
+    expect(routes).toHaveLength(66);
   });
 
   it('leaves only the non-mock route out of the helper', () => {
@@ -62,7 +62,13 @@ describe('mock routes', () => {
       (endpoint) => !routes.some((r) => r.endpoint === endpoint),
     );
 
-    expect(unconverted).toEqual(['/api/changelog', '/api/product-categories']);
+    expect(unconverted).toEqual([
+      '/api/changelog',
+      '/api/invoices',
+      '/api/product-categories',
+      '/api/products',
+      '/api/tasks',
+    ]);
   });
 
   it.each(routes)(

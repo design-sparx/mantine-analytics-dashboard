@@ -1,5 +1,6 @@
-import { serveMock } from '@/lib/api/mock-route';
+import { buildReadRoute, buildWriteRoute } from '@/lib/api/mock-write-route';
 
-export async function GET() {
-  return serveMock('KanbanTasks.json', 'Tasks');
-}
+export const GET = buildReadRoute('KanbanTasks.json');
+export const POST = buildWriteRoute('POST', 'KanbanTasks.json');
+export const PUT = buildWriteRoute('PUT', 'KanbanTasks.json');
+export const DELETE = buildWriteRoute('DELETE', 'KanbanTasks.json');

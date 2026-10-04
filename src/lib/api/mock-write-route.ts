@@ -26,7 +26,7 @@ export function buildReadRoute(fixture: string) {
     }
 
     try {
-      const data = await mockStore.getAll(await readBodyIfAny(request));
+      const data = await mockStore.getAll(fixture);
       return apiSuccess(data, 'Retrieved successfully');
     } catch (error) {
       return apiFailure((error as Error).message);
@@ -48,7 +48,9 @@ export function buildWriteRoute(
 ) {
   return async (
     request: Request,
-    context?: { params?: { [key: string]: string } },
+    context?: {
+      params?: Promise<{ [key: string]: string }> | { [key: string]: string };
+    },
   ) => {
     if (request.method !== method) {
       return apiFailure('Method not allowed', `${method} required`, 405);
@@ -61,7 +63,7 @@ export function buildWriteRoute(
         return apiSuccess(record, 'Created successfully', 201);
       }
 
-      const id = resolveId(request, idParam, context);
+      const id = await resolveId(request, idParam, context);
       if (!id) {
         return apiFailure('Missing id', 'id is required', 400);
       }
@@ -86,17 +88,21 @@ export function buildWriteRoute(
   };
 }
 
-async function readBodyIfAny(_request: Request): Promise<unknown> {
-  return {};
-}
-
-function resolveId(
+async function resolveId(
   request: Request,
   idParam?: string,
-  context?: { params?: { [key: string]: string } },
-): string | undefined {
-  if (idParam && context?.params?.[idParam.replace(':', '')]) {
-    return context.params[idParam.replace(':', '')];
+  context?: {
+    params?: Promise<{ [key: string]: string }> | { [key: string]: string };
+  },
+): Promise<string | undefined> {
+  const params = context?.params
+    ? typeof (context.params as Promise<unknown>).then === 'function'
+      ? await context.params
+      : context.params
+    : undefined;
+
+  if (idParam && params?.[idParam.replace(':', '')]) {
+    return params[idParam.replace(':', '')];
   }
   const url = new URL(request.url);
   const segments = url.pathname.split('/').filter(Boolean);
