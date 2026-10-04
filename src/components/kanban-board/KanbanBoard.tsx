@@ -16,6 +16,7 @@ import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import { Box, Button, LoadingOverlay, Portal, ScrollArea } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { useFetch } from '@mantine/hooks';
+import { useApiWrite } from '@/lib/hooks/useApiWrite';
 import { IconNewSection, IconPlus } from '@tabler/icons-react';
 
 import { KanbanCard, KanbanColumn } from '@/components';
@@ -24,7 +25,6 @@ import { type IApiResponse } from '@/types/api-response';
 import { NewTaskModal } from './NewTaskModal';
 
 import type { KanbanTaskDto } from '@/types';
-
 
 type Id = string | number;
 
@@ -184,7 +184,7 @@ const defaultTasks: ITask[] = [
 const KanbanBoard = () => {
   const {
     data: apiTasks,
-    loading,
+    loading: tasksLoading,
     refetch,
   } = useFetch<IApiResponse<any[]>>('/api/tasks');
   const [columns, setColumns] = useState<IColumn[]>(defaultCols);
@@ -195,6 +195,23 @@ const KanbanBoard = () => {
   const tablet_match = useMediaQuery('(max-width: 768px)');
   const [newTaskModalOpened, setNewTaskModalOpened] = useState(false);
   const [selectedColumnId, setSelectedColumnId] = useState<Id | null>(null);
+
+  const { refetch: createTaskRefetch, loading: createLoading } =
+    useApiWrite<any>('POST', '/api/tasks', {
+      autoExecute: false,
+      onSuccess: () => refetch(),
+    });
+
+  const { refetch: deleteTaskRefetch } = useApiWrite<any>(
+    'DELETE',
+    '/api/tasks',
+    { autoExecute: false, onSuccess: () => refetch() },
+  );
+
+  const { refetch: updateTaskRefetch } = useApiWrite<any>('PUT', '/api/tasks', {
+    autoExecute: false,
+    onSuccess: () => refetch(),
+  });
 
   // Map API tasks to local task format
   useEffect(() => {
@@ -230,7 +247,7 @@ const KanbanBoard = () => {
 
   const id = useId();
 
-  if (loading) {
+  if (tasksLoading) {
     return <LoadingOverlay visible={true} />;
   }
 
@@ -339,7 +356,7 @@ const KanbanBoard = () => {
         onClose={() => setNewTaskModalOpened(false)}
         onSubmit={createTask}
         columnId={selectedColumnId || 'todo'}
-        loading={loading}
+        loading={createLoading}
       />
     </>
   );
@@ -350,33 +367,22 @@ const KanbanBoard = () => {
   }
 
   async function createTask(taskData: any) {
-    // In a real app, call API to create task
-    await fetch('/api/tasks', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(taskData),
-    });
-    refetch();
+    createTaskRefetch('/api/tasks', taskData);
   }
 
   async function deleteTask(id: Id) {
     if (typeof id === 'string') {
-      // In a real app, call API to delete task
-      await fetch(`/api/tasks/${id}`, { method: 'DELETE' });
-      refetch();
+      deleteTaskRefetch(`/api/tasks/${id}`);
     }
   }
 
   async function updateTask(id: Id, content: string) {
     if (typeof id === 'string') {
       const task = tasks.find((t) => t.id === id);
-      // In a real app, call API to update task
-      await fetch(`/api/tasks/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: content, status: task?.status }),
+      updateTaskRefetch(`/api/tasks/${id}`, {
+        title: content,
+        status: task?.status,
       });
-      refetch();
     }
   }
 
