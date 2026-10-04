@@ -19,6 +19,7 @@ import {
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
+import { useApiWrite } from '@/lib/hooks/useApiWrite';
 import { IProduct, IProductCategory } from '@/types/products';
 
 type EditProductDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
@@ -31,7 +32,6 @@ export const EditProductDrawer = ({
   onProductUpdated,
   ...drawerProps
 }: EditProductDrawerProps) => {
-  const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState<
     {
       value: string;
@@ -64,6 +64,78 @@ export const EditProductDrawer = ({
       categoryId: isNotEmpty('Category cannot be empty'),
     },
   });
+
+  const {
+    refetch: updateProduct,
+    loading: updateLoading,
+    error: updateError,
+  } = useApiWrite('PUT', '/api/products', {
+    autoExecute: false,
+    onSuccess: () => {
+      // Show success notification
+      notifications.show({
+        title: 'Success',
+        message: 'Product updated successfully',
+        color: 'green',
+      });
+
+      // Close drawer
+      if (drawerProps.onClose) {
+        drawerProps.onClose();
+      }
+
+      // Trigger refresh of products list
+      onProductUpdated?.();
+    },
+  });
+
+  const {
+    refetch: deleteProduct,
+    loading: deleteLoading,
+    error: deleteError,
+  } = useApiWrite('DELETE', '/api/products', {
+    autoExecute: false,
+    onSuccess: () => {
+      // Show success notification
+      notifications.show({
+        title: 'Success',
+        message: 'Product deleted successfully',
+        color: 'green',
+      });
+
+      // Close drawer
+      if (drawerProps.onClose) {
+        drawerProps.onClose();
+      }
+
+      // Trigger refresh of products list
+      onProductUpdated?.();
+    },
+  });
+
+  // Either write keeps the drawer busy, so both feed one loading flag.
+  const loading = updateLoading || deleteLoading;
+
+  // The hook reports a failed write as state instead of throwing, so surface it.
+  useEffect(() => {
+    if (updateError) {
+      notifications.show({
+        title: 'Error',
+        message: updateError.message,
+        color: 'red',
+      });
+    }
+  }, [updateError]);
+
+  useEffect(() => {
+    if (deleteError) {
+      notifications.show({
+        title: 'Error',
+        message: deleteError.message,
+        color: 'red',
+      });
+    }
+  }, [deleteError]);
 
   const fetchCategories = useCallback(async () => {
     setCategoriesLoading(true);
@@ -120,107 +192,20 @@ export const EditProductDrawer = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
-  const handleSubmit = async (values: typeof form.values) => {
+  const handleSubmit = (values: typeof form.values) => {
     if (!product || !isCreator || !canEditProduct) return;
 
-    setLoading(true);
-    try {
-      const payload = {
-        ...values,
-        modifiedById: 'user-demo-001',
-      };
-
-      const response = await fetch(`/api/products/${product.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to update product');
-      }
-
-      // Show success notification
-      notifications.show({
-        title: 'Success',
-        message: 'Product updated successfully',
-        color: 'green',
-      });
-
-      // Close drawer
-      if (drawerProps.onClose) {
-        drawerProps.onClose();
-      }
-
-      // Trigger refresh of products list
-      if (onProductUpdated) {
-        onProductUpdated();
-      }
-    } catch (error) {
-      // Show error notification
-      notifications.show({
-        title: 'Error',
-        message:
-          error instanceof Error ? error.message : 'Failed to update product',
-        color: 'red',
-      });
-    } finally {
-      setLoading(false);
-    }
+    updateProduct(undefined, { ...values, modifiedById: 'user-demo-001' });
   };
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     if (!product || !isCreator) return;
 
     if (!window.confirm('Are you sure you want to delete this product?')) {
       return;
     }
 
-    setLoading(true);
-    try {
-      const response = await fetch(`/api/products/${product.id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to delete product');
-      }
-
-      // Show success notification
-      notifications.show({
-        title: 'Success',
-        message: 'Product deleted successfully',
-        color: 'green',
-      });
-
-      // Close drawer
-      if (drawerProps.onClose) {
-        drawerProps.onClose();
-      }
-
-      // Trigger refresh of products list
-      if (onProductUpdated) {
-        onProductUpdated();
-      }
-    } catch (error) {
-      // Show error notification
-      notifications.show({
-        title: 'Error',
-        message:
-          error instanceof Error ? error.message : 'Failed to delete product',
-        color: 'red',
-      });
-    } finally {
-      setLoading(false);
-    }
+    deleteProduct();
   };
 
   return (

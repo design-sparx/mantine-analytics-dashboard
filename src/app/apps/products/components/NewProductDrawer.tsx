@@ -17,6 +17,7 @@ import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
+import { useApiWrite } from '@/lib/hooks/useApiWrite';
 import { IProductCategory } from '@/types/products';
 
 type NewProjectDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
@@ -27,7 +28,6 @@ export const NewProductDrawer = ({
   onProductCreated,
   ...drawerProps
 }: NewProjectDrawerProps) => {
-  const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState<
     { value: string; label: string }[]
   >([]);
@@ -88,28 +88,13 @@ export const NewProductDrawer = ({
     },
   });
 
-  const handleSubmit = async (values: typeof form.values) => {
-    setLoading(true);
-    try {
-      const payload = {
-        ...values,
-        createdById: 'user-demo-001',
-      };
-
-      const response = await fetch('/api/products', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to create product');
-      }
-
+  const {
+    refetch: createProduct,
+    loading,
+    error,
+  } = useApiWrite('POST', '/api/products', {
+    autoExecute: false,
+    onSuccess: () => {
       // Show success notification
       notifications.show({
         title: 'Success',
@@ -126,21 +111,23 @@ export const NewProductDrawer = ({
       }
 
       // Trigger refresh of products list
-      if (onProductCreated) {
-        onProductCreated();
-      }
-    } catch (error) {
-      // Show error notification
+      onProductCreated?.();
+    },
+  });
+
+  // The hook reports a failed write as state instead of throwing, so surface it.
+  useEffect(() => {
+    if (error) {
       notifications.show({
         title: 'Error',
-        message:
-          error instanceof Error ? error.message : 'Failed to create product',
+        message: error.message,
         color: 'red',
       });
-    } finally {
-      setLoading(false);
     }
-  };
+  }, [error]);
+
+  const handleSubmit = (values: typeof form.values) =>
+    createProduct(undefined, { ...values, createdById: 'user-demo-001' });
 
   return (
     <Drawer {...drawerProps} title="Create a new product">

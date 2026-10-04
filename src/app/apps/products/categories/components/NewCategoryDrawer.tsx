@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect } from 'react';
 
 import {
   Button,
@@ -14,6 +14,10 @@ import {
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
+import { useApiWrite } from '@/lib/hooks/useApiWrite';
+import { API_WRITE } from '@/routes/api';
+import { IProductCategory } from '@/types/products';
+
 type NewCategoryDrawer = Omit<DrawerProps, 'title' | 'children'> & {
   onCategoryCreated?: () => void;
 };
@@ -22,8 +26,6 @@ export const NewCategoryDrawer = ({
   onCategoryCreated,
   ...drawerProps
 }: NewCategoryDrawer) => {
-  const [loading, setLoading] = useState(false);
-
   const form = useForm({
     mode: 'controlled',
     initialValues: {
@@ -35,28 +37,13 @@ export const NewCategoryDrawer = ({
     },
   });
 
-  const handleSubmit = async (values: typeof form.values) => {
-    setLoading(true);
-    try {
-      const payload = {
-        ...values,
-        createdById: 'user-demo-001',
-      };
-
-      const response = await fetch('/api/product-categories', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to create category');
-      }
-
+  const {
+    refetch: createCategory,
+    loading,
+    error: createError,
+  } = useApiWrite<IProductCategory>('POST', API_WRITE.productCategories, {
+    autoExecute: false,
+    onSuccess: () => {
       notifications.show({
         title: 'Success',
         message: 'Category created successfully',
@@ -65,23 +52,28 @@ export const NewCategoryDrawer = ({
 
       form.reset();
 
-      if (drawerProps.onClose) {
-        drawerProps.onClose();
-      }
+      drawerProps.onClose?.();
+      onCategoryCreated?.();
+    },
+  });
 
-      if (onCategoryCreated) {
-        onCategoryCreated();
-      }
-    } catch (error) {
-      notifications.show({
-        title: 'Error',
-        message:
-          error instanceof Error ? error.message : 'Failed to create category',
-        color: 'red',
-      });
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    if (!createError) {
+      return;
     }
+
+    notifications.show({
+      title: 'Error',
+      message: createError.message || 'Failed to create category',
+      color: 'red',
+    });
+  }, [createError]);
+
+  const handleSubmit = (values: typeof form.values) => {
+    createCategory(API_WRITE.productCategories, {
+      ...values,
+      createdById: 'user-demo-001',
+    });
   };
 
   return (

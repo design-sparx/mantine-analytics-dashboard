@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import {
   Anchor,
@@ -8,6 +8,7 @@ import {
   Button,
   Container,
   Group,
+  LoadingOverlay,
   PaperProps,
   SegmentedControl,
   SimpleGrid,
@@ -16,8 +17,8 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-import { useFetch } from '@mantine/hooks';
+import { useDisclosure, useFetch } from '@mantine/hooks';
+import { notifications } from '@mantine/notifications';
 import {
   IconGridDots,
   IconList,
@@ -26,11 +27,11 @@ import {
 } from '@tabler/icons-react';
 
 import { ErrorAlert, PageHeader, Surface } from '@/components';
+import { type ApiWriteError, useApiWrite } from '@/lib/hooks/useApiWrite';
 import { PATH_DASHBOARD } from '@/routes';
+import { API_CORE, API_WRITE } from '@/routes/api';
 import { type InvoiceDto } from '@/types';
 import { type IApiResponse } from '@/types/api-response';
-
-// Simplified API imports
 
 import { EditInvoiceDrawer } from './components/EditInvoiceDrawer';
 import { InvoiceCard } from './components/InvoiceCard';
@@ -47,6 +48,79 @@ const items = [
   </Anchor>
 ));
 
+const writeSucceeded = (): IApiResponse<any> => ({
+  succeeded: true,
+  message: 'Request succeeded',
+  timestamp: new Date().toISOString(),
+  data: null,
+  errors: [],
+});
+
+const writeFailed = (error: ApiWriteError): IApiResponse<any> => ({
+  succeeded: false,
+  message: error.message,
+  timestamp: new Date().toISOString(),
+  data: null,
+  errors: error.serverErrors.length ? error.serverErrors : [error.message],
+});
+
+/**
+ * Turns a write hook into something the invoice drawers can await.
+ *
+ * `useApiWrite` reports a failed write as state instead of rejecting, and that
+ * state only lands on the render after the request settles. So the outcome is
+ * handed back through a promise the caller can await: `onSuccess` settles it
+ * synchronously, and a failure settles it from the error effect. Callers still
+ * receive the `IApiResponse` shape the drawers check for `succeeded`.
+ */
+function useInvoiceWrite<T>(
+  method: 'POST' | 'PUT' | 'DELETE',
+  onSuccess: () => void,
+) {
+  const settleRef = useRef<((outcome: IApiResponse<any>) => void) | null>(null);
+
+  const { loading, error, refetch } = useApiWrite<T>(
+    method,
+    API_WRITE.invoices,
+    {
+      autoExecute: false,
+      onSuccess: () => {
+        const settle = settleRef.current;
+        settleRef.current = null;
+        onSuccess();
+        settle?.(writeSucceeded());
+      },
+    },
+  );
+
+  useEffect(() => {
+    if (!error) {
+      return;
+    }
+
+    const settle = settleRef.current;
+    settleRef.current = null;
+    settle?.(writeFailed(error));
+  }, [error]);
+
+  const execute = useCallback(
+    async (endpoint: string, body?: unknown): Promise<IApiResponse<any>> => {
+      let settle: (outcome: IApiResponse<any>) => void = () => undefined;
+      const settled = new Promise<IApiResponse<any>>((resolve) => {
+        settle = resolve;
+      });
+      settleRef.current = settle;
+
+      await refetch(endpoint, body);
+
+      return settled;
+    },
+    [refetch],
+  );
+
+  return { execute, loading };
+}
+
 function Invoices() {
   const [selectedInvoice, setSelectedInvoice] = useState<any | null>(null);
   const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
@@ -56,7 +130,7 @@ function Invoices() {
     loading: invoicesLoading,
     error: invoicesError,
     refetch: refetchInvoices,
-  } = useFetch<IApiResponse<any[]>>('/api/invoices');
+  } = useFetch<IApiResponse<any[]>>(API_CORE.invoices);
 
   const [newDrawerOpened, { open: newInvoiceOpen, close: newInvoiceClose }] =
     useDisclosure(false);
@@ -64,40 +138,28 @@ function Invoices() {
   const [editDrawerOpened, { open: editInvoiceOpen, close: editInvoiceClose }] =
     useDisclosure(false);
 
-  const handleCreateInvoice = useCallback(async (data: Partial<InvoiceDto>) => {
-    // TODO: In a real app, this would call the API to create an invoice
-    // For now, just return a mock success response
-    return {
-      succeeded: true,
-      data: null,
-      errors: [],
-      message: 'Invoice created successfully (mock)',
-      timestamp: new Date().toISOString(),
-    };
-  }, []);
+  const { execute: createInvoice, loading: createLoading } =
+    useInvoiceWrite<InvoiceDto>('POST', refetchInvoices);
 
-  const handleUpdateInvoice = useCallback(
-    async (id: string, data: Partial<InvoiceDto>) => {
-      // TODO: In a real app, this would call the API to update an invoice
-      // For now, just return a mock success response
-      return {
-        succeeded: true,
-        data: null,
-        errors: [],
-        message: 'Invoice updated successfully (mock)',
-        timestamp: new Date().toISOString(),
-      };
-    },
-    [],
+  const { execute: updateInvoice, loading: updateLoading } =
+    useInvoiceWrite<InvoiceDto>('PUT', refetchInvoices);
+
+  const { execute: deleteInvoice, loading: deleteLoading } = useInvoiceWrite<{
+    id: string;
+  }>('DELETE', refetchInvoices);
+
+  const writing = createLoading || updateLoading || deleteLoading;
+
+  const handleCreateInvoice = useCallback(
+    (data: Partial<InvoiceDto>) => createInvoice(API_WRITE.invoices, data),
+    [createInvoice],
   );
 
-  const handleInvoiceCreated = useCallback(() => {
-    // No need to manually refetch - mutations handle this automatically
-  }, []);
-
-  const handleInvoiceUpdated = useCallback(() => {
-    // No need to manually refetch - mutations handle this automatically
-  }, []);
+  const handleUpdateInvoice = useCallback(
+    (id: string, data: Partial<InvoiceDto>) =>
+      updateInvoice(API_WRITE.invoiceDetail(id), { ...data, id }),
+    [updateInvoice],
+  );
 
   const handleEditInvoice = (invoice: InvoiceDto) => {
     setSelectedInvoice(invoice);
@@ -109,20 +171,30 @@ function Invoices() {
     editInvoiceOpen();
   };
 
-  const handleDeleteInvoice = async (invoice: any) => {
-    if (!window.confirm('Are you sure you want to delete this invoice?')) {
-      return;
-    }
+  const handleDeleteInvoice = useCallback(
+    async (invoice: InvoiceDto) => {
+      if (!invoice.id) {
+        return;
+      }
 
-    try {
-      // In a real app, call DELETE API endpoint
-      await fetch(`/api/invoices/${invoice.id}`, { method: 'DELETE' });
-      refetchInvoices();
-    } catch (error) {
-      console.error('Error deleting invoice:', error);
-      alert('Failed to delete invoice. Please try again.');
-    }
-  };
+      if (!window.confirm('Are you sure you want to delete this invoice?')) {
+        return;
+      }
+
+      const outcome = await deleteInvoice(API_WRITE.invoiceDetail(invoice.id), {
+        id: invoice.id,
+      });
+
+      notifications.show({
+        title: outcome.succeeded ? 'Success' : 'Error',
+        message: outcome.succeeded
+          ? 'Invoice deleted successfully'
+          : outcome.errors.join(', '),
+        color: outcome.succeeded ? 'green' : 'red',
+      });
+    },
+    [deleteInvoice],
+  );
 
   const invoiceItems = invoicesData?.data?.map((invoice) => (
     <InvoiceCard
@@ -132,8 +204,6 @@ function Invoices() {
       onView={handleViewInvoice}
     />
   ));
-
-  console.log({ invoicesData });
 
   const renderContent = () => {
     if (invoicesLoading) {
@@ -231,7 +301,9 @@ function Invoices() {
             }
           />
 
-          <Box>
+          <Box pos="relative">
+            <LoadingOverlay visible={writing} />
+
             <Group justify="space-between" mb="md">
               <Group>
                 <Text fz="lg" fw={600}>
@@ -264,7 +336,6 @@ function Invoices() {
         onClose={newInvoiceClose}
         position="right"
         onCreate={handleCreateInvoice}
-        onInvoiceCreated={handleInvoiceCreated}
       />
 
       <EditInvoiceDrawer
@@ -273,7 +344,6 @@ function Invoices() {
         onUpdate={handleUpdateInvoice}
         position="right"
         invoice={selectedInvoice}
-        onInvoiceUpdated={handleInvoiceUpdated}
       />
     </>
   );
