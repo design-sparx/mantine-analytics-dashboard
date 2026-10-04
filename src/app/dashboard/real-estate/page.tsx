@@ -1,7 +1,6 @@
 'use client';
 
 import { Container, Grid, PaperProps, Stack, Text } from '@mantine/core';
-import { useFetch } from '@mantine/hooks';
 
 import {
   LocationAnalyticsTable,
@@ -13,7 +12,8 @@ import {
   StatsGrid,
   Surface,
 } from '@/components';
-import { IApiResponse } from '@/types/api-response';
+import { useDashboardResource } from '@/lib/api/useDashboardResource';
+import { API_REAL_ESTATE } from '@/routes/api';
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',
@@ -25,37 +25,37 @@ function Page() {
     data: statsData,
     error: statsError,
     loading: statsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/real-estate/stats');
+  } = useDashboardResource(API_REAL_ESTATE.stats);
 
   const {
     data: propertiesData,
     error: propertiesError,
     loading: propertiesLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/real-estate/properties');
+  } = useDashboardResource(API_REAL_ESTATE.properties);
 
   const {
     data: typesData,
     error: typesError,
     loading: typesLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/real-estate/property-types');
+  } = useDashboardResource(API_REAL_ESTATE.propertyTypes);
 
   const {
     data: salesData,
     error: salesError,
     loading: salesLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/real-estate/sales-trends');
+  } = useDashboardResource(API_REAL_ESTATE.salesTrends);
 
   const {
     data: locationsData,
     error: locationsError,
     loading: locationsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/real-estate/locations');
+  } = useDashboardResource(API_REAL_ESTATE.locations);
 
   const {
     data: priceData,
     error: priceError,
     loading: priceLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/real-estate/price-distribution');
+  } = useDashboardResource(API_REAL_ESTATE.priceDistribution);
 
   return (
     <>
@@ -71,7 +71,7 @@ function Page() {
           <PageHeader title="Real Estate dashboard" withActions={true} />
 
           <StatsGrid
-            data={statsData?.data || []}
+            data={statsData ?? undefined}
             error={statsError}
             loading={statsLoading}
             paperProps={PAPER_PROPS}
@@ -84,7 +84,7 @@ function Page() {
                   Sales & Revenue Trends
                 </Text>
                 <SalesTrendsChart
-                  data={salesData?.data || []}
+                  data={salesData ?? undefined}
                   error={salesError}
                   loading={salesLoading}
                 />
@@ -96,7 +96,7 @@ function Page() {
                   Property Types Distribution
                 </Text>
                 <PropertyTypesChart
-                  data={typesData?.data || []}
+                  data={typesData ?? undefined}
                   error={typesError}
                   loading={typesLoading}
                 />
@@ -109,7 +109,7 @@ function Page() {
                   Price Distribution
                 </Text>
                 <PriceDistributionChart
-                  data={priceData?.data || []}
+                  data={priceData ?? undefined}
                   error={priceError}
                   loading={priceLoading}
                 />
@@ -122,7 +122,7 @@ function Page() {
                   Top Locations
                 </Text>
                 <LocationAnalyticsTable
-                  data={locationsData?.data || []}
+                  data={locationsData ?? undefined}
                   error={locationsError}
                   loading={locationsLoading}
                 />
@@ -135,7 +135,7 @@ function Page() {
                   Property Listings
                 </Text>
                 <PropertyListingsTable
-                  data={propertiesData?.data || []}
+                  data={propertiesData ?? undefined}
                   error={propertiesError}
                   loading={propertiesLoading}
                 />

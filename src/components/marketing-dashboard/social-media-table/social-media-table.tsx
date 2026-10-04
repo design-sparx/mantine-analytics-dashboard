@@ -15,6 +15,8 @@ import {
 
 import { ErrorAlert } from '@/components';
 
+import type { SocialMediaStatsDto } from '@/types/generated-fixtures';
+
 interface SocialMedia {
   platform: string;
   followers: number;
@@ -26,7 +28,7 @@ interface SocialMedia {
 }
 
 interface SocialMediaTableProps {
-  data?: SocialMedia[];
+  data?: SocialMediaStatsDto[];
   loading?: boolean;
   error?: Error | null;
 }

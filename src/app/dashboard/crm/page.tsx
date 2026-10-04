@@ -12,6 +12,8 @@ import {
   StatsGrid,
   Surface,
 } from '@/components';
+import { useDashboardResource } from '@/lib/api/useDashboardResource';
+import { API_CRM } from '@/routes/api';
 import { IApiResponse } from '@/types/api-response';
 
 const PAPER_PROPS: PaperProps = {
@@ -24,25 +26,25 @@ function Page() {
     data: statsData,
     error: statsError,
     loading: statsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/crm/stats');
+  } = useDashboardResource(API_CRM.stats);
 
   const {
     data: leadsData,
     error: leadsError,
     loading: leadsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/crm/leads');
+  } = useDashboardResource(API_CRM.leads);
 
   const {
     data: dealsData,
     error: dealsError,
     loading: dealsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/crm/deals');
+  } = useDashboardResource(API_CRM.deals);
 
   const {
     data: activitiesData,
     error: activitiesError,
     loading: activitiesLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/crm/activities');
+  } = useDashboardResource(API_CRM.activities);
 
   return (
     <>
@@ -58,7 +60,7 @@ function Page() {
           <PageHeader title="CRM dashboard" withActions={true} />
 
           <StatsGrid
-            data={statsData?.data || []}
+            data={statsData ?? undefined}
             error={statsError}
             loading={statsLoading}
             paperProps={PAPER_PROPS}
@@ -71,7 +73,7 @@ function Page() {
             <Grid.Col span={{ base: 12, md: 4 }}>
               <Surface {...PAPER_PROPS}>
                 <LeadPipelineChart
-                  data={leadsData?.data || []}
+                  data={leadsData ?? undefined}
                   error={leadsError}
                   loading={leadsLoading}
                 />
@@ -84,7 +86,7 @@ function Page() {
                   Active Deals
                 </Text>
                 <DealsTable
-                  data={dealsData?.data || []}
+                  data={dealsData ?? undefined}
                   error={dealsError}
                   loading={dealsLoading}
                 />
@@ -97,7 +99,7 @@ function Page() {
                   Recent Activities
                 </Text>
                 <ActivitiesTimeline
-                  data={activitiesData?.data || []}
+                  data={activitiesData ?? undefined}
                   error={activitiesError}
                   loading={activitiesLoading}
                 />

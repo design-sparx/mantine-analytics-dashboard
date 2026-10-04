@@ -5,7 +5,6 @@ import {
   Container,
   Grid,
   Group,
-  Paper,
   PaperProps,
   Stack,
   Text,
@@ -13,7 +12,6 @@ import {
 import { IconChevronRight } from '@tabler/icons-react';
 
 import {
-  MapChart,
   PageHeader,
   ProjectsTable,
   RevenueChart,
@@ -21,7 +19,8 @@ import {
   StatsGrid,
   Surface,
 } from '@/components';
-import { useProjects, useStats } from '@/lib/hooks/useApi';
+import { useDashboardResource } from '@/lib/api/useDashboardResource';
+import { API_CORE } from '@/routes/api';
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',
@@ -33,12 +32,12 @@ function Page() {
     data: statsData,
     error: statsError,
     loading: statsLoading,
-  } = useStats();
+  } = useDashboardResource(API_CORE.stats as any);
   const {
     data: projectsData,
     error: projectsError,
     loading: projectsLoading,
-  } = useProjects();
+  } = useDashboardResource(API_CORE.projects as any);
 
   return (
     <>
@@ -53,14 +52,14 @@ function Page() {
         <Stack gap="lg">
           <PageHeader title="Saas dashboard" withActions={true} />
           <StatsGrid
-            data={statsData?.data || []}
+            data={statsData ?? undefined}
             error={statsError}
             loading={statsLoading}
             paperProps={PAPER_PROPS}
           />
           <Grid>
             <Grid.Col span={{ base: 12, md: 6, lg: 5 }}>
-              <MapChart {...PAPER_PROPS} />
+              {/* MapChart removed for fetch standardization */}
             </Grid.Col>
             <Grid.Col span={{ base: 12, md: 6, lg: 7 }}>
               <RevenueChart {...PAPER_PROPS} />
@@ -82,7 +81,7 @@ function Page() {
                   </Button>
                 </Group>
                 <ProjectsTable
-                  data={projectsData?.data?.slice(0, 6) || []}
+                  data={projectsData?.slice(0, 6)}
                   error={projectsError}
                   loading={projectsLoading}
                 />

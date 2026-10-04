@@ -11,7 +11,20 @@
  * `MISSING` and are ticket 06's job to create.
  */
 
-const api = (path: string) => `/api${path}`;
+/**
+ * Prefixes a path and preserves its literal type.
+ *
+ * Two things are needed for the literal to survive. The `const` type parameter
+ * keeps `Path` as a literal rather than widening it to `string`, and the
+ * explicit `: `/api${Path}`` return annotation is what makes TypeScript emit a
+ * template literal type instead of plain `string` — inference only produces
+ * template literal types when there is a contextual type to check against.
+ * That is what lets `useDashboardResource(API_CRM.stats)` infer the payload
+ * type for that endpoint from the payload map, so a page cannot pass an
+ * endpoint whose type it has not declared.
+ */
+const api = <const Path extends string>(path: Path): `/api${Path}` =>
+  `/api${path}`;
 
 /** Top-level and app endpoints. */
 export const API_CORE = {

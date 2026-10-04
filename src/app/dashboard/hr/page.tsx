@@ -13,6 +13,8 @@ import {
   StatsGrid,
   Surface,
 } from '@/components';
+import { useDashboardResource } from '@/lib/api/useDashboardResource';
+import { API_HR } from '@/routes/api';
 import { IApiResponse } from '@/types/api-response';
 
 const PAPER_PROPS: PaperProps = {
@@ -25,37 +27,37 @@ function Page() {
     data: statsData,
     error: statsError,
     loading: statsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/hr/stats');
+  } = useDashboardResource(API_HR.stats);
 
   const {
     data: distributionData,
     error: distributionError,
     loading: distributionLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/hr/employee-distribution');
+  } = useDashboardResource(API_HR.employeeDistribution);
 
   const {
     data: pipelineData,
     error: pipelineError,
     loading: pipelineLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/hr/recruitment-pipeline');
+  } = useDashboardResource(API_HR.recruitmentPipeline);
 
   const {
     data: performanceData,
     error: performanceError,
     loading: performanceLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/hr/performance');
+  } = useDashboardResource(API_HR.performance);
 
   const {
     data: positionsData,
     error: positionsError,
     loading: positionsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/hr/open-positions');
+  } = useDashboardResource(API_HR.openPositions);
 
   const {
     data: attendanceData,
     error: attendanceError,
     loading: attendanceLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/hr/attendance');
+  } = useDashboardResource(API_HR.attendance);
 
   return (
     <>
@@ -71,7 +73,7 @@ function Page() {
           <PageHeader title="HR dashboard" withActions={true} />
 
           <StatsGrid
-            data={statsData?.data || []}
+            data={statsData ?? undefined}
             error={statsError}
             loading={statsLoading}
             paperProps={PAPER_PROPS}
@@ -84,7 +86,7 @@ function Page() {
                   Employee Performance Trends
                 </Text>
                 <EmployeePerformanceChart
-                  data={performanceData?.data || []}
+                  data={performanceData ?? undefined}
                   error={performanceError}
                   loading={performanceLoading}
                 />
@@ -96,7 +98,7 @@ function Page() {
                   Employee Distribution
                 </Text>
                 <EmployeeDistributionChart
-                  data={distributionData?.data || []}
+                  data={distributionData ?? undefined}
                   error={distributionError}
                   loading={distributionLoading}
                 />
@@ -109,7 +111,7 @@ function Page() {
                   Recruitment Pipeline
                 </Text>
                 <RecruitmentPipelineChart
-                  data={pipelineData?.data || []}
+                  data={pipelineData ?? undefined}
                   error={pipelineError}
                   loading={pipelineLoading}
                 />
@@ -122,7 +124,7 @@ function Page() {
                   Attendance Tracking
                 </Text>
                 <AttendanceChart
-                  data={attendanceData?.data || []}
+                  data={attendanceData ?? undefined}
                   error={attendanceError}
                   loading={attendanceLoading}
                 />
@@ -135,7 +137,7 @@ function Page() {
                   Open Positions
                 </Text>
                 <OpenPositionsTable
-                  data={positionsData?.data || []}
+                  data={positionsData ?? undefined}
                   error={positionsError}
                   loading={positionsLoading}
                 />

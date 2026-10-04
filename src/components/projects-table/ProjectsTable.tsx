@@ -5,7 +5,7 @@ import { DataTable } from 'mantine-datatable';
 
 import { ErrorAlert } from '@/components';
 
-import type { ProjectDto } from '@/types';
+import type { ProjectsDto } from '@/types/generated-fixtures';
 
 type Status = 'In Progress' | 'Cancelled' | 'Completed' | 'Pending' | string;
 
@@ -46,7 +46,7 @@ type ProjectItem = {
 };
 
 type ProjectsTableProps = {
-  data?: ProjectDto[];
+  data?: ProjectsDto[];
   error: Error | null | undefined | ReactNode;
   loading: boolean;
 };
