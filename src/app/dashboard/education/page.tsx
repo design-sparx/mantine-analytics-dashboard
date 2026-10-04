@@ -13,6 +13,8 @@ import {
   StudentEnrollmentChart,
   Surface,
 } from '@/components';
+import { useDashboardResource } from '@/lib/api/useDashboardResource';
+import { API_EDUCATION } from '@/routes/api';
 import { IApiResponse } from '@/types/api-response';
 
 const PAPER_PROPS: PaperProps = {
@@ -25,37 +27,37 @@ function Page() {
     data: statsData,
     error: statsError,
     loading: statsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/education/stats');
+  } = useDashboardResource(API_EDUCATION.stats);
 
   const {
     data: enrollmentData,
     error: enrollmentError,
     loading: enrollmentLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/education/enrollment');
+  } = useDashboardResource(API_EDUCATION.enrollment);
 
   const {
     data: coursesData,
     error: coursesError,
     loading: coursesLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/education/courses');
+  } = useDashboardResource(API_EDUCATION.courses);
 
   const {
     data: gradesData,
     error: gradesError,
     loading: gradesLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/education/grades');
+  } = useDashboardResource(API_EDUCATION.grades);
 
   const {
     data: instructorsData,
     error: instructorsError,
     loading: instructorsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/education/instructors');
+  } = useDashboardResource(API_EDUCATION.instructors);
 
   const {
     data: activityData,
     error: activityError,
     loading: activityLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/education/activity');
+  } = useDashboardResource(API_EDUCATION.activity);
 
   return (
     <>
@@ -71,7 +73,7 @@ function Page() {
           <PageHeader title="Education dashboard" withActions={true} />
 
           <StatsGrid
-            data={statsData?.data || []}
+            data={statsData ?? undefined}
             error={statsError}
             loading={statsLoading}
             paperProps={PAPER_PROPS}
@@ -81,7 +83,7 @@ function Page() {
             <Grid.Col span={{ base: 12, md: 8 }}>
               <Surface {...PAPER_PROPS}>
                 <StudentEnrollmentChart
-                  data={enrollmentData?.data || []}
+                  data={enrollmentData ?? undefined}
                   error={enrollmentError}
                   loading={enrollmentLoading}
                 />
@@ -93,7 +95,7 @@ function Page() {
                   Grade Distribution
                 </Text>
                 <GradeDistributionChart
-                  data={gradesData?.data || []}
+                  data={gradesData ?? undefined}
                   error={gradesError}
                   loading={gradesLoading}
                 />
@@ -106,7 +108,7 @@ function Page() {
                   Student Activity (This Week)
                 </Text>
                 <StudentActivityChart
-                  data={activityData?.data || []}
+                  data={activityData ?? undefined}
                   error={activityError}
                   loading={activityLoading}
                 />
@@ -119,7 +121,7 @@ function Page() {
                   Course Completion Rates
                 </Text>
                 <CourseCompletionTable
-                  data={coursesData?.data || []}
+                  data={coursesData ?? undefined}
                   error={coursesError}
                   loading={coursesLoading}
                 />
@@ -132,7 +134,7 @@ function Page() {
                   Instructor Performance
                 </Text>
                 <InstructorPerformanceTable
-                  data={instructorsData?.data || []}
+                  data={instructorsData ?? undefined}
                   error={instructorsError}
                   loading={instructorsLoading}
                 />

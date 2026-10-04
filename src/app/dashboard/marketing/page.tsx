@@ -1,7 +1,6 @@
 'use client';
 
 import { Container, Grid, PaperProps, Stack, Text } from '@mantine/core';
-import { useFetch } from '@mantine/hooks';
 
 import {
   CampaignPerformanceChart,
@@ -13,7 +12,8 @@ import {
   TopCampaignsTable,
   TrafficSourcesChart,
 } from '@/components';
-import { IApiResponse } from '@/types/api-response';
+import { useDashboardResource } from '@/lib/api/useDashboardResource';
+import { API_MARKETING } from '@/routes/api';
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',
@@ -25,37 +25,37 @@ function Page() {
     data: statsData,
     error: statsError,
     loading: statsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/marketing/stats');
+  } = useDashboardResource(API_MARKETING.stats);
 
   const {
     data: campaignsData,
     error: campaignsError,
     loading: campaignsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/marketing/campaigns');
+  } = useDashboardResource(API_MARKETING.campaigns);
 
   const {
     data: socialMediaData,
     error: socialMediaError,
     loading: socialMediaLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/marketing/social-media');
+  } = useDashboardResource(API_MARKETING.socialMedia);
 
   const {
     data: emailData,
     error: emailError,
     loading: emailLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/marketing/email-campaigns');
+  } = useDashboardResource(API_MARKETING.emailCampaigns);
 
   const {
     data: trafficData,
     error: trafficError,
     loading: trafficLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/marketing/traffic-sources');
+  } = useDashboardResource(API_MARKETING.trafficSources);
 
   const {
     data: topCampaignsData,
     error: topCampaignsError,
     loading: topCampaignsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/marketing/top-campaigns');
+  } = useDashboardResource(API_MARKETING.topCampaigns);
 
   return (
     <>
@@ -71,7 +71,7 @@ function Page() {
           <PageHeader title="Marketing dashboard" withActions={true} />
 
           <StatsGrid
-            data={statsData?.data || []}
+            data={statsData ?? undefined}
             error={statsError}
             loading={statsLoading}
             paperProps={PAPER_PROPS}
@@ -81,7 +81,7 @@ function Page() {
             <Grid.Col span={{ base: 12, md: 8 }}>
               <Surface {...PAPER_PROPS}>
                 <CampaignPerformanceChart
-                  data={campaignsData?.data || []}
+                  data={campaignsData ?? undefined}
                   error={campaignsError}
                   loading={campaignsLoading}
                 />
@@ -93,7 +93,7 @@ function Page() {
                   Traffic Sources
                 </Text>
                 <TrafficSourcesChart
-                  data={trafficData?.data || []}
+                  data={trafficData ?? undefined}
                   error={trafficError}
                   loading={trafficLoading}
                 />
@@ -106,7 +106,7 @@ function Page() {
                   Social Media Performance
                 </Text>
                 <SocialMediaTable
-                  data={socialMediaData?.data || []}
+                  data={socialMediaData ?? undefined}
                   error={socialMediaError}
                   loading={socialMediaLoading}
                 />
@@ -119,7 +119,7 @@ function Page() {
                   Email Campaigns
                 </Text>
                 <EmailCampaignsTable
-                  data={emailData?.data?.slice(0, 5) || []}
+                  data={emailData?.slice(0, 5)}
                   error={emailError}
                   loading={emailLoading}
                 />
@@ -132,7 +132,7 @@ function Page() {
                   Top Performing Campaigns
                 </Text>
                 <TopCampaignsTable
-                  data={topCampaignsData?.data || []}
+                  data={topCampaignsData ?? undefined}
                   error={topCampaignsError}
                   loading={topCampaignsLoading}
                 />

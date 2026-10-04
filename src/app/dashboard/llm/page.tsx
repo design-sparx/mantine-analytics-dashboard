@@ -27,16 +27,36 @@ const PAPER_PROPS: PaperProps = {
 };
 
 function Page() {
-  const { data: stats, loading: statsLoading, error: statsError } = useLlmStats();
-  const { data: models, loading: modelsLoading, error: modelsError } =
-    useLlmModelUsage();
-  const { data: tokens, loading: tokensLoading, error: tokensError } =
-    useLlmTokenTrends();
-  const { data: useCases, loading: useCasesLoading, error: useCasesError } =
-    useLlmUseCases();
-  const { data: performance, loading: performanceLoading, error: performanceError } =
-    useLlmPerformance();
-  const { data: costs, loading: costsLoading, error: costsError } = useLlmCosts();
+  const {
+    data: stats,
+    loading: statsLoading,
+    error: statsError,
+  } = useLlmStats();
+  const {
+    data: models,
+    loading: modelsLoading,
+    error: modelsError,
+  } = useLlmModelUsage();
+  const {
+    data: tokens,
+    loading: tokensLoading,
+    error: tokensError,
+  } = useLlmTokenTrends();
+  const {
+    data: useCases,
+    loading: useCasesLoading,
+    error: useCasesError,
+  } = useLlmUseCases();
+  const {
+    data: performance,
+    loading: performanceLoading,
+    error: performanceError,
+  } = useLlmPerformance();
+  const {
+    data: costs,
+    loading: costsLoading,
+    error: costsError,
+  } = useLlmCosts();
 
   return (
     <>
