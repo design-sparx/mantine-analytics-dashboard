@@ -1,33 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import { serveMock } from '@/lib/api/mock-route';
 
-import { NextRequest, NextResponse } from 'next/server';
-
-export async function GET(request: NextRequest) {
-  try {
-    const filePath = path.join(
-      process.cwd(),
-      'public',
-      'mocks',
-      'location-analytics.json',
-    );
-    const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-
-    return NextResponse.json({
-      succeeded: true,
-      data,
-      errors: [],
-      message: 'Location analytics retrieved successfully',
-    });
-  } catch (error) {
-    return NextResponse.json(
-      {
-        succeeded: false,
-        data: null,
-        errors: ['Failed to fetch location analytics'],
-        message: 'Error retrieving data',
-      },
-      { status: 500 },
-    );
-  }
+export async function GET() {
+  return serveMock('location-analytics.json', 'Location analytics');
 }
