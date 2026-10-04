@@ -1,12 +1,13 @@
 import {
   Badge,
   Group,
+  Rating,
   Skeleton,
   Stack,
   Table,
   Text,
-  Rating,
 } from '@mantine/core';
+
 import { ErrorAlert } from '@/components';
 
 interface Instructor {

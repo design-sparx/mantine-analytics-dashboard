@@ -1,19 +1,25 @@
-'use client';
+﻿'use client';
 
 import { Container, Grid, PaperProps, Stack, Text } from '@mantine/core';
 
 import {
+  CostAnalysisChart,
+  ModelUsageTable,
   PageHeader,
+  PerformanceMetricsChart,
   StatsGrid,
   Surface,
-  ModelUsageTable,
   TokenUsageChart,
   UseCaseChart,
-  PerformanceMetricsChart,
-  CostAnalysisChart,
 } from '@/components';
-import { useFetch } from '@mantine/hooks';
-import { IApiResponse } from '@/types/api-response';
+import {
+  useLlmCosts,
+  useLlmModelUsage,
+  useLlmPerformance,
+  useLlmStats,
+  useLlmTokenTrends,
+  useLlmUseCases,
+} from '@/lib/api/endpointHooks';
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',
@@ -22,40 +28,35 @@ const PAPER_PROPS: PaperProps = {
 
 function Page() {
   const {
-    data: statsData,
-    error: statsError,
+    data: stats,
     loading: statsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/llm/stats');
-
+    error: statsError,
+  } = useLlmStats();
   const {
-    data: modelsData,
-    error: modelsError,
+    data: models,
     loading: modelsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/llm/model-usage');
-
+    error: modelsError,
+  } = useLlmModelUsage();
   const {
-    data: tokensData,
-    error: tokensError,
+    data: tokens,
     loading: tokensLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/llm/token-trends');
-
+    error: tokensError,
+  } = useLlmTokenTrends();
   const {
-    data: useCasesData,
-    error: useCasesError,
+    data: useCases,
     loading: useCasesLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/llm/use-cases');
-
+    error: useCasesError,
+  } = useLlmUseCases();
   const {
-    data: performanceData,
-    error: performanceError,
+    data: performance,
     loading: performanceLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/llm/performance');
-
+    error: performanceError,
+  } = useLlmPerformance();
   const {
-    data: costsData,
-    error: costsError,
+    data: costs,
     loading: costsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/llm/costs');
+    error: costsError,
+  } = useLlmCosts();
 
   return (
     <>
@@ -71,7 +72,7 @@ function Page() {
           <PageHeader title="LLM/AI dashboard" withActions={true} />
 
           <StatsGrid
-            data={statsData?.data || []}
+            data={stats}
             error={statsError}
             loading={statsLoading}
             paperProps={PAPER_PROPS}
@@ -84,7 +85,7 @@ function Page() {
                   Token Usage Trends
                 </Text>
                 <TokenUsageChart
-                  data={tokensData?.data || []}
+                  data={tokens}
                   error={tokensError}
                   loading={tokensLoading}
                 />
@@ -96,7 +97,7 @@ function Page() {
                   Use Case Distribution
                 </Text>
                 <UseCaseChart
-                  data={useCasesData?.data || []}
+                  data={useCases}
                   error={useCasesError}
                   loading={useCasesLoading}
                 />
@@ -109,7 +110,7 @@ function Page() {
                   Performance Metrics
                 </Text>
                 <PerformanceMetricsChart
-                  data={performanceData?.data || []}
+                  data={performance}
                   error={performanceError}
                   loading={performanceLoading}
                 />
@@ -122,7 +123,7 @@ function Page() {
                   Cost Analysis
                 </Text>
                 <CostAnalysisChart
-                  data={costsData?.data || []}
+                  data={costs}
                   error={costsError}
                   loading={costsLoading}
                 />
@@ -135,7 +136,7 @@ function Page() {
                   Model Usage Statistics
                 </Text>
                 <ModelUsageTable
-                  data={modelsData?.data || []}
+                  data={models}
                   error={modelsError}
                   loading={modelsLoading}
                 />

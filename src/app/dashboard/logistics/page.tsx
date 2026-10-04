@@ -1,18 +1,20 @@
 'use client';
 
 import { Container, Grid, PaperProps, Stack, Text } from '@mantine/core';
+import { useFetch } from '@mantine/hooks';
 
 import {
+  ActiveShipmentsTable,
+  DeliveryPerformanceChart,
+  FleetStatusChart,
   PageHeader,
+  RouteEfficiencyTable,
   StatsGrid,
   Surface,
-  ActiveShipmentsTable,
-  FleetStatusChart,
-  DeliveryPerformanceChart,
-  RouteEfficiencyTable,
   WarehouseInventoryChart,
 } from '@/components';
-import { useFetch } from '@mantine/hooks';
+import { useDashboardResource } from '@/lib/api/useDashboardResource';
+import { API_LOGISTICS } from '@/routes/api';
 import { IApiResponse } from '@/types/api-response';
 
 const PAPER_PROPS: PaperProps = {
@@ -25,37 +27,37 @@ function Page() {
     data: statsData,
     error: statsError,
     loading: statsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/logistics/stats');
+  } = useDashboardResource(API_LOGISTICS.stats);
 
   const {
     data: shipmentsData,
     error: shipmentsError,
     loading: shipmentsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/logistics/shipments');
+  } = useDashboardResource(API_LOGISTICS.shipments);
 
   const {
     data: fleetData,
     error: fleetError,
     loading: fleetLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/logistics/fleet-status');
+  } = useDashboardResource(API_LOGISTICS.fleetStatus);
 
   const {
     data: deliveryData,
     error: deliveryError,
     loading: deliveryLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/logistics/delivery-performance');
+  } = useDashboardResource(API_LOGISTICS.deliveryPerformance);
 
   const {
     data: routeData,
     error: routeError,
     loading: routeLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/logistics/route-efficiency');
+  } = useDashboardResource(API_LOGISTICS.routeEfficiency);
 
   const {
     data: warehouseData,
     error: warehouseError,
     loading: warehouseLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/logistics/warehouse-inventory');
+  } = useDashboardResource(API_LOGISTICS.warehouseInventory);
 
   return (
     <>
@@ -71,7 +73,7 @@ function Page() {
           <PageHeader title="Logistics dashboard" withActions={true} />
 
           <StatsGrid
-            data={statsData?.data || []}
+            data={statsData ?? undefined}
             error={statsError}
             loading={statsLoading}
             paperProps={PAPER_PROPS}
@@ -84,7 +86,7 @@ function Page() {
                   Delivery Performance
                 </Text>
                 <DeliveryPerformanceChart
-                  data={deliveryData?.data || []}
+                  data={deliveryData ?? undefined}
                   error={deliveryError}
                   loading={deliveryLoading}
                 />
@@ -96,7 +98,7 @@ function Page() {
                   Fleet Status
                 </Text>
                 <FleetStatusChart
-                  data={fleetData?.data || []}
+                  data={fleetData ?? undefined}
                   error={fleetError}
                   loading={fleetLoading}
                 />
@@ -109,7 +111,7 @@ function Page() {
                   Route Efficiency
                 </Text>
                 <RouteEfficiencyTable
-                  data={routeData?.data || []}
+                  data={routeData ?? undefined}
                   error={routeError}
                   loading={routeLoading}
                 />
@@ -122,7 +124,7 @@ function Page() {
                   Warehouse Capacity
                 </Text>
                 <WarehouseInventoryChart
-                  data={warehouseData?.data || []}
+                  data={warehouseData ?? undefined}
                   error={warehouseError}
                   loading={warehouseLoading}
                 />
@@ -135,7 +137,7 @@ function Page() {
                   Active Shipments
                 </Text>
                 <ActiveShipmentsTable
-                  data={shipmentsData?.data || []}
+                  data={shipmentsData ?? undefined}
                   error={shipmentsError}
                   loading={shipmentsLoading}
                 />

@@ -1,5 +1,6 @@
-import { Skeleton, Stack } from '@mantine/core';
 import { BarChart } from '@mantine/charts';
+import { Skeleton, Stack } from '@mantine/core';
+
 import { ErrorAlert } from '@/components';
 
 interface ActivityData {

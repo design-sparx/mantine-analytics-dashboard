@@ -37,8 +37,8 @@ import {
   UserProfileCard,
 } from '@/components';
 import { useFetchData } from '@/hooks';
-import UserData from '@public/mocks/UserProfile.json';
 import { PATH_DASHBOARD } from '@/routes';
+import UserData from '@public/mocks/UserProfile.json';
 
 import classes from './page.module.css';
 

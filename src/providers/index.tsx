@@ -1,7 +1,9 @@
 import React from 'react';
+
+import { DirectionProvider } from '@mantine/core';
+
 import { SystemNotificationsProvider } from '@/contexts/system-notifications';
 import { ThemeProvider } from '@/providers/theme';
-import { DirectionProvider } from '@mantine/core';
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (

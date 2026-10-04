@@ -1,17 +1,19 @@
 'use client';
 
-import { Container, Grid, PaperProps, Stack, Text, Group } from '@mantine/core';
+import { Container, Grid, Group, PaperProps, Stack, Text } from '@mantine/core';
+import { useFetch } from '@mantine/hooks';
 
 import {
+  CategoryRevenueChart,
+  OrderStatusChart,
   PageHeader,
+  RevenueChart,
   StatsGrid,
   Surface,
   TopProductsTable,
-  OrderStatusChart,
-  CategoryRevenueChart,
-  RevenueChart,
 } from '@/components';
-import { useFetch } from '@mantine/hooks';
+import { useDashboardResource } from '@/lib/api/useDashboardResource';
+import { API_ECOMMERCE } from '@/routes/api';
 import { IApiResponse } from '@/types/api-response';
 
 const PAPER_PROPS: PaperProps = {
@@ -24,25 +26,25 @@ function Page() {
     data: statsData,
     error: statsError,
     loading: statsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/ecommerce/stats');
+  } = useDashboardResource(API_ECOMMERCE.stats);
 
   const {
     data: productsData,
     error: productsError,
     loading: productsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/ecommerce/products');
+  } = useDashboardResource(API_ECOMMERCE.products);
 
   const {
     data: ordersData,
     error: ordersError,
     loading: ordersLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/ecommerce/orders');
+  } = useDashboardResource(API_ECOMMERCE.orders);
 
   const {
     data: categoriesData,
     error: categoriesError,
     loading: categoriesLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/ecommerce/categories');
+  } = useDashboardResource(API_ECOMMERCE.categories);
 
   return (
     <>
@@ -58,7 +60,7 @@ function Page() {
           <PageHeader title="E-commerce dashboard" withActions={true} />
 
           <StatsGrid
-            data={statsData?.data || []}
+            data={statsData ?? undefined}
             error={statsError}
             loading={statsLoading}
             paperProps={PAPER_PROPS}
@@ -74,7 +76,7 @@ function Page() {
                   Order Status
                 </Text>
                 <OrderStatusChart
-                  data={ordersData?.data || []}
+                  data={ordersData ?? undefined}
                   error={ordersError}
                   loading={ordersLoading}
                 />
@@ -84,7 +86,7 @@ function Page() {
             <Grid.Col span={{ base: 12, md: 6 }}>
               <Surface {...PAPER_PROPS}>
                 <CategoryRevenueChart
-                  data={categoriesData?.data || []}
+                  data={categoriesData ?? undefined}
                   error={categoriesError}
                   loading={categoriesLoading}
                 />
@@ -99,7 +101,7 @@ function Page() {
                   </Text>
                 </Group>
                 <TopProductsTable
-                  data={productsData?.data?.slice(0, 5) || []}
+                  data={productsData?.slice(0, 5)}
                   error={productsError}
                   loading={productsLoading}
                 />

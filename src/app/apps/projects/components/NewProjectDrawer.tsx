@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 
@@ -14,10 +14,10 @@ import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import type { ProjectDto, ApiResponse } from '@/types';
+import type { IApiResponse, ProjectDto } from '@/types';
 
 type NewProjectDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
-  onCreate: (data: Partial<ProjectDto>) => Promise<ApiResponse<ProjectDto>>;
+  onCreate: (data: Partial<ProjectDto>) => Promise<IApiResponse<ProjectDto>>;
   onProjectCreated?: () => void;
 };
 

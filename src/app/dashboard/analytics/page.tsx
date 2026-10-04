@@ -19,7 +19,8 @@ import {
   StatsCard,
   TrafficTable,
 } from '@/components';
-import { useStats, useLanguages, useTraffic } from '@/lib/hooks/useApi';
+import { useDashboardResource } from '@/lib/api/useDashboardResource';
+import { API_CORE } from '@/routes/api';
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',
@@ -31,17 +32,17 @@ function Page() {
     data: statsData,
     error: statsError,
     loading: statsLoading,
-  } = useStats();
+  } = useDashboardResource(API_CORE.stats);
   const {
     data: languagesData,
     error: languageError,
     loading: languageLoading,
-  } = useLanguages();
+  } = useDashboardResource(API_CORE.languages);
   const {
     data: trafficData,
     error: trafficError,
     loading: trafficLoading,
-  } = useTraffic();
+  } = useDashboardResource(API_CORE.traffic);
 
   return (
     <>
@@ -93,7 +94,7 @@ function Page() {
             </Grid.Col>
             <Grid.Col span={{ base: 12, md: 6, lg: 4 }}>
               <LanguageTable
-                data={languagesData?.data?.slice(0, 6) || []}
+                data={languagesData?.slice(0, 6)}
                 error={languageError}
                 loading={languageLoading}
                 {...PAPER_PROPS}
@@ -101,7 +102,7 @@ function Page() {
             </Grid.Col>
             <Grid.Col span={{ base: 12, md: 6, lg: 8 }}>
               <TrafficTable
-                data={trafficData?.data?.slice(0, 6) || []}
+                data={trafficData?.slice(0, 6)}
                 error={trafficError}
                 loading={trafficLoading}
                 {...PAPER_PROPS}

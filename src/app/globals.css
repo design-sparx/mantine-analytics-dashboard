@@ -3,7 +3,16 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family:
+    var(--font-inter),
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    sans-serif;
 }
 
 /* Custom scrollbar */
@@ -65,7 +74,8 @@ body {
 /* Base surface card styles */
 .surface-card {
   border-radius: var(--mantine-radius-sm);
-  transition: all var(--mantine-transition-duration, 0.2s) var(--mantine-transition-timing, ease);
+  transition: all var(--mantine-transition-duration, 0.2s)
+    var(--mantine-transition-timing, ease);
   background-color: var(--mantine-color-body);
 }
 
@@ -86,7 +96,8 @@ body {
 /* Bordered card feel - subtle border instead of shadow */
 .surface-bordered {
   box-shadow: none;
-  border: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  border: 1px solid
+    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
   background-color: var(--mantine-color-body);
 }
 
@@ -104,9 +115,10 @@ body {
       rgba(255, 255, 255, 0.05) 100%
     );
     border: 1px solid rgba(150, 150, 150, 0.35);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 4px 8px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.1);
   }
 
   @mixin dark {
@@ -116,9 +128,10 @@ body {
       rgba(255, 255, 255, 0.02) 100%
     );
     border: 1px solid rgba(100, 100, 100, 0.1);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+    box-shadow:
+      0 4px 8px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.05);
   }
 }
 
@@ -151,9 +164,10 @@ body {
     );
     border-color: rgba(255, 255, 255, 0.4);
     transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.15);
+    box-shadow:
+      0 12px 40px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.15);
   }
 
   @mixin dark {
@@ -163,9 +177,10 @@ body {
       rgba(255, 255, 255, 0.05) 100%
     );
     border-color: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+    box-shadow:
+      0 12px 40px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.08);
   }
 }
 

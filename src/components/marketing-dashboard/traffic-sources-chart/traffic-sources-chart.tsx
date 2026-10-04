@@ -1,5 +1,6 @@
-import { Skeleton, Stack } from '@mantine/core';
 import { DonutChart } from '@mantine/charts';
+import { Skeleton, Stack } from '@mantine/core';
+
 import { ErrorAlert } from '@/components';
 
 interface TrafficSource {

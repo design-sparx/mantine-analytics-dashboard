@@ -21,9 +21,9 @@ import {
   StatsGrid,
   Surface,
 } from '@/components';
-import { useFetch } from '@mantine/hooks';
+import { useDashboardResource } from '@/lib/api/useDashboardResource';
 import { PATH_TASKS } from '@/routes';
-import { IApiResponse } from '@/types/api-response';
+import { API_CORE } from '@/routes/api';
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',
@@ -35,13 +35,13 @@ function Page() {
     data: projectsData,
     error: projectsError,
     loading: projectsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/projects');
+  } = useDashboardResource(API_CORE.projects);
 
   const {
     data: statsData,
     error: statsError,
     loading: statsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/stats');
+  } = useDashboardResource(API_CORE.stats);
 
   return (
     <>
@@ -56,7 +56,7 @@ function Page() {
         <Stack gap="lg">
           <PageHeader title="Default dashboard" withActions={true} />
           <StatsGrid
-            data={statsData?.data?.slice(0, 4) || []}
+            data={statsData?.data?.slice(0, 4)}
             loading={statsLoading}
             error={statsError}
             paperProps={PAPER_PROPS}
@@ -87,7 +87,7 @@ function Page() {
                   </Button>
                 </Group>
                 <ProjectsTable
-                  data={projectsData?.data?.slice(0, 6) || []}
+                  data={projectsData?.slice(0, 6) ?? undefined}
                   error={projectsError}
                   loading={projectsLoading}
                 />

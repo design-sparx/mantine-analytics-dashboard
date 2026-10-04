@@ -1,4 +1,4 @@
-import {
+﻿import {
   Badge,
   Group,
   Progress,
@@ -7,19 +7,13 @@ import {
   Table,
   Text,
 } from '@mantine/core';
+
 import { ErrorAlert } from '@/components';
 
-interface ModelUsage {
-  model: string;
-  requests: number;
-  tokens: number;
-  avgLatency: number;
-  successRate: number;
-  cost: number;
-}
+import type { LlmModelUsageDto } from '@/types';
 
 interface ModelUsageTableProps {
-  data?: ModelUsage[];
+  data?: LlmModelUsageDto[] | null;
   loading?: boolean;
   error?: Error | null;
 }
@@ -32,10 +26,14 @@ const getSuccessRateColor = (rate: number) => {
 };
 
 export const ModelUsageTable: React.FC<ModelUsageTableProps> = ({
-  data = [],
+  data,
   loading = false,
   error = null,
 }) => {
+  // The default only applies to `undefined`; a settled-but-empty response
+  // hands over `null`, so normalise once here.
+  const rows = data ?? [];
+
   if (error) {
     return (
       <ErrorAlert
@@ -55,7 +53,7 @@ export const ModelUsageTable: React.FC<ModelUsageTableProps> = ({
     );
   }
 
-  const rows = data.map((model) => (
+  const modelRows = rows.map((model) => (
     <Table.Tr key={model.model}>
       <Table.Td>
         <Text size="sm" fw={500}>
@@ -106,7 +104,7 @@ export const ModelUsageTable: React.FC<ModelUsageTableProps> = ({
             <Table.Th>Cost</Table.Th>
           </Table.Tr>
         </Table.Thead>
-        <Table.Tbody>{rows}</Table.Tbody>
+        <Table.Tbody>{modelRows}</Table.Tbody>
       </Table>
     </Table.ScrollContainer>
   );

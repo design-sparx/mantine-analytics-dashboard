@@ -1,27 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { serveMock } from '@/lib/api/mock-route';
 
-export async function GET(request: NextRequest) {
-  try {
-    const filePath = path.join(process.cwd(), 'public', 'mocks', 'deals.json');
-    const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-
-    return NextResponse.json({
-      succeeded: true,
-      data,
-      errors: [],
-      message: 'Deals retrieved successfully',
-    });
-  } catch (error) {
-    return NextResponse.json(
-      {
-        succeeded: false,
-        data: null,
-        errors: ['Failed to fetch deals'],
-        message: 'Error retrieving data',
-      },
-      { status: 500 },
-    );
-  }
+export async function GET() {
+  return serveMock('deals.json', 'Deals');
 }

@@ -10,8 +10,9 @@ import {
 import { IconEdit, IconEye, IconFileText } from '@tabler/icons-react';
 
 import { Surface } from '@/components';
-import type { InvoiceDto } from '@/types';
 import { getInvoiceStatusColor, getInvoiceStatusLabel } from '@/types/invoice';
+
+import type { InvoiceDto } from '@/types';
 
 interface InvoiceCardProps extends Omit<PaperProps, 'children'> {
   data: InvoiceDto;

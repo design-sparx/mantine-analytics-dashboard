@@ -8,6 +8,7 @@ import {
   Table,
   Text,
 } from '@mantine/core';
+
 import { ErrorAlert } from '@/components';
 
 interface Deal {

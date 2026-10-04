@@ -1,16 +1,18 @@
 'use client';
 
 import { Container, Grid, PaperProps, Stack, Text } from '@mantine/core';
+import { useFetch } from '@mantine/hooks';
 
 import {
-  PageHeader,
-  StatsGrid,
-  Surface,
   CashflowChart,
   ExpenseBreakdown,
   FinanceInvoicesTable,
+  PageHeader,
+  StatsGrid,
+  Surface,
 } from '@/components';
-import { useFetch } from '@mantine/hooks';
+import { useDashboardResource } from '@/lib/api/useDashboardResource';
+import { API_FINANCE } from '@/routes/api';
 import { IApiResponse } from '@/types/api-response';
 
 const PAPER_PROPS: PaperProps = {
@@ -23,25 +25,25 @@ function Page() {
     data: statsData,
     error: statsError,
     loading: statsLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/finance/stats');
+  } = useDashboardResource(API_FINANCE.stats);
 
   const {
     data: cashflowData,
     error: cashflowError,
     loading: cashflowLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/finance/cashflow');
+  } = useDashboardResource(API_FINANCE.cashflow);
 
   const {
     data: expensesData,
     error: expensesError,
     loading: expensesLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/finance/expenses');
+  } = useDashboardResource(API_FINANCE.expenses);
 
   const {
     data: invoicesData,
     error: invoicesError,
     loading: invoicesLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/finance/invoices');
+  } = useDashboardResource(API_FINANCE.invoices);
 
   return (
     <>
@@ -57,7 +59,7 @@ function Page() {
           <PageHeader title="Finance dashboard" withActions={true} />
 
           <StatsGrid
-            data={statsData?.data || []}
+            data={statsData ?? undefined}
             error={statsError}
             loading={statsLoading}
             paperProps={PAPER_PROPS}
@@ -67,7 +69,7 @@ function Page() {
             <Grid.Col span={{ base: 12, md: 8 }}>
               <Surface {...PAPER_PROPS}>
                 <CashflowChart
-                  data={cashflowData?.data || []}
+                  data={cashflowData ?? undefined}
                   error={cashflowError}
                   loading={cashflowLoading}
                 />
@@ -76,7 +78,7 @@ function Page() {
             <Grid.Col span={{ base: 12, md: 4 }}>
               <Surface {...PAPER_PROPS}>
                 <ExpenseBreakdown
-                  data={expensesData?.data || []}
+                  data={expensesData ?? undefined}
                   error={expensesError}
                   loading={expensesLoading}
                 />
@@ -89,7 +91,7 @@ function Page() {
                   Recent Invoices
                 </Text>
                 <FinanceInvoicesTable
-                  data={invoicesData?.data || []}
+                  data={invoicesData ?? undefined}
                   error={invoicesError}
                   loading={invoicesLoading}
                 />

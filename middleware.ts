@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+
 import type { NextRequest } from 'next/server';
 
 // Auth middleware removed - all routes are now public for demo purposes

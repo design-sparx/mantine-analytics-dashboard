@@ -11,6 +11,7 @@ import {
 import { IconEdit, IconEye, IconMail, IconPhone } from '@tabler/icons-react';
 
 import { Surface } from '@/components';
+
 import type { CustomerDto, CustomerStatus } from '@/types';
 
 interface CustomerCardProps extends Omit<PaperProps, 'children'> {

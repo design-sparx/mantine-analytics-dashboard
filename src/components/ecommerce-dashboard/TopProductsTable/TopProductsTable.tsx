@@ -9,11 +9,14 @@ import {
   Text,
 } from '@mantine/core';
 import {
+  IconMinus,
   IconTrendingDown,
   IconTrendingUp,
-  IconMinus,
 } from '@tabler/icons-react';
+
 import { ErrorAlert } from '@/components';
+
+import type { TopProductsDto } from '@/types/generated-fixtures';
 
 interface Product {
   id: number;
@@ -29,7 +32,7 @@ interface Product {
 }
 
 interface TopProductsTableProps {
-  data?: Product[];
+  data?: TopProductsDto[];
   loading?: boolean;
   error?: Error | null;
 }

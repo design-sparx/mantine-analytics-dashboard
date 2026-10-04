@@ -1,39 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+﻿import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(request: NextRequest) {
-  try {
-    const filePath = path.join(
-      process.cwd(),
-      'public',
-      'mocks',
-      'UserProfile.json',
-    );
-    const fileContents = fs.readFileSync(filePath, 'utf8');
-    const profile = JSON.parse(fileContents);
+import { serveMock } from '@/lib/api/mock-route';
 
-    return NextResponse.json(
-      {
-        succeeded: true,
-        data: profile,
-        errors: [],
-        message: 'Profile retrieved successfully',
-      },
-      { status: 200 },
-    );
-  } catch (error) {
-    console.error('API error:', error);
-    return NextResponse.json(
-      {
-        succeeded: false,
-        data: null,
-        errors: ['Failed to fetch profile'],
-        message: 'Failed to fetch profile',
-      },
-      { status: 500 },
-    );
-  }
+export async function GET() {
+  return serveMock('UserProfile.json', 'Profile');
 }
 
 export async function PUT(request: NextRequest) {

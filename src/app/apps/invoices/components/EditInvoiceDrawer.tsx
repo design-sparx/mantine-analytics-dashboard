@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useEffect, useState } from 'react';
 
@@ -22,12 +22,13 @@ import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import type { InvoiceDto, ApiResponse } from '@/types';
 import {
   InvoiceStatus,
   getInvoiceStatusColor,
   getInvoiceStatusLabel,
 } from '@/types/invoice';
+
+import type { IApiResponse, InvoiceDto } from '@/types';
 
 // Simplified form values to match current InvoiceDto schema
 interface EditInvoiceFormValues {
@@ -48,7 +49,7 @@ type EditInvoiceDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
   onUpdate: (
     id: string,
     data: Partial<InvoiceDto>,
-  ) => Promise<ApiResponse<any>>;
+  ) => Promise<IApiResponse<any>>;
   onInvoiceUpdated?: () => void;
 };
 

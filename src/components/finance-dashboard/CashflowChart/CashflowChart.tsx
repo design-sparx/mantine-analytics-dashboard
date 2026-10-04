@@ -1,5 +1,6 @@
 import { AreaChart } from '@mantine/charts';
-import { Skeleton, Stack, Group, Text } from '@mantine/core';
+import { Group, Skeleton, Stack, Text } from '@mantine/core';
+
 import { ErrorAlert } from '@/components';
 
 interface Cashflow {

@@ -8,11 +8,14 @@ import {
   Text,
 } from '@mantine/core';
 import {
-  IconTrendingUp,
-  IconTrendingDown,
   IconMinus,
+  IconTrendingDown,
+  IconTrendingUp,
 } from '@tabler/icons-react';
+
 import { ErrorAlert } from '@/components';
+
+import type { SocialMediaStatsDto } from '@/types/generated-fixtures';
 
 interface SocialMedia {
   platform: string;
@@ -25,7 +28,7 @@ interface SocialMedia {
 }
 
 interface SocialMediaTableProps {
-  data?: SocialMedia[];
+  data?: SocialMediaStatsDto[];
   loading?: boolean;
   error?: Error | null;
 }

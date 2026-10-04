@@ -1,32 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { serveMock } from '@/lib/api/mock-route';
 
-export async function GET(request: NextRequest) {
-  try {
-    const filePath = path.join(
-      process.cwd(),
-      'public',
-      'mocks',
-      'traffic-sources.json',
-    );
-    const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-
-    return NextResponse.json({
-      succeeded: true,
-      data,
-      errors: [],
-      message: 'Traffic sources retrieved successfully',
-    });
-  } catch (error) {
-    return NextResponse.json(
-      {
-        succeeded: false,
-        data: null,
-        errors: ['Failed to fetch traffic sources'],
-        message: 'Error retrieving data',
-      },
-      { status: 500 },
-    );
-  }
+export async function GET() {
+  return serveMock('traffic-sources.json', 'Traffic sources');
 }

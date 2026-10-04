@@ -1,5 +1,6 @@
 'use client';
 
+import { BarChart } from '@mantine/charts';
 import {
   ActionIcon,
   Group,
@@ -7,7 +8,6 @@ import {
   Text,
   useMantineTheme,
 } from '@mantine/core';
-import { BarChart } from '@mantine/charts';
 import { IconDotsVertical } from '@tabler/icons-react';
 
 import { Surface } from '@/components';
