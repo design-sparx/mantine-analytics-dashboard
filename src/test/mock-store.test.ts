@@ -9,9 +9,12 @@ describe('mock-store', () => {
   });
 
   it('finds by id', async () => {
-    const all = await mockStore.getAll('KanbanTasks.json');
+    const all = await mockStore.getAll<any>('KanbanTasks.json');
     const first = all[0];
-    const found = await mockStore.getById('KanbanTasks.json', first.id);
+    const found = await mockStore.getById(
+      'KanbanTasks.json',
+      first.id as string,
+    );
     expect(found).toEqual(first);
   });
 
@@ -21,24 +24,31 @@ describe('mock-store', () => {
   });
 
   it('creates with synthetic id', async () => {
-    const before = await mockStore.getAll('KanbanTasks.json');
+    const before = await mockStore.getAll<any>('KanbanTasks.json');
     const created = await mockStore.create('KanbanTasks.json', {
       title: 'New task',
       status: 'todo',
     } as any);
     expect(created.id).toBeDefined();
-    const after = await mockStore.getAll('KanbanTasks.json');
+    const after = await mockStore.getAll<any>('KanbanTasks.json');
     expect(after.length).toBe(before.length + 1);
   });
 
   it('updates by id', async () => {
-    const all = await mockStore.getAll('KanbanTasks.json');
+    const all = await mockStore.getAll<any>('KanbanTasks.json');
     const target = all[0];
-    const updated = await mockStore.update('KanbanTasks.json', target.id, {
-      title: 'Updated',
-    } as any);
+    const updated = await mockStore.update(
+      'KanbanTasks.json',
+      target.id as string,
+      {
+        title: 'Updated',
+      } as any,
+    );
     expect(updated.title).toBe('Updated');
-    const reloaded = await mockStore.getById('KanbanTasks.json', target.id);
+    const reloaded = await mockStore.getById(
+      'KanbanTasks.json',
+      target.id as string,
+    );
     expect(reloaded?.title).toBe('Updated');
   });
 
@@ -49,10 +59,10 @@ describe('mock-store', () => {
   });
 
   it('deletes by id', async () => {
-    const before = await mockStore.getAll('KanbanTasks.json');
+    const before = await mockStore.getAll<any>('KanbanTasks.json');
     const target = before[0];
-    await mockStore.delete('KanbanTasks.json', target.id);
-    const after = await mockStore.getAll('KanbanTasks.json');
+    await mockStore.delete('KanbanTasks.json', target.id as string);
+    const after = await mockStore.getAll<any>('KanbanTasks.json');
     expect(after.length).toBe(before.length - 1);
   });
 

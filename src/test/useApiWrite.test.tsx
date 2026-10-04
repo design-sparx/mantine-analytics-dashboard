@@ -13,11 +13,11 @@ const envelope = <T,>(data: T, status = 200) => ({
 
 describe('useApiWrite', () => {
   it('sends a POST and returns the typed payload', async () => {
-    const fetchMock = vi
-      .fn()
-      .mockResolvedValue(
-        new Response(JSON.stringify(envelope({ id: '1', title: 'New' }), 201)),
-      );
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify(envelope({ id: '1', title: 'New' })), {
+        status: 201,
+      }),
+    );
 
     vi.stubGlobal('fetch', fetchMock);
 

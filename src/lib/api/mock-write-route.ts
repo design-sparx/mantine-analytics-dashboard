@@ -81,7 +81,7 @@ export function buildWriteRoute(
 
       return apiFailure('Unsupported method', undefined, 405);
     } catch (error) {
-      const err = error as Error;
+      const err = error as Error & { status?: number };
       const status = err.status === 404 ? 404 : 500;
       return apiFailure(err.message, err.message, status);
     }
@@ -101,8 +101,10 @@ async function resolveId(
       : context.params
     : undefined;
 
-  if (idParam && params?.[idParam.replace(':', '')]) {
-    return params[idParam.replace(':', '')];
+  const record = params as Record<string, string> | undefined;
+
+  if (idParam && record?.[idParam.replace(':', '')]) {
+    return record[idParam.replace(':', '')];
   }
   const url = new URL(request.url);
   const segments = url.pathname.split('/').filter(Boolean);

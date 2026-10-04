@@ -34,7 +34,7 @@ describe('API path registry', () => {
   it('finds the route handlers on disk', () => {
     // Guards the discovery logic itself: if this is zero the checks below are
     // passing vacuously.
-    expect(served.length).toBe(72);
+    expect(served.length).toBe(75);
   });
 
   it('covers every served route', () => {

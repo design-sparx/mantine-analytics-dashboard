@@ -8,17 +8,17 @@ export async function GET(
   const { id } = await params;
 
   try {
-    const invoice = await mockStore.getById('Invoices.json', id);
+    const category = await mockStore.getById('ProductCategories.json', id);
 
-    if (!invoice) {
+    if (!category) {
       return apiFailure(
-        'Invoice not found',
-        `Not found: Invoices.json#${id}`,
+        'Category not found',
+        `Not found: ProductCategories.json#${id}`,
         404,
       );
     }
 
-    return apiSuccess(invoice, 'Retrieved successfully');
+    return apiSuccess(category, 'Retrieved successfully');
   } catch (error) {
     return apiFailure((error as Error).message);
   }
@@ -32,7 +32,7 @@ export const PUT = async (
 
   try {
     const body = await request.json().catch(() => ({}));
-    const updated = await mockStore.update('Invoices.json', id, body);
+    const updated = await mockStore.update('ProductCategories.json', id, body);
     return apiSuccess(updated, 'Updated successfully');
   } catch (error) {
     const err = error as Error & { status?: number };
@@ -48,7 +48,7 @@ export const DELETE = async (
   const { id } = await context.params;
 
   try {
-    await mockStore.delete('Invoices.json', id);
+    await mockStore.delete('ProductCategories.json', id);
     return apiSuccess({ id }, 'Deleted successfully', 200);
   } catch (error) {
     const err = error as Error & { status?: number };
