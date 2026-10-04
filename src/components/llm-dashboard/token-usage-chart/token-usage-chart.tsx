@@ -1,17 +1,13 @@
-import { AreaChart } from '@mantine/charts';
+﻿import { AreaChart } from '@mantine/charts';
 import { Skeleton, Text } from '@mantine/core';
 
 import { ErrorAlert } from '@/components';
 
-interface TokenUsage {
-  month: string;
-  input: number;
-  output: number;
-  total: number;
-}
+import type { LlmTokenTrendDto } from '@/types';
+
 
 interface TokenUsageChartProps {
-  data?: TokenUsage[];
+  data?: LlmTokenTrendDto[] | null;
   loading?: boolean;
   error?: Error | null;
 }

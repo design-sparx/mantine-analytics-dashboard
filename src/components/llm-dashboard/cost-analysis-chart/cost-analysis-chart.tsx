@@ -1,18 +1,13 @@
-import { BarChart } from '@mantine/charts';
+﻿import { BarChart } from '@mantine/charts';
 import { Skeleton, Text } from '@mantine/core';
 
 import { ErrorAlert } from '@/components';
 
-interface CostAnalysis {
-  month: string;
-  apiCost: number;
-  computeCost: number;
-  storageCost: number;
-  total: number;
-}
+import type { LlmCostDto } from '@/types';
+
 
 interface CostAnalysisChartProps {
-  data?: CostAnalysis[];
+  data?: LlmCostDto[] | null;
   loading?: boolean;
   error?: Error | null;
 }

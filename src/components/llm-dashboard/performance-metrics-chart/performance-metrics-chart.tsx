@@ -1,17 +1,13 @@
-import { CompositeChart } from '@mantine/charts';
+﻿import { CompositeChart } from '@mantine/charts';
 import { Skeleton, Text } from '@mantine/core';
 
 import { ErrorAlert } from '@/components';
 
-interface PerformanceMetrics {
-  month: string;
-  latency: number;
-  errorRate: number;
-  throughput: number;
-}
+import type { LlmPerformanceDto } from '@/types';
+
 
 interface PerformanceMetricsChartProps {
-  data?: PerformanceMetrics[];
+  data?: LlmPerformanceDto[] | null;
   loading?: boolean;
   error?: Error | null;
 }

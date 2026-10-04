@@ -1,17 +1,13 @@
-import { PieChart } from '@mantine/charts';
+﻿import { PieChart } from '@mantine/charts';
 import { Skeleton, Text } from '@mantine/core';
 
 import { ErrorAlert } from '@/components';
 
-interface UseCase {
-  useCase: string;
-  percentage: number;
-  requests: number;
-  color: string;
-}
+import type { LlmUseCaseDto } from '@/types';
+
 
 interface UseCaseChartProps {
-  data?: UseCase[];
+  data?: LlmUseCaseDto[] | null;
   loading?: boolean;
   error?: Error | null;
 }

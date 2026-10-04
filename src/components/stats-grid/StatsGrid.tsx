@@ -7,7 +7,11 @@ import { ErrorAlert, StatsCard } from '@/components';
 import classes from './StatsGrid.module.css';
 
 type StatsGridProps = {
-  data?: { title: string; value: string; diff: number; period?: string }[];
+  /**
+   * Structural rather than a shared DTO: all twelve dashboards pass this shape,
+   * so naming one domain's type here would couple unrelated pages together.
+   */
+  data?: { title: string; value: string; diff: number; period?: string }[] | null;
   paperProps?: PaperProps;
   error: ReactNode | Error | undefined | null;
   loading?: boolean;
