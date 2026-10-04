@@ -31,7 +31,6 @@ import classes from './KanbanCard.module.css';
 
 import type { Id, KanbanTaskDto, TaskStatus } from '@/types';
 
-
 // Extended task type for local UI state (includes columnId for drag-n-drop)
 interface ITask extends Omit<KanbanTaskDto, 'id'> {
   id: string;

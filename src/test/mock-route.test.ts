@@ -69,10 +69,7 @@ describe('serveMock', () => {
     const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
     const read = vi.spyOn(fs.promises, 'readFile');
 
-    const response = await serveMock(
-      '../../../package.json',
-      'packages',
-    );
+    const response = await serveMock('../../../package.json', 'packages');
     const body = (await response.json()) as Envelope;
 
     expect(response.status).toBe(500);
@@ -135,7 +132,11 @@ describe('apiFailure', () => {
   });
 
   it('carries a distinct error when the failure has extra detail', async () => {
-    const response = apiFailure('Could not create invoice', 'name is required', 400);
+    const response = apiFailure(
+      'Could not create invoice',
+      'name is required',
+      400,
+    );
     const body = (await response.json()) as Envelope;
 
     expect(body.message).toBe('Could not create invoice');

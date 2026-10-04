@@ -28,7 +28,12 @@ const result = { migrated: [], skipped: [], missingFixtures: [] };
 
 for (const file of routes) {
   const source = fs.readFileSync(file, 'utf8');
-  const routePath = '/' + path.relative(APP_DIR, file).replace(/\\/g, '/').replace(/\/route\.ts$/, '');
+  const routePath =
+    '/' +
+    path
+      .relative(APP_DIR, file)
+      .replace(/\\/g, '/')
+      .replace(/\/route\.ts$/, '');
 
   if (source.includes('serveMock')) {
     result.skipped.push({ routePath, reason: 'already migrated' });
@@ -49,7 +54,9 @@ for (const file of routes) {
     continue;
   }
 
-  const label = source.match(/message:\s*'([^']+) retrieved successfully'/)?.[1];
+  const label = source.match(
+    /message:\s*'([^']+) retrieved successfully'/,
+  )?.[1];
 
   if (!label) {
     result.skipped.push({ routePath, reason: 'no resource label in message' });
@@ -57,9 +64,10 @@ for (const file of routes) {
   }
 
   // Does the GET body actually read `request`?
-  const getBody = source.match(
-    /export async function GET\([^)]*\)\s*\{([\s\S]*?)\n\}/,
-  )?.[1] ?? '';
+  const getBody =
+    source.match(
+      /export async function GET\([^)]*\)\s*\{([\s\S]*?)\n\}/,
+    )?.[1] ?? '';
   const usesRequest = /\brequest\s*\./.test(getBody);
 
   const mutator = ['POST', 'PUT', 'PATCH', 'DELETE'].find((verb) =>
@@ -80,7 +88,12 @@ for (const file of routes) {
 
   fs.writeFileSync(file, header + get + tail, 'utf8');
 
-  result.migrated.push({ routePath, fixture, label, keptMutator: mutator ?? null });
+  result.migrated.push({
+    routePath,
+    fixture,
+    label,
+    keptMutator: mutator ?? null,
+  });
 }
 
 console.log(JSON.stringify(result, null, 2));

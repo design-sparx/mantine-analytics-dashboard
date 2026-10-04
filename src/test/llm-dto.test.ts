@@ -25,7 +25,7 @@ const readFixture = (name: string): unknown[] =>
  * file in a way that breaks the contract fails the suite, which is the whole
  * point of typing the LLM domain.
  */
-const conforms = <T,>(name: string): void => {
+const conforms = <T>(name: string): void => {
   const rows = readFixture(name);
 
   expect(Array.isArray(rows)).toBe(true);
@@ -92,7 +92,9 @@ describe('LLM DTO conformance', () => {
   it('performance-metrics.json satisfies LlmPerformanceDto', () => {
     conforms<LlmPerformanceDto>('performance-metrics');
 
-    for (const row of readFixture('performance-metrics') as LlmPerformanceDto[]) {
+    for (const row of readFixture(
+      'performance-metrics',
+    ) as LlmPerformanceDto[]) {
       expect(typeof row.month).toBe('string');
       expect(typeof row.latency).toBe('number');
       expect(typeof row.errorRate).toBe('number');
@@ -130,9 +132,9 @@ describe('LLM registry entries', () => {
   it('has a route handler behind each entry', () => {
     for (const endpoint of Object.values(API_LLM)) {
       const relative = endpoint.replace(/^\/api/, 'src/app/api');
-      expect(fs.existsSync(path.join(process.cwd(), `${relative}/route.ts`))).toBe(
-        true,
-      );
+      expect(
+        fs.existsSync(path.join(process.cwd(), `${relative}/route.ts`)),
+      ).toBe(true);
     }
   });
 });

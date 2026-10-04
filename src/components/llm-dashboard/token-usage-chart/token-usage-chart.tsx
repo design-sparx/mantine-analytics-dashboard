@@ -5,7 +5,6 @@ import { ErrorAlert } from '@/components';
 
 import type { LlmTokenTrendDto } from '@/types';
 
-
 interface TokenUsageChartProps {
   data?: LlmTokenTrendDto[] | null;
   loading?: boolean;

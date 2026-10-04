@@ -32,7 +32,7 @@ function buildHooks<P extends Partial<Record<ApiEndpointId, unknown>>>(
 
     // Declared with a `use` prefix so React's rules-of-hooks can verify it,
     // rather than rejecting a closure it cannot name.
-     
+
     const useEndpoint = () => useApiGet<P[typeof id]>(endpoint);
 
     hooks[id] = useEndpoint;

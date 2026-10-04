@@ -5,7 +5,6 @@ import { ErrorAlert } from '@/components';
 
 import type { LlmPerformanceDto } from '@/types';
 
-
 interface PerformanceMetricsChartProps {
   data?: LlmPerformanceDto[] | null;
   loading?: boolean;

@@ -7,13 +7,17 @@ const FIXTURE = 'KanbanTasks.json';
 describe('mock-write-route', () => {
   it('returns 405 for unsupported method on read route', async () => {
     const handler = buildReadRoute(FIXTURE);
-    const response = await handler(new Request('http://localhost/api/tasks', { method: 'POST' }));
+    const response = await handler(
+      new Request('http://localhost/api/tasks', { method: 'POST' }),
+    );
     expect(response.status).toBe(405);
   });
 
   it('returns 405 for unsupported method on write route', async () => {
     const handler = buildWriteRoute('POST', FIXTURE);
-    const response = await handler(new Request('http://localhost/api/tasks/unknown', { method: 'PATCH' }));
+    const response = await handler(
+      new Request('http://localhost/api/tasks/unknown', { method: 'PATCH' }),
+    );
     expect(response.status).toBe(405);
   });
 
@@ -51,7 +55,9 @@ describe('mock-write-route', () => {
   it('DELETE returns 200 with success envelope', async () => {
     const handler = buildWriteRoute('DELETE', FIXTURE, ':id');
     const response = await handler(
-      new Request('http://localhost/api/tasks/existing-id', { method: 'DELETE' }),
+      new Request('http://localhost/api/tasks/existing-id', {
+        method: 'DELETE',
+      }),
     );
     expect(response.status).toBe(200);
     const body = await response.json();

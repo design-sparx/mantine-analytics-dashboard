@@ -5,7 +5,6 @@ import { ErrorAlert } from '@/components';
 
 import type { LlmCostDto } from '@/types';
 
-
 interface CostAnalysisChartProps {
   data?: LlmCostDto[] | null;
   loading?: boolean;
