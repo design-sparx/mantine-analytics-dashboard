@@ -31,12 +31,15 @@ export function apiSuccess<T>(
 }
 
 /**
- * Builds the standard failure envelope. The caller supplies the message and the
- * error string so neither can leak an internal detail by accident.
+ * Builds the standard failure envelope.
+ *
+ * `error` defaults to `message` because most failures need only say the one
+ * thing. Supply it only when the failure carries extra detail worth surfacing,
+ * and keep that detail as free of internal specifics as the message is.
  */
 export function apiFailure(
   message: string,
-  error: string,
+  error: string = message,
   status = 500,
 ): NextResponse<IApiResponse<never>> {
   return NextResponse.json<IApiResponse<never>>(
@@ -57,6 +60,10 @@ export function apiFailure(
  * `resource` is a human-readable label for whatever the route serves. Messages
  * are derived from it so the message and the fixture can never drift apart.
  *
+ * `fixture` is always a literal at the call site, but it is still resolved
+ * against the fixtures root and rejected if it escapes that directory, so a
+ * computed name can never pull in a file from outside `public/mocks`.
+ *
  * A missing or malformed fixture resolves to the standard failure envelope
  * rather than throwing, so a route body stays a single expression.
  */
@@ -65,7 +72,13 @@ export async function serveMock<T>(
   resource: string,
 ): Promise<NextResponse<IApiResponse<T>>> {
   try {
-    const filePath = path.join(MOCKS_DIR, fixture);
+    const filePath = path.resolve(MOCKS_DIR, fixture);
+    const relative = path.relative(MOCKS_DIR, filePath);
+
+    if (relative.startsWith('..') || path.isAbsolute(relative)) {
+      throw new Error(`Refusing to read "${fixture}" outside the mocks root`);
+    }
+
     const contents = await fs.promises.readFile(filePath, 'utf8');
 
     return apiSuccess<T>(
@@ -77,9 +90,6 @@ export async function serveMock<T>(
     // in the response body.
     console.error(`[api] failed to serve ${resource} from ${fixture}:`, error);
 
-    return apiFailure(
-      `Failed to fetch ${resource}`,
-      `Failed to fetch ${resource}`,
-    );
+    return apiFailure(`Failed to fetch ${resource}`);
   }
 }

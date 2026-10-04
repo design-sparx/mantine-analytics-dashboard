@@ -65,6 +65,24 @@ describe('serveMock', () => {
     expect(body.errors).toHaveLength(1);
   });
 
+  it('refuses to read a fixture outside the mocks root', async () => {
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const read = vi.spyOn(fs.promises, 'readFile');
+
+    const response = await serveMock(
+      '../../../package.json',
+      'packages',
+    );
+    const body = (await response.json()) as Envelope;
+
+    expect(response.status).toBe(500);
+    expect(body.succeeded).toBe(false);
+    expect(body.errors).toEqual(['Failed to fetch packages']);
+    // Rejected before any read, so the traversal never reaches the filesystem.
+    expect(read).not.toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
+  });
+
   it('never leaks a filesystem path in the response body', async () => {
     vi.spyOn(console, 'error').mockImplementation(() => {});
     const response = await serveMock('DoesNotExist.json', 'widgets');
@@ -102,16 +120,25 @@ describe('apiSuccess', () => {
 
 describe('apiFailure', () => {
   it('defaults to 500 with a null payload', async () => {
-    const response = apiFailure('Failed to do thing', 'Failed to do thing');
+    const response = apiFailure('Failed to do thing');
     const body = (await response.json()) as Envelope;
 
     expect(response.status).toBe(500);
     expect(body.succeeded).toBe(false);
     expect(body.data).toBeNull();
+    expect(body.message).toBe('Failed to do thing');
     expect(body.errors).toEqual(['Failed to do thing']);
   });
 
   it('honours an explicit status', () => {
-    expect(apiFailure('Bad request', 'Bad request', 400).status).toBe(400);
+    expect(apiFailure('Bad request', 'Invalid name', 400).status).toBe(400);
+  });
+
+  it('carries a distinct error when the failure has extra detail', async () => {
+    const response = apiFailure('Could not create invoice', 'name is required', 400);
+    const body = (await response.json()) as Envelope;
+
+    expect(body.message).toBe('Could not create invoice');
+    expect(body.errors).toEqual(['name is required']);
   });
 });
