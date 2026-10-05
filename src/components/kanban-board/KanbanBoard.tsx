@@ -15,12 +15,12 @@ import {
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import { Box, Button, LoadingOverlay, Portal, ScrollArea } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { useFetch } from '@mantine/hooks';
+import { useApiGet } from '@/lib/hooks/useApiGet';
 import { useApiWrite } from '@/lib/hooks/useApiWrite';
 import { IconNewSection, IconPlus } from '@tabler/icons-react';
 
 import { KanbanCard, KanbanColumn } from '@/components';
-import { type IApiResponse } from '@/types/api-response';
+import { API_CORE, API_WRITE } from '@/routes/api';
 
 import { NewTaskModal } from './NewTaskModal';
 
@@ -186,7 +186,7 @@ const KanbanBoard = () => {
     data: apiTasks,
     loading: tasksLoading,
     refetch,
-  } = useFetch<IApiResponse<any[]>>('/api/tasks');
+  } = useApiGet<any[]>(API_CORE.tasks);
   const [columns, setColumns] = useState<IColumn[]>(defaultCols);
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
   const [tasks, setTasks] = useState<ITask[]>([]);
@@ -197,26 +197,30 @@ const KanbanBoard = () => {
   const [selectedColumnId, setSelectedColumnId] = useState<Id | null>(null);
 
   const { refetch: createTaskRefetch, loading: createLoading } =
-    useApiWrite<any>('POST', '/api/tasks', {
+    useApiWrite<any>('POST', API_WRITE.tasks, {
       autoExecute: false,
       onSuccess: () => refetch(),
     });
 
   const { refetch: deleteTaskRefetch } = useApiWrite<any>(
     'DELETE',
-    '/api/tasks',
+    API_WRITE.tasks,
     { autoExecute: false, onSuccess: () => refetch() },
   );
 
-  const { refetch: updateTaskRefetch } = useApiWrite<any>('PUT', '/api/tasks', {
-    autoExecute: false,
-    onSuccess: () => refetch(),
-  });
+  const { refetch: updateTaskRefetch } = useApiWrite<any>(
+    'PUT',
+    API_WRITE.tasks,
+    {
+      autoExecute: false,
+      onSuccess: () => refetch(),
+    },
+  );
 
   // Map API tasks to local task format
   useEffect(() => {
-    if (apiTasks && apiTasks.data) {
-      const mappedTasks: ITask[] = apiTasks.data.map((task) => {
+    if (apiTasks) {
+      const mappedTasks: ITask[] = apiTasks.map((task) => {
         // Map status to columnId
         let columnId: Id = 'todo';
         if (task.status === '1' || task.status === 1) columnId = 'todo';
@@ -367,19 +371,19 @@ const KanbanBoard = () => {
   }
 
   async function createTask(taskData: any) {
-    createTaskRefetch('/api/tasks', taskData);
+    createTaskRefetch(API_WRITE.tasks, taskData);
   }
 
   async function deleteTask(id: Id) {
     if (typeof id === 'string') {
-      deleteTaskRefetch(`/api/tasks/${id}`);
+      deleteTaskRefetch(API_WRITE.taskDetail(id));
     }
   }
 
   async function updateTask(id: Id, content: string) {
     if (typeof id === 'string') {
       const task = tasks.find((t) => t.id === id);
-      updateTaskRefetch(`/api/tasks/${id}`, {
+      updateTaskRefetch(API_WRITE.taskDetail(id), {
         title: content,
         status: task?.status,
       });

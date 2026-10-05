@@ -12,13 +12,14 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { useDisclosure, useFetch } from '@mantine/hooks';
+import { useDisclosure } from '@mantine/hooks';
 import { IconMoodEmpty, IconPlus } from '@tabler/icons-react';
 
 import NewCategoryDrawer from '@/app/apps/products/categories/components/NewCategoryDrawer';
 import { ErrorAlert, PageHeader, Surface } from '@/components';
+import { useApiGet } from '@/lib/hooks/useApiGet';
+import { API_WRITE } from '@/routes/api';
 import { PATH_DASHBOARD } from '@/routes';
-import { IApiResponse } from '@/types/api-response';
 import { IProductCategory } from '@/types/products';
 
 import { CategoryCard } from './components/CategoryCard';
@@ -45,11 +46,7 @@ function Categories() {
     loading: categoriesLoading,
     error: categoriesError,
     refetch: refetchCategories,
-  } = useFetch<IApiResponse<IProductCategory[]>>('/api/product-categories', {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  } = useApiGet<IProductCategory[]>(API_WRITE.productCategories);
 
   // In a mock data template, all users can add categories
   const canAddCategory = true;
@@ -75,7 +72,7 @@ function Categories() {
     refetchCategories();
   }, [refetchCategories]);
 
-  const categoryItems = categoriesData?.data?.map((category) => (
+  const categoryItems = categoriesData?.map((category) => (
     <CategoryCard
       key={category.id}
       data={category}
@@ -102,16 +99,16 @@ function Categories() {
       );
     }
 
-    if (categoriesError || !categoriesData?.succeeded) {
+    if (categoriesError) {
       return (
         <ErrorAlert
           title="Error loading categories"
-          message={categoriesData?.errors?.join(',')}
+          message={categoriesError.message}
         />
       );
     }
 
-    if (!categoriesData?.data?.length) {
+    if (!categoriesData?.length) {
       return (
         <Surface p="md">
           <Stack align="center">
@@ -158,8 +155,7 @@ function Categories() {
         title="Product Categories"
         breadcrumbItems={items}
         actionButton={
-          canAddCategory &&
-          categoriesData?.data?.length && (
+          categoriesData?.length && (
             <Button
               leftSection={<IconPlus size={18} />}
               onClick={newCategoryOpen}

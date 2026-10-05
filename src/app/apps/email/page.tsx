@@ -34,7 +34,8 @@ import {
 } from '@tabler/icons-react';
 
 import { ErrorAlert, PageHeader } from '@/components';
-import { useEmails } from '@/lib/hooks/useApi';
+import { useApiGet } from '@/lib/hooks/useApiGet';
+import { API_CORE } from '@/routes/api';
 import { PATH_DASHBOARD } from '@/routes';
 
 import { ComposeEmail } from './components/ComposeEmail';
@@ -66,7 +67,7 @@ function Email() {
     loading: emailsLoading,
     error: emailsError,
     refetch: refetchEmails,
-  } = useEmails();
+  } = useApiGet<EmailDto[]>(API_CORE.emails);
 
   const [composeOpened, { open: composeOpen, close: composeClose }] =
     useDisclosure(false);
@@ -87,7 +88,7 @@ function Email() {
     console.log('Toggle star:', email.id);
   };
 
-  const filteredEmails = emailsData?.data?.filter((email: EmailDto) => {
+  const filteredEmails = emailsData?.filter((email: EmailDto) => {
     if (filter === 'inbox' && email.folder !== 'inbox') return false;
     if (filter === 'starred' && !email.starred) return false;
     if (filter === 'sent' && email.folder !== 'sent') return false;
@@ -106,7 +107,7 @@ function Email() {
   });
 
   const unreadCount =
-    emailsData?.data?.filter((e: EmailDto) => e.folder === 'inbox' && !e.read)
+    emailsData?.filter((e: EmailDto) => e.folder === 'inbox' && !e.read)
       .length || 0;
 
   const renderEmailList = () => {

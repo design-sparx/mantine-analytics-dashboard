@@ -17,7 +17,7 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { useDisclosure, useFetch } from '@mantine/hooks';
+import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import {
   IconGridDots,
@@ -28,6 +28,7 @@ import {
 
 import { ErrorAlert, PageHeader, Surface } from '@/components';
 import { type ApiWriteError, useApiWrite } from '@/lib/hooks/useApiWrite';
+import { useApiGet } from '@/lib/hooks/useApiGet';
 import { PATH_DASHBOARD } from '@/routes';
 import { API_CORE, API_WRITE } from '@/routes/api';
 import { type InvoiceDto } from '@/types';
@@ -130,7 +131,7 @@ function Invoices() {
     loading: invoicesLoading,
     error: invoicesError,
     refetch: refetchInvoices,
-  } = useFetch<IApiResponse<any[]>>(API_CORE.invoices);
+  } = useApiGet<any[]>(API_CORE.invoices);
 
   const [newDrawerOpened, { open: newInvoiceOpen, close: newInvoiceClose }] =
     useDisclosure(false);
@@ -196,7 +197,7 @@ function Invoices() {
     [deleteInvoice],
   );
 
-  const invoiceItems = invoicesData?.data?.map((invoice) => (
+  const invoiceItems = invoicesData?.map((invoice) => (
     <InvoiceCard
       key={invoice.id}
       data={invoice}
@@ -224,16 +225,16 @@ function Invoices() {
       );
     }
 
-    if (invoicesError || !invoicesData?.succeeded) {
+    if (invoicesError) {
       return (
         <ErrorAlert
           title="Error loading invoices"
-          message={invoicesData?.errors?.join(',')}
+          message={invoicesError.message}
         />
       );
     }
 
-    if (!invoicesData?.data?.length) {
+    if (!invoicesData?.length) {
       return (
         <Surface p="md">
           <Stack align="center">
@@ -256,7 +257,7 @@ function Invoices() {
     if (viewMode === 'table') {
       return (
         <InvoicesTable
-          data={invoicesData?.data || []}
+          data={invoicesData || []}
           loading={invoicesLoading}
           error={invoicesError}
           onEdit={handleEditInvoice}
@@ -290,7 +291,7 @@ function Invoices() {
             title="Invoices"
             breadcrumbItems={items}
             actionButton={
-              invoicesData?.data?.length ? (
+              invoicesData?.length ? (
                 <Button
                   leftSection={<IconPlus size={18} />}
                   onClick={newInvoiceOpen}
@@ -310,7 +311,7 @@ function Invoices() {
                   Invoices Management
                 </Text>
                 <Text size="sm" c="dimmed">
-                  ({invoicesData?.data?.length || 0} invoices)
+                  ({invoicesData?.length || 0} invoices)
                 </Text>
               </Group>
 

@@ -20,9 +20,10 @@ import { IconMoodEmpty, IconPlus } from '@tabler/icons-react';
 import NewProjectDrawer from '@/app/apps/projects/components/NewProjectDrawer';
 import ProjectsCard from '@/app/apps/projects/components/ProjectsCard/ProjectsCard';
 import { ErrorAlert, PageHeader, Surface } from '@/components';
+import { useApiGet } from '@/lib/hooks/useApiGet';
+import { API_CORE } from '@/routes/api';
 import { PATH_DASHBOARD } from '@/routes';
 import { type ProjectDto } from '@/types';
-import { type IApiResponse } from '@/types/api-response';
 
 // Simplified API imports
 
@@ -48,9 +49,7 @@ function Projects() {
     loading: projectsLoading,
     error: projectsError,
     refetch: refetchProjects,
-  } = useFetch<IApiResponse<any[]>>('/api/projects');
-
-  console.log('Projects data:', projectsData);
+  } = useApiGet<any[]>(API_CORE.projects);
 
   const [newProjectOpened, { open: newProjectOpen, close: newProjectClose }] =
     useDisclosure(false);
@@ -71,7 +70,7 @@ function Projects() {
     refetchProjects();
   }, [refetchProjects]);
 
-  const projectItems = projectsData?.data?.map((p: any) => (
+  const projectItems = projectsData?.map((p: any) => (
     <ProjectsCard key={p.id} data={p} {...CARD_PROPS} />
   ));
 
@@ -94,16 +93,16 @@ function Projects() {
       );
     }
 
-    if (projectsError || !projectsData?.succeeded) {
+    if (projectsError) {
       return (
         <ErrorAlert
           title="Error loading projects"
-          message={projectsData?.errors?.join(',')}
+          message={projectsError.message}
         />
       );
     }
 
-    if (!projectsData?.data?.length) {
+    if (!projectsData?.length) {
       return (
         <Surface p="md">
           <Stack align="center">
@@ -147,7 +146,7 @@ function Projects() {
         title="Projects"
         breadcrumbItems={items}
         actionButton={
-          projectsData?.data?.length && (
+          projectsData?.length && (
             <Button
               leftSection={<IconPlus size={18} />}
               onClick={newProjectOpen}
