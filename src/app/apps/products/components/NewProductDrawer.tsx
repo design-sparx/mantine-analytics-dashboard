@@ -18,6 +18,8 @@ import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
 import { useApiWrite } from '@/lib/hooks/useApiWrite';
+import { useApiGet } from '@/lib/hooks/useApiGet';
+import { API_WRITE } from '@/routes/api';
 import { IProductCategory } from '@/types/products';
 
 type NewProjectDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
@@ -31,42 +33,22 @@ export const NewProductDrawer = ({
   const [categories, setCategories] = useState<
     { value: string; label: string }[]
   >([]);
-  const [categoriesLoading, setCategoriesLoading] = useState(false);
 
-  const fetchCategories = useCallback(async () => {
-    setCategoriesLoading(true);
-    try {
-      const response = await fetch('/api/product-categories', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+  const {
+    data: categoriesData,
+    loading: categoriesLoading,
+    error: categoriesError,
+  } = useApiGet<IProductCategory[]>(API_WRITE.productCategories);
 
-      const result = await response.json();
-
-      if (result.succeeded && result.data) {
-        const categoryOptions = result.data.map(
-          (category: IProductCategory) => ({
-            value: category.id,
-            label: category.title,
-          }),
-        );
-        setCategories(categoryOptions);
-      }
-    } catch (error) {
-      console.error('Error fetching categories:', error);
-    } finally {
-      setCategoriesLoading(false);
-    }
-  }, []);
-
-  // Fetch categories when drawer opens
   useEffect(() => {
-    if (drawerProps.opened) {
-      fetchCategories();
+    if (categoriesData) {
+      const categoryOptions = categoriesData.map((category) => ({
+        value: category.id,
+        label: category.title,
+      }));
+      setCategories(categoryOptions);
     }
-  }, [drawerProps.opened, fetchCategories]);
+  }, [categoriesData]);
 
   const form = useForm({
     mode: 'controlled',

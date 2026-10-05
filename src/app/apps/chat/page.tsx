@@ -42,7 +42,8 @@ import {
   PageHeader,
   Surface,
 } from '@/components';
-import { useChatMessages, useChats } from '@/lib/hooks/useApi';
+import { useApiGet } from '@/lib/hooks/useApiGet';
+import { API_CORE } from '@/routes/api';
 import { PATH_DASHBOARD } from '@/routes';
 import UserProfileData from '@public/mocks/UserProfile.json';
 
@@ -87,21 +88,18 @@ function Chat() {
     data: chatsData,
     loading: chatsListLoading,
     error: chatsListError,
-  } = useChats();
+  } = useApiGet<ChatDto[]>(API_CORE.chat);
 
-  const chatsListData = useMemo<ChatDto[]>(
-    () => chatsData?.data || [],
-    [chatsData?.data],
-  );
+  const chatsListData = useMemo<ChatDto[]>(() => chatsData || [], [chatsData]);
 
   // Fetch messages for selected chat
   const {
     data: messagesData,
     loading: chatsItemsLoading,
     error: chatsItemsError,
-  } = useChatMessages();
+  } = useApiGet<ChatMessageDto[]>(API_CORE.chatMessages);
 
-  const chatItemsData: ChatMessageDto[] = messagesData?.data || [];
+  const chatItemsData: ChatMessageDto[] = messagesData || [];
 
   // Select first chat by default
   useEffect(() => {

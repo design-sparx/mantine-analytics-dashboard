@@ -22,7 +22,8 @@ import { IconDownload, IconEdit, IconPrinter } from '@tabler/icons-react';
 
 import { PageHeader } from '@/components';
 import { PATH_DASHBOARD } from '@/routes';
-import { IApiResponse } from '@/types/api-response';
+import { useApiGet } from '@/lib/hooks/useApiGet';
+import { apiDetailPath } from '@/routes/api';
 import {
   IInvoice,
   getInvoiceStatusColor,
@@ -46,11 +47,11 @@ function InvoiceDetails({ params }: InvoiceDetailsProps) {
     data: invoiceData,
     loading: invoiceLoading,
     error: invoiceError,
-  } = useFetch<IApiResponse<IInvoice>>(`/api/invoices/${params.id}`);
+  } = useApiGet<IInvoice>(apiDetailPath('invoices', params.id));
 
   useEffect(() => {
-    if (invoiceData?.succeeded && invoiceData.data) {
-      setInvoice(invoiceData.data);
+    if (invoiceData) {
+      setInvoice(invoiceData);
     }
   }, [invoiceData]);
 
