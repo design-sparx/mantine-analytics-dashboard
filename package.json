@@ -119,7 +119,7 @@
     "prettier": "3.1.0",
     "storybook": "^8.6.17",
     "storybook-dark-mode": "^4.0.0",
-    "vitest": "^3.2.7"
+    "vitest": "^4.1.11"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
