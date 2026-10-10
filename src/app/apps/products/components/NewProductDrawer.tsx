@@ -74,7 +74,7 @@ export const NewProductDrawer = ({
     refetch: createProduct,
     loading,
     error,
-  } = useApiWrite('POST', '/api/products', {
+  } = useApiWrite('POST', API_WRITE.products, {
     autoExecute: false,
     onSuccess: () => {
       // Show success notification

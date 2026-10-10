@@ -45,6 +45,7 @@ describe('mock-write-route', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title: 'Updated' }),
       }),
+      { params: Promise.resolve({ id: 'existing-id' }) },
     );
     expect(response.status).toBe(200);
     const body = await response.json();
@@ -58,6 +59,7 @@ describe('mock-write-route', () => {
       new Request('http://localhost/api/tasks/existing-id', {
         method: 'DELETE',
       }),
+      { params: Promise.resolve({ id: 'existing-id' }) },
     );
     expect(response.status).toBe(200);
     const body = await response.json();
@@ -72,6 +74,7 @@ describe('mock-write-route', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title: 'X' }),
       }),
+      { params: Promise.resolve({ id: 'missing' }) },
     );
     expect(response.status).toBe(404);
     const body = await response.json();

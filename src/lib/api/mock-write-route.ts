@@ -63,7 +63,7 @@ export function buildWriteRoute(
         return apiSuccess(record, 'Created successfully', 201);
       }
 
-      const id = await resolveId(request, idParam, context);
+      const id = await resolveId(idParam, context);
       if (!id) {
         return apiFailure('Missing id', 'id is required', 400);
       }
@@ -88,25 +88,36 @@ export function buildWriteRoute(
   };
 }
 
-async function resolveId(
-  request: Request,
+/**
+ * Resolves the record id for a write from the route params only.
+ *
+ * It deliberately does not fall back to the last URL segment: a write that
+ * arrives at a collection route has no id, and guessing one from the path
+ * (which yields the collection name, e.g. "products") turns a client bug into
+ * a confusing 404 instead of a clear 400.
+ */
+function resolveId(
   idParam?: string,
   context?: {
     params?: Promise<{ [key: string]: string }> | { [key: string]: string };
   },
 ): Promise<string | undefined> {
-  const params = context?.params
-    ? typeof (context.params as Promise<unknown>).then === 'function'
-      ? await context.params
-      : context.params
-    : undefined;
+  return (async () => {
+    const params = context?.params
+      ? typeof (context.params as Promise<unknown>).then === 'function'
+        ? await context.params
+        : context.params
+      : undefined;
 
-  const record = params as Record<string, string> | undefined;
+    const record = params as Record<string, string> | undefined;
 
-  if (idParam && record?.[idParam.replace(':', '')]) {
-    return record[idParam.replace(':', '')];
-  }
-  const url = new URL(request.url);
-  const segments = url.pathname.split('/').filter(Boolean);
-  return segments[segments.length - 1];
+    if (idParam) {
+      const key = idParam.replace(':', '');
+      if (record?.[key]) {
+        return record[key];
+      }
+    }
+
+    return undefined;
+  })();
 }
