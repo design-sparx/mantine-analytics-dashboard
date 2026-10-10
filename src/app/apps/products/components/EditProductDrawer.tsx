@@ -19,8 +19,8 @@ import {
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { useApiWrite } from '@/lib/hooks/useApiWrite';
 import { useApiGet } from '@/lib/hooks/useApiGet';
+import { useApiWrite } from '@/lib/hooks/useApiWrite';
 import { API_WRITE } from '@/routes/api';
 import { IProduct, IProductCategory } from '@/types/products';
 
@@ -86,7 +86,7 @@ export const EditProductDrawer = ({
     refetch: updateProduct,
     loading: updateLoading,
     error: updateError,
-  } = useApiWrite('PUT', '/api/products', {
+  } = useApiWrite('PUT', API_WRITE.products, {
     autoExecute: false,
     onSuccess: () => {
       // Show success notification
@@ -110,7 +110,7 @@ export const EditProductDrawer = ({
     refetch: deleteProduct,
     loading: deleteLoading,
     error: deleteError,
-  } = useApiWrite('DELETE', '/api/products', {
+  } = useApiWrite('DELETE', API_WRITE.products, {
     autoExecute: false,
     onSuccess: () => {
       // Show success notification
@@ -177,7 +177,10 @@ export const EditProductDrawer = ({
   const handleSubmit = (values: typeof form.values) => {
     if (!product || !isCreator || !canEditProduct) return;
 
-    updateProduct(undefined, { ...values, modifiedById: 'user-demo-001' });
+    updateProduct(API_WRITE.productDetail(product.id), {
+      ...values,
+      modifiedById: 'user-demo-001',
+    });
   };
 
   const handleDelete = () => {
@@ -187,7 +190,7 @@ export const EditProductDrawer = ({
       return;
     }
 
-    deleteProduct();
+    deleteProduct(API_WRITE.productDetail(product.id));
   };
 
   return (
