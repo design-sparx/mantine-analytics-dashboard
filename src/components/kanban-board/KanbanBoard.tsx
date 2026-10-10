@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useId, useMemo, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 
 import {
   DndContext,
@@ -15,11 +15,11 @@ import {
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import { Box, Button, LoadingOverlay, Portal, ScrollArea } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { useApiGet } from '@/lib/hooks/useApiGet';
-import { useApiWrite } from '@/lib/hooks/useApiWrite';
 import { IconNewSection, IconPlus } from '@tabler/icons-react';
 
 import { KanbanCard, KanbanColumn } from '@/components';
+import { useApiGet } from '@/lib/hooks/useApiGet';
+import { useApiWrite } from '@/lib/hooks/useApiWrite';
 import { API_CORE, API_WRITE } from '@/routes/api';
 
 import { NewTaskModal } from './NewTaskModal';
@@ -216,6 +216,13 @@ const KanbanBoard = () => {
       onSuccess: () => refetch(),
     },
   );
+
+  // Track the intended drop target for persistence on drag end
+  const dropTargetRef = useRef<{
+    taskId: string;
+    newColumnId: Id;
+    newStatus: number;
+  } | null>(null);
 
   // Map API tasks to local task format
   useEffect(() => {
@@ -440,16 +447,45 @@ const KanbanBoard = () => {
 
     if (activeId === overId) return;
 
-    setColumns((columns) => {
-      const activeColumnIndex = columns.findIndex((col) => col.id === activeId);
+    // Handle column reordering
+    if (active.data.current?.type === 'Column') {
+      setColumns((columns) => {
+        const activeColumnIndex = columns.findIndex(
+          (col) => col.id === activeId,
+        );
+        const overColumnIndex = columns.findIndex((col) => col.id === overId);
+        return arrayMove(columns, activeColumnIndex, overColumnIndex);
+      });
+      return;
+    }
 
-      const overColumnIndex = columns.findIndex((col) => col.id === overId);
+    // Handle task drop - persist the status change
+    if (active.data.current?.type === 'Task' && dropTargetRef.current) {
+      const { taskId, newColumnId, newStatus } = dropTargetRef.current;
 
-      return arrayMove(columns, activeColumnIndex, overColumnIndex);
-    });
+      // Only persist if the task actually moved to a different column
+      const task = tasks.find((t) => t.id === taskId);
+      if (task && task.columnId !== newColumnId) {
+        // Persist to API using the write hook with correct endpoint from registry
+        updateTaskRefetch(API_WRITE.taskDetail(taskId), {
+          title: task.title,
+          status: String(newStatus),
+        }).catch(() => {
+          // On error, rollback local state and surface error
+          setTasks((prevTasks) =>
+            prevTasks.map((t) =>
+              t.id === taskId ? { ...t, columnId: task.columnId } : t,
+            ),
+          );
+          // Error is handled by the write hook's error state
+          // Could also trigger a notification here
+        });
+      }
+      dropTargetRef.current = null;
+    }
   }
 
-  async function onDragOver(event: DragOverEvent) {
+  function onDragOver(event: DragOverEvent) {
     const { active, over } = event;
     if (!over) return;
 
@@ -463,6 +499,13 @@ const KanbanBoard = () => {
 
     if (!isActiveATask) return;
 
+    // Track the drop target for persistence on drag end
+    const getStatusFromColumn = (columnId: Id): number => {
+      if (columnId === 'doing') return 2;
+      if (columnId === 'done') return 3;
+      return 1;
+    };
+
     // Im dropping a Task over another Task
     if (isActiveATask && isOverATask) {
       setTasks((tasks) => {
@@ -470,24 +513,25 @@ const KanbanBoard = () => {
         const overIndex = tasks.findIndex((t) => t.id === overId);
 
         const newColumnId = tasks[overIndex].columnId;
-        tasks[activeIndex].columnId = newColumnId;
+        const newStatus = getStatusFromColumn(newColumnId);
 
-        // Update task status in API based on new column
-        const task = tasks[activeIndex];
-        if (typeof task.id === 'string') {
-          let newStatus: number = 1;
-          if (newColumnId === 'doing') newStatus = 2;
-          else if (newColumnId === 'done') newStatus = 3;
+        // Track for persistence on drag end
+        dropTargetRef.current = {
+          taskId: String(activeId),
+          newColumnId,
+          newStatus,
+        };
 
-          // Silent update without refetch
-          fetch(`/api/tasks/${task.id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title: task.title, status: newStatus }),
-          });
-        }
-
-        return arrayMove(tasks, activeIndex, overIndex);
+        // Immutably update task position and column
+        return tasks.map((task, index) => {
+          if (index === activeIndex) {
+            return { ...task, columnId: newColumnId };
+          }
+          if (index === overIndex) {
+            return task; // Keep over task as is
+          }
+          return task;
+        });
       });
     }
 
@@ -497,25 +541,22 @@ const KanbanBoard = () => {
     if (isActiveATask && isOverAColumn) {
       setTasks((tasks) => {
         const activeIndex = tasks.findIndex((t) => t.id === activeId);
+        const newStatus = getStatusFromColumn(overId);
 
-        tasks[activeIndex].columnId = overId;
+        // Track for persistence on drag end
+        dropTargetRef.current = {
+          taskId: String(activeId),
+          newColumnId: overId,
+          newStatus,
+        };
 
-        // Update task status in API based on new column
-        const task = tasks[activeIndex];
-        if (typeof task.id === 'string') {
-          let newStatus: number = 1;
-          if (overId === 'doing') newStatus = 2;
-          else if (overId === 'done') newStatus = 3;
-
-          // Silent update without refetch
-          fetch(`/api/tasks/${task.id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title: task.title, status: newStatus }),
-          });
-        }
-
-        return arrayMove(tasks, activeIndex, activeIndex);
+        // Immutably update task column
+        return tasks.map((task, index) => {
+          if (index === activeIndex) {
+            return { ...task, columnId: overId };
+          }
+          return task;
+        });
       });
     }
   }
