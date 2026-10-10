@@ -5,6 +5,7 @@ import React, {
   createContext,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from 'react';
 
@@ -97,18 +98,32 @@ export function SystemNotificationsProvider({
     };
   });
 
+  // Ref to track latest dismissedIds for async retry logic (avoids stale closure)
+  const dismissedIdsRef = useRef(config.dismissedIds);
+  // eslint-disable-next-line -- updating ref during render is intentional to sync with state
+  dismissedIdsRef.current = config.dismissedIds;
+
   // Fetch announcements from JSON file on mount
   useEffect(() => {
     if (!announcementsUrl) return;
 
+    let active = true;
+    const retryAttemptedRef = { current: false };
+
     const loadAnnouncements = async () => {
       try {
+        if (!active) return;
+
         const response = await fetch(announcementsUrl);
+        if (!active) return;
+
         if (!response.ok) {
           console.warn(`Failed to fetch announcements: ${response.status}`);
           return;
         }
         const announcements: SystemNotification[] = await response.json();
+        if (!active) return;
+
         if (!Array.isArray(announcements) || announcements.length === 0) {
           return;
         }
@@ -117,26 +132,42 @@ export function SystemNotificationsProvider({
         const uniqueIds = [...new Set(announcements.map((a) => a.id))];
 
         // If announcements are present but every loaded ID is already dismissed,
-        // clear old dismissals and retry so genuinely new announcements surface.
+        // clear old dismissals and retry ONCE so genuinely new announcements surface.
+        // Use dismissedIdsRef to read CURRENT dismissed IDs (not stale closure)
         if (
           uniqueIds.length > 0 &&
-          uniqueIds.every((id) => config.dismissedIds.includes(id))
+          uniqueIds.every((id) => dismissedIdsRef.current.includes(id))
         ) {
+          if (retryAttemptedRef.current) {
+            // Already retried once, don't loop
+            return;
+          }
+          retryAttemptedRef.current = true;
           setConfig((prev) => ({ ...prev, dismissedIds: [] }));
+          // Wait for state to update, then retry
           await new Promise((resolve) => setTimeout(resolve, 50));
+          if (!active) return;
           return loadAnnouncements();
         }
 
-        setConfig((prev) => ({
-          ...prev,
-          notifications: [latest],
-        }));
+        if (active) {
+          setConfig((prev) => ({
+            ...prev,
+            notifications: [latest],
+          }));
+        }
       } catch (error) {
-        console.warn('Failed to fetch system announcements:', error);
+        if (active) {
+          console.warn('Failed to fetch system announcements:', error);
+        }
       }
     };
 
     loadAnnouncements();
+
+    return () => {
+      active = false;
+    };
   }, [announcementsUrl]);
 
   // Save dismissed IDs to localStorage whenever they change
