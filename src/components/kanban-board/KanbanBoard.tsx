@@ -222,6 +222,13 @@ const KanbanBoard = () => {
     },
   );
 
+  // Track the intended drop target for persistence on drag end
+  const dropTargetRef = useRef<{
+    taskId: string;
+    newColumnId: Id;
+    newStatus: number;
+  } | null>(null);
+
   // Map API tasks to local task format
   useEffect(() => {
     if (apiTasks) {
