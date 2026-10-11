@@ -17,8 +17,8 @@ import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { useApiWrite } from '@/lib/hooks/useApiWrite';
 import { useApiGet } from '@/lib/hooks/useApiGet';
+import { useApiWrite } from '@/lib/hooks/useApiWrite';
 import { API_WRITE } from '@/routes/api';
 import { IProductCategory } from '@/types/products';
 
@@ -74,7 +74,7 @@ export const NewProductDrawer = ({
     refetch: createProduct,
     loading,
     error,
-  } = useApiWrite('POST', '/api/products', {
+  } = useApiWrite('POST', API_WRITE.products, {
     autoExecute: false,
     onSuccess: () => {
       // Show success notification
