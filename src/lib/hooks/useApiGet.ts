@@ -60,6 +60,24 @@ const parseBody = async (
   }
 };
 
+// Module-level request deduplication state
+const pendingRequests = new Map<
+  string,
+  {
+    abortController: AbortController;
+    promise: Promise<void>;
+    hookInstanceId: symbol;
+  }
+>();
+
+/** Test-only helper to clear pending requests between tests. */
+export function __clearPendingRequestsForTest(): void {
+  pendingRequests.forEach(({ abortController }) => {
+    abortController.abort();
+  });
+  pendingRequests.clear();
+}
+
 /**
  * The one way a component should read from a mock endpoint.
  *
@@ -75,60 +93,115 @@ export function useApiGet<T>(endpoint: string): IApiGetResult<T> {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
-  // Guards against a slow response for a previous endpoint overwriting the
-  // state of the current one.
-  const active = useRef(true);
+  // Unique ID for this hook instance (for deduplication vs superseding)
+  const hookInstanceIdRef = useRef(Symbol('hookInstance'));
+  // Generation counter to ignore stale responses
+  const generationRef = useRef(0);
 
   const fetchData = useCallback(async (): Promise<void> => {
-    setLoading(true);
-    setError(null);
+    // Increment generation for this new request
+    const currentGeneration = ++generationRef.current;
 
-    try {
-      const response = await fetch(endpoint, {
-        headers: { 'Content-Type': 'application/json' },
-      });
-      const body = await parseBody(response);
-
-      if (!active.current) {
-        return;
-      }
-
-      if (!response.ok || !body.succeeded) {
-        const message =
-          body.message || `Request failed with status ${response.status}`;
-
-        setData(null);
-        setError(new ApiRequestError(message, response.status, body));
-        return;
-      }
-
-      setData(body.data as T);
-    } catch (caught) {
-      if (!active.current) {
-        return;
-      }
-
-      setData(null);
-      setError(
-        caught instanceof Error
-          ? caught
-          : new Error('Something went wrong. Please try again.'),
-      );
-    } finally {
-      if (active.current) {
-        setLoading(false);
+    // Check for existing pending request for this endpoint
+    const existing = pendingRequests.get(endpoint);
+    if (existing) {
+      // If same hook instance, supersede (abort previous)
+      // If different hook instance, deduplicate (wait for existing)
+      if (existing.hookInstanceId === hookInstanceIdRef.current) {
+        existing.abortController.abort();
+        pendingRequests.delete(endpoint);
+      } else {
+        // Different hook instance - deduplicate by waiting
+        try {
+          await existing.promise;
+        } catch {
+          // Ignore errors from the awaited request
+        }
+        // After waiting, if we're still the current generation, the state was already updated
+        if (generationRef.current === currentGeneration) {
+          setLoading(false);
+          return;
+        }
+        // If generation changed (unlikely for different hook), fall through to make new request
       }
     }
+
+    // Create new AbortController for this request
+    const abortController = new AbortController();
+
+    const promise = (async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await fetch(endpoint, {
+          headers: { 'Content-Type': 'application/json' },
+          signal: abortController.signal,
+        });
+        const body = await parseBody(response);
+
+        // Check if this request has been superseded
+        if (generationRef.current !== currentGeneration) {
+          return;
+        }
+
+        if (!response.ok || !body.succeeded) {
+          const message =
+            body.message || `Request failed with status ${response.status}`;
+
+          setData(null);
+          setError(new ApiRequestError(message, response.status, body));
+          return;
+        }
+
+        setData(body.data as T);
+      } catch (caught) {
+        // Ignore abort errors
+        if (caught instanceof DOMException && caught.name === 'AbortError') {
+          return;
+        }
+        if (generationRef.current !== currentGeneration) {
+          return;
+        }
+
+        setData(null);
+        setError(
+          caught instanceof Error
+            ? caught
+            : new Error('Something went wrong. Please try again.'),
+        );
+      } finally {
+        if (generationRef.current === currentGeneration) {
+          setLoading(false);
+        }
+        // Clean up pending request
+        pendingRequests.delete(endpoint);
+      }
+    })();
+
+    // Register this request for deduplication
+    pendingRequests.set(endpoint, {
+      abortController,
+      promise,
+      hookInstanceId: hookInstanceIdRef.current,
+    });
   }, [endpoint]);
 
   useEffect(() => {
-    active.current = true;
-    fetchData();
+    const promise = fetchData();
 
     return () => {
-      active.current = false;
+      // Abort in-flight request on unmount
+      const pending = pendingRequests.get(endpoint);
+      if (pending) {
+        pending.abortController.abort();
+      }
+      // Also increment generation to ignore any response that comes after unmount
+      // Copy ref value to avoid exhaustive-deps warning
+      const currentGen = generationRef.current;
+      generationRef.current = currentGen + 1;
     };
-  }, [fetchData]);
+  }, [fetchData, endpoint]);
 
   return { data, loading, error, refetch: fetchData };
 }
