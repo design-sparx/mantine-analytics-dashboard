@@ -74,7 +74,7 @@ function Error({
               size="md"
               leftSection={<IconRefresh size={18} />}
               variant="default"
-              onClick={() => window.location.reload}
+              onClick={() => window.location.reload()}
             >
               Refresh Page
             </Button>
