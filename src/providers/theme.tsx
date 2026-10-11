@@ -7,7 +7,6 @@ import { Notifications } from '@mantine/notifications';
 
 import { createDynamicTheme } from '@/theme';
 
-
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const dynamicTheme: MantineTheme = useMemo(() => {
     return createDynamicTheme({

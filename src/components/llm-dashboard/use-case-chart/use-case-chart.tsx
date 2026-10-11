@@ -5,7 +5,6 @@ import { ErrorAlert } from '@/components';
 
 import type { LlmUseCaseDto } from '@/types';
 
-
 interface UseCaseChartProps {
   data?: LlmUseCaseDto[] | null;
   loading?: boolean;

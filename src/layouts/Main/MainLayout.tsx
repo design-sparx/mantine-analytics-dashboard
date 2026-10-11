@@ -33,9 +33,11 @@ export function MainLayout({ children }: Props) {
   const [mobileOpened, { toggle: toggleMobile, close: closeMobile }] =
     useDisclosure();
 
-  const headerVariant: 'default' | 'colored' | 'gradient' | 'glassmorphism' = 'default';
+  const headerVariant: 'default' | 'colored' | 'gradient' | 'glassmorphism' =
+    'default';
   const headerPosition: 'fixed' | 'sticky' | 'static' = 'fixed';
-  const sidebarVariant: 'default' | 'colored' | 'gradient' | 'glassmorphism' = 'default';
+  const sidebarVariant: 'default' | 'colored' | 'gradient' | 'glassmorphism' =
+    'default';
   const sidebarPosition: 'left' | 'right' = 'left';
   const sidebarPositionValue = sidebarPosition as 'left' | 'right';
   const sidebarOverlay = false;
@@ -166,10 +168,7 @@ export function MainLayout({ children }: Props) {
         data-overlay={shouldOverlay}
         style={{
           ...getMainMargin(),
-          paddingTop:
-            headerPosition === 'fixed'
-              ? HEADER_HEIGHT
-              : 0,
+          paddingTop: headerPosition === 'fixed' ? HEADER_HEIGHT : 0,
           minHeight: `calc(100vh - ${rem(60)})`, // Account for footer
         }}
       >

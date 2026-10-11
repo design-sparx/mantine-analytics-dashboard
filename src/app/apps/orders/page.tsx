@@ -22,7 +22,8 @@ import {
 } from '@tabler/icons-react';
 
 import { ErrorAlert, OrdersTable, PageHeader, Surface } from '@/components';
-import { useOrders } from '@/lib/hooks/useApi';
+import { useApiGet } from '@/lib/hooks/useApiGet';
+import { API_CORE } from '@/routes/api';
 import { PATH_DASHBOARD } from '@/routes';
 
 import { EditOrderDrawer } from './components/EditOrderDrawer';
@@ -52,7 +53,7 @@ function Orders() {
     loading: ordersLoading,
     error: ordersError,
     refetch: refetchOrders,
-  } = useOrders();
+  } = useApiGet<OrderDto[]>(API_CORE.orders);
 
   const [newDrawerOpened, { open: newOrderOpen, close: newOrderClose }] =
     useDisclosure(false);
@@ -78,7 +79,7 @@ function Orders() {
     editOrderOpen();
   };
 
-  const orderItems = ordersData?.data?.map((order: OrderDto) => (
+  const orderItems = ordersData?.map((order: OrderDto) => (
     <OrderCard
       key={order.id}
       data={order}
@@ -120,7 +121,7 @@ function Orders() {
       );
     }
 
-    if (!ordersData?.data?.length) {
+    if (!ordersData?.length) {
       return (
         <Surface p="md">
           <Stack align="center">
@@ -148,7 +149,7 @@ function Orders() {
     ) : (
       <Surface>
         <OrdersTable
-          data={ordersData.data}
+          data={ordersData}
           loading={false}
           onEdit={handleEditOrder}
           onView={handleViewOrder}
@@ -167,8 +168,7 @@ function Orders() {
         title="Orders"
         breadcrumbItems={items}
         actionButton={
-          ordersData?.data &&
-          ordersData.data?.length > 0 && (
+          ordersData?.length && (
             <Group gap="sm">
               <SegmentedControl
                 value={viewMode}

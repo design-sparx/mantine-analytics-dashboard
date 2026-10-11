@@ -36,9 +36,7 @@ describe('generated endpoint hooks', () => {
       '/api/llm/stats',
       expect.objectContaining({ headers: expect.any(Object) }),
     );
-    expect(result.current.data).toEqual([
-      { title: 'Requests', value: '1.2M' },
-    ]);
+    expect(result.current.data).toEqual([{ title: 'Requests', value: '1.2M' }]);
     expect(result.current.error).toBeNull();
   });
 });

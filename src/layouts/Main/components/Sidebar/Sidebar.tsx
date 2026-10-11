@@ -15,7 +15,8 @@ type NavigationProps = {
 
 const SidebarNav = ({ onClose, showCloseButton = false }: NavigationProps) => {
   const tablet_match = useMediaQuery('(max-width: 768px)');
-  const sidebarVariant: 'default' | 'colored' | 'gradient' | 'glassmorphism' = 'default';
+  const sidebarVariant: 'default' | 'colored' | 'gradient' | 'glassmorphism' =
+    'default';
   const sidebarPosition: 'left' | 'right' = 'left';
 
   const links = SIDEBAR_LINKS.map((m) => (
@@ -44,7 +45,11 @@ const SidebarNav = ({ onClose, showCloseButton = false }: NavigationProps) => {
     </Box>
   ));
 
-  const sidebarVariantValue = sidebarVariant as 'default' | 'colored' | 'gradient' | 'glassmorphism';
+  const sidebarVariantValue = sidebarVariant as
+    | 'default'
+    | 'colored'
+    | 'gradient'
+    | 'glassmorphism';
   const sidebarPositionValue = sidebarPosition as 'left' | 'right';
 
   // Determine close button color based on sidebar variant

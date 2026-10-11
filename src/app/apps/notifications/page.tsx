@@ -26,7 +26,8 @@ import {
 } from '@tabler/icons-react';
 
 import { ErrorAlert, PageHeader } from '@/components';
-import { useNotifications } from '@/lib/hooks/useApi';
+import { useApiGet } from '@/lib/hooks/useApiGet';
+import { API_CORE } from '@/routes/api';
 import { PATH_DASHBOARD } from '@/routes';
 
 import { NotificationItem } from './components/NotificationItem';
@@ -53,7 +54,7 @@ function Notifications() {
     loading: notificationsLoading,
     error: notificationsError,
     refetch: refetchNotifications,
-  } = useNotifications();
+  } = useApiGet<NotificationDto[]>(API_CORE.notifications);
 
   const handleMarkAsRead = useCallback((id: string) => {
     console.log('Mark as read:', id);
@@ -65,7 +66,7 @@ function Notifications() {
     // In a real app, send PATCH request
   };
 
-  const filteredNotifications = notificationsData?.data?.filter(
+  const filteredNotifications = notificationsData?.filter(
     (notification: NotificationDto) => {
       if (filter === 'unread') return !notification.read;
       if (filter === 'mentions') return notification.type === 'mention';
@@ -76,8 +77,7 @@ function Notifications() {
   );
 
   const unreadCount =
-    notificationsData?.data?.filter((n: NotificationDto) => !n.read).length ||
-    0;
+    notificationsData?.filter((n: NotificationDto) => !n.read).length || 0;
 
   // Group notifications by date
   const groupedNotifications = filteredNotifications?.reduce(
@@ -221,12 +221,9 @@ function Notifications() {
                   <Tabs.Tab value="all">
                     <Group gap={6}>
                       All
-                      {notificationsData?.data &&
-                        notificationsData?.data?.length > 0 && (
-                          <Badge size="sm">
-                            {notificationsData.data.length}
-                          </Badge>
-                        )}
+                      {notificationsData?.length && (
+                        <Badge size="sm">{notificationsData.length}</Badge>
+                      )}
                     </Group>
                   </Tabs.Tab>
                   <Tabs.Tab value="unread">

@@ -15,6 +15,8 @@ import {
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
+import { useApiWrite } from '@/lib/hooks/useApiWrite';
+import { API_WRITE } from '@/routes/api';
 import { IProductCategory } from '@/types/products';
 
 type EditCategoryDrawer = Omit<DrawerProps, 'title' | 'children'> & {
@@ -27,7 +29,6 @@ export const EditCategoryDrawer = ({
   onCategoryUpdated,
   ...drawerProps
 }: EditCategoryDrawer) => {
-  const [loading, setLoading] = useState(false);
   const [isCreator, setIsCreator] = useState(true);
 
   // In a mock data template, all users can edit
@@ -44,33 +45,17 @@ export const EditCategoryDrawer = ({
     },
   });
 
-  const handleSubmit = async (values: typeof form.values) => {
-    if (!productCategory || !isCreator || !canEditProductCategory) return;
+  const categoryEndpoint = productCategory
+    ? API_WRITE.productCategoryDetail(productCategory.id)
+    : API_WRITE.productCategories;
 
-    setLoading(true);
-    try {
-      const payload = {
-        ...values,
-        modifiedById: 'user-demo-001',
-      };
-
-      const response = await fetch(
-        `/api/product-categories/${productCategory.id}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload),
-        },
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to create category');
-      }
-
+  const {
+    refetch: updateCategory,
+    loading: updateLoading,
+    error: updateError,
+  } = useApiWrite<IProductCategory>('PUT', API_WRITE.productCategories, {
+    autoExecute: false,
+    onSuccess: () => {
       notifications.show({
         title: 'Success',
         message: 'Category created successfully',
@@ -79,26 +64,65 @@ export const EditCategoryDrawer = ({
 
       form.reset();
 
-      if (drawerProps.onClose) {
-        drawerProps.onClose();
-      }
+      drawerProps.onClose?.();
+      onCategoryUpdated?.();
+    },
+  });
 
-      if (onCategoryUpdated) {
-        onCategoryUpdated();
-      }
-    } catch (error) {
+  const {
+    refetch: deleteCategory,
+    loading: deleteLoading,
+    error: deleteError,
+  } = useApiWrite<{ id: string }>('DELETE', API_WRITE.productCategories, {
+    autoExecute: false,
+    onSuccess: () => {
       notifications.show({
-        title: 'Error',
-        message:
-          error instanceof Error ? error.message : 'Failed to create category',
-        color: 'red',
+        title: 'Success',
+        message: 'Product deleted successfully',
+        color: 'green',
       });
-    } finally {
-      setLoading(false);
+
+      drawerProps.onClose?.();
+      onCategoryUpdated?.();
+    },
+  });
+
+  const loading = updateLoading || deleteLoading;
+
+  useEffect(() => {
+    if (!updateError) {
+      return;
     }
+
+    notifications.show({
+      title: 'Error',
+      message: updateError.message || 'Failed to create category',
+      color: 'red',
+    });
+  }, [updateError]);
+
+  useEffect(() => {
+    if (!deleteError) {
+      return;
+    }
+
+    notifications.show({
+      title: 'Error',
+      message: deleteError.message || 'Failed to delete product',
+      color: 'red',
+    });
+  }, [deleteError]);
+
+  const handleSubmit = (values: typeof form.values) => {
+    if (!productCategory || !isCreator || !canEditProductCategory) return;
+
+    updateCategory(categoryEndpoint, {
+      ...values,
+      modifiedById: 'user-demo-001',
+    });
   };
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     if (!productCategory || !isCreator) return;
 
     if (
@@ -107,50 +131,7 @@ export const EditCategoryDrawer = ({
       return;
     }
 
-    setLoading(true);
-    try {
-      const response = await fetch(
-        `/api/product-categories/${productCategory.id}`,
-        {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to delete product category');
-      }
-
-      // Show success notification
-      notifications.show({
-        title: 'Success',
-        message: 'Product deleted successfully',
-        color: 'green',
-      });
-
-      // Close drawer
-      if (drawerProps.onClose) {
-        drawerProps.onClose();
-      }
-
-      // Trigger refresh of products list
-      if (onCategoryUpdated) {
-        onCategoryUpdated();
-      }
-    } catch (error) {
-      // Show error notification
-      notifications.show({
-        title: 'Error',
-        message:
-          error instanceof Error ? error.message : 'Failed to delete product',
-        color: 'red',
-      });
-    } finally {
-      setLoading(false);
-    }
+    deleteCategory(categoryEndpoint);
   };
 
   useEffect(() => {

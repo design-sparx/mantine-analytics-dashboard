@@ -42,7 +42,9 @@ export class ApiRequestError extends Error {
   }
 }
 
-const parseBody = async (response: Response): Promise<IApiResponse<unknown>> => {
+const parseBody = async (
+  response: Response,
+): Promise<IApiResponse<unknown>> => {
   try {
     return (await response.json()) as IApiResponse<unknown>;
   } catch {

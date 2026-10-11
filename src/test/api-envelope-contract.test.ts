@@ -15,7 +15,8 @@ type _AssertEnvelope = RouteEnvelope extends IApiResponse<unknown>
 
 describe('reference route contract', () => {
   it('returns a body that satisfies IApiResponse', async () => {
-    const response = await GET();
+    const request = new Request('http://localhost/api/invoices');
+    const response = await GET(request);
     const body = (await response.json()) as IApiResponse<unknown>;
 
     expect(response.status).toBe(200);

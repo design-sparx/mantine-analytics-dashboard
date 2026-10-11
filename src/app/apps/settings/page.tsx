@@ -21,7 +21,8 @@ import { notifications } from '@mantine/notifications';
 import { IconCloudUpload, IconDeviceFloppy } from '@tabler/icons-react';
 
 import { PageHeader, Surface, TextEditor } from '@/components';
-import { useProfile } from '@/lib/hooks/useApi';
+import { useApiGet } from '@/lib/hooks/useApiGet';
+import { API_CORE } from '@/routes/api';
 import { PATH_DASHBOARD } from '@/routes';
 
 const items = [
@@ -49,9 +50,11 @@ const BIO =
 function Settings() {
   const [file, setFile] = useState<File | null>(null);
 
-  const { data: profileData, loading: profileLoading } = useProfile();
+  const { data: profileData, loading: profileLoading } = useApiGet<any>(
+    API_CORE.profile,
+  );
 
-  const profile = profileData?.data;
+  const profile = profileData;
 
   const accountForm = useForm({
     initialValues: {

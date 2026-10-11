@@ -13,7 +13,8 @@ import { IconDotsVertical } from '@tabler/icons-react';
 import { DataTable } from 'mantine-datatable';
 
 import { ErrorAlert, Surface } from '@/components';
-import { type IApiResponse } from '@/types/api-response';
+import { useApiGet } from '@/lib/hooks/useApiGet';
+import { API_CORE } from '@/routes/api';
 
 type SalesChartProps = PaperProps;
 
@@ -23,7 +24,7 @@ const SalesChart = ({ ...others }: SalesChartProps) => {
     data: salesData,
     error: salesError,
     loading: salesLoading,
-  } = useFetch<IApiResponse<any[]>>('/api/sales');
+  } = useApiGet<any[]>(API_CORE.sales);
 
   const data = [
     {
@@ -82,7 +83,7 @@ const SalesChart = ({ ...others }: SalesChartProps) => {
             { accessor: 'revenue' },
             { accessor: 'value' },
           ]}
-          records={salesData?.data?.slice(0, 4) ?? []}
+          records={salesData?.slice(0, 4) ?? []}
           height={200}
           fetching={salesLoading}
         />

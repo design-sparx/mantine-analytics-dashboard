@@ -22,7 +22,8 @@ import {
 } from '@tabler/icons-react';
 
 import { CustomersTable, ErrorAlert, PageHeader, Surface } from '@/components';
-import { useCustomers } from '@/lib/hooks/useApi';
+import { useApiGet } from '@/lib/hooks/useApiGet';
+import { API_CORE } from '@/routes/api';
 import { PATH_DASHBOARD } from '@/routes';
 
 import { CustomerCard } from './components/CustomerCard';
@@ -54,7 +55,7 @@ function Customers() {
     loading: customersLoading,
     error: customersError,
     refetch: refetchCustomers,
-  } = useCustomers();
+  } = useApiGet<CustomerDto[]>(API_CORE.customers);
 
   const [newDrawerOpened, { open: newCustomerOpen, close: newCustomerClose }] =
     useDisclosure(false);
@@ -82,7 +83,7 @@ function Customers() {
     editCustomerOpen();
   };
 
-  const customerItems = customersData?.data?.map((customer: CustomerDto) => (
+  const customerItems = customersData?.map((customer: CustomerDto) => (
     <CustomerCard
       key={customer.id}
       data={customer}
@@ -128,7 +129,7 @@ function Customers() {
       );
     }
 
-    if (!customersData?.data?.length) {
+    if (!customersData?.length) {
       return (
         <Surface p="md">
           <Stack align="center">
@@ -160,7 +161,7 @@ function Customers() {
     ) : (
       <Surface mt="md">
         <CustomersTable
-          data={customersData.data}
+          data={customersData}
           loading={false}
           onEdit={handleEditCustomer}
           onView={handleViewCustomer}
@@ -179,8 +180,8 @@ function Customers() {
         title="Customers"
         breadcrumbItems={items}
         actionButton={
-          customersData?.data &&
-          customersData.data?.length > 0 && (
+          customersData &&
+          customersData.length > 0 && (
             <Group gap="sm">
               <SegmentedControl
                 value={viewMode}

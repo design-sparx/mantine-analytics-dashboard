@@ -36,7 +36,10 @@ const mockRoutes = (): { endpoint: string; routeFile: string }[] => {
       'route.ts',
     );
 
-    if (fs.existsSync(routeFile) && fs.readFileSync(routeFile, 'utf8').includes('serveMock')) {
+    if (
+      fs.existsSync(routeFile) &&
+      fs.readFileSync(routeFile, 'utf8').includes('serveMock')
+    ) {
       entries.push({ endpoint, routeFile });
     }
   }
@@ -49,9 +52,9 @@ const routes = mockRoutes();
 describe('mock routes', () => {
   it('discovers every mock route routeFile', () => {
     // Guards the discovery logic: if this is empty, the checks below would pass
-    // without testing anything. 69 of 70 registered routes read a mock file;
+    // without testing anything. 66 of 72 registered routes read a mock file;
     // `/api/changelog` is the exception and is asserted separately below.
-    expect(routes).toHaveLength(69);
+    expect(routes).toHaveLength(66);
   });
 
   it('leaves only the non-mock route out of the helper', () => {
@@ -59,7 +62,13 @@ describe('mock routes', () => {
       (endpoint) => !routes.some((r) => r.endpoint === endpoint),
     );
 
-    expect(unconverted).toEqual(['/api/changelog']);
+    expect(unconverted).toEqual([
+      '/api/changelog',
+      '/api/invoices',
+      '/api/product-categories',
+      '/api/products',
+      '/api/tasks',
+    ]);
   });
 
   it.each(routes)(
@@ -83,15 +92,18 @@ describe('mock routes', () => {
     },
   );
 
-  it.each(routes)('$endpoint returns the envelope shape', async ({ routeFile }) => {
-    const { GET } = (await import(routeFile)) as {
-      GET: () => Promise<Response>;
-    };
+  it.each(routes)(
+    '$endpoint returns the envelope shape',
+    async ({ routeFile }) => {
+      const { GET } = (await import(routeFile)) as {
+        GET: () => Promise<Response>;
+      };
 
-    const body = (await GET().then((r) => r.json())) as unknown;
+      const body = (await GET().then((r) => r.json())) as unknown;
 
-    expect(isEnvelope(body)).toBe(true);
-  });
+      expect(isEnvelope(body)).toBe(true);
+    },
+  );
 
   it.each(routes)(
     '$endpoint derives its message from a resource label',

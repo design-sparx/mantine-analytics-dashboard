@@ -1,18 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import {
   Alert,
   Anchor,
   Badge,
   Box,
-  Center,
   Container,
   Divider,
   Group,
   List,
-  Loader,
   Paper,
   Stack,
   Text,
@@ -28,7 +24,6 @@ import {
   IconBug,
   IconExchange,
   IconGitBranch,
-  IconInfoCircle,
   IconPlus,
   IconRocket,
   IconSettings,
@@ -37,6 +32,8 @@ import {
   IconTrash,
 } from '@tabler/icons-react';
 
+import { useApiGet } from '@/lib/hooks/useApiGet';
+import { API_CORE } from '@/routes/api';
 import { ChangelogEntry } from '@/lib/changelog';
 
 const getVersionBadgeColor = (type: string) => {
@@ -139,40 +136,23 @@ const cleanChangeItem = (item: string): string => {
 };
 
 export default function ClientChangelog() {
-  const [changelog, setChangelog] = useState<ChangelogEntry[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const {
+    data: changelogData,
+    error: changelogError,
+    loading: changelogLoading,
+  } = useApiGet<{ changelog: ChangelogEntry[] }>(API_CORE.changelog);
 
-  useEffect(() => {
-    fetch('/api/changelog')
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.error) {
-          setError(data.error);
-        } else {
-          setChangelog(data.changelog || []);
-        }
-      })
-      .catch((err) => {
-        console.error('Failed to fetch changelog:', err);
-        setError('Failed to load changelog');
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+  const changelog = changelogData?.changelog || [];
 
-  if (loading) {
+  if (changelogLoading) {
     return (
       <Container size="lg" py="xl">
-        <Center>
-          <Loader size="lg" />
-        </Center>
+        <Text>Loading changelog...</Text>
       </Container>
     );
   }
 
-  if (error) {
+  if (changelogError) {
     return (
       <Container size="lg" py="xl">
         <Alert
@@ -180,7 +160,7 @@ export default function ClientChangelog() {
           title="Error Loading Changelog"
           color="red"
         >
-          {error}
+          {changelogError.message || 'Failed to load changelog'}
         </Alert>
       </Container>
     );
@@ -188,15 +168,120 @@ export default function ClientChangelog() {
 
   if (!changelog || changelog.length === 0) {
     return (
-      <Container size="lg" py="xl">
-        <Alert
-          icon={<IconInfoCircle size={18} />}
-          title="No Changelog Available"
-          color="blue"
-        >
-          No changelog entries found. Make sure your CHANGELOG.md file exists
-          and is properly formatted.
-        </Alert>
+      <Container size="lg" py="xl" mt={rem(80)}>
+        <Stack gap="xl">
+          {/* Header */}
+          <Box>
+            <Group align="center" gap="md" mb="md">
+              <ThemeIcon
+                size="xl"
+                variant="filled"
+                color="blue"
+                className="surface-elevated"
+              >
+                <IconExchange size={24} />
+              </ThemeIcon>
+              <Title order={1}>Changelog</Title>
+            </Group>
+            <Text size="lg">
+              Keep track of all changes, improvements and fixes to the Mantine
+              Analytics Dashboard.
+            </Text>
+          </Box>
+
+          <Divider />
+
+          {/* Timeline */}
+          <Timeline active={0} bulletSize={24} lineWidth={2}>
+            {changelog.map((release, index) => (
+              <Timeline.Item
+                key={`${release.version}-${index}`}
+                bullet={
+                  <ThemeIcon
+                    size="md"
+                    color={getVersionBadgeColor(release.type)}
+                    variant="filled"
+                  >
+                    <IconGitBranch size={20} />
+                  </ThemeIcon>
+                }
+                title={
+                  <Group align="center" gap="md" mb="sm">
+                    <Title order={3}>v{release.version}</Title>
+                    <Badge
+                      color={getVersionBadgeColor(release.type)}
+                      variant="light"
+                      size="sm"
+                    >
+                      {release.type}
+                    </Badge>
+                    <Text size="sm">{release.date}</Text>
+                  </Group>
+                }
+              >
+                <Paper withBorder p="md" mb="lg" className="surface-elevated">
+                  <Stack gap="md">
+                    {/* Release Description */}
+                    {release.description && (
+                      <Box component={Typography}>
+                        <Text fz="lg" fw={600}>
+                          {release.description}
+                        </Text>
+                      </Box>
+                    )}
+
+                    {/* Changes */}
+                    {release.changes.map((changeGroup, groupIndex) => (
+                      <Box key={`${changeGroup.type}-${groupIndex}`}>
+                        <Group align="center" gap="xs" mb="sm">
+                          <ThemeIcon
+                            size="sm"
+                            color={getChangeColor(changeGroup.type)}
+                            variant="light"
+                          >
+                            {getChangeIcon(changeGroup.type)}
+                          </ThemeIcon>
+                          <Text fw={600} size="sm">
+                            {changeGroup.title ||
+                              getChangeLabel(changeGroup.type)}
+                          </Text>
+                        </Group>
+
+                        {changeGroup.items.length > 0 && (
+                          <List size="sm" spacing="xs" withPadding>
+                            {changeGroup.items.map((item, itemIndex) => (
+                              <List.Item key={itemIndex}>
+                                <Text size="sm" style={{ lineHeight: 1.5 }}>
+                                  {cleanChangeItem(item)}
+                                </Text>
+                              </List.Item>
+                            ))}
+                          </List>
+                        )}
+                      </Box>
+                    ))}
+                  </Stack>
+                </Paper>
+              </Timeline.Item>
+            ))}
+          </Timeline>
+
+          {/* Footer */}
+          <Paper withBorder p="md" mt="xl" className="surface-bordered">
+            <Group align="center" gap="md">
+              <Text size="sm">
+                Found an issue or want to contribute?{' '}
+                <Anchor
+                  href="https://github.com/design-sparx/mantine-analytics-dashboard/issues"
+                  target="_blank"
+                  size="sm"
+                >
+                  Report it on GitHub
+                </Anchor>
+              </Text>
+            </Group>
+          </Paper>
+        </Stack>
       </Container>
     );
   }

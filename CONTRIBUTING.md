@@ -8,7 +8,7 @@ Please note we have a [code of conduct](https://github.com/design-sparx/mantine-
 
 > This repo uses [changesets](https://github.com/changesets/changesets) to
 > make releasing updates easier. For you, the contributor, this means you
-> should run `npm run changeset` when you've got your changes ready. For
+> should run `pnpm changeset:add` when you've got your changes ready. For
 > more details, see this short document on [adding a changeset](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md#i-am-in-a-single-package-repository).
 
 ## Found an Issue?
@@ -35,12 +35,12 @@ pnpm install
 Run dev server
 
 ```
-pnpm run dev
+pnpm dev
 ```
 
 ## Linter
 
-Each PR should pass the linter to be accepted. To fix lint and prettier errors, run `pnpm run lint:fix` and `pnpm run prettier:fix`.
+Each PR should pass the linter to be accepted. To fix lint and prettier errors, run `pnpm lint` and `pnpm prettier`.
 
 ## Commit Message
 

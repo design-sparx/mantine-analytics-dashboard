@@ -13,15 +13,16 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { useDisclosure, useFetch } from '@mantine/hooks';
+import { useDisclosure } from '@mantine/hooks';
 import { IconMoodEmpty, IconPlus } from '@tabler/icons-react';
 
 import EditProductDrawer from '@/app/apps/products/components/EditProductDrawer';
 import NewProductDrawer from '@/app/apps/products/components/NewProductDrawer';
 import ProductsCard from '@/app/apps/products/components/ProductCard/ProductsCard';
 import { ErrorAlert, PageHeader, Surface } from '@/components';
+import { useApiGet } from '@/lib/hooks/useApiGet';
+import { API_CORE } from '@/routes/api';
 import { PATH_DASHBOARD } from '@/routes';
-import { IApiResponse } from '@/types/api-response';
 import { IProduct } from '@/types/products';
 
 const items = [
@@ -48,7 +49,7 @@ function Products() {
     loading: productsLoading,
     error: productsError,
     refetch: refetchProducts,
-  } = useFetch<IApiResponse<IProduct[]>>('/api/products');
+  } = useApiGet<IProduct[]>(API_CORE.products);
 
   const [newDrawerOpened, { open: newProductOpen, close: newProductClose }] =
     useDisclosure(false);
@@ -69,7 +70,7 @@ function Products() {
     editProductOpen();
   };
 
-  const projectItems = productsData?.data?.map((p: IProduct) => (
+  const projectItems = productsData?.map((p: IProduct) => (
     <ProductsCard
       key={p.id}
       data={p}
@@ -97,16 +98,16 @@ function Products() {
       );
     }
 
-    if (productsError || !productsData?.succeeded) {
+    if (productsError) {
       return (
         <ErrorAlert
           title="Error loading products"
-          message={productsData?.errors?.join(',')}
+          message={productsError.message}
         />
       );
     }
 
-    if (!productsData?.data?.length) {
+    if (!productsData?.length) {
       return (
         <Surface p="md">
           <Stack align="center">
@@ -150,7 +151,7 @@ function Products() {
         title="Products"
         breadcrumbItems={items}
         actionButton={
-          productsData?.data?.length && (
+          productsData?.length && (
             <Button
               leftSection={<IconPlus size={18} />}
               onClick={newProductOpen}

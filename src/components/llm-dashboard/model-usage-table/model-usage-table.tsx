@@ -12,7 +12,6 @@ import { ErrorAlert } from '@/components';
 
 import type { LlmModelUsageDto } from '@/types';
 
-
 interface ModelUsageTableProps {
   data?: LlmModelUsageDto[] | null;
   loading?: boolean;
