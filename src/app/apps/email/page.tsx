@@ -81,11 +81,11 @@ function Email() {
   };
 
   const handleDelete = (email: EmailDto) => {
-    console.log('Delete email:', email.id);
+    // TODO: send DELETE request
   };
 
   const handleToggleStar = (email: EmailDto) => {
-    console.log('Toggle star:', email.id);
+    // TODO: send PATCH request to toggle star
   };
 
   const filteredEmails = emailsData?.filter((email: EmailDto) => {

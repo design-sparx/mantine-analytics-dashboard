@@ -103,8 +103,8 @@ function FileManager() {
         </SimpleGrid>
         <Surface>
           <Dropzone
-            onDrop={(files) => console.log('accepted files', files)}
-            onReject={(files) => console.log('rejected files', files)}
+            onDrop={() => {}}
+            onReject={() => {}}
             maxSize={5 * 1024 ** 2}
           >
             <Flex
