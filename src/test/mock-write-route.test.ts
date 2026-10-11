@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { buildWriteRoute, buildReadRoute } from '@/lib/api/mock-write-route';
+import { buildReadRoute, buildWriteRoute } from '@/lib/api/mock-write-route';
 
 const FIXTURE = 'KanbanTasks.json';
 
