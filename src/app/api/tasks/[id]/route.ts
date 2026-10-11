@@ -1,5 +1,6 @@
 import { apiFailure, apiSuccess } from '@/lib/api/mock-route';
 import { mockStore } from '@/lib/api/mock-store';
+import { validateWritePayload } from '@/lib/api/validation';
 
 export async function GET(
   _request: Request,
@@ -32,7 +33,18 @@ export const PUT = async (
 
   try {
     const body = await request.json().catch(() => ({}));
-    const updated = await mockStore.update('KanbanTasks.json', id, body);
+    const validation = validateWritePayload('KanbanTasks', 'PUT', body, id);
+    if (!validation.success) {
+      return (
+        validation.response ??
+        apiFailure('Validation failed', validation.errors?.join(', '), 400)
+      );
+    }
+    const updated = await mockStore.update(
+      'KanbanTasks.json',
+      id,
+      validation.data,
+    );
     return apiSuccess(updated, 'Updated successfully');
   } catch (error) {
     const err = error as Error & { status?: number };
