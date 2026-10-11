@@ -52,7 +52,7 @@ const routes = mockRoutes();
 describe('mock routes', () => {
   it('discovers every mock route routeFile', () => {
     // Guards the discovery logic: if this is empty, the checks below would pass
-    // without testing anything. 69 of 75 registered routes read a mock file;
+    // without testing anything. 69 of 74 registered routes read a mock file;
     // `/api/changelog` is the exception and is asserted separately below.
     expect(routes).toHaveLength(69);
   });
