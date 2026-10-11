@@ -27,7 +27,8 @@ import {
   resolveFolderIcon,
 } from '@/app/apps/file-manager/utils';
 import { Surface } from '@/components';
-import { useFetchData } from '@/hooks';
+import { useApiGet } from '@/lib/hooks/useApiGet';
+import { API_CORE } from '@/routes/api';
 
 const PAPER_PROPS: PaperProps = {
   shadow: 'md',
@@ -45,14 +46,14 @@ export default function FileManagerLayout({
     data: foldersData,
     loading: foldersLoading,
     error: foldersError,
-  } = useFetchData('/mocks/Folders.json');
+  } = useApiGet<IFolder[]>(API_CORE.folders);
   const {
     data: fileActivityData,
     loading: fileActivityLoading,
     error: fileActivityError,
-  } = useFetchData('/mocks/FileActivities.json');
+  } = useApiGet<IFileActivity[]>(API_CORE.fileActivities);
 
-  const folders = foldersData.slice(0, 5).map((folder: IFolder) => {
+  const folders = (foldersData ?? []).slice(0, 5).map((folder: IFolder) => {
     const Icon = resolveFolderIcon(folder.name);
 
     return (
@@ -74,7 +75,7 @@ export default function FileManagerLayout({
     );
   });
 
-  const fileActivityItems = fileActivityData.map(
+  const fileActivityItems = (fileActivityData ?? []).map(
     (fileActivity: IFileActivity) => {
       const ActionIcon = resolveActionIcon(fileActivity.action);
       const FileIcon = resolveFileIcon(fileActivity.file_type);

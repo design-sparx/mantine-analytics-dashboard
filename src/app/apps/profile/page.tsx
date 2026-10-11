@@ -36,7 +36,8 @@ import {
   Surface,
   UserProfileCard,
 } from '@/components';
-import { useFetchData } from '@/hooks';
+import { useApiGet } from '@/lib/hooks/useApiGet';
+import { API_CORE } from '@/routes/api';
 import { PATH_DASHBOARD } from '@/routes';
 import UserData from '@public/mocks/UserProfile.json';
 
@@ -73,7 +74,7 @@ function Profile() {
     data: projectsData,
     loading: projectsLoading,
     error: projectsError,
-  } = useFetchData('/mocks/Projects.json');
+  } = useApiGet<any[]>(API_CORE.projects);
   const linkProps = {
     target: '_blank',
     className: classes.socialLink,
@@ -220,7 +221,7 @@ function Profile() {
                     </ActionIcon>
                   </Group>
                   <ProjectsTable
-                    data={projectsData.slice(0, 10)}
+                    data={(projectsData ?? []).slice(0, 10)}
                     loading={projectsLoading}
                     error={projectsError}
                   />
