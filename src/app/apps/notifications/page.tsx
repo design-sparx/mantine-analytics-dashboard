@@ -57,13 +57,11 @@ function Notifications() {
   } = useApiGet<NotificationDto[]>(API_CORE.notifications);
 
   const handleMarkAsRead = useCallback((id: string) => {
-    console.log('Mark as read:', id);
-    // In a real app, send PATCH request
+    // TODO: send PATCH request to mark as read
   }, []);
 
   const handleMarkAllAsRead = () => {
-    console.log('Mark all as read');
-    // In a real app, send PATCH request
+    // TODO: send PATCH request to mark all as read
   };
 
   const filteredNotifications = notificationsData?.filter(

@@ -111,7 +111,7 @@ const KanbanColumn = (props: Props) => {
         <Text size="sm">All tasks in this bucket will also be deleted.</Text>
       ),
       labels: { confirm: 'Delete bucket', cancel: "No don't delete it" },
-      onCancel: () => console.log('Cancel'),
+      onCancel: () => {},
       onConfirm: () => {
         deleteColumn(column.id);
       },
