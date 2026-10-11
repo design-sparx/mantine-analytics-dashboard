@@ -1,5 +1,3 @@
-'use client';
-
 import {
   Container,
   Grid,
@@ -9,40 +7,43 @@ import {
   Stack,
 } from '@mantine/core';
 
-import {
-  ErrorAlert,
-  LanguageTable,
-  MapChart,
-  MobileDesktopChart,
-  PageHeader,
-  SalesChart,
-  StatsCard,
-  TrafficTable,
-} from '@/components';
-import { useDashboardResource } from '@/lib/api/useDashboardResource';
+import { ErrorAlert, PageHeader, StatsCard, Surface } from '@/components';
+import LanguageTable from '@/components/language-table/LanguageTableClient';
+import MapChart from '@/components/map-chart/MapChartClient';
+import MobileDesktopChart from '@/components/mobile-desktop-chart/MobileDesktopChartClient';
+import SalesChart from '@/components/sales-chart/SalesChartClient';
+import TrafficTable from '@/components/traffic-table/TrafficTableClient';
 import { API_CORE } from '@/routes/api';
+
+export const dynamic = 'force-dynamic';
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',
   style: { minHeight: '100%' },
 };
 
-function Page() {
-  const {
-    data: statsData,
-    error: statsError,
-    loading: statsLoading,
-  } = useDashboardResource(API_CORE.stats);
-  const {
-    data: languagesData,
-    error: languageError,
-    loading: languageLoading,
-  } = useDashboardResource(API_CORE.languages);
-  const {
-    data: trafficData,
-    error: trafficError,
-    loading: trafficLoading,
-  } = useDashboardResource(API_CORE.traffic);
+async function fetchData<T>(endpoint: string) {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL || ''}${endpoint}`,
+    {
+      headers: { 'Content-Type': 'application/json' },
+      next: { revalidate: 60 },
+    },
+  );
+  if (!res.ok) return { data: null, error: 'Failed to fetch', loading: false };
+  return res.json();
+}
+
+export default async function Page() {
+  const [statsResult, languagesResult, trafficResult] = await Promise.all([
+    fetchData(API_CORE.stats),
+    fetchData(API_CORE.languages),
+    fetchData(API_CORE.traffic),
+  ]);
+
+  const statsData = statsResult.data?.data ?? statsResult.data ?? [];
+  const languagesData = languagesResult.data ?? [];
+  const trafficData = trafficResult.data ?? [];
 
   return (
     <>
@@ -61,26 +62,18 @@ function Page() {
             spacing={{ base: 10, sm: 'xl' }}
             verticalSpacing={{ base: 'md', sm: 'xl' }}
           >
-            {statsError ? (
+            {statsResult.error ? (
               <ErrorAlert
                 title="Error loading stats"
-                message={statsError.toString()}
+                message={statsResult.error}
               />
             ) : (
               <SimpleGrid cols={2}>
-                {statsLoading
-                  ? Array.from({ length: 4 }).map((o, i) => (
-                      <Skeleton
-                        key={`stats-loading-${i}`}
-                        visible={true}
-                        height={200}
-                      />
-                    ))
-                  : statsData?.data
-                      ?.slice(0, 4)
-                      ?.map((s: any) => (
-                        <StatsCard key={s.title} data={s} {...PAPER_PROPS} />
-                      ))}
+                {statsData
+                  ?.slice(0, 4)
+                  ?.map((s: any) => (
+                    <StatsCard key={s.title} data={s} {...PAPER_PROPS} />
+                  ))}
               </SimpleGrid>
             )}
             <MobileDesktopChart {...PAPER_PROPS} />
@@ -95,16 +88,16 @@ function Page() {
             <Grid.Col span={{ base: 12, md: 6, lg: 4 }}>
               <LanguageTable
                 data={languagesData?.slice(0, 6)}
-                error={languageError}
-                loading={languageLoading}
+                error={languagesResult.error}
+                loading={false}
                 {...PAPER_PROPS}
               />
             </Grid.Col>
             <Grid.Col span={{ base: 12, md: 6, lg: 8 }}>
               <TrafficTable
                 data={trafficData?.slice(0, 6)}
-                error={trafficError}
-                loading={trafficLoading}
+                error={trafficResult.error}
+                loading={false}
                 {...PAPER_PROPS}
               />
             </Grid.Col>
@@ -114,5 +107,3 @@ function Page() {
     </>
   );
 }
-
-export default Page;
