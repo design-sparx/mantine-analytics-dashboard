@@ -35,10 +35,11 @@ import {
   FilesTable,
 } from '@/app/apps/file-manager/components';
 import { PageHeader, Surface } from '@/components';
-import { useFetchData } from '@/hooks';
+import { useApiGet } from '@/lib/hooks/useApiGet';
+import { API_CORE } from '@/routes/api';
 import { PATH_DASHBOARD } from '@/routes';
 
-import { IFile, IFolder } from './types';
+import { IFile, IFolder, IFolderType, IFileType } from './types';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },
@@ -61,16 +62,27 @@ function FileManager() {
     data: filesData,
     loading: filesLoading,
     error: filesError,
-  } = useFetchData('/mocks/Files.json');
+  } = useApiGet<IFile[]>(API_CORE.files);
   const {
     data: foldersData,
     loading: foldersLoading,
     error: foldersError,
-  } = useFetchData('/mocks/Folders.json');
+  } = useApiGet<IFolder[]>(API_CORE.folders);
   const [value, setValue] = useState('View all');
 
   const refinedFolders: IFolder[] = useMemo(() => {
-    return [{ name: 'View all', pinned: true }, ...foldersData].filter(
+    const viewAllFolder = {
+      id: 'view-all',
+      name: 'View all' as IFolderType,
+      icon: 'Documents' as IFileType,
+      description: '',
+      permissions: '',
+      created_at: '',
+      pinned: true,
+      total_files: 0,
+      estimated_size: '',
+    };
+    return [viewAllFolder, ...(foldersData ?? [])].filter(
       (folder: IFolder) => folder.pinned,
     );
   }, [foldersData]);
@@ -91,8 +103,8 @@ function FileManager() {
         </SimpleGrid>
         <Surface>
           <Dropzone
-            onDrop={(files) => console.log('accepted files', files)}
-            onReject={(files) => console.log('rejected files', files)}
+            onDrop={() => {}}
+            onReject={() => {}}
             maxSize={5 * 1024 ** 2}
           >
             <Flex
@@ -152,7 +164,7 @@ function FileManager() {
             </Button>
           </Flex>
           <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }}>
-            {filesData.slice(0, 4).map((file: IFile) => (
+            {(filesData ?? []).slice(0, 4).map((file: IFile) => (
               <FileButton key={file.id} file={file} />
             ))}
           </SimpleGrid>
@@ -184,10 +196,10 @@ function FileManager() {
           <FilesTable
             data={
               value === 'View all'
-                ? filesData
-                : filesData.filter((file: IFile) => file.type === value)
+                ? filesData ?? []
+                : (filesData ?? []).filter((file: IFile) => file.type === value)
             }
-            error={filesError}
+            error={filesError?.message}
             loading={filesLoading}
           />
         </Surface>

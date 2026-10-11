@@ -89,7 +89,7 @@ const KanbanCard = (props: Props) => {
       centered: true,
       children: <Text size="sm">This task will be deleted</Text>,
       labels: { confirm: 'Delete bucket', cancel: "No don't delete it" },
-      onCancel: () => console.log('Cancel'),
+      onCancel: () => {},
       onConfirm: () => {
         deleteTask(task.id);
       },

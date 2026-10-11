@@ -6,7 +6,6 @@ export { default as BaseCard } from './shared/base-card';
 export { default as Logo } from './logo';
 export { default as PageHeader } from './page-header';
 export { default as Surface } from './surface';
-export { default as RouterTransition } from './router-transition';
 export { default as AsideBar } from './aside-bar';
 
 // User Components
