@@ -192,6 +192,11 @@ const KanbanBoard = () => {
   const [tasks, setTasks] = useState<ITask[]>([]);
   const [activeColumn, setActiveColumn] = useState<IColumn | null>(null);
   const [activeTask, setActiveTask] = useState<ITask | null>(null);
+  const dropTargetRef = useRef<{
+    taskId: string;
+    newColumnId: Id;
+    newStatus: number;
+  } | null>(null);
   const tablet_match = useMediaQuery('(max-width: 768px)');
   const [newTaskModalOpened, setNewTaskModalOpened] = useState(false);
   const [selectedColumnId, setSelectedColumnId] = useState<Id | null>(null);

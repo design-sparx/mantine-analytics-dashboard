@@ -1,5 +1,3 @@
-'use client';
-
 import {
   ActionIcon,
   Anchor,
@@ -32,14 +30,15 @@ import {
   PageHeader,
   ProfileStatsCard,
   ProjectsTable,
-  RevenueChart,
   Surface,
   UserProfileCard,
 } from '@/components';
-import { useApiGet } from '@/lib/hooks/useApiGet';
-import { API_CORE } from '@/routes/api';
+import RevenueChart from '@/components/revenue-chart/RevenueChartClient';
 import { PATH_DASHBOARD } from '@/routes';
+import { API_CORE } from '@/routes/api';
 import UserData from '@public/mocks/UserProfile.json';
+
+export const dynamic = 'force-dynamic';
 
 import classes from './page.module.css';
 
@@ -69,12 +68,21 @@ const PAPER_PROPS: PaperProps = {
   style: { minHeight: '100%' },
 };
 
-function Profile() {
-  const {
-    data: projectsData,
-    loading: projectsLoading,
-    error: projectsError,
-  } = useApiGet<any[]>(API_CORE.projects);
+async function fetchProjects() {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL || ''}${API_CORE.projects}`,
+    {
+      headers: { 'Content-Type': 'application/json' },
+      next: { revalidate: 60 },
+    },
+  );
+  if (!res.ok) return { data: null, error: 'Failed to fetch', loading: false };
+  return res.json();
+}
+
+export default async function Profile() {
+  const projectsResult = await fetchProjects();
+  const projectsData = projectsResult.data?.data ?? projectsResult.data ?? [];
   const linkProps = {
     target: '_blank',
     className: classes.socialLink,
@@ -222,8 +230,8 @@ function Profile() {
                   </Group>
                   <ProjectsTable
                     data={(projectsData ?? []).slice(0, 10)}
-                    loading={projectsLoading}
-                    error={projectsError}
+                    loading={false}
+                    error={projectsResult.error}
                   />
                 </Surface>
               </Stack>
@@ -234,5 +242,3 @@ function Profile() {
     </>
   );
 }
-
-export default Profile;

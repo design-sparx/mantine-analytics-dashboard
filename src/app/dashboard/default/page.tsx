@@ -1,5 +1,3 @@
-'use client';
-
 import {
   Button,
   Container,
@@ -12,36 +10,40 @@ import {
 import { IconChevronRight } from '@tabler/icons-react';
 import Link from 'next/link';
 
-import {
-  MobileDesktopChart,
-  PageHeader,
-  ProjectsTable,
-  RevenueChart,
-  SalesChart,
-  StatsGrid,
-  Surface,
-} from '@/components';
-import { useDashboardResource } from '@/lib/api/useDashboardResource';
+import { PageHeader, ProjectsTable, StatsGrid, Surface } from '@/components';
+import MobileDesktopChart from '@/components/mobile-desktop-chart/MobileDesktopChartClient';
+import RevenueChart from '@/components/revenue-chart/RevenueChartClient';
+import SalesChart from '@/components/sales-chart/SalesChartClient';
 import { PATH_TASKS } from '@/routes';
 import { API_CORE } from '@/routes/api';
+
+export const dynamic = 'force-dynamic';
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',
   style: { minHeight: '100%' },
 };
 
-function Page() {
-  const {
-    data: projectsData,
-    error: projectsError,
-    loading: projectsLoading,
-  } = useDashboardResource(API_CORE.projects);
+async function fetchData<T>(endpoint: string) {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL || ''}${endpoint}`,
+    {
+      headers: { 'Content-Type': 'application/json' },
+      next: { revalidate: 60 },
+    },
+  );
+  if (!res.ok) return { data: null, error: 'Failed to fetch', loading: false };
+  return res.json();
+}
 
-  const {
-    data: statsData,
-    error: statsError,
-    loading: statsLoading,
-  } = useDashboardResource(API_CORE.stats);
+export default async function Page() {
+  const [projectsResult, statsResult] = await Promise.all([
+    fetchData(API_CORE.projects),
+    fetchData(API_CORE.stats),
+  ]);
+
+  const projectsData = projectsResult.data?.data ?? projectsResult.data ?? [];
+  const statsData = statsResult.data?.data ?? statsResult.data ?? [];
 
   return (
     <>
@@ -56,9 +58,9 @@ function Page() {
         <Stack gap="lg">
           <PageHeader title="Default dashboard" withActions={true} />
           <StatsGrid
-            data={statsData?.data?.slice(0, 4)}
-            loading={statsLoading}
-            error={statsError}
+            data={statsData?.slice(0, 4)}
+            loading={false}
+            error={statsResult.error}
             paperProps={PAPER_PROPS}
           />
           <Grid gap={{ base: 5, xs: 'md', md: 'md', lg: 'lg', xl: 'xl' }}>
@@ -88,8 +90,8 @@ function Page() {
                 </Group>
                 <ProjectsTable
                   data={projectsData?.slice(0, 6) ?? undefined}
-                  error={projectsError}
-                  loading={projectsLoading}
+                  error={projectsResult.error}
+                  loading={false}
                 />
               </Surface>
             </Grid.Col>
@@ -99,5 +101,3 @@ function Page() {
     </>
   );
 }
-
-export default Page;

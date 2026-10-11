@@ -1,6 +1,7 @@
 import { Anchor, Container, Stack } from '@mantine/core';
 
-import { KanbanBoard, PageHeader } from '@/components';
+import { PageHeader } from '@/components';
+import KanbanBoard from '@/components/kanban-board/KanbanBoardClient';
 import { PATH_DASHBOARD } from '@/routes';
 
 const items = [
@@ -13,7 +14,7 @@ const items = [
   </Anchor>
 ));
 
-function Tasks() {
+export default function Tasks() {
   return (
     <>
       <>
@@ -28,5 +29,3 @@ function Tasks() {
     </>
   );
 }
-
-export default Tasks;
