@@ -5,6 +5,7 @@ import {
   Container,
   Flex,
   Grid,
+  GridCol,
   Group,
   Paper,
   PaperProps,
@@ -34,12 +35,13 @@ import {
   UserProfileCard,
 } from '@/components';
 import RevenueChart from '@/components/revenue-chart/RevenueChartClient';
+import { loadMock } from '@/lib/api/mock-route';
 import { PATH_DASHBOARD } from '@/routes';
-import { API_CORE } from '@/routes/api';
 import UserData from '@public/mocks/UserProfile.json';
 
 import classes from './page.module.css';
 
+import type { ProjectsDto } from '@/types/generated-fixtures';
 import type { Metadata } from 'next';
 
 export const dynamic = 'force-dynamic';
@@ -74,21 +76,9 @@ const PAPER_PROPS: PaperProps = {
   style: { minHeight: '100%' },
 };
 
-async function fetchProjects() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL || ''}${API_CORE.projects}`,
-    {
-      headers: { 'Content-Type': 'application/json' },
-      next: { revalidate: 60 },
-    },
-  );
-  if (!res.ok) return { data: null, error: 'Failed to fetch', loading: false };
-  return res.json();
-}
-
 export default async function Profile() {
-  const projectsResult = await fetchProjects();
-  const projectsData = projectsResult.data?.data ?? projectsResult.data ?? [];
+  const projectsResult = await loadMock<ProjectsDto[]>('Projects.json');
+  const projectsData = projectsResult.data ?? [];
   const linkProps = {
     target: '_blank',
     className: classes.socialLink,
@@ -99,7 +89,7 @@ export default async function Profile() {
       <Stack gap="lg">
         <PageHeader title="Profile" breadcrumbItems={items} />
         <Grid>
-          <Grid.Col span={{ base: 12, md: 5, lg: 4 }}>
+          <GridCol span={{ base: 12, md: 5, lg: 4 }}>
             <Stack>
               <UserProfileCard data={UserData} {...PAPER_PROPS} />
               <Surface {...PAPER_PROPS}>
@@ -181,8 +171,8 @@ export default async function Profile() {
                 </Flex>
               </Surface>
             </Stack>
-          </Grid.Col>
-          <Grid.Col span={{ base: 12, md: 7, lg: 8 }}>
+          </GridCol>
+          <GridCol span={{ base: 12, md: 7, lg: 8 }}>
             <Stack>
               <RevenueChart {...PAPER_PROPS} />
               <SimpleGrid
@@ -233,7 +223,7 @@ export default async function Profile() {
                 />
               </Surface>
             </Stack>
-          </Grid.Col>
+          </GridCol>
         </Grid>
       </Stack>
     </Container>

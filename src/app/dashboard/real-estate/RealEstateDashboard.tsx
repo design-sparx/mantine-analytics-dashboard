@@ -1,8 +1,9 @@
 'use client';
 
-import { Container, Grid, PaperProps, Stack, Text } from '@mantine/core';
+import { Container, Grid, PaperProps, Stack } from '@mantine/core';
 
 import {
+  DashboardSection,
   LocationAnalyticsTable,
   PageHeader,
   PriceDistributionChart,
@@ -10,7 +11,6 @@ import {
   PropertyTypesChart,
   SalesTrendsChart,
   StatsGrid,
-  Surface,
 } from '@/components';
 import { useDashboardResource } from '@/lib/api/useDashboardResource';
 import { API_REAL_ESTATE } from '@/routes/api';
@@ -71,67 +71,52 @@ export function RealEstateDashboard() {
 
         <Grid>
           <Grid.Col span={{ base: 12, md: 8 }}>
-            <Surface {...PAPER_PROPS}>
-              <Text size="lg" fw={600} mb="md">
-                Sales & Revenue Trends
-              </Text>
+            <DashboardSection title="Sales & Revenue Trends" {...PAPER_PROPS}>
               <SalesTrendsChart
                 data={salesData ?? undefined}
                 error={salesError}
                 loading={salesLoading}
               />
-            </Surface>
+            </DashboardSection>
           </Grid.Col>
           <Grid.Col span={{ base: 12, md: 4 }}>
-            <Surface {...PAPER_PROPS}>
-              <Text size="lg" fw={600} mb="md">
-                Property Types Distribution
-              </Text>
+            <DashboardSection title="Property Types Distribution" {...PAPER_PROPS}>
               <PropertyTypesChart
                 data={typesData ?? undefined}
                 error={typesError}
                 loading={typesLoading}
               />
-            </Surface>
+            </DashboardSection>
           </Grid.Col>
 
           <Grid.Col span={{ base: 12, md: 6 }}>
-            <Surface {...PAPER_PROPS}>
-              <Text size="lg" fw={600} mb="md">
-                Price Distribution
-              </Text>
+            <DashboardSection title="Price Distribution" {...PAPER_PROPS}>
               <PriceDistributionChart
                 data={priceData ?? undefined}
                 error={priceError}
                 loading={priceLoading}
               />
-            </Surface>
+            </DashboardSection>
           </Grid.Col>
 
           <Grid.Col span={{ base: 12, md: 6 }}>
-            <Surface {...PAPER_PROPS}>
-              <Text size="lg" fw={600} mb="md">
-                Top Locations
-              </Text>
+            <DashboardSection title="Top Locations" {...PAPER_PROPS}>
               <LocationAnalyticsTable
                 data={locationsData ?? undefined}
                 error={locationsError}
                 loading={locationsLoading}
               />
-            </Surface>
+            </DashboardSection>
           </Grid.Col>
 
           <Grid.Col span={12}>
-            <Surface {...PAPER_PROPS}>
-              <Text size="lg" fw={600} mb="md">
-                Property Listings
-              </Text>
+            <DashboardSection title="Property Listings" {...PAPER_PROPS}>
               <PropertyListingsTable
                 data={propertiesData ?? undefined}
                 error={propertiesError}
                 loading={propertiesLoading}
               />
-            </Surface>
+            </DashboardSection>
           </Grid.Col>
         </Grid>
       </Stack>

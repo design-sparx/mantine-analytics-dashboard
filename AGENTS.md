@@ -32,6 +32,7 @@ pnpm generate:component Foo [basic|interactive|table|card]
 - SystemNotificationsProvider loads the latest announcement from `public/system-announcements.json` and persists dismissed IDs in `localStorage` (`system-notifications`). If every loaded announcement is already dismissed, it clears old dismissals and retries so genuinely new announcements surface.
 - Theme is static: layout defaults are fixed in `src/layouts/Main/MainLayout.tsx`; no dynamic theme customizer or localStorage theme persistence.
 - Single fetch idiom: `useApiGet` for GET, `useApiWrite` for POST/PUT/DELETE. All endpoint paths come from `src/routes/api.ts`; never hardcode `/api/...` strings.
+- Server components never fetch the app's own `/api` routes over HTTP, and there is no `NEXT_PUBLIC_API_URL`. Read fixtures directly with `loadMock` (never throws, returns `{ data, error }`) or `readMock` from `src/lib/api/mock-route.ts`, or `mockStore` for by-id reads. Client components use `useApiGet`/`useDashboardResource`.
 - Dead hook file `src/lib/hooks/useApi.ts` has been removed. The remaining convenience hooks live in `src/lib/hooks/useApiGet.ts` for GET and `src/lib/hooks/useApiWrite.ts` for writes.
 
 ## Paths & imports
@@ -46,6 +47,10 @@ pnpm generate:component Foo [basic|interactive|table|card]
 - Register new components in `src/components/index.ts`.
 - Shared bases: `BaseTable` (`mantine-datatable` wrapper) and `BaseCard` (`Paper` wrapper).
 - Client components must have `'use client'` at the top.
+- Server component pitfalls (`page.tsx` / `layout.tsx` without `'use client'`). Mantine components are client components, so across the RSC boundary:
+  - Compound statics are `undefined`: use `GridCol`, not `Grid.Col` ("Element type is invalid ... got: undefined").
+  - Functions cannot be passed as props: `component={Link}` fails ("Functions cannot be passed directly to Client Components"). Put the element in a small `'use client'` component next to the page (see `src/app/dashboard/default/ViewAllTasksButton.tsx`).
+  - Both are guarded by `src/test/mock-loader.test.ts`.
 
 ## Style & formatting
 

@@ -55,14 +55,54 @@ export function apiFailure(
 }
 
 /**
+ * Reads and parses a mock JSON fixture from disk.
+ *
+ * `fixture` is resolved against the fixtures root and rejected if it escapes
+ * that directory, so a computed name can never pull in a file from outside
+ * `public/mocks`.
+ *
+ * Server components should call this (or `loadMock`) directly instead of
+ * fetching their own `/api` routes over HTTP.
+ */
+export async function readMock<T>(fixture: string): Promise<T> {
+  const filePath = path.resolve(MOCKS_DIR, fixture);
+  const relative = path.relative(MOCKS_DIR, filePath);
+
+  if (relative.startsWith('..') || path.isAbsolute(relative)) {
+    throw new Error(`Refusing to read "${fixture}" outside the mocks root`);
+  }
+
+  const contents = await fs.promises.readFile(filePath, 'utf8');
+  return JSON.parse(contents) as T;
+}
+
+/**
+ * Result shape for server pages: the fixture data, or an error message the
+ * page can hand to a component's `error` prop.
+ */
+export interface MockResult<T> {
+  data: T | null;
+  error?: string;
+}
+
+/**
+ * Like `readMock`, but never throws. A missing or malformed fixture resolves to
+ * `{ data: null, error }` so a page can render its error state.
+ */
+export async function loadMock<T>(fixture: string): Promise<MockResult<T>> {
+  try {
+    return { data: await readMock<T>(fixture) };
+  } catch (error) {
+    console.error(`[mock] failed to load ${fixture}:`, error);
+    return { data: null, error: 'Failed to fetch' };
+  }
+}
+
+/**
  * Reads a mock JSON fixture and returns it in the standard success envelope.
  *
  * `resource` is a human-readable label for whatever the route serves. Messages
  * are derived from it so the message and the fixture can never drift apart.
- *
- * `fixture` is always a literal at the call site, but it is still resolved
- * against the fixtures root and rejected if it escapes that directory, so a
- * computed name can never pull in a file from outside `public/mocks`.
  *
  * A missing or malformed fixture resolves to the standard failure envelope
  * rather than throwing, so a route body stays a single expression.
@@ -72,17 +112,8 @@ export async function serveMock<T>(
   resource: string,
 ): Promise<NextResponse<IApiResponse<T>>> {
   try {
-    const filePath = path.resolve(MOCKS_DIR, fixture);
-    const relative = path.relative(MOCKS_DIR, filePath);
-
-    if (relative.startsWith('..') || path.isAbsolute(relative)) {
-      throw new Error(`Refusing to read "${fixture}" outside the mocks root`);
-    }
-
-    const contents = await fs.promises.readFile(filePath, 'utf8');
-
     return apiSuccess<T>(
-      JSON.parse(contents) as T,
+      await readMock<T>(fixture),
       `${resource} retrieved successfully`,
     );
   } catch (error) {
