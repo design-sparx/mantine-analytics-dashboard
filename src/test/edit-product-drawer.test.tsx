@@ -78,77 +78,92 @@ const writeCalls = (fetchMock: Mock) =>
   });
 
 describe('EditProductDrawer write endpoints', () => {
+  // These tests drive `userEvent` typing into a Mantine form, which re-renders
+  // per keystroke. The default 5s budget is marginal and fails on a loaded
+  // machine even when the assertions are correct, so it is raised per test.
+  // `vi.setConfig` is deliberately not used here: it does not affect the
+  // timeout of a test that starts after it runs.
+  const SLOW_TEST_TIMEOUT = 20000;
+
   beforeEach(() => {
-    // These tests drive `userEvent` typing into a Mantine form, which re-renders
-    // per keystroke. The default 5s budget is marginal and fails on a loaded
-    // machine even when the assertions are correct.
-    vi.setConfig({ testTimeout: 20000 });
     vi.restoreAllMocks();
   });
 
-  it('submits an edit to the per-product endpoint', async () => {
-    const fetchMock = stubFetch();
-    vi.stubGlobal('fetch', fetchMock);
+  it(
+    'submits an edit to the per-product endpoint',
+    async () => {
+      const fetchMock = stubFetch();
+      vi.stubGlobal('fetch', fetchMock);
 
-    const user = userEvent.setup();
-    renderDrawer();
-    await waitForReady();
+      const user = userEvent.setup();
+      renderDrawer();
+      await waitForReady();
 
-    const title = screen.getByDisplayValue(product.title);
-    await user.clear(title);
-    await user.type(title, 'Edited title');
-    await user.click(screen.getByRole('button', { name: /update product/i }));
+      const title = screen.getByDisplayValue(product.title);
+      await user.clear(title);
+      await user.type(title, 'Edited title');
+      await user.click(screen.getByRole('button', { name: /update product/i }));
 
-    await waitFor(() =>
-      expect(fetchMock).toHaveBeenCalledWith(
-        '/api/products/prod-001',
-        expect.objectContaining({ method: 'PUT' }),
-      ),
-    );
+      await waitFor(() =>
+        expect(fetchMock).toHaveBeenCalledWith(
+          '/api/products/prod-001',
+          expect.objectContaining({ method: 'PUT' }),
+        ),
+      );
 
-    const putCall = fetchMock.mock.calls.find(
-      (call) => call[0] === '/api/products/prod-001',
-    );
-    const requestInit = putCall?.[1] as RequestInit | undefined;
-    expect(JSON.parse(String(requestInit?.body)).title).toBe('Edited title');
-  });
+      const putCall = fetchMock.mock.calls.find(
+        (call) => call[0] === '/api/products/prod-001',
+      );
+      const requestInit = putCall?.[1] as RequestInit | undefined;
+      expect(JSON.parse(String(requestInit?.body)).title).toBe('Edited title');
+    },
+    SLOW_TEST_TIMEOUT,
+  );
 
-  it('submits a delete to the per-product endpoint', async () => {
-    const fetchMock = stubFetch();
-    vi.stubGlobal('fetch', fetchMock);
-    const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(true);
+  it(
+    'submits a delete to the per-product endpoint',
+    async () => {
+      const fetchMock = stubFetch();
+      vi.stubGlobal('fetch', fetchMock);
+      const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(true);
 
-    const user = userEvent.setup();
-    renderDrawer();
-    await waitForReady();
+      const user = userEvent.setup();
+      renderDrawer();
+      await waitForReady();
 
-    await user.click(screen.getByRole('button', { name: /delete product/i }));
+      await user.click(screen.getByRole('button', { name: /delete product/i }));
 
-    await waitFor(() => expect(confirmSpy).toHaveBeenCalled());
-    await waitFor(() =>
-      expect(fetchMock).toHaveBeenCalledWith(
-        '/api/products/prod-001',
-        expect.objectContaining({ method: 'DELETE' }),
-      ),
-    );
-  });
+      await waitFor(() => expect(confirmSpy).toHaveBeenCalled());
+      await waitFor(() =>
+        expect(fetchMock).toHaveBeenCalledWith(
+          '/api/products/prod-001',
+          expect.objectContaining({ method: 'DELETE' }),
+        ),
+      );
+    },
+    SLOW_TEST_TIMEOUT,
+  );
 
-  it('never addresses the collection endpoint for a write', async () => {
-    const fetchMock = stubFetch();
-    vi.stubGlobal('fetch', fetchMock);
-    vi.spyOn(window, 'confirm').mockReturnValue(true);
+  it(
+    'never addresses the collection endpoint for a write',
+    async () => {
+      const fetchMock = stubFetch();
+      vi.stubGlobal('fetch', fetchMock);
+      vi.spyOn(window, 'confirm').mockReturnValue(true);
 
-    const user = userEvent.setup();
-    renderDrawer();
-    await waitForReady();
+      const user = userEvent.setup();
+      renderDrawer();
+      await waitForReady();
 
-    await user.click(screen.getByRole('button', { name: /delete product/i }));
-    await waitFor(() =>
-      expect(writeCalls(fetchMock).length).toBeGreaterThan(0),
-    );
+      await user.click(screen.getByRole('button', { name: /delete product/i }));
+      await waitFor(() =>
+        expect(writeCalls(fetchMock).length).toBeGreaterThan(0),
+      );
 
-    expect(
-      writeCalls(fetchMock).every((call) => call[0] !== '/api/products'),
-    ).toBe(true);
-  });
+      expect(
+        writeCalls(fetchMock).every((call) => call[0] !== '/api/products'),
+      ).toBe(true);
+    },
+    SLOW_TEST_TIMEOUT,
+  );
 });
