@@ -79,6 +79,10 @@ const writeCalls = (fetchMock: Mock) =>
 
 describe('EditProductDrawer write endpoints', () => {
   beforeEach(() => {
+    // These tests drive `userEvent` typing into a Mantine form, which re-renders
+    // per keystroke. The default 5s budget is marginal and fails on a loaded
+    // machine even when the assertions are correct.
+    vi.setConfig({ testTimeout: 20000 });
     vi.restoreAllMocks();
   });
 
