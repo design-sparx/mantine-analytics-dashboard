@@ -337,6 +337,8 @@ Mock users for testing:
 
 Authentication is handled by NextAuth with JWT tokens. See [CLAUDE.md](./CLAUDE.md) for implementation details.
 
+Mock write endpoints (POST/PUT/DELETE under `/api`) are unauthenticated by design. They change only an in-memory copy of the fixtures and reset on restart, so the demo cannot alter the files in `public/mocks`. Enforcing auth is required before wiring these routes to a real database.
+
 ## 📚 Complete Documentation
 
 - **📖 [CLAUDE.md](./CLAUDE.md)** - Complete development guide, mock API usage, and architecture overview

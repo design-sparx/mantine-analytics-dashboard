@@ -62,6 +62,7 @@ pnpm generate:component Foo [basic|interactive|table|card]
 ## Auth
 
 - Auth pages exist but middleware does not enforce auth. Demo credentials: `demo@example.com` / `demo123`.
+- Demo mode (decided in #178): mock write routes (POST/PUT/DELETE) are intentionally unauthenticated. Writes change only the in-process cache in `mockStore` and never persist to `public/mocks`, so they are not a data-integrity risk. Do not add a real datastore behind `mockStore` without enforcing auth on the write handlers first; `mock-store.test.ts` pins the no-persistence behaviour.
 
 ## CI / release
 
