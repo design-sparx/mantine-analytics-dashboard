@@ -114,6 +114,7 @@ export { EmployeePerformanceChart } from './hr-dashboard/employee-performance-ch
 export { OpenPositionsTable } from './hr-dashboard/open-positions-table';
 export { AttendanceChart } from './hr-dashboard/attendance-chart';
 
+export { DashboardSection } from './dashboard-section';
 // Real Estate Dashboard Components
 export { PropertyListingsTable } from './real-estate-dashboard/property-listings-table';
 export { PropertyTypesChart } from './real-estate-dashboard/property-types-chart';
