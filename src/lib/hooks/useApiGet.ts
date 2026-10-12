@@ -139,43 +139,42 @@ export function useApiGet<T>(endpoint: string): IApiGetResult<T> {
   // Ref to latest fetchData so the aborted-retry path can call it
   const fetchDataRef = useRef<(() => void) | null>(null);
 
-  const applySettled = (
-    settled: Settled<unknown>,
-    currentGeneration: number,
-  ) => {
-    if (generationRef.current !== currentGeneration) return;
+  const applySettled = useCallback(
+    (settled: Settled<unknown>, currentGeneration: number) => {
+      if (generationRef.current !== currentGeneration) return;
 
-    switch (settled.kind) {
-      case 'data':
-        setData(settled.data as T);
-        setError(null);
-        setLoading(false);
-        break;
-      case 'error':
-        setData(null);
-        setError(settled.error);
-        setLoading(false);
-        break;
-      case 'aborted':
-        fetchDataRef.current?.();
-        break;
-    }
-  };
+      switch (settled.kind) {
+        case 'data':
+          setData(settled.data as T);
+          setError(null);
+          setLoading(false);
+          break;
+        case 'error':
+          setData(null);
+          setError(settled.error);
+          setLoading(false);
+          break;
+        case 'aborted':
+          fetchDataRef.current?.();
+          break;
+      }
+    },
+    [],
+  );
 
   const fetchData = useCallback(() => {
     const currentGeneration = ++generationRef.current;
+    const instanceId = hookInstanceIdRef.current;
 
     const existing = pendingRequests.get(endpoint);
     if (existing) {
-      // Join an in-flight request owned by another (or earlier) consumer
-      existing.owners.add(hookInstanceIdRef.current);
+      existing.owners.add(instanceId);
       void existing.promise.then((settled) =>
         applySettled(settled, currentGeneration),
       );
       return;
     }
 
-    // Start a new request
     setLoading(true);
     setError(null);
 
@@ -184,7 +183,7 @@ export function useApiGet<T>(endpoint: string): IApiGetResult<T> {
     const entry = {
       abortController,
       promise,
-      owners: new Set<symbol>([hookInstanceIdRef.current]),
+      owners: new Set<symbol>([instanceId]),
     };
     pendingRequests.set(endpoint, entry);
 
@@ -195,7 +194,7 @@ export function useApiGet<T>(endpoint: string): IApiGetResult<T> {
           pendingRequests.delete(endpoint);
         }
       });
-  }, [endpoint]);
+  }, [endpoint, applySettled]);
 
   useEffect(() => {
     fetchDataRef.current = fetchData;
@@ -211,19 +210,22 @@ export function useApiGet<T>(endpoint: string): IApiGetResult<T> {
   }, [endpoint, fetchData]);
 
   useEffect(() => {
+    const instanceId = hookInstanceIdRef.current;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- fetchData is the request starter, not an arbitrary setState
     fetchData();
 
     return () => {
       const pending = pendingRequests.get(endpoint);
       if (pending) {
-        pending.owners.delete(hookInstanceIdRef.current);
+        pending.owners.delete(instanceId);
         if (pending.owners.size === 0) {
           pending.abortController.abort();
         }
       }
       generationRef.current += 1;
     };
-  }, [fetchData, endpoint]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [endpoint]);
 
   return { data, loading, error, refetch };
 }
