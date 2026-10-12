@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { apiSuccess, apiFailure } from '@/lib/api/mock-route';
+import { apiFailure, apiSuccess } from '@/lib/api/mock-route';
 import { getChangelogData } from '@/lib/changelog';
 
 export async function GET(request: NextRequest) {
