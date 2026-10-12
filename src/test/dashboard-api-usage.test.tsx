@@ -44,13 +44,12 @@ describe('dashboard API usage', () => {
         continue;
       }
 
-      // Either the client hook, or a server-side page awaiting registry paths
-      // through `fetchData`. Both go through `src/routes/api.ts`; neither
-      // hand-writes a path.
+      // Either the client hook, or a server-side page reading its fixture
+      // directly through `loadMock`. Neither hand-writes an API path.
       expect(
         source,
         `${name} should read from the registry, not hand-rolled fetches`,
-      ).toMatch(/useDashboardResource\(|fetchData\(API_/);
+      ).toMatch(/useDashboardResource\(|loadMock</);
     }
   });
 });

@@ -1,6 +1,7 @@
 import {
   Container,
   Grid,
+  GridCol,
   PaperProps,
   SimpleGrid,
   Skeleton,
@@ -13,8 +14,10 @@ import MapChart from '@/components/map-chart/MapChartClient';
 import MobileDesktopChart from '@/components/mobile-desktop-chart/MobileDesktopChartClient';
 import SalesChart from '@/components/sales-chart/SalesChartClient';
 import TrafficTable from '@/components/traffic-table/TrafficTableClient';
-import { API_CORE } from '@/routes/api';
+import { loadMock } from '@/lib/api/mock-route';
 
+import type { CoreStatsDto } from '@/types/dashboard';
+import type { LanguagesDto, TrafficDto } from '@/types/generated-fixtures';
 import type { Metadata } from 'next';
 
 export const dynamic = 'force-dynamic';
@@ -28,26 +31,14 @@ const PAPER_PROPS: PaperProps = {
   style: { minHeight: '100%' },
 };
 
-async function fetchData<T>(endpoint: string) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL || ''}${endpoint}`,
-    {
-      headers: { 'Content-Type': 'application/json' },
-      next: { revalidate: 60 },
-    },
-  );
-  if (!res.ok) return { data: null, error: 'Failed to fetch', loading: false };
-  return res.json();
-}
-
 export default async function Page() {
   const [statsResult, languagesResult, trafficResult] = await Promise.all([
-    fetchData(API_CORE.stats),
-    fetchData(API_CORE.languages),
-    fetchData(API_CORE.traffic),
+    loadMock<CoreStatsDto>('StatsGrid.json'),
+    loadMock<LanguagesDto[]>('Languages.json'),
+    loadMock<TrafficDto[]>('Traffic.json'),
   ]);
 
-  const statsData = statsResult.data?.data ?? statsResult.data ?? [];
+  const statsData = statsResult.data?.data ?? [];
   const languagesData = languagesResult.data ?? [];
   const trafficData = trafficResult.data ?? [];
 
@@ -77,28 +68,28 @@ export default async function Page() {
           <MobileDesktopChart {...PAPER_PROPS} />
         </SimpleGrid>
         <Grid>
-          <Grid.Col span={{ base: 12, md: 6, lg: 8 }}>
+          <GridCol span={{ base: 12, md: 6, lg: 8 }}>
             <MapChart {...PAPER_PROPS} />
-          </Grid.Col>
-          <Grid.Col span={{ base: 12, md: 6, lg: 4 }}>
+          </GridCol>
+          <GridCol span={{ base: 12, md: 6, lg: 4 }}>
             <SalesChart {...PAPER_PROPS} />
-          </Grid.Col>
-          <Grid.Col span={{ base: 12, md: 6, lg: 4 }}>
+          </GridCol>
+          <GridCol span={{ base: 12, md: 6, lg: 4 }}>
             <LanguageTable
               data={languagesData?.slice(0, 6)}
               error={languagesResult.error}
               loading={false}
               {...PAPER_PROPS}
             />
-          </Grid.Col>
-          <Grid.Col span={{ base: 12, md: 6, lg: 8 }}>
+          </GridCol>
+          <GridCol span={{ base: 12, md: 6, lg: 8 }}>
             <TrafficTable
               data={trafficData?.slice(0, 6)}
               error={trafficResult.error}
               loading={false}
               {...PAPER_PROPS}
             />
-          </Grid.Col>
+          </GridCol>
         </Grid>
       </Stack>
     </Container>
