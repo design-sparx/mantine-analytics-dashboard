@@ -1,0 +1,137 @@
+'use client';
+
+import { Container, Grid, PaperProps, Stack, Text } from '@mantine/core';
+
+import {
+  CampaignPerformanceChart,
+  EmailCampaignsTable,
+  PageHeader,
+  SocialMediaTable,
+  StatsGrid,
+  Surface,
+  TopCampaignsTable,
+  TrafficSourcesChart,
+} from '@/components';
+import { useDashboardResource } from '@/lib/api/useDashboardResource';
+import { API_MARKETING } from '@/routes/api';
+
+const PAPER_PROPS: PaperProps = {
+  p: 'md',
+  style: { minHeight: '100%' },
+};
+
+export function MarketingDashboard() {
+  const {
+    data: statsData,
+    error: statsError,
+    loading: statsLoading,
+  } = useDashboardResource(API_MARKETING.stats);
+
+  const {
+    data: campaignsData,
+    error: campaignsError,
+    loading: campaignsLoading,
+  } = useDashboardResource(API_MARKETING.campaigns);
+
+  const {
+    data: socialMediaData,
+    error: socialMediaError,
+    loading: socialMediaLoading,
+  } = useDashboardResource(API_MARKETING.socialMedia);
+
+  const {
+    data: emailData,
+    error: emailError,
+    loading: emailLoading,
+  } = useDashboardResource(API_MARKETING.emailCampaigns);
+
+  const {
+    data: trafficData,
+    error: trafficError,
+    loading: trafficLoading,
+  } = useDashboardResource(API_MARKETING.trafficSources);
+
+  const {
+    data: topCampaignsData,
+    error: topCampaignsError,
+    loading: topCampaignsLoading,
+  } = useDashboardResource(API_MARKETING.topCampaigns);
+
+  return (
+    <Container fluid>
+      <Stack gap="lg">
+        <PageHeader title="Marketing dashboard" withActions={true} />
+
+        <StatsGrid
+          data={statsData ?? undefined}
+          error={statsError}
+          loading={statsLoading}
+          paperProps={PAPER_PROPS}
+        />
+
+        <Grid>
+          <Grid.Col span={{ base: 12, md: 8 }}>
+            <Surface {...PAPER_PROPS}>
+              <CampaignPerformanceChart
+                data={campaignsData ?? undefined}
+                error={campaignsError}
+                loading={campaignsLoading}
+              />
+            </Surface>
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 4 }}>
+            <Surface {...PAPER_PROPS}>
+              <Text size="lg" fw={600} mb="md">
+                Traffic Sources
+              </Text>
+              <TrafficSourcesChart
+                data={trafficData ?? undefined}
+                error={trafficError}
+                loading={trafficLoading}
+              />
+            </Surface>
+          </Grid.Col>
+
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <Surface {...PAPER_PROPS}>
+              <Text size="lg" fw={600} mb="md">
+                Social Media Performance
+              </Text>
+              <SocialMediaTable
+                data={socialMediaData ?? undefined}
+                error={socialMediaError}
+                loading={socialMediaLoading}
+              />
+            </Surface>
+          </Grid.Col>
+
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <Surface {...PAPER_PROPS}>
+              <Text size="lg" fw={600} mb="md">
+                Email Campaigns
+              </Text>
+              <EmailCampaignsTable
+                data={emailData?.slice(0, 5)}
+                error={emailError}
+                loading={emailLoading}
+              />
+            </Surface>
+          </Grid.Col>
+
+          <Grid.Col span={12}>
+            <Surface {...PAPER_PROPS}>
+              <Text size="lg" fw={600} mb="md">
+                Top Performing Campaigns
+              </Text>
+              <TopCampaignsTable
+                data={topCampaignsData ?? undefined}
+                error={topCampaignsError}
+                loading={topCampaignsLoading}
+              />
+            </Surface>
+          </Grid.Col>
+        </Grid>
+      </Stack>
+    </Container>
+  );
+}
