@@ -73,6 +73,9 @@ const config = [
       'build/**',
       'storybook-static/**',
       'next-env.d.ts',
+      // Already git-ignored. A stale worktree under `.kilo` would otherwise be
+      // linted and fail the gate for files that are not part of this branch.
+      '.kilo/**',
     ],
   },
 ];
