@@ -342,4 +342,76 @@ describe('useApiGet', () => {
     // Data should still be from fast response (superseded ignored)
     expect(result.current.data).toEqual([{ id: 'fast' }]);
   });
+
+  // Tests for the dedup data-sharing bug
+
+  it('gives every consumer of the same endpoint the data from a single request', async () => {
+    const fetchMock = mockResponse(envelope({ data: [{ id: 1 }] }));
+
+    const { result } = renderHook(() => ({
+      a: useApiGet<{ id: number }[]>('/api/x'),
+      b: useApiGet<{ id: number }[]>('/api/x'),
+    }));
+
+    await waitFor(() => expect(result.current.a.loading).toBe(false));
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(result.current.a.data).toEqual([{ id: 1 }]);
+    expect(result.current.b.data).toEqual([{ id: 1 }]);
+  });
+
+  it('gives every consumer the error from a single failed request', async () => {
+    const fetchMock = mockResponse(
+      envelope({ succeeded: false, message: 'boom' }),
+      500,
+    );
+
+    const { result } = renderHook(() => ({
+      a: useApiGet<{ id: number }[]>('/api/x'),
+      b: useApiGet<{ id: number }[]>('/api/x'),
+    }));
+
+    await waitFor(() => expect(result.current.a.loading).toBe(false));
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(result.current.a.error).toBeInstanceOf(ApiRequestError);
+    expect(result.current.a.error?.message).toBe('boom');
+    expect(result.current.b.error).toBeInstanceOf(ApiRequestError);
+    expect(result.current.b.error?.message).toBe('boom');
+  });
+
+  it('keeps a shared request alive when one consumer unmounts', async () => {
+    let release: (value: unknown) => void = () => {};
+    const gate = new Promise((resolve) => {
+      release = resolve;
+    });
+
+    const fetchMock = vi.fn().mockImplementation(async () => {
+      await gate;
+      return {
+        ok: true,
+        status: 200,
+        statusText: 'OK',
+        json: async () => envelope({ data: [{ id: 7 }] }),
+      };
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    const first = renderHook(() => useApiGet<{ id: number }[]>('/api/x'));
+    const second = renderHook(() => useApiGet<{ id: number }[]>('/api/x'));
+
+    // Wait for the first hook to start the request
+    await waitFor(() => expect(first.result.current.loading).toBe(true));
+
+    // Unmount the first consumer while the request is pending
+    first.unmount();
+
+    // Release the gate — the shared request should still complete
+    release(undefined);
+
+    await waitFor(() => expect(second.result.current.loading).toBe(false));
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(second.result.current.data).toEqual([{ id: 7 }]);
+  });
 });
