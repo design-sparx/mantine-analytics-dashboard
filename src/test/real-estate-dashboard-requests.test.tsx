@@ -1,5 +1,5 @@
 import { MantineProvider } from '@mantine/core';
-import { render, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { RealEstateDashboard } from '@/app/dashboard/real-estate/RealEstateDashboard';
@@ -105,5 +105,51 @@ describe('RealEstateDashboard request count', () => {
     );
 
     expect(fetchMock).toHaveBeenCalledTimes(6);
+  });
+
+  it('keeps other sections when one endpoint returns 500', async () => {
+    const errorEnvelope = {
+      succeeded: false,
+      data: null,
+      errors: [],
+      message: 'Internal Server Error',
+      timestamp: new Date().toISOString(),
+    };
+
+    const fetchMock = vi.fn(async (url: string) => {
+      if (String(url) === API_REAL_ESTATE.salesTrends) {
+        return {
+          ok: false,
+          status: 500,
+          statusText: 'Internal Server Error',
+          json: async () => ({ ...errorEnvelope }),
+        };
+      }
+      return {
+        ok: true,
+        status: 200,
+        statusText: 'OK',
+        json: async () => ({ ...envelope }),
+      };
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    render(
+      <MantineProvider>
+        <RealEstateDashboard />
+      </MantineProvider>,
+    );
+
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(6));
+
+    // The failing section shows its error alert
+    expect(
+      screen.getByText('Error loading sales trends'),
+    ).toBeInTheDocument();
+
+    // Sibling sections are unaffected — their headers are still visible
+    expect(screen.getByText('Top Locations')).toBeInTheDocument();
+    expect(screen.getByText('Price Distribution')).toBeInTheDocument();
+    expect(screen.getByText('Property Listings')).toBeInTheDocument();
   });
 });
