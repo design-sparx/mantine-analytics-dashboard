@@ -32,19 +32,19 @@ export function SaasDashboard() {
     data: statsData,
     error: statsError,
     loading: statsLoading,
-  } = useDashboardResource(API_CORE.stats as any);
+  } = useDashboardResource(API_CORE.stats);
   const {
     data: projectsData,
     error: projectsError,
     loading: projectsLoading,
-  } = useDashboardResource(API_CORE.projects as any);
+  } = useDashboardResource(API_CORE.projects);
 
   return (
     <Container fluid>
       <Stack gap="lg">
         <PageHeader title="SaaS dashboard" withActions={true} />
         <StatsGrid
-          data={statsData ?? undefined}
+          data={statsData?.data.slice(0, 4)}
           error={statsError}
           loading={statsLoading}
           paperProps={PAPER_PROPS}
