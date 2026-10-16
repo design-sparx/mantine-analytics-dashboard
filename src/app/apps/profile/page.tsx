@@ -19,17 +19,13 @@ import {
   IconBrandGithub,
   IconBrandLinkedin,
   IconBrandTwitter,
-  IconBusinessplan,
-  IconCoins,
   IconDotsVertical,
   IconHome,
-  IconListCheck,
   IconMapPinFilled,
 } from '@tabler/icons-react';
 
 import {
   PageHeader,
-  ProfileStatsCard,
   ProjectsTable,
   Surface,
   UserProfileCard,
@@ -40,6 +36,7 @@ import { PATH_DASHBOARD } from '@/routes';
 import UserData from '@public/mocks/UserProfile.json';
 
 import classes from './page.module.css';
+import { ProfileStats } from './ProfileStats';
 
 import type { ProjectsDto } from '@/types/generated-fixtures';
 import type { Metadata } from 'next';
@@ -175,38 +172,7 @@ export default async function Profile() {
           <GridCol span={{ base: 12, md: 7, lg: 8 }}>
             <Stack>
               <RevenueChart {...PAPER_PROPS} />
-              <SimpleGrid
-                cols={{ base: 1, md: 1, lg: 3 }}
-                spacing={{ base: 10, sm: 'xl' }}
-                verticalSpacing={{ base: 'md', sm: 'xl' }}
-              >
-                <ProfileStatsCard
-                  amount={81314}
-                  title="total earnings"
-                  icon={IconCoins}
-                  progressValue={45}
-                  color="indigo.7"
-                  asCurrency
-                  {...PAPER_PROPS}
-                />
-                <ProfileStatsCard
-                  amount={2532}
-                  title="today's orders"
-                  icon={IconListCheck}
-                  progressValue={72}
-                  color="teal.7"
-                  {...PAPER_PROPS}
-                />
-                <ProfileStatsCard
-                  amount={97219}
-                  title="total revenue"
-                  icon={IconBusinessplan}
-                  progressValue={12}
-                  color="lime.7"
-                  asCurrency
-                  {...PAPER_PROPS}
-                />
-              </SimpleGrid>
+              <ProfileStats paperProps={PAPER_PROPS} />
               <Surface {...PAPER_PROPS}>
                 <Group justify="space-between" mb="md">
                   <Text size="lg" fw={600}>
