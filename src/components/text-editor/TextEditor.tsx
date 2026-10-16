@@ -8,7 +8,6 @@ import Highlight from '@tiptap/extension-highlight';
 import SubScript from '@tiptap/extension-subscript';
 import Superscript from '@tiptap/extension-superscript';
 import TextAlign from '@tiptap/extension-text-align';
-import Underline from '@tiptap/extension-underline';
 import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 
@@ -23,7 +22,6 @@ const TextEditor = ({ content, label, width, ...others }: TextEditorProps) => {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({ link: false }),
-      Underline,
       Link,
       Superscript,
       SubScript,
