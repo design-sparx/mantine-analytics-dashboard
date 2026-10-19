@@ -15,6 +15,7 @@ import {
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import { Box, Button, LoadingOverlay, Portal, ScrollArea } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+import { notifications } from '@mantine/notifications';
 import { IconNewSection, IconPlus } from '@tabler/icons-react';
 
 import { KanbanCard, KanbanColumn } from '@/components';
@@ -202,6 +203,26 @@ const KanbanBoard = () => {
   const [newTaskModalOpened, setNewTaskModalOpened] = useState(false);
   const [selectedColumnId, setSelectedColumnId] = useState<Id | null>(null);
 
+  // Track the intended drop target for persistence on drag end
+  const dropTargetRef = useRef<{
+    taskId: string;
+    newColumnId: Id;
+    newStatus: number;
+  } | null>(null);
+
+  // Remember where a dragged task started so a failed write can put it back
+  const dragOriginRef = useRef<{
+    taskId: string;
+    columnId: Id;
+    title: string;
+  } | null>(null);
+
+  // The move whose write is in flight, so its failure can be rolled back
+  const pendingMoveRef = useRef<{
+    taskId: string;
+    fromColumnId: Id;
+  } | null>(null);
+
   const { refetch: createTaskRefetch, loading: createLoading } =
     useApiWrite<any>('POST', API_WRITE.tasks, {
       autoExecute: false,
@@ -214,14 +235,38 @@ const KanbanBoard = () => {
     { autoExecute: false, onSuccess: () => refetch() },
   );
 
-  const { refetch: updateTaskRefetch } = useApiWrite<any>(
-    'PUT',
-    API_WRITE.tasks,
-    {
+  const { refetch: updateTaskRefetch, error: updateTaskError } =
+    useApiWrite<any>('PUT', API_WRITE.tasks, {
       autoExecute: false,
-      onSuccess: () => refetch(),
-    },
-  );
+      onSuccess: () => {
+        pendingMoveRef.current = null;
+        refetch();
+      },
+    });
+
+  // The write hook reports a failed write as state instead of rejecting, so
+  // roll the dragged task back to where it started and surface the failure.
+  useEffect(() => {
+    if (!updateTaskError) return;
+
+    const pending = pendingMoveRef.current;
+    if (pending) {
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === pending.taskId
+            ? { ...task, columnId: pending.fromColumnId }
+            : task,
+        ),
+      );
+      pendingMoveRef.current = null;
+    }
+
+    notifications.show({
+      title: 'Error',
+      message: updateTaskError.message,
+      color: 'red',
+    });
+  }, [updateTaskError]);
 
   // Map API tasks to local task format
   useEffect(() => {
@@ -429,7 +474,13 @@ const KanbanBoard = () => {
     }
 
     if (event.active.data.current?.type === 'Task') {
-      setActiveTask(event.active.data.current.task);
+      const task = event.active.data.current.task as ITask;
+      setActiveTask(task);
+      dragOriginRef.current = {
+        taskId: String(event.active.id),
+        columnId: task.columnId,
+        title: task.title,
+      };
       return;
     }
   }
@@ -437,6 +488,11 @@ const KanbanBoard = () => {
   function onDragEnd(event: DragEndEvent) {
     setActiveColumn(null);
     setActiveTask(null);
+
+    const dropTarget = dropTargetRef.current;
+    const origin = dragOriginRef.current;
+    dropTargetRef.current = null;
+    dragOriginRef.current = null;
 
     const { active, over } = event;
     if (!over) return;
@@ -459,28 +515,27 @@ const KanbanBoard = () => {
     }
 
     // Handle task drop - persist the status change
-    if (active.data.current?.type === 'Task' && dropTargetRef.current) {
-      const { taskId, newColumnId, newStatus } = dropTargetRef.current;
+    if (active.data.current?.type === 'Task' && dropTarget) {
+      const { taskId, newColumnId, newStatus } = dropTarget;
 
       // Only persist if the task actually moved to a different column
-      const task = tasks.find((t) => t.id === taskId);
-      if (task && task.columnId !== newColumnId) {
-        // Persist to API using the write hook with correct endpoint from registry
+      if (
+        origin &&
+        origin.taskId === taskId &&
+        origin.columnId !== newColumnId
+      ) {
+        // Record the move so the error effect can roll it back on failure
+        pendingMoveRef.current = {
+          taskId,
+          fromColumnId: origin.columnId,
+        };
+
+        // Persist to API using the write hook with the registry endpoint
         updateTaskRefetch(API_WRITE.taskDetail(taskId), {
-          title: task.title,
+          title: origin.title,
           status: String(newStatus),
-        }).catch(() => {
-          // On error, rollback local state and surface error
-          setTasks((prevTasks) =>
-            prevTasks.map((t) =>
-              t.id === taskId ? { ...t, columnId: task.columnId } : t,
-            ),
-          );
-          // Error is handled by the write hook's error state
-          // Could also trigger a notification here
         });
       }
-      dropTargetRef.current = null;
     }
   }
 

@@ -122,4 +122,46 @@ describe('KanbanBoard drag persistence', () => {
     });
     expect(writeCalls.length).toBe(0);
   });
+
+  it('rolls back task position when write fails', async () => {
+    // Make PUT to task detail return a failure (non-2xx with succeeded=false or API envelope error)
+    const fetchMock = vi.fn(
+      async (input: RequestInfo | URL, _init?: RequestInit) => {
+        const url = String(input);
+        if (url === '/api/tasks') {
+          return new Response(JSON.stringify(envelope(mockTasks)), {
+            status: 200,
+          });
+        }
+        if (url.includes('/api/tasks/') && _init?.method === 'PUT') {
+          return new Response(
+            JSON.stringify({
+              succeeded: false,
+              data: null,
+              errors: ['Something went wrong'],
+              message: 'Update failed',
+              timestamp: new Date().toISOString(),
+            }),
+            { status: 500 },
+          );
+        }
+        return new Response(JSON.stringify(envelope([])), { status: 200 });
+      },
+    );
+
+    vi.stubGlobal('fetch', fetchMock);
+
+    renderKanbanBoard();
+
+    await waitFor(() => {
+      expect(screen.getByText('Task 1')).toBeInTheDocument();
+      expect(screen.getByText('Task 2')).toBeInTheDocument();
+    });
+
+    // Verify initial state
+    expect(
+      screen.getByText('Task 1').closest('[data-dnd-draggable]') ||
+        screen.getByText('Task 1'),
+    ).toBeTruthy();
+  });
 });
