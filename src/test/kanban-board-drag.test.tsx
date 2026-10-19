@@ -1,9 +1,14 @@
 import { MantineProvider } from '@mantine/core';
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import KanbanBoard from '@/components/kanban-board/KanbanBoard';
 
+import type {
+  DragEndEvent,
+  DragOverEvent,
+  DragStartEvent,
+} from '@dnd-kit/core';
 import type { KanbanTaskDto } from '@/types';
 
 /**
@@ -12,6 +17,34 @@ import type { KanbanTaskDto } from '@/types';
  * Dragging a task to a new column must persist its new status exactly once,
  * with failures visible to the user and no duplicate writes.
  */
+
+type DragHandlers = {
+  onDragStart?: (event: DragStartEvent) => void;
+  onDragOver?: (event: DragOverEvent) => void;
+  onDragEnd?: (event: DragEndEvent) => void;
+};
+
+// Captured from the real DndContext so the test can drive the drag lifecycle
+// directly instead of simulating pointer events (jsdom has no layout, so
+// dnd-kit's collision detection can never detect a drop target).
+let dragHandlers: DragHandlers = {};
+
+vi.mock('@dnd-kit/core', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@dnd-kit/core')>();
+  const RealDndContext = actual.DndContext;
+
+  return {
+    ...actual,
+    DndContext: (props: Parameters<typeof RealDndContext>[0]) => {
+      dragHandlers = {
+        onDragStart: props.onDragStart,
+        onDragOver: props.onDragOver,
+        onDragEnd: props.onDragEnd,
+      };
+      return <RealDndContext {...props} />;
+    },
+  };
+});
 
 const mockTasks: KanbanTaskDto[] = [
   {
@@ -124,7 +157,7 @@ describe('KanbanBoard drag persistence', () => {
   });
 
   it('rolls back task position when write fails', async () => {
-    // Make PUT to task detail return a failure (non-2xx with succeeded=false or API envelope error)
+    // Make PUT to task detail return a failure envelope
     const fetchMock = vi.fn(
       async (input: RequestInfo | URL, _init?: RequestInit) => {
         const url = String(input);
@@ -158,10 +191,67 @@ describe('KanbanBoard drag persistence', () => {
       expect(screen.getByText('Task 2')).toBeInTheDocument();
     });
 
-    // Verify initial state
-    expect(
-      screen.getByText('Task 1').closest('[data-dnd-draggable]') ||
-        screen.getByText('Task 1'),
-    ).toBeTruthy();
+    const task = { ...mockTasks[0], columnId: 'todo', content: 'Task 1' };
+    const rect = { top: 0, left: 0, right: 0, bottom: 0, width: 0, height: 0 };
+    const active = {
+      id: 'task-1',
+      rect: { current: { initial: rect, translated: rect } },
+      data: { current: { type: 'Task', task } },
+    };
+    const overColumn = {
+      id: 'doing',
+      rect,
+      disabled: false,
+      data: { current: { type: 'Column' } },
+    };
+    const baseEvent = {
+      active,
+      over: overColumn,
+      collisions: null,
+      delta: { x: 0, y: 0 },
+      activatorEvent: new Event('pointerdown'),
+    };
+
+    // Drive the drag: start in Todo, drag over the Doing column, then drop.
+    // The flush between over and end matters: onDragOver records its drop
+    // target inside a setState updater, which only runs when React commits.
+    await act(async () => {
+      dragHandlers.onDragStart?.({
+        active,
+        activatorEvent: new Event('pointerdown'),
+      });
+      dragHandlers.onDragOver?.(baseEvent);
+    });
+    await act(async () => {
+      dragHandlers.onDragEnd?.(baseEvent);
+    });
+    // The failed write must have been attempted
+    await waitFor(() => {
+      const writeCalls = fetchMock.mock.calls.filter((call) => {
+        const init = call[1] as RequestInit | undefined;
+        const callUrl = String(call[0]);
+        return callUrl.includes('/api/tasks/') && init?.method === 'PUT';
+      });
+      expect(writeCalls.length).toBe(1);
+      expect((writeCalls[0][1] as RequestInit).body?.toString()).toContain(
+        '"status":"2"',
+      );
+    });
+
+    // After the failure the task must be back in Todo, not stuck in Doing
+    const owningColumn = (taskText: string): string | undefined => {
+      const card = screen.getByText(taskText);
+      const columnTitles = ['Todo', 'Work in progress', 'Done'];
+      return columnTitles.find((title) => {
+        const heading = screen.getByText(title);
+        // heading -> inner Flex -> header Flex -> Paper (column container)
+        const column = heading.parentElement?.parentElement?.parentElement;
+        return column?.contains(card);
+      });
+    };
+
+    await waitFor(() => {
+      expect(owningColumn('Task 1')).toBe('Todo');
+    });
   });
 });
