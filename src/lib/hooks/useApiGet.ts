@@ -60,6 +60,64 @@ const parseBody = async (
   }
 };
 
+// Module-level request deduplication state
+type Settled<T> =
+  | { kind: 'data'; data: T }
+  | { kind: 'error'; error: Error }
+  | { kind: 'aborted' };
+
+const request = async (
+  endpoint: string,
+  signal: AbortSignal,
+): Promise<Settled<unknown>> => {
+  try {
+    const response = await fetch(endpoint, {
+      headers: { 'Content-Type': 'application/json' },
+      signal,
+    });
+    const body = await parseBody(response);
+
+    if (!response.ok || !body.succeeded) {
+      const message =
+        body.message || `Request failed with status ${response.status}`;
+      return {
+        kind: 'error',
+        error: new ApiRequestError(message, response.status, body),
+      };
+    }
+
+    return { kind: 'data', data: body.data };
+  } catch (caught) {
+    if (caught instanceof DOMException && caught.name === 'AbortError') {
+      return { kind: 'aborted' };
+    }
+    return {
+      kind: 'error',
+      error:
+        caught instanceof Error
+          ? caught
+          : new Error('Something went wrong. Please try again.'),
+    };
+  }
+};
+
+const pendingRequests = new Map<
+  string,
+  {
+    abortController: AbortController;
+    promise: Promise<Settled<unknown>>;
+    owners: Set<symbol>;
+  }
+>();
+
+/** Test-only helper to clear pending requests between tests. */
+export function __clearPendingRequestsForTest(): void {
+  pendingRequests.forEach(({ abortController }) => {
+    abortController.abort();
+  });
+  pendingRequests.clear();
+}
+
 /**
  * The one way a component should read from a mock endpoint.
  *
@@ -75,60 +133,99 @@ export function useApiGet<T>(endpoint: string): IApiGetResult<T> {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
-  // Guards against a slow response for a previous endpoint overwriting the
-  // state of the current one.
-  const active = useRef(true);
+  const hookInstanceIdRef = useRef(Symbol('hookInstance'));
+  // Generation counter to ignore stale responses
+  const generationRef = useRef(0);
+  // Ref to latest fetchData so the aborted-retry path can call it
+  const fetchDataRef = useRef<(() => void) | null>(null);
 
-  const fetchData = useCallback(async (): Promise<void> => {
+  const applySettled = useCallback(
+    (settled: Settled<unknown>, currentGeneration: number) => {
+      if (generationRef.current !== currentGeneration) return;
+
+      switch (settled.kind) {
+        case 'data':
+          setData(settled.data as T);
+          setError(null);
+          setLoading(false);
+          break;
+        case 'error':
+          setData(null);
+          setError(settled.error);
+          setLoading(false);
+          break;
+        case 'aborted':
+          fetchDataRef.current?.();
+          break;
+      }
+    },
+    [],
+  );
+
+  const fetchData = useCallback(() => {
+    const currentGeneration = ++generationRef.current;
+    const instanceId = hookInstanceIdRef.current;
+
+    const existing = pendingRequests.get(endpoint);
+    if (existing) {
+      existing.owners.add(instanceId);
+      void existing.promise.then((settled) =>
+        applySettled(settled, currentGeneration),
+      );
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
-    try {
-      const response = await fetch(endpoint, {
-        headers: { 'Content-Type': 'application/json' },
+    const abortController = new AbortController();
+    const promise = request(endpoint, abortController.signal);
+    const entry = {
+      abortController,
+      promise,
+      owners: new Set<symbol>([instanceId]),
+    };
+    pendingRequests.set(endpoint, entry);
+
+    void promise
+      .then((settled) => applySettled(settled, currentGeneration))
+      .finally(() => {
+        if (pendingRequests.get(endpoint) === entry) {
+          pendingRequests.delete(endpoint);
+        }
       });
-      const body = await parseBody(response);
-
-      if (!active.current) {
-        return;
-      }
-
-      if (!response.ok || !body.succeeded) {
-        const message =
-          body.message || `Request failed with status ${response.status}`;
-
-        setData(null);
-        setError(new ApiRequestError(message, response.status, body));
-        return;
-      }
-
-      setData(body.data as T);
-    } catch (caught) {
-      if (!active.current) {
-        return;
-      }
-
-      setData(null);
-      setError(
-        caught instanceof Error
-          ? caught
-          : new Error('Something went wrong. Please try again.'),
-      );
-    } finally {
-      if (active.current) {
-        setLoading(false);
-      }
-    }
-  }, [endpoint]);
+  }, [endpoint, applySettled]);
 
   useEffect(() => {
-    active.current = true;
+    fetchDataRef.current = fetchData;
+  }, [fetchData]);
+
+  const refetch = useCallback(async (): Promise<void> => {
+    const existing = pendingRequests.get(endpoint);
+    if (existing) {
+      existing.abortController.abort();
+      pendingRequests.delete(endpoint);
+    }
+    fetchData();
+  }, [endpoint, fetchData]);
+
+  useEffect(() => {
+    const instanceId = hookInstanceIdRef.current;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- fetchData is the request starter, not an arbitrary setState
     fetchData();
 
     return () => {
-      active.current = false;
+      const pending = pendingRequests.get(endpoint);
+      if (pending) {
+        pending.owners.delete(instanceId);
+        if (pending.owners.size === 0) {
+          pending.abortController.abort();
+        }
+      }
+      generationRef.current += 1;
     };
-  }, [fetchData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [endpoint]);
 
-  return { data, loading, error, refetch: fetchData };
+  return { data, loading, error, refetch };
 }

@@ -6,7 +6,6 @@ export { default as BaseCard } from './shared/base-card';
 export { default as Logo } from './logo';
 export { default as PageHeader } from './page-header';
 export { default as Surface } from './surface';
-export { default as RouterTransition } from './router-transition';
 export { default as AsideBar } from './aside-bar';
 
 // User Components
@@ -115,6 +114,7 @@ export { EmployeePerformanceChart } from './hr-dashboard/employee-performance-ch
 export { OpenPositionsTable } from './hr-dashboard/open-positions-table';
 export { AttendanceChart } from './hr-dashboard/attendance-chart';
 
+export { DashboardSection } from './dashboard-section';
 // Real Estate Dashboard Components
 export { PropertyListingsTable } from './real-estate-dashboard/property-listings-table';
 export { PropertyTypesChart } from './real-estate-dashboard/property-types-chart';

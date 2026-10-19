@@ -2,6 +2,10 @@ import { NextResponse } from 'next/server';
 
 import { apiFailure, apiSuccess } from '@/lib/api/mock-route';
 import { mockStore } from '@/lib/api/mock-store';
+import {
+  RESOURCE_VALIDATION_CONFIG,
+  validateWritePayload,
+} from '@/lib/api/validation';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
@@ -12,8 +16,19 @@ const ALLOWED_METHODS: Record<string, HttpMethod[]> = {
   DELETE: ['DELETE'],
 };
 
+const FIXTURE_TO_RESOURCE: Record<string, string> = {
+  'Products.json': 'Products',
+  'ProductCategories.json': 'ProductCategories',
+  'Invoices.json': 'Invoices',
+  'KanbanTasks.json': 'KanbanTasks',
+};
+
 function parseBody<T>(request: Request): Promise<T> {
   return request.json().catch(() => ({}) as T);
+}
+
+function getResourceFromFixture(fixture: string): string | undefined {
+  return FIXTURE_TO_RESOURCE[fixture];
 }
 
 /**
@@ -56,10 +71,19 @@ export function buildWriteRoute(
       return apiFailure('Method not allowed', `${method} required`, 405);
     }
 
+    const resource = getResourceFromFixture(fixture);
+
     try {
       if (method === 'POST') {
         const body = await parseBody<any>(request);
-        const record = await mockStore.create(fixture, body);
+        const validation = validateWritePayload(resource ?? '', 'POST', body);
+        if (!validation.success) {
+          return (
+            validation.response ??
+            apiFailure('Validation failed', validation.errors?.join(', '), 400)
+          );
+        }
+        const record = await mockStore.create(fixture, validation.data);
         return apiSuccess(record, 'Created successfully', 201);
       }
 
@@ -75,7 +99,19 @@ export function buildWriteRoute(
 
       if (method === 'PUT') {
         const body = await parseBody<any>(request);
-        const updated = await mockStore.update(fixture, id, body);
+        const validation = validateWritePayload(
+          resource ?? '',
+          'PUT',
+          body,
+          id,
+        );
+        if (!validation.success) {
+          return (
+            validation.response ??
+            apiFailure('Validation failed', validation.errors?.join(', '), 400)
+          );
+        }
+        const updated = await mockStore.update(fixture, id, validation.data);
         return apiSuccess(updated, 'Updated successfully');
       }
 

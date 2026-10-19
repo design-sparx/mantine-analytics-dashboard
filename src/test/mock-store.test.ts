@@ -1,4 +1,8 @@
+import fs from 'fs';
+import path from 'path';
+
 import { describe, expect, it } from 'vitest';
+
 import { mockStore } from '@/lib/api/mock-store';
 
 describe('mock-store', () => {
@@ -70,5 +74,26 @@ describe('mock-store', () => {
     await expect(
       mockStore.delete('KanbanTasks.json', 'missing'),
     ).rejects.toMatchObject({ status: 404 });
+  });
+});
+
+describe('mock-store persistence (demo mode)', () => {
+  it('never writes mutations back to public/mocks', async () => {
+    const fixturePath = path.join(
+      process.cwd(),
+      'public',
+      'mocks',
+      'Products.json',
+    );
+    const before = fs.readFileSync(fixturePath, 'utf8');
+    const [first] = await mockStore.getAll('Products.json');
+
+    await mockStore.update('Products.json', String(first.id), {
+      name: 'Changed',
+    });
+    await mockStore.delete('Products.json', String(first.id));
+    await mockStore.create('Products.json', { name: 'Created' });
+
+    expect(fs.readFileSync(fixturePath, 'utf8')).toBe(before);
   });
 });

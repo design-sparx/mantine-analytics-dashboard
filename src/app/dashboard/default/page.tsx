@@ -1,103 +1,84 @@
-'use client';
-
 import {
-  Button,
   Container,
   Grid,
+  GridCol,
   Group,
   PaperProps,
   Stack,
   Text,
 } from '@mantine/core';
-import { IconChevronRight } from '@tabler/icons-react';
-import Link from 'next/link';
 
-import {
-  MobileDesktopChart,
-  PageHeader,
-  ProjectsTable,
-  RevenueChart,
-  SalesChart,
-  StatsGrid,
-  Surface,
-} from '@/components';
-import { useDashboardResource } from '@/lib/api/useDashboardResource';
-import { PATH_TASKS } from '@/routes';
-import { API_CORE } from '@/routes/api';
+import { PageHeader, ProjectsTable, StatsGrid, Surface } from '@/components';
+import MobileDesktopChart from '@/components/mobile-desktop-chart/MobileDesktopChartClient';
+import RevenueChart from '@/components/revenue-chart/RevenueChartClient';
+import SalesChart from '@/components/sales-chart/SalesChartClient';
+import { loadMock } from '@/lib/api/mock-route';
+
+import { ViewAllTasksButton } from './ViewAllTasksButton';
+
+import type { CoreStatsDto } from '@/types/dashboard';
+import type { ProjectsDto } from '@/types/generated-fixtures';
+import type { Metadata } from 'next';
+
+export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'Default Dashboard',
+};
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',
   style: { minHeight: '100%' },
 };
 
-function Page() {
-  const {
-    data: projectsData,
-    error: projectsError,
-    loading: projectsLoading,
-  } = useDashboardResource(API_CORE.projects);
+export default async function Page() {
+  const [projectsResult, statsResult] = await Promise.all([
+    loadMock<ProjectsDto[]>('Projects.json'),
+    loadMock<CoreStatsDto>('StatsGrid.json'),
+  ]);
 
-  const {
-    data: statsData,
-    error: statsError,
-    loading: statsLoading,
-  } = useDashboardResource(API_CORE.stats);
+  const projectsData = projectsResult.data ?? [];
+  const statsData = statsResult.data?.data ?? [];
 
   return (
     <>
-      <>
-        <title>Default Dashboard | DesignSparx</title>
-        <meta
-          name="description"
-          content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"
-        />
-      </>
       <Container fluid>
         <Stack gap="lg">
           <PageHeader title="Default dashboard" withActions={true} />
           <StatsGrid
-            data={statsData?.data?.slice(0, 4)}
-            loading={statsLoading}
-            error={statsError}
+            data={statsData?.slice(0, 4)}
+            loading={false}
+            error={statsResult.error}
             paperProps={PAPER_PROPS}
           />
           <Grid gap={{ base: 5, xs: 'md', md: 'md', lg: 'lg', xl: 'xl' }}>
-            <Grid.Col span={8}>
+            <GridCol span={8}>
               <RevenueChart {...PAPER_PROPS} />
-            </Grid.Col>
-            <Grid.Col span={4}>
+            </GridCol>
+            <GridCol span={4}>
               <SalesChart {...PAPER_PROPS} />
-            </Grid.Col>
-            <Grid.Col span={4}>
+            </GridCol>
+            <GridCol span={4}>
               <MobileDesktopChart {...PAPER_PROPS} />
-            </Grid.Col>
-            <Grid.Col span={8}>
+            </GridCol>
+            <GridCol span={8}>
               <Surface {...PAPER_PROPS}>
                 <Group justify="space-between" mb="md">
                   <Text size="lg" fw={600}>
                     Tasks
                   </Text>
-                  <Button
-                    variant="subtle"
-                    component={Link}
-                    href={PATH_TASKS.root}
-                    rightSection={<IconChevronRight size={18} />}
-                  >
-                    View all
-                  </Button>
+                  <ViewAllTasksButton />
                 </Group>
                 <ProjectsTable
                   data={projectsData?.slice(0, 6) ?? undefined}
-                  error={projectsError}
-                  loading={projectsLoading}
+                  error={projectsResult.error}
+                  loading={false}
                 />
               </Surface>
-            </Grid.Col>
+            </GridCol>
           </Grid>
         </Stack>
       </Container>
     </>
   );
 }
-
-export default Page;

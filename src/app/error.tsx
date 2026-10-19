@@ -35,13 +35,10 @@ function Error({
 
   return (
     <>
-      <>
-        <title>Server Error | DesignSparx</title>
-        <meta
-          name="description"
-          content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"
-        />
-      </>
+      {/* Error boundaries are Client Components, so `metadata` is not
+          available here. React's <title> is the documented way to title one;
+          the description comes from the root layout. */}
+      <title>Server Error | DesignSparx</title>
       <Center
         style={{
           height: '100vh',

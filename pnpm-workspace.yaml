@@ -1,3 +1,6 @@
+packages:
+  - '.'
+
 allowBuilds:
   '@clerk/shared': true
   core-js-pure: true

@@ -1,6 +1,8 @@
-﻿import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest } from 'next/server';
 
 import { serveMock } from '@/lib/api/mock-route';
+import { apiFailure, apiSuccess } from '@/lib/api/mock-route';
+import { validateWritePayload } from '@/lib/api/validation';
 
 export async function GET() {
   return serveMock('Projects.json', 'Projects');
@@ -10,29 +12,27 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    return NextResponse.json(
-      {
-        succeeded: true,
-        data: {
-          id: `proj-${Date.now()}`,
-          ...body,
-          start_date: new Date().toLocaleDateString('en-US'),
-        },
-        errors: [],
-        message: 'Project created successfully',
-      },
-      { status: 201 },
-    );
+    const validation = validateWritePayload('Projects', 'POST', body);
+    if (!validation.success) {
+      return (
+        validation.response ??
+        apiFailure('Validation failed', validation.errors?.join(', '), 400)
+      );
+    }
+
+    const record = {
+      id: `proj-${Date.now()}`,
+      ...validation.data,
+      start_date: new Date().toLocaleDateString('en-US'),
+    };
+
+    return apiSuccess(record, 'Project created successfully', 201);
   } catch (error) {
     console.error('API error:', error);
-    return NextResponse.json(
-      {
-        succeeded: false,
-        data: null,
-        errors: ['Failed to create project'],
-        message: 'Failed to create project',
-      },
-      { status: 500 },
+    return apiFailure(
+      'Failed to create project',
+      'Failed to create project',
+      500,
     );
   }
 }

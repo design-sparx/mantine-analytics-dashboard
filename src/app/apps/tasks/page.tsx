@@ -1,7 +1,14 @@
 import { Anchor, Container, Stack } from '@mantine/core';
 
-import { KanbanBoard, PageHeader } from '@/components';
+import { PageHeader } from '@/components';
+import KanbanBoard from '@/components/kanban-board/KanbanBoardClient';
 import { PATH_DASHBOARD } from '@/routes';
+
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Tasks',
+};
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },
@@ -13,20 +20,13 @@ const items = [
   </Anchor>
 ));
 
-function Tasks() {
+export default function Tasks() {
   return (
-    <>
-      <>
-        <title>Tasks | DesignSparx</title>
-      </>
-      <Container fluid>
-        <Stack gap="lg">
-          <PageHeader title="Tasks" breadcrumbItems={items} />
-          <KanbanBoard />
-        </Stack>
-      </Container>
-    </>
+    <Container fluid>
+      <Stack gap="lg">
+        <PageHeader title="Tasks" breadcrumbItems={items} />
+        <KanbanBoard />
+      </Stack>
+    </Container>
   );
 }
-
-export default Tasks;

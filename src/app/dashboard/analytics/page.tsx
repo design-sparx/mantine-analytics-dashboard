@@ -1,118 +1,97 @@
-'use client';
-
 import {
   Container,
   Grid,
+  GridCol,
   PaperProps,
   SimpleGrid,
   Skeleton,
   Stack,
 } from '@mantine/core';
 
-import {
-  ErrorAlert,
-  LanguageTable,
-  MapChart,
-  MobileDesktopChart,
-  PageHeader,
-  SalesChart,
-  StatsCard,
-  TrafficTable,
-} from '@/components';
-import { useDashboardResource } from '@/lib/api/useDashboardResource';
-import { API_CORE } from '@/routes/api';
+import { ErrorAlert, PageHeader, StatsCard, Surface } from '@/components';
+import LanguageTable from '@/components/language-table/LanguageTableClient';
+import MapChart from '@/components/map-chart/MapChartClient';
+import MobileDesktopChart from '@/components/mobile-desktop-chart/MobileDesktopChartClient';
+import SalesChart from '@/components/sales-chart/SalesChartClient';
+import TrafficTable from '@/components/traffic-table/TrafficTableClient';
+import { loadMock } from '@/lib/api/mock-route';
+
+import type { CoreStatsDto } from '@/types/dashboard';
+import type { LanguagesDto, TrafficDto } from '@/types/generated-fixtures';
+import type { Metadata } from 'next';
+
+export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'Analytics Dashboard',
+};
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',
   style: { minHeight: '100%' },
 };
 
-function Page() {
-  const {
-    data: statsData,
-    error: statsError,
-    loading: statsLoading,
-  } = useDashboardResource(API_CORE.stats);
-  const {
-    data: languagesData,
-    error: languageError,
-    loading: languageLoading,
-  } = useDashboardResource(API_CORE.languages);
-  const {
-    data: trafficData,
-    error: trafficError,
-    loading: trafficLoading,
-  } = useDashboardResource(API_CORE.traffic);
+export default async function Page() {
+  const [statsResult, languagesResult, trafficResult] = await Promise.all([
+    loadMock<CoreStatsDto>('StatsGrid.json'),
+    loadMock<LanguagesDto[]>('Languages.json'),
+    loadMock<TrafficDto[]>('Traffic.json'),
+  ]);
+
+  const statsData = statsResult.data?.data ?? [];
+  const languagesData = languagesResult.data ?? [];
+  const trafficData = trafficResult.data ?? [];
 
   return (
-    <>
-      <>
-        <title>Analytics Dashboard | DesignSparx</title>
-        <meta
-          name="description"
-          content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"
-        />
-      </>
-      <Container fluid>
-        <Stack gap="lg">
-          <PageHeader title="Analytics dashboard" withActions={true} />
-          <SimpleGrid
-            cols={{ base: 1, sm: 2, lg: 2 }}
-            spacing={{ base: 10, sm: 'xl' }}
-            verticalSpacing={{ base: 'md', sm: 'xl' }}
-          >
-            {statsError ? (
-              <ErrorAlert
-                title="Error loading stats"
-                message={statsError.toString()}
-              />
-            ) : (
-              <SimpleGrid cols={2}>
-                {statsLoading
-                  ? Array.from({ length: 4 }).map((o, i) => (
-                      <Skeleton
-                        key={`stats-loading-${i}`}
-                        visible={true}
-                        height={200}
-                      />
-                    ))
-                  : statsData?.data
-                      ?.slice(0, 4)
-                      ?.map((s: any) => (
-                        <StatsCard key={s.title} data={s} {...PAPER_PROPS} />
-                      ))}
-              </SimpleGrid>
-            )}
-            <MobileDesktopChart {...PAPER_PROPS} />
-          </SimpleGrid>
-          <Grid>
-            <Grid.Col span={{ base: 12, md: 6, lg: 8 }}>
-              <MapChart {...PAPER_PROPS} />
-            </Grid.Col>
-            <Grid.Col span={{ base: 12, md: 6, lg: 4 }}>
-              <SalesChart {...PAPER_PROPS} />
-            </Grid.Col>
-            <Grid.Col span={{ base: 12, md: 6, lg: 4 }}>
-              <LanguageTable
-                data={languagesData?.slice(0, 6)}
-                error={languageError}
-                loading={languageLoading}
-                {...PAPER_PROPS}
-              />
-            </Grid.Col>
-            <Grid.Col span={{ base: 12, md: 6, lg: 8 }}>
-              <TrafficTable
-                data={trafficData?.slice(0, 6)}
-                error={trafficError}
-                loading={trafficLoading}
-                {...PAPER_PROPS}
-              />
-            </Grid.Col>
-          </Grid>
-        </Stack>
-      </Container>
-    </>
+    <Container fluid>
+      <Stack gap="lg">
+        <PageHeader title="Analytics dashboard" withActions={true} />
+        <SimpleGrid
+          cols={{ base: 1, sm: 2, lg: 2 }}
+          spacing={{ base: 10, sm: 'xl' }}
+          verticalSpacing={{ base: 'md', sm: 'xl' }}
+        >
+          {statsResult.error ? (
+            <ErrorAlert
+              title="Error loading stats"
+              message={statsResult.error}
+            />
+          ) : (
+            <SimpleGrid cols={2}>
+              {statsData
+                ?.slice(0, 4)
+                ?.map((s: any) => (
+                  <StatsCard key={s.title} data={s} {...PAPER_PROPS} />
+                ))}
+            </SimpleGrid>
+          )}
+          <MobileDesktopChart {...PAPER_PROPS} />
+        </SimpleGrid>
+        <Grid>
+          <GridCol span={{ base: 12, md: 6, lg: 8 }}>
+            <MapChart {...PAPER_PROPS} />
+          </GridCol>
+          <GridCol span={{ base: 12, md: 6, lg: 4 }}>
+            <SalesChart {...PAPER_PROPS} />
+          </GridCol>
+          <GridCol span={{ base: 12, md: 6, lg: 4 }}>
+            <LanguageTable
+              data={languagesData?.slice(0, 6)}
+              error={languagesResult.error}
+              loading={false}
+              {...PAPER_PROPS}
+            />
+          </GridCol>
+          <GridCol span={{ base: 12, md: 6, lg: 8 }}>
+            <TrafficTable
+              data={trafficData?.slice(0, 6)}
+              error={trafficResult.error}
+              loading={false}
+              {...PAPER_PROPS}
+            />
+          </GridCol>
+        </Grid>
+      </Stack>
+    </Container>
   );
 }
-
-export default Page;
